@@ -6,19 +6,13 @@ public class GamePlay {
 
 	public GamePlay() {
 		
-<<<<<<< HEAD
-		
-		
-		
-		
-=======
+
 		Player p1 = new Player();
 		Player p2 = new Player();
 		
 		
 		p1.setupShip("C2", "C5");
 		System.out.println(p1.shipsArr);
->>>>>>> e5375a8dbdf3b759db2a2363e3191c7b5fed15ab
 	}
 	
 	public ArrayList<String> createInputs() {
