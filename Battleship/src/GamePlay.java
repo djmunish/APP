@@ -1,9 +1,17 @@
 import java.util.ArrayList;
 
+
 public class GamePlay {
 
 
 	public GamePlay() {
+		
+		Player p1 = new Player();
+		Player p2 = new Player();
+		
+		
+		p1.setupShip("C2", "C5");
+		System.out.println(p1.shipsArr);
 	}
 	
 	public ArrayList<String> createInputs() {
@@ -20,7 +28,5 @@ public class GamePlay {
 		}
 		return inputs;
 	}
-	
-	
-	
+
 }
