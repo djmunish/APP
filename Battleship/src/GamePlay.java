@@ -12,7 +12,10 @@ public class GamePlay {
 		
 		p1.createInputs();
 		p2.createInputs();
+	
+	
 		
+	
 	}
 	
 	

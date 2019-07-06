@@ -9,6 +9,7 @@ public class Player {
     
     public ArrayList<Ships> shipsArr;
     ArrayList<String> inputs;
+    public Board playingBrd, referenceBrd;
     
     
     public playerType type;
@@ -16,6 +17,8 @@ public class Player {
 	public Player() {
 		shipsArr = new ArrayList<>();
 		inputs = new ArrayList<>();
+		playingBrd = new Board();
+		referenceBrd = new Board();
 	}
 	
 	public void setupShip(String start, String end) {

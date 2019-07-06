@@ -1,20 +1,20 @@
 import javax.swing.*;
 
 public class Board {
-
-	private static String[][] brd;
+	
+	public static String[][] brd;
 
 	public static void main(String[] args) {
 		GamePlay g = new GamePlay();
-		Board b = new Board();
-
-		brd = b.createBoard();
-		b.printBoard(brd);
-		
-		b.update(5, 6, true);
-		b.update(2, 6, true);
-		b.update(7, 6, false);
-		b.update(9, 6, true);
+//		Board b = new Board();
+//
+		brd = createBoard();
+		printBoard(brd);
+//		
+//		b.update(5, 6, true);
+//		b.update(2, 6, true);
+//		b.update(7, 6, false);
+//		b.update(9, 6, true);
 
 		JFrame f = new JFrame();
 		f.setSize(400, 500);
@@ -22,7 +22,7 @@ public class Board {
 
 	}
 
-	public String[][] createBoard() {
+	public static String[][] createBoard() {
 		String[][] temp = new String[Constants.row][Constants.col];
 		for (int i = 0; i < Constants.row; i++) {// 11
 			for (int j = 0; j < Constants.col; j++) {// 10
@@ -42,7 +42,7 @@ public class Board {
 		printBoard(brd);
 	}
 	
-	public void printBoard(String[][] b) {
+	public static void printBoard(String[][] b) {
 		for (int i = 0; i < Constants.row; i++) {// 11
 			for (int j = 0; j < Constants.col; j++) {// 10
 				System.out.print(b[i][j]);
