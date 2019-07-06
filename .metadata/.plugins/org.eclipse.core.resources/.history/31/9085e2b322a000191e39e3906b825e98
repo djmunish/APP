@@ -1,0 +1,67 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JToolBar;
+import javax.swing.JDesktopPane;
+
+
+public class Frame2 extends JFrame {
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					System.out.println("okay inside");
+					Frame2 frame = new Frame2();
+					
+					
+					JPanel panel = new JPanel();
+					JButton btn1 = new JButton("First");
+					JButton btn2 = new JButton("Second");
+					JButton btn3 = new JButton("Third");
+					JButton btn4 = new JButton("Fourth");
+					
+					
+					panel.setLayout(new GridLayout(2,2,3,3));
+					panel.add(btn1);
+					panel.add(btn2);
+					panel.add(btn3);
+					panel.add(btn4);
+					//btn1.setPreferredSize(new Dimension(100,100));
+					
+					frame.add(panel);
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Frame2() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		
+		
+	}
+	
+	
+
+}

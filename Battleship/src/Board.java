@@ -3,12 +3,13 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Board {
-
-	private static String[][] brd;
+	
+	public static String[][] brd;
 
 	public static void main(String[] args) {
 		Board b = new Board();
 		GamePlay g = new GamePlay();
+
 		System.out.println(g.createInputs());
 		ArrayList<String> drop = g.createInputs();
 		
@@ -27,7 +28,7 @@ public class Board {
 
 	}
 
-	public String[][] createBoard() {
+	public static String[][] createBoard() {
 		String[][] temp = new String[Constants.row][Constants.col];
 		for (int i = 0; i < Constants.row; i++) {// 11
 			for (int j = 0; j < Constants.col; j++) {// 10
@@ -48,6 +49,7 @@ public class Board {
 		updateDropdown(s, arL);
 	}
 	
+
 	public void updateDropdown(String s, ArrayList<String> drop) {
 		
 		drop.remove(s);
@@ -56,6 +58,7 @@ public class Board {
 	}
 
 	public void printBoard(String[][] b) {
+
 		for (int i = 0; i < Constants.row; i++) {// 11
 			for (int j = 0; j < Constants.col; j++) {// 10
 				System.out.print(b[i][j]);
