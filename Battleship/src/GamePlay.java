@@ -7,6 +7,7 @@ public class GamePlay {
 		p1 = new Player();
 		p2 = new Player();
 
+
 		p1.setupShip("C2", "C5");
 		System.out.println(p1.shipsArr);
 		
@@ -14,8 +15,7 @@ public class GamePlay {
 		p2.createInputs();
 	
 	
-		
-	
+
 	}
 	
 	

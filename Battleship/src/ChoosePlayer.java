@@ -45,25 +45,32 @@ public class ChoosePlayer {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 583, 468);
+		frame.setBounds(500,500,500,500);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JButton btnPlayWithPc = new JButton("play with pc");
-		btnPlayWithPc.setPreferredSize(new Dimension(40, 40));
+		JButton btnPlayWithPc = new JButton();
+		
+		btnPlayWithPc.setPreferredSize(new Dimension(20, 20));
 
 		btnPlayWithPc.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-				Frame2 f22 = new Frame2();
-				f22.setVisible(true);
+				Gamegrid g=new Gamegrid();
+				g.setVisible(true);
+			
+
 			}
 		});
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		btnPlayWithPc.setAction(action);
-		frame.getContentPane().add(btnPlayWithPc, BorderLayout.NORTH);
+		frame.getContentPane().add(btnPlayWithPc);
 		
+		/*
 		JLabel lblWelcomeToBattleship = new JLabel("Welcome to Battleship Game");
 		frame.getContentPane().add(lblWelcomeToBattleship, BorderLayout.CENTER);
+		*/
 		
 	}
 
