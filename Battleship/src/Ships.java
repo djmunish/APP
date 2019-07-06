@@ -40,5 +40,11 @@ public class Ships {
 		
 	}//setupship
 	
+	public boolean checkhit(String checkcordinate) {
+		boolean flag = coordinates.contains(checkcordinate);
+		return flag;
+	}
+	
+	
 	
 }
