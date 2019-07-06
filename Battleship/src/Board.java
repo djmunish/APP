@@ -22,6 +22,8 @@ public class Board {
 		JFrame f = new JFrame();
 		f.setSize(400, 500);
 		f.setVisible(true);
+		
+		
 
 	}
 
