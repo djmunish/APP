@@ -2,15 +2,13 @@ import java.util.ArrayList;
 
 public class GamePlay {
 
+
 	public GamePlay() {
-		
-		
-		
 	}
 	
 	public ArrayList<String> createInputs() {
 		String[] col = {"A","B","C","D","E","F","G","H","I","J","K"};
-		int[] rows = new int[10];
+		int[] rows = new int[Constants.row];
 		for(int i = 1; i <= rows.length; i++) {
 			rows[i-1] = i;
 		}

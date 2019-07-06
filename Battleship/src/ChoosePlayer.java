@@ -9,6 +9,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 
 
 public class ChoosePlayer {
@@ -60,6 +61,9 @@ public class ChoosePlayer {
 
 		btnPlayWithPc.setAction(action);
 		frame.getContentPane().add(btnPlayWithPc, BorderLayout.NORTH);
+		
+		JLabel lblWelcomeToBattleship = new JLabel("Welcome to Battleship Game");
+		frame.getContentPane().add(lblWelcomeToBattleship, BorderLayout.CENTER);
 		
 	}
 
