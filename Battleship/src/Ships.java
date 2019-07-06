@@ -13,6 +13,7 @@ public class Ships {
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
 		int var = xy1[0].compareTo(xy2[0]);
+		
 		if(var == 0) {
 		//if(xy1[0].equals(xy2[0])) {
 			

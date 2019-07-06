@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.util.HashMap;
+import java.util.Random;
 
 public final class Constants {
 
@@ -26,5 +28,8 @@ public final class Constants {
         mapInConstants.put("K",10);
     	
     }
+    
+   
+    
     
 }
