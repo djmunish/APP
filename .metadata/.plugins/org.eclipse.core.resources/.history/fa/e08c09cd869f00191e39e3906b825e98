@@ -6,7 +6,6 @@ import java.awt.BorderLayout;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
-import java.awt.event.ActionListener;
 
 
 public class Frame1 {
@@ -47,19 +46,6 @@ public class Frame1 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnPlayWithPc = new JButton("play with pc");
-		btnPlayWithPc.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {
-				
-				Frame2 f2=new Frame2();
-				
-				f2.setVisible(true);
-				
-				
-			}
-		});
-		
-		
 		btnPlayWithPc.setAction(action);
 		frame.getContentPane().add(btnPlayWithPc, BorderLayout.NORTH);
 		
@@ -67,14 +53,12 @@ public class Frame1 {
 
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
-			putValue(NAME, "PLAY WITH PC");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
 			
+			putValue(NAME, "");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+			
+		}
+		public void actionPerformed(ActionEvent e) {
 		}
 	}
 }

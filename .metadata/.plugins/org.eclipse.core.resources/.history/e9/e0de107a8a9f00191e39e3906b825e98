@@ -55,7 +55,6 @@ public class Frame1 {
 				
 				f2.setVisible(true);
 				
-				
 			}
 		});
 		

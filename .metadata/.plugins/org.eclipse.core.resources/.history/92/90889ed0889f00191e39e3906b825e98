@@ -14,29 +14,17 @@ import javax.swing.JDesktopPane;
 
 
 public class Frame2 extends JFrame {
-
-	/**
-	 * Launch the application.
-	 *
-	 **
-	 *
-	 *
-	 **/
-	
 	
 	public Frame2() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+	}
+	
+	public void initcomponents(){
 		
-		initialize();
-		
-		
-	}				
-			
-	private void initialize(){
-					System.out.println("okay inside");
-					Frame2 frame = new Frame2();
-					
+					Frame2 frame = new Frame2();	
 					
 					JPanel panel = new JPanel();
 					JButton btn1 = new JButton("First");
@@ -54,13 +42,7 @@ public class Frame2 extends JFrame {
 					
 					frame.add(panel);
 					
-	}
-
-	/**
-	 * Create the frame.
-	 */
-
-	
-	
+					frame.setVisible(true);
+	}	
 
 }

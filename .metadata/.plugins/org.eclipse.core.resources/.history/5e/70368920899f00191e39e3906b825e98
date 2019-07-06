@@ -54,7 +54,7 @@ public class Frame1 {
 				Frame2 f2=new Frame2();
 				
 				f2.setVisible(true);
-				
+				setVisible(false);
 				
 			}
 		});
