@@ -1,32 +1,20 @@
-import java.util.ArrayList;
 
 
 public class GamePlay {
-
-
+	public static Player p1,p2;
 	public GamePlay() {
 		
-		Player p1 = new Player();
-		Player p2 = new Player();
-		
-		
+		p1 = new Player();
+		p2 = new Player();
+
 		p1.setupShip("C2", "C5");
 		System.out.println(p1.shipsArr);
+		
+		p1.createInputs();
+		p2.createInputs();
+		
 	}
 	
-	public ArrayList<String> createInputs() {
-		String[] col = {"A","B","C","D","E","F","G","H","I","J","K"};
-		int[] rows = new int[Constants.row];
-		for(int i = 1; i <= rows.length; i++) {
-			rows[i-1] = i;
-		}
-		ArrayList<String> inputs = new ArrayList<>();		
-		for(int i = 0; i < col.length; i++) {//11
-			for(int j = 0; j < rows.length; j++) {//10
-				inputs.add(col[i] + rows[j]);
-			}
-		}
-		return inputs;
-	}
+	
 
 }

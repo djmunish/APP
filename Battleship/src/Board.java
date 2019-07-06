@@ -6,7 +6,6 @@ public class Board {
 
 	public static void main(String[] args) {
 		GamePlay g = new GamePlay();
-		System.out.println(g.createInputs());
 		Board b = new Board();
 
 		brd = b.createBoard();
