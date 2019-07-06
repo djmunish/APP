@@ -43,19 +43,18 @@ public class Ships {
 				}//for
 			}	
 		}//if equals
-		else if(var < 0 && (xy1[1] == xy2[1])){
+		else if(var < 0){
 			int loci = findloc(xy1[0].charAt(0));
 			int locf = findloc(xy2[0].charAt(0));
 			for(int  i = loci ; i<= locf ; i++) {
-			//for(char  alpha = xy1[0].charAt(0) ; alpha <= xy2[0].charAt(0) ; alpha++) {
 				String s = Character.toString(arr[i]) + xy1[1];
 				coordinates.add(s);
 			}//for
-		}else if(var > 0 && (xy1[1] == xy2[1])) {
+		}else if(var > 0) {
+			
 			int loci = findloc(xy1[0].charAt(0));
 			int locf = findloc(xy2[0].charAt(0));
 			for(int  i = locf ; i>= loci ; i--) {
-			//for(char  alpha = xy2[0].charAt(0) ; alpha >= xy1[0].charAt(0) ; alpha--) {
 				String s = Character.toString(arr[i]) + xy1[1];
 				coordinates.add(s);
 			}//for		
