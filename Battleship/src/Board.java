@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -26,6 +28,8 @@ public class Board {
 		
 		
 
+
+		
 	}
 
 	public static String[][] createBoard() {
@@ -81,5 +85,7 @@ public class Board {
 	    update(y , x, false , str, arL);
 		
 	}
+	
+	
 	
 }

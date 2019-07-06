@@ -1,12 +1,15 @@
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Ships {
 	
 	public ArrayList<String> coordinates;
-	
+	public Color shipColor;
 	
 	public Ships() {
 		coordinates = new ArrayList<>();
+		colorShip();
 	}
 	
 	public int findloc(char a) {
@@ -25,6 +28,7 @@ public class Ships {
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
 		int var = xy1[0].compareTo(xy2[0]);
+
 		char[] arr = Constants.alphabets.toCharArray();
 		if(var == 0) {
 		//if(xy1[0].equals(xy2[0])) {
@@ -64,5 +68,13 @@ public class Ships {
 		return flag;
 	}
 	
+	
+	public void colorShip() {
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		shipColor = new Color(r, g, b);
+	}
 
 }
