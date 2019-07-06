@@ -1,0 +1,30 @@
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class Gamegrid extends JFrame{
+	
+	Gamegrid(){
+		
+			JFrame frame = new JFrame("Flow Layout");
+			frame.setLayout(new GridLayout(Constants.row,Constants.col));
+			frame.setSize(800,800);  
+			frame.setVisible(true);
+			
+			
+			for(int i=0;i<Constants.row;i++){
+				for(int j=0;j<Constants.col;j++){
+					JButton	button  = new JButton();
+					frame.add(button);
+					
+				}
+			}			
+			
+		}
+	/*
+		public static void main(String[] args) {
+			new Gamegrid();
+		}
+		
+	*/	
+	}

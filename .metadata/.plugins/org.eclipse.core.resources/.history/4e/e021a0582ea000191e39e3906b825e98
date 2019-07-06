@@ -1,0 +1,44 @@
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+
+public class Gamegrid extends JFrame{
+	
+	Gamegrid(){
+		
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+			JFrame frame = new JFrame("Game Grid");
+			JPanel panel1= new JPanel();
+			
+			panel1.setLayout(new GridLayout(Constants.row,Constants.col));
+			
+			frame.getContentPane().add(panel1, "Center"); 
+			
+			//frame.getContentPane().setLayout(new GridLayout(Constants.row,Constants.col));
+			
+			
+			frame.setSize(800,800);  
+			frame.setVisible(true);
+			
+			
+			for(int i=0;i<Constants.row;i++){
+				for(int j=0;j<Constants.col;j++){
+					JButton	button  = new JButton();
+					frame.getContentPane().add(button);
+					
+				}
+			}			
+			
+		}
+	/*
+		public static void main(String[] args) {
+			new Gamegrid();
+		}
+		
+	*/	
+	}

@@ -19,3 +19,4 @@
 19:51:33,190 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
 19:51:33,506 F: (ModelActivator.java:30) : Started model api
 19:51:33,532 I: (ErlideUIPlugin.java:142) : Started UI
+02:41:20,883 I: (ErlideUIPlugin.java:233) : *** Automatically cleaning caches ***
