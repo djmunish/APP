@@ -7,11 +7,13 @@ public class Board {
 	public static void main(String[] args) {
 		GamePlay g = new GamePlay();
 		System.out.println(g.createInputs());
+		
 		Board b = new Board();
-
 		brd = b.createBoard();
 		b.printBoard(brd);
 		
+		b.getConstants("C5");
+		b.getConstants("K9");
 		b.update(5, 6, true);
 		b.update(2, 6, true);
 		b.update(7, 6, false);
@@ -50,6 +52,22 @@ public class Board {
 			}
 			System.out.println();
 		}
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
 	}
+	
+	public void getConstants(String str) {
+		
+		String s[] = str.split("");
+	    int x = Constants.mapInConstants.get(s[0]);	//c
+	    int y = Integer.parseInt(s[1]);	//r
+	    System.out.println(x);
+		System.out.println(y);
+	    update(y , x, false);
+		
+	}
+	
 
 }
