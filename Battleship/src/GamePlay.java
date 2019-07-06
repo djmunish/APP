@@ -16,6 +16,8 @@ public class GamePlay {
 		
 		for(Ships s:p1.shipsArr) {
 			System.out.println(s.coordinates);
+			System.out.println(s.shipColor);
+			
 		}
 		
 		p1.createInputs();

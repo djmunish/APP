@@ -1,12 +1,15 @@
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Ships {
 	
 	public ArrayList<String> coordinates;
-	
+	public Color shipColor;
 	
 	public Ships() {
 		coordinates = new ArrayList<>();
+		colorShip();
 	}
 	
 	public void setupShip(String start, String end) {
@@ -46,5 +49,13 @@ public class Ships {
 		return flag;
 	}
 	
+	
+	public void colorShip() {
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		shipColor = new Color(r, g, b);
+	}
 
 }

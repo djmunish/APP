@@ -26,9 +26,7 @@ public class Board {
 		f.setSize(400, 500);
 		f.setVisible(true);
 
-		System.out.println(getRandomColor());
-		System.out.println(getRandomColor());
-		System.out.println(getRandomColor());
+
 		
 	}
 
@@ -86,15 +84,6 @@ public class Board {
 		
 	}
 	
-	public static Color getRandomColor() {
-		Random rand = new Random();
-
-		float r = rand.nextFloat();
-		float g = rand.nextFloat();
-		float b = rand.nextFloat();
-		Color randomColor = new Color(r, g, b);
-
-		return randomColor;
-	}
+	
 	
 }
