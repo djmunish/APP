@@ -3,15 +3,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
 
 
-public class ChoosePlayer {
+public class Frame1 {
 
 	private JFrame frame;
 	private final Action action = new SwingAction();
@@ -23,7 +21,7 @@ public class ChoosePlayer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChoosePlayer window = new ChoosePlayer();
+					Frame1 window = new Frame1();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +33,7 @@ public class ChoosePlayer {
 	/**
 	 * Create the application.
 	 */
-	public ChoosePlayer() {
+	public Frame1() {
 		initialize();
 	}
 
@@ -49,15 +47,15 @@ public class ChoosePlayer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnPlayWithPc = new JButton("play with pc");
-		btnPlayWithPc.setPreferredSize(new Dimension(40, 40));
-
 		btnPlayWithPc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Frame2 f22 = new Frame2();
-				f22.setVisible(true);
+			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Frame2 f2=new Frame2();
+				f2.setVisible(true);
+				
 			}
 		});
-
 		btnPlayWithPc.setAction(action);
 		frame.getContentPane().add(btnPlayWithPc, BorderLayout.NORTH);
 		
@@ -68,11 +66,7 @@ public class ChoosePlayer {
 			putValue(NAME, "PLAY WITH PC");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			
+		public void actionPerformed(ActionEvent e) {
 		}
 	}
 }

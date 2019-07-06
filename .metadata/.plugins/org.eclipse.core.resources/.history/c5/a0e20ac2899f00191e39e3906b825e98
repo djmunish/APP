@@ -17,23 +17,13 @@ public class Frame2 extends JFrame {
 
 	/**
 	 * Launch the application.
-	 *
-	 **
-	 *
-	 *
-	 **/
-	
-	
-	public Frame2() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		
-		initialize();
-		
-		
-	}				
-			
-	private void initialize(){
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
 					System.out.println("okay inside");
 					Frame2 frame = new Frame2();
 					
@@ -54,12 +44,21 @@ public class Frame2 extends JFrame {
 					
 					frame.add(panel);
 					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
 	 * Create the frame.
 	 */
-
+	public Frame2() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+	}
 	
 	
 
