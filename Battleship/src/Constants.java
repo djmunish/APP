@@ -10,6 +10,7 @@ public final class Constants {
     
     public static final int row = 10;
     public static final int col = 11;
+    public static final String alphabets = "ABCDEFGHIJK";
     
     public static HashMap<String, Integer> mapInConstants ;
     static {

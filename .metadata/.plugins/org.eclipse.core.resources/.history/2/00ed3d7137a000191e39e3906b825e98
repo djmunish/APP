@@ -52,13 +52,23 @@ public class ChoosePlayer {
 		JButton btnPlayWithPc = new JButton();
 		
 		btnPlayWithPc.setPreferredSize(new Dimension(4,4));
+
+		/*
+		btnPlayWithPc.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+
+			
+
+			}
+		});
+		*/
+		
 		
 		//frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		frame.getContentPane().add(btnPlayWithPc);
-		
 		btnPlayWithPc.setAction(action);
-		
+		frame.getContentPane().add(btnPlayWithPc);
 		
 		/*
 		JLabel lblWelcomeToBattleship = new JLabel("Welcome to Battleship Game");
