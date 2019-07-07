@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
+import org.omg.CORBA.PERSIST_STORE;
+
 
 public class PlayArea extends JFrame implements ActionListener {
 
@@ -87,9 +89,10 @@ public class PlayArea extends JFrame implements ActionListener {
 	}
 	
 	 public void actionPerformed(ActionEvent e) {
-	        JComboBox cb = (JComboBox)e.getSource();
-//	        String petName = (String)cb.getSelectedItem();
+	        JComboBox<String> cb = (JComboBox)e.getSource();
+	        String petName = (String)cb.getSelectedItem();
 //	        updateLabel(petName);
+	        System.out.println(petName);
 	    }
 	
 	PlayArea() {
