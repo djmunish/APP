@@ -27,6 +27,9 @@ public class Gamegrid extends JFrame implements ActionListener{
 	
 	public static ArrayList<Integer> coordinates =new ArrayList<Integer>();
 	
+	static int coord=0;
+	static int bclknum=0; 
+	
 	Gamegrid(){
 		initialize();
 	}	
@@ -44,6 +47,7 @@ public class Gamegrid extends JFrame implements ActionListener{
 			
 			panel2.setLayout(new GridLayout(5, 0));
 			
+			//String buttext = null; 
 			
 			ButtonGroup Bg = new ButtonGroup(); 
 			JRadioButton jRadioButton1 = new JRadioButton();
@@ -57,6 +61,7 @@ public class Gamegrid extends JFrame implements ActionListener{
 			JRadioButton jRadioButton5 = new JRadioButton();
 			jRadioButton5.setText("Destroyer");
 			
+			JButton bdok=new JButton("OK");
 			
 			Bg.add(jRadioButton1);
 			Bg.add(jRadioButton2);
@@ -75,30 +80,42 @@ public class Gamegrid extends JFrame implements ActionListener{
 			panel2.add(jRadioButton3);
 			panel2.add(jRadioButton4);
 			panel2.add(jRadioButton5);
+			panel2.add(bdok);
 			
-			/*	 
-			    @Override
-			    public void actionPerformed(ActionEvent event) {
+			//JLabel lblnew= new JLabel(); 
+							
+			//System.out.println(jRadioButton1.isSelected());
+			
+			bdok.addActionListener(new ActionListener(){
+				
+				public void actionPerformed(ActionEvent e){
+									
+					if(jRadioButton1.isSelected()){
+			        	
+						Gamegrid.coord=5;		        	
+					}
 					
-			        JRadioButton button = (JRadioButton) event.getSource();
-			 
-			        if (button == optionLinux) {
-			 
-			            // option Linux is selected
-			 
-			        } else if (button == optionWin) {
-			 
-			            // option Windows is selected
-			 
-			        } else if (button == optionMac) {
-			 
-			            // option Macintosh is selected
-			        }
-			    }
-			}
+					else if(jRadioButton2.isSelected()){
+		            
+						Gamegrid.coord=4;										
+					}
+					else if(jRadioButton3.isSelected()){
+						
+						Gamegrid.coord=3;
+						
+					}
+					else if(jRadioButton4.isSelected()){
+						
+						Gamegrid.coord=3;
+					}				
+					else if(jRadioButton5.isSelected()){
+						
+						Gamegrid.coord=2;
+						
+					}
+				}
+			});
 			
-			*/
-			//panel3.setLayout( new BorderLayout());
 									
 			panel1.setPreferredSize(new Dimension(400,400));	
 			
@@ -206,17 +223,25 @@ public class Gamegrid extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
         ButtonClicks buttonok = (ButtonClicks) e.getSource();  
+               
+        buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+        buttonok.setBackground(Color.YELLOW);
         
+        bclknum=bclknum+1;
+        
+        
+        System.out.println(Gamegrid.coord);
+        
+        
+        /*
         coordinates.add(buttonok.getCoordX());
         coordinates.add(buttonok.getCoordY());
       
         carrier.addAll(coordinates);
-     
-        buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-        buttonok.setBackground(Color.YELLOW);
-        
-        
+     	*/
+            
         
 	}	
 	
 	}
+
