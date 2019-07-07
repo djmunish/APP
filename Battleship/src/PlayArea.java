@@ -1,19 +1,29 @@
 import java.awt.GridLayout;
-import java.awt.*; 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.*;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+//import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
-public class PlayArea extends JFrame{
-	
-	private final JSplitPane splitPane;  // split the window in top and bottom
-    private final JPanel topPanel;       // container panel for the top
-    private final JPanel bottomPanel;    // container panel for the bottom
-	private JScrollPane scrollPane;
+
+public class PlayArea extends JFrame implements ActionListener {
+
+	private final JSplitPane splitPane1;
+	private final JSplitPane splitPane2;
+	private final JPanel topRight;       
+    private final JPanel topLeft;
+    private final JPanel bottomRight;
+    private final JPanel bottomLeft;    
+	private JScrollPane scrollPane1;
+	private JScrollPane scrollPane2;
+	private JScrollPane scrollPane3;
+	private JScrollPane scrollPane4;
 	
 	final JTable table1 = new JTable(new String[][]{
         {"*", "*", "*","*", "*", "*","*", "*", "*","*", "*"},
@@ -76,40 +86,87 @@ public class PlayArea extends JFrame{
 		 new PlayArea().setVisible(true);	 
 	}
 	
+	 public void actionPerformed(ActionEvent e) {
+	        JComboBox cb = (JComboBox)e.getSource();
+//	        String petName = (String)cb.getSelectedItem();
+//	        updateLabel(petName);
+	    }
+	
 	PlayArea() {
 		
 		
 		JFrame f = new JFrame("PLAY AREA");
-		splitPane = new JSplitPane();
+		splitPane1 = new JSplitPane();
 		
-        topPanel = new JPanel();         // our top component
-        bottomPanel = new JPanel();      // our bottom component
-        
-        JScrollPane jp = new JScrollPane(table1); 
+		splitPane2 = new JSplitPane();
+
+		
+		topLeft = new JPanel();         
+        topRight = new JPanel();      
+        bottomLeft = new JPanel();
+        bottomRight = new JPanel();
+       
         setPreferredSize(new Dimension(800, 800)); 
             
         getContentPane().setLayout(new GridLayout()); 
                 
-        getContentPane().add(splitPane);
-        scrollPane = new JScrollPane(table1);
-        scrollPane = new JScrollPane(table2);
-//        scrollPane = new JScrollPane(table3);
-//        scrollPane = new JScrollPane(table4);
-//            
-            
-        JLabel jf = new JLabel("Hello");
-       
-        topPanel.add(jf);
-        bottomPanel.add(scrollPane); 
-        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        getContentPane().add(splitPane1);
+        getContentPane().add(splitPane2);        
         
-        splitPane.setDividerLocation(400); 
-        splitPane.setTopComponent(topPanel);                  
-        splitPane.setBottomComponent(bottomPanel); 
-           
+        table1.setColumnSelectionAllowed(true);
+        table1.setRowSelectionAllowed(true);
+        
+        table2.setColumnSelectionAllowed(true);
+        table2.setRowSelectionAllowed(true);
+        
+        table3.setColumnSelectionAllowed(true);
+        table3.setRowSelectionAllowed(true);
+        
+        table4.setColumnSelectionAllowed(true);
+        table4.setRowSelectionAllowed(true);
+        
+        scrollPane1 = new JScrollPane(table1);
+        scrollPane2 = new JScrollPane(table2);
+        scrollPane3 = new JScrollPane(table3);
+        scrollPane4 = new JScrollPane(table4);
+       
+        topLeft.add(scrollPane1);
+        topRight.add(scrollPane2);
+        bottomLeft.add(scrollPane3);
+        bottomRight.add(scrollPane4); 
+       
+        splitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        splitPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        
+
+        
+        
+        splitPane1.setDividerLocation(400);
+        splitPane2.setDividerLocation(400);
+        
+        
+        splitPane1.setTopComponent(topLeft);                  
+        splitPane1.setBottomComponent(bottomLeft); 
+        splitPane2.setTopComponent(topRight);        
+        splitPane2.setBottomComponent(bottomRight);        
+        
+        
+
+        String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+
+		// Create the combo box, select item at index 4.
+		// Indices start at 0, so 4 specifies the pig.
+		JComboBox<String> petList = new JComboBox<>(petStrings);
+		petList.setSelectedIndex(4);
+		petList.addActionListener(this);
+        
+        
+		bottomLeft.add(petList);
+        
+        
         pack(); 
             
-            
+        
 	}
 }
             

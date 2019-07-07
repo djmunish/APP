@@ -3,10 +3,8 @@
 public class GamePlay {
 	public static Player p1,p2;
 	public GamePlay() {
-		
 		p1 = new Player();
 		p2 = new Player();
-
 
 		p1.setupShip("C2", "C5");
 		p1.setupShip("B2", "B7");
@@ -20,18 +18,18 @@ public class GamePlay {
 		for(Ships s:p1.shipsArr) {
 			System.out.println(s.coordinates);
 			System.out.println(s.shipColor);
-			
 		}
 		
+
 		for(Ships s:p2.shipsArr) {
 			System.out.println(s.coordinates);
 			System.out.println(s.shipColor);
 			
 		}
 		
-		//p1.createInputs();
-		//p2.createInputs();
-		
+		p1.createInputs();
+		p2.createInputs();
+
 	}
 	
 	
