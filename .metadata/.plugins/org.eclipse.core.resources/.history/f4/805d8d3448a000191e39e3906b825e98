@@ -76,33 +76,14 @@ public class Gamegrid extends JFrame implements ActionListener{
 			panel2.add(jRadioButton4);
 			panel2.add(jRadioButton5);
 			
-			/*	 
-			    @Override
-			    public void actionPerformed(ActionEvent event) {
-					
-			        JRadioButton button = (JRadioButton) event.getSource();
-			 
-			        if (button == optionLinux) {
-			 
-			            // option Linux is selected
-			 
-			        } else if (button == optionWin) {
-			 
-			            // option Windows is selected
-			 
-			        } else if (button == optionMac) {
-			 
-			            // option Macintosh is selected
-			        }
-			    }
-			}
 			
-			*/
+			
+			
 			//panel3.setLayout( new BorderLayout());
 									
 			panel1.setPreferredSize(new Dimension(400,400));	
 			
-			panel2.setPreferredSize(new Dimension(300,300));
+			panel2.setPreferredSize(new Dimension(200,200));
 			
 			
 			frame.setSize(800,800);  

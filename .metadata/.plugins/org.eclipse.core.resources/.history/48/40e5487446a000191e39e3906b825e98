@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 public class Gamegrid extends JFrame implements ActionListener{
 	
-		
+	
+	
 	public static ArrayList<Integer> carrier =new ArrayList<Integer>();
 	public static ArrayList<Integer> Battleship =new ArrayList<Integer>();
 	public static ArrayList<Integer> Cruiser =new ArrayList<Integer>();
@@ -44,7 +45,6 @@ public class Gamegrid extends JFrame implements ActionListener{
 			
 			panel2.setLayout(new GridLayout(5, 0));
 			
-			
 			ButtonGroup Bg = new ButtonGroup(); 
 			JRadioButton jRadioButton1 = new JRadioButton();
 			jRadioButton1.setText("carrier");
@@ -64,11 +64,6 @@ public class Gamegrid extends JFrame implements ActionListener{
 			Bg.add(jRadioButton4);
 			Bg.add(jRadioButton5);
 			
-			JLabel setuplabel = new JLabel("***********PLEASE SELECT THE SHIP YOU WANT TO SET***********");
-			
-			setuplabel.setHorizontalAlignment(JLabel.CENTER);
-			
-			panel2.add(setuplabel);
 			
 			panel2.add(jRadioButton1);
 			panel2.add(jRadioButton2);
@@ -76,33 +71,12 @@ public class Gamegrid extends JFrame implements ActionListener{
 			panel2.add(jRadioButton4);
 			panel2.add(jRadioButton5);
 			
-			/*	 
-			    @Override
-			    public void actionPerformed(ActionEvent event) {
-					
-			        JRadioButton button = (JRadioButton) event.getSource();
-			 
-			        if (button == optionLinux) {
-			 
-			            // option Linux is selected
-			 
-			        } else if (button == optionWin) {
-			 
-			            // option Windows is selected
-			 
-			        } else if (button == optionMac) {
-			 
-			            // option Macintosh is selected
-			        }
-			    }
-			}
 			
-			*/
+			
+			
 			//panel3.setLayout( new BorderLayout());
 									
 			panel1.setPreferredSize(new Dimension(400,400));	
-			
-			panel2.setPreferredSize(new Dimension(300,300));
 			
 			
 			frame.setSize(800,800);  
