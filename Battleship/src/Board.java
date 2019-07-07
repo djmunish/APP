@@ -24,12 +24,7 @@ public class Board {
 
 		JFrame f = new JFrame();
 		f.setSize(400, 500);
-		f.setVisible(true);
-		
-		
-
-
-		
+		f.setVisible(true);	
 	}
 
 	public static String[][] createBoard() {
@@ -40,7 +35,6 @@ public class Board {
 			}
 		}
 		return temp;
-
 	}
 
 	public void update(int r, int c, boolean hit, String s, ArrayList<String> arL) {
