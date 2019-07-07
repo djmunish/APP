@@ -103,6 +103,18 @@ public class PlayArea extends JFrame{
         getContentPane().add(splitPane1);
         getContentPane().add(splitPane2);        
         
+        table1.setColumnSelectionAllowed(true);
+        table1.setRowSelectionAllowed(true);
+        
+        table2.setColumnSelectionAllowed(true);
+        table2.setRowSelectionAllowed(true);
+        
+        table3.setColumnSelectionAllowed(true);
+        table3.setRowSelectionAllowed(true);
+        
+        table4.setColumnSelectionAllowed(true);
+        table4.setRowSelectionAllowed(true);
+        
         scrollPane1 = new JScrollPane(table1);
         scrollPane2 = new JScrollPane(table2);
         scrollPane3 = new JScrollPane(table3);
