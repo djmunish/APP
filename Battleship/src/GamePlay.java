@@ -14,13 +14,11 @@ public class GamePlay {
 		p1.setupShip("A1", "A5");
 		p1.setupShip("A1", "F1");
 		
-		p2.randomship(p2);
-
+		//p2.randomship(p2);
 		
 		for(Ships s:p1.shipsArr) {
 			System.out.println(s.coordinates);
 			System.out.println(s.shipColor);
-			
 		}
 		
 		p1.createInputs();

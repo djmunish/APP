@@ -1,6 +1,9 @@
 import java.awt.GridLayout;
-import java.awt.*; 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.*;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -8,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
-public class PlayArea extends JFrame{
+public class PlayArea extends JFrame implements ActionListener {
 	
 	private final JSplitPane splitPane;  // split the window in top and bottom
     private final JPanel topPanel;       // container panel for the top
@@ -76,6 +79,12 @@ public class PlayArea extends JFrame{
 		 new PlayArea().setVisible(true);	 
 	}
 	
+	 public void actionPerformed(ActionEvent e) {
+	        JComboBox cb = (JComboBox)e.getSource();
+//	        String petName = (String)cb.getSelectedItem();
+//	        updateLabel(petName);
+	    }
+	
 	PlayArea() {
 		
 		
@@ -107,6 +116,22 @@ public class PlayArea extends JFrame{
         splitPane.setTopComponent(topPanel);                  
         splitPane.setBottomComponent(bottomPanel); 
            
+        
+        
+        
+        
+		String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+
+		// Create the combo box, select item at index 4.
+		// Indices start at 0, so 4 specifies the pig.
+		JComboBox<String> petList = new JComboBox<>(petStrings);
+		petList.setSelectedIndex(4);
+		petList.addActionListener(this);
+        
+        
+		topPanel.add(petList);
+        
+        
         pack(); 
             
             
