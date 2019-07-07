@@ -53,6 +53,9 @@ public class Player {
 					break;
 				}//if
 			}//for	
+			
+			
+			
 		}
 		return null;
 		//return s;
@@ -60,7 +63,8 @@ public class Player {
 	
 	
 	public void createInputs() {
-		String[] col = {"A","B","C","D","E","F","G","H","I","J","K"};
+		//String[] col = {"A","B","C","D","E","F","G","H","I","J","K"};
+		String[] col = Constants.alphabets.split("");
 		int[] rows = new int[Constants.row];
 		for(int i = 1; i <= rows.length; i++) {
 			rows[i-1] = i;

@@ -1,18 +1,35 @@
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Ships {
 	
 	public ArrayList<String> coordinates;
-	
+	public Color shipColor;
 	
 	public Ships() {
 		coordinates = new ArrayList<>();
+		colorShip();
+	}
+	
+	public int findloc(char a) {
+		int loc = 0;
+		char[] arr = Constants.alphabets.toCharArray();
+		for(int i=0; i<arr.length;i++) {
+			if (Character.toString(arr[i]).equals(Character.toString(a))) {
+				loc = i;
+				break;
+			}//if
+		}//for	
+		return loc;
 	}
 	
 	public void setupShip(String start, String end) {
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
 		int var = xy1[0].compareTo(xy2[0]);
+
+		char[] arr = Constants.alphabets.toCharArray();
 		if(var == 0) {
 		//if(xy1[0].equals(xy2[0])) {
 			
@@ -26,14 +43,19 @@ public class Ships {
 				}//for
 			}	
 		}//if equals
-		else if(var < 0 && (xy1[1] == xy2[1])){
-			for(char  alpha = xy1[0].charAt(0) ; alpha <= xy2[0].charAt(0) ; alpha++) {
-				String s = Character.toString(alpha) + xy1[1];
+		else if(var < 0){
+			int loci = findloc(xy1[0].charAt(0));
+			int locf = findloc(xy2[0].charAt(0));
+			for(int  i = loci ; i<= locf ; i++) {
+				String s = Character.toString(arr[i]) + xy1[1];
 				coordinates.add(s);
 			}//for
-		}else if(var > 0 && (xy1[1] == xy2[1])) {
-			for(char  alpha = xy2[0].charAt(0) ; alpha >= xy1[0].charAt(0) ; alpha--) {
-				String s = Character.toString(alpha) + xy1[1];
+		}else if(var > 0) {
+			
+			int loci = findloc(xy1[0].charAt(0));
+			int locf = findloc(xy2[0].charAt(0));
+			for(int  i = locf ; i>= loci ; i--) {
+				String s = Character.toString(arr[i]) + xy1[1];
 				coordinates.add(s);
 			}//for		
 		}//var>0
@@ -45,5 +67,13 @@ public class Ships {
 		return flag;
 	}
 	
+	
+	public void colorShip() {
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		shipColor = new Color(r, g, b);
+	}
 
 }

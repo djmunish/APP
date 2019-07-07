@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -10,8 +12,8 @@ public class Board {
 		Board b = new Board();
 		GamePlay g = new GamePlay();
 
-		System.out.println(g.createInputs());
-		ArrayList<String> drop = g.createInputs();
+		System.out.println(g.p1.inputs);
+		ArrayList<String> drop = g.p1.inputs;
 		
 		brd = b.createBoard();
 		b.printBoard(brd);
@@ -26,6 +28,8 @@ public class Board {
 		
 		
 
+
+		
 	}
 
 	public static String[][] createBoard() {
@@ -81,5 +85,7 @@ public class Board {
 	    update(y , x, false , str, arL);
 		
 	}
+	
+	
 	
 }
