@@ -38,15 +38,6 @@ public class checkingfx2 extends Application {
         
     }
   
-	private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-	    for (Node node : gridPane.getChildren()) {
-	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-	            return node;
-	        }
-	    }
-	    return null;
-	}	
-	
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Window to program the play area");
@@ -156,7 +147,7 @@ public class checkingfx2 extends Application {
                 xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
                 coordarr.add(xycor);
                 
-                
+                System.out.println(gridPane.getChildren());
                 
                 if(coordarr.size()==2){
                 	
@@ -174,8 +165,8 @@ public class checkingfx2 extends Application {
 						int xcor=Integer.parseInt(corsh[1]);
 						int ycor=Constants.mapInConstants.get(corsh[0])+1;
 						
-						ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
-						b.setStyle( "-fx-background-color: #FFD700");
+						
+						
 						
                 	}
                 	
