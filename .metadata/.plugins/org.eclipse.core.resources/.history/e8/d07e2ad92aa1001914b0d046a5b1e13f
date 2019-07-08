@@ -1,0 +1,89 @@
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Ships {
+	
+	public ArrayList<String> coordinates;
+	public Color shipColor;
+	
+	public Ships(String start, String end) {
+		setupShip(start,end);
+		colorShip();
+	}
+	
+	public int findloc(char a) {
+		int loc = 0;
+		char[] arr = Constants.alphabets.toCharArray();
+		for(int i=0; i<arr.length;i++) {
+			if (Character.toString(arr[i]).equals(Character.toString(a))) {
+				loc = i;
+				break;
+			}//if
+		}//for	
+		return loc;
+	}
+
+	public void setupShip(String start, String end) {
+		coordinates = new ArrayList<>();
+
+		String[] xy1 = start.split("");
+		String[] xy2 = end.split("");
+
+
+		String x1 = Constants.indexToAlpha.get(xy1[0]);
+		String x2 = Constants.indexToAlpha.get(xy2[0]);
+
+
+		System.out.println(x1+"   "+x2);
+
+		int var = x1.compareTo(x2);
+
+		char[] arr = Constants.alphabets.toCharArray();
+		if(var == 0) {
+		//if(xy1[0].equals(xy2[0])) {
+			
+			if(Integer.parseInt(xy1[1]) < Integer.parseInt(xy2[1])) {
+				for(int i = Integer.parseInt(xy1[1]) ; i<= Integer.parseInt(xy2[1]); i++) {
+					coordinates.add(x1 + i);
+				}//for
+			}else {
+				for(int i = Integer.parseInt(xy2[1]) ; i>= Integer.parseInt(xy2[1]); i--) {
+					coordinates.add(x1 + i);
+				}//for
+			}	
+		}//if equals
+		else if(var < 0){
+			int loci = findloc(x1.charAt(0));
+			int locf = findloc(x2.charAt(0));
+			for(int  i = loci ; i<= locf ; i++) {
+				String s = Character.toString(arr[i]) + xy1[1];
+				coordinates.add(s);
+			}//for
+		}else if(var > 0) {
+			
+			int loci = findloc(x1.charAt(0));
+			int locf = findloc(x2.charAt(0));
+			for(int  i = locf ; i>= loci ; i--) {
+				String s = Character.toString(arr[i]) + xy1[1];
+				coordinates.add(s);
+			}//for		
+		}//var>0
+		
+	}//setupship
+	
+	public boolean checkhit(String checkcordinate) {
+		boolean flag = coordinates.contains(checkcordinate);
+		return flag;
+	}
+	
+	
+	public void colorShip() {
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		shipColor = new Color(r, g, b);
+	}
+
+}

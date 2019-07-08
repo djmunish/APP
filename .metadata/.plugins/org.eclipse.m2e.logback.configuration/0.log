@@ -1,1 +1,6 @@
 2019-07-06 15:55:13,826 [main] WARN  o.e.r.i.c.rcp.TypeBindingAnalyzer - Can't handle %s as parent of completion location.
+2019-07-07 13:58:33,062 [main] WARN  o.e.r.i.c.rcp.TypeBindingAnalyzer - Can't handle %s as parent of completion location.
+2019-07-07 14:01:02,413 [main] WARN  o.e.r.i.c.rcp.TypeBindingAnalyzer - Can't handle %s as parent of completion location.
+2019-07-07 14:01:44,243 [main] WARN  o.e.r.i.c.rcp.TypeBindingAnalyzer - Can't handle %s as parent of completion location.
+2019-07-07 14:02:10,849 [main] WARN  o.e.r.i.c.rcp.TypeBindingAnalyzer - Can't handle %s as parent of completion location.
+2019-07-07 23:45:16,074 [main] WARN  o.e.r.i.c.r.ChainCompletionProposalComputer - Can't handle %s as class member.
