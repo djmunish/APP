@@ -1,13 +1,9 @@
 import java.awt.Color;
 import java.awt.Insets;
 
-
-import java.util.ArrayList;
-
 import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -15,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -25,13 +20,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.beans.value.ChangeListener;
-
  
 public class checkingfx2 extends Application {
-	
-	static int shipnum=0;
-	static int startend=0;
 	
     public static void main(String[] args) {
         launch(args);
@@ -46,8 +36,6 @@ public class checkingfx2 extends Application {
         
         StackPane stackpane=new StackPane();
         
-        ArrayList<String> coordarr=new ArrayList<String>();
-       
         
         //Setting size for the pane  
         //gridPane.setMinSize(400, 200);  
@@ -62,7 +50,7 @@ public class checkingfx2 extends Application {
 
         RadioButton rb1 = new RadioButton("carrier");
         rb1.setToggleGroup(group);
-        //rb1.setSelected(true);
+        rb1.setSelected(true);
 
         RadioButton rb2 = new RadioButton("Battleship");
         rb2.setToggleGroup(group);
@@ -82,53 +70,15 @@ public class checkingfx2 extends Application {
         vbox.getChildren().add(rb1);
         vbox.getChildren().add(rb2);
         vbox.getChildren().add(rb3);
-        vbox.getChildren().add(rb4);
-        vbox.getChildren().add(rb5);
-        
         vbox.setSpacing(10);
 
 
         hbox.getChildren().add(vbox);
-        hbox.getChildren().add(gridPane);
         hbox.setSpacing(50);
         //hbox.setPadding(new Insets(200, 10, 10, 20));
 
-        //stackpane.getChildren().add(hbox);
+        stackpane.getChildren().add(hbox);
         
-        
-        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            public void changed(ObservableValue<? extends Toggle> ob,
-                                Toggle o, Toggle n)  {
-
-
-                RadioButton rb = (RadioButton)group.getSelectedToggle();
-
-                if (rb != null) {
-                    String s = rb.getText();
-
-                    if(s=="carrier"){
-                    	checkingfx2.shipnum=5;
-                    }
-                    else if(s=="Battleship"){
-                    	checkingfx2.shipnum=4;
-                    }
-                    else if(s=="Cruiser"){
-                    	checkingfx2.shipnum=3;
-                    }
-                    else if(s=="Submarine"){
-                    	checkingfx2.shipnum=3;
-                    }
-                    else if(s=="Destroyer"){
-                    	checkingfx2.shipnum=2;
-                    }
-                    
-                    // change the label
-                    //System.out.println(s + " selected");
-                }
-
-               
-            }
-        });
         
              
         
@@ -137,30 +87,13 @@ public class checkingfx2 extends Application {
             { 
             	System.out.println("inside action performed");
             	
-            	
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
-                String xycor=null;
                 
-                //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-                        
-                xycor=Integer.toString(buttonok.getCoordX())+Integer.toString(buttonok.getCoordY());
-                coordarr.add(xycor);
+                buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                 
-                if(coordarr.size()==2){
-                	
-                	System.out.println("Inside sending function");
-                	
-                	Ships s=new Ships();
-                               		
-                	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
-                	s.setupShip(coordarr.get(0) ,coordarr.get(1));
-                	
-                }
-                               
-               // System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
-               
+                System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+
                 buttonok.setVisible(true);
-                               
             } 
         };
   		
@@ -256,8 +189,7 @@ public class checkingfx2 extends Application {
 		            
 		            gridPane.add(buttonsclk, j, i);
 		            
-		            
-		            buttonsclk.setOnAction(event);
+		            button.setOnAction(event);
 		            
 		         				
 					//buttonsclk.addActionListener(this);
@@ -275,10 +207,10 @@ public class checkingfx2 extends Application {
         
         //Setting the Grid alignment 
         gridPane.setAlignment(Pos.TOP_CENTER); 
-        //stackpane.setAlignment(Pos.BOTTOM_CENTER);
+        stackpane.setAlignment(Pos.BOTTOM_CENTER);
        
-        primaryStage.setScene(new Scene(hbox, 300, 250));
-        //primaryStage.setScene(new Scene(stackpane, 200, 200));
+        primaryStage.setScene(new Scene(gridPane, 300, 250));
+        primaryStage.setScene(new Scene(stackpane, 200, 200));
         primaryStage.show();    
     }        
 }
