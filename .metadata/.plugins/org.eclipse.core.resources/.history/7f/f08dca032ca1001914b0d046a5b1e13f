@@ -141,9 +141,9 @@ public class checkingfx2 extends Application {
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
                 String xycor=null;
                 
-                buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+                //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                         
-                xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
+                xycor=Integer.toString(buttonok.getCoordX())+Integer.toString(buttonok.getCoordY());
                 coordarr.add(xycor);
                 
                 if(coordarr.size()==2){
@@ -172,16 +172,16 @@ public class checkingfx2 extends Application {
   		
 		int nRows,nCols;
 		
-		for(int i=0;i<Constants.row+1;i++){
+		for(int i=0;i<Constants.row;i++){
 			for(int j=0;j<Constants.col+1;j++){
-				if(j==0 && i!=Constants.row){
+				if(j==0 && i!=Constants.row-1){
 					String buttonname="button"+i+j;
 					Button	button  = new Button(Integer.toString(i+1));
 					//button.setEnabled(false);
 					button.setDisable(true);
 					gridPane.add(button, j, i);					
 				}
-				else if (i==Constants.row && j!=0){
+				else if (i==Constants.row-1 && j!=0){
 					
 					if(j==1){
 						

@@ -143,7 +143,7 @@ public class checkingfx2 extends Application {
                 
                 buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                         
-                xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
+                xycor=Integer.toString(buttonok.getCoordX())+Integer.toString(buttonok.getCoordY());
                 coordarr.add(xycor);
                 
                 if(coordarr.size()==2){

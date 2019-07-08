@@ -30,12 +30,11 @@ public class Ships {
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
 
-System.out.println(start+ "========" + end);
+
 		String x1 = Constants.indexToAlpha.get(xy1[0]);
 		String x2 = Constants.indexToAlpha.get(xy2[0]);
 
 
-		System.out.println(x1+"   "+x2);
 
 		int var = x1.compareTo(x2);
 
