@@ -1,8 +1,10 @@
 import java.awt.Insets;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
-import javafx.scene.image.Image;  
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;  
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,6 +18,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
  
 public class checkingfx extends Application {
+
+    Player humanPlayer;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -23,14 +28,14 @@ public class checkingfx extends Application {
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Window to Choose Players");
-        FileInputStream input= new FileInputStream("battleship.jpg");
+        FileInputStream input= new FileInputStream("/Users/mohitdhiman/Documents/Git/APP/Battleship/battleship.jpg" );
         Image image = new Image(input);
-        ImageView imageView = new ImageView(image); 
+        ImageView imageView = new ImageView(image);
         imageView.setTranslateX(-220);
         imageView.setTranslateY(10);
-        imageView.setFitHeight(450); 
-        imageView.setFitWidth(450); 
-        imageView.setPreserveRatio(true); 
+        imageView.setFitHeight(450);
+        imageView.setFitWidth(450);
+        imageView.setPreserveRatio(true);
         Button btn1 = new Button();
         Button btn2 = new Button();
         btn1.setText("Play with Computer");
@@ -47,9 +52,24 @@ public class checkingfx extends Application {
  
             @Override
             public void handle(ActionEvent event) {
-            	//System.out.println("okay boy thats fine");
-            	checkingfx2 fx2=new checkingfx2();
+                humanPlayer =  new Player();
+//                showInputTextDialog();
+
+                TextInputDialog dialog = new TextInputDialog("Enter your name");
+
+                dialog.setHeaderText("Enter your name:");
+                dialog.setContentText("Name:");
+
+                Optional<String> result = dialog.showAndWait();
+
+                result.ifPresent(name -> {
+                    humanPlayer.name = name;
+                    System.out.println(humanPlayer.name);
+
+            	checkingfx2 fx2 = new checkingfx2();
             	fx2.start(primaryStage);
+                });
+
             }
         });
         
@@ -73,5 +93,24 @@ public class checkingfx extends Application {
         flow.setStyle("-fx-background-color: Grey");
         primaryStage.setScene(new Scene(flow, 1000, 1000));
         primaryStage.show();
+    }
+
+
+    private void showInputTextDialog() {
+
+        TextInputDialog dialog = new TextInputDialog("Enter your name");
+
+        dialog.setHeaderText("Enter your name:");
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(name -> {
+            humanPlayer.name = name;
+            System.out.println(humanPlayer.name);
+
+//            	checkingfx2 fx2=new checkingfx2();
+//            	fx2.start(primaryStage);
+        });
     }
 }
