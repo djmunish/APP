@@ -95,6 +95,6 @@ public class checkingfx extends Application {
         primaryStage.setScene(new Scene(flow, 1000, 800));
         primaryStage.show();
     }
-    
+
 
 }
