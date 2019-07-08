@@ -25,9 +25,7 @@ public class Player {
 	}
 	
 	public void setupShip(String start, String end) {
-		Ships s = new Ships();
-		s.setupShip(start, end);
-		shipsArr.add(s);
+
 	}
 	
 
