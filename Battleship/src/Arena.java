@@ -35,7 +35,7 @@ public class Arena extends Application {
             hbox.setTranslateX(20);
             hbox.setTranslateY(20);
 
-            Label right=new Label("PLAYER");
+            Label right=new Label(humanPlayer.name);
 
             right.setFont(new Font("Arial", 30));
 
@@ -69,14 +69,13 @@ public class Arena extends Application {
 
 
 
-            Player p1 = new Player();
-            p1.createInputs();
+            humanPlayer.createInputs();
 
             final ComboBox inputComboBox = new ComboBox();
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-background-color: #CD853F;");
             inputComboBox.getItems().addAll(
-                    p1.inputs
+                    humanPlayer.inputs
             );
 
 
@@ -268,7 +267,7 @@ public class Arena extends Application {
         return gridPane;
     }
 
-    
+
 
 
 }
