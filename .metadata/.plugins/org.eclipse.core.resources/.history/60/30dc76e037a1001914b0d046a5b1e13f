@@ -32,8 +32,6 @@ public class checkingfx2 extends Application {
 	static int shipnum=0;
 	static int startend=0;
 	
-	Player humanPlayer;
-	
     public static void main(String[] args) {
         launch(args);
         
@@ -58,6 +56,7 @@ public class checkingfx2 extends Application {
         
         ArrayList<String> coordarr=new ArrayList<String>();
        
+        
         //Setting size for the pane  
         //gridPane.setMinSize(400, 200);  
         //Text text1 = new Text("Email");       
@@ -97,20 +96,8 @@ public class checkingfx2 extends Application {
         vbox.setSpacing(10);
 
 
-        Button btnok=new Button("OK");
-        
-        btnok.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        btnok.setDisable(true);
-        
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
-        hbox.getChildren().add(btnok);
         hbox.setSpacing(50);
         //hbox.setPadding(new Insets(200, 10, 10, 20));
 
@@ -156,11 +143,6 @@ public class checkingfx2 extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             { 
-            	
-            	
-            	if(humanPlayer.shipsArr.size() < 5){
-            		
-            	
             	System.out.println("inside action performed");
             	
             	
@@ -212,16 +194,8 @@ public class checkingfx2 extends Application {
                 buttonok.setVisible(true);
                                
             } 
-            	
-            else{
-            	
-            	btnok.setDisable(false);
-            	
-            }
-            }
         };
-        
-        
+  		
 		int nRows,nCols;
 		
 		for(int i=0;i<Constants.row+1;i++){
