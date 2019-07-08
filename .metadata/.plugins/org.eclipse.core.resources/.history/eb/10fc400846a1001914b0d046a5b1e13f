@@ -129,13 +129,7 @@ public class checkingfx2 extends Application {
         
         btnok.setDisable(true);
         
-        Label l =new Label("PLEASE SET UP YOUR SHIPS "+humanPlayer.name + "!");
-       // l.setStyle("-fx-background-color: Blue");
-       // l.setStyle("-fx-font-size: "+ 2.0 +"em;");
-        //l.setMinWidth(90);
-        //l.setMinHeight(90);
-        l.setTranslateX(-500);
-        l.setTranslateY(100);
+        Label l =new Label("PLEASE SET UP YOUR SHIPS: "+humanPlayer.name);
         
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
@@ -212,45 +206,32 @@ public class checkingfx2 extends Application {
                 	String axisxystart[]=coordarr.get(0).split("");
                 	String axisxyend[]=coordarr.get(1).split("");
                 	
-                	int axisxystartinty=Constants.mapInConstants.get(axisxystart[0])+1;
+                	int axisxystartinty=Integer.parseInt(Constants.mapInConstants.get(axisxystart[0]))+1;
                 	int axisxystartintx=Integer.parseInt(axisxystart[1]);
                 	
-                	int axisxyendinty=Constants.mapInConstants.get(axisxyend[0])+1;
+                	int axisxyendinty=Integer.parseInt(Constants.mapInConstants.get(axisxyend[0]))+1;
                 	int axisxyendintx=Integer.parseInt(axisxyend[1]);    
                 	
                 	if(axisxystartintx==axisxyendintx){
-                		
                 		System.out.println("x is equal");
                 		
-                		System.out.println("SHIPSLOTS--:"+checkingfx2.shipnum);
-                		
-                		System.out.println("axisxyendinty :"+ axisxyendinty);
-                		System.out.println("axisxystartinty :"+ axisxystartinty);
-                		
-                		System.out.println("Y ka difference:--"+Math.abs(axisxyendinty-axisxystartinty));
-                		
-                		if(checkingfx2.shipnum == Math.abs(axisxyendinty-axisxystartinty)+1){
+                		if(checkingfx2.shipnum == abs(axisxyendinty-axisxyendinty)){
                 			
-                			System.out.println("Make the flag true");
                 			flag1=true;
                 		}
                 		           		
                 	}
-                	
                 	else if(axisxystartinty==axisxyendinty){
                 		System.out.println("y is equal");
                 		
-                		if(checkingfx2.shipnum ==Math.abs(axisxyendintx - axisxystartintx)){
+                		if(checkingfx2.shipnum ==abs(axisxyendintx - axisxystartintx)){
                 			
-                			System.out.println("Make the flag true");
-                			flag1=true;
+                				flag1=true;
                 			
                 	}
-                	}	
               		
               if(flag1){
             	  
-            	  	System.out.println("After making flag true");
               
                 	Ships s = new Ships(coordarr.get(0),coordarr.get(1));
                 	
@@ -275,20 +256,12 @@ public class checkingfx2 extends Application {
                 	
                 	System.out.println(s.coordinates);
                 	System.out.println(s.shipColor);
-                	
-                	coordarr.clear();
                 	              	
                 	//s.setupShip( ,coordarr.get(1));
                 	
               }// flagif
               
-              else{
-            	  
-            	  
-            	  coordarr.clear();
-              }
-              
-                	
+                	coordarr.clear();
                 	
                 }//if end
                 
@@ -308,10 +281,9 @@ public class checkingfx2 extends Application {
             	
             	btnok.setDisable(false);
             	
-                }
+            }
             
-            }// if human player
-            
+            }
         };
         
         

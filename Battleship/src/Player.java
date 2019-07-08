@@ -139,6 +139,9 @@ public class Player {
 		return temp;
 	}//createInputs
 
+	public void updateDropdown(String s, ArrayList<String> drop) {
+		drop.remove(s);
+	}
 
 	
 }
