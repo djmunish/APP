@@ -26,13 +26,7 @@ public class Player {
 	}
 	
 	public Ships setupShip(String start, String end) {
-		Ships shipFormed = new Ships(start, end);
-		updateShipsArr(shipFormed);
-		return shipFormed;
-	}
-	
-	public void updateShipsArr(Ships s){
-		shipsArr.add(s);
+		return new Ships(start, end);
 	}
 	
 
