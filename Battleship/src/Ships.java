@@ -7,9 +7,9 @@ public class Ships {
 	public ArrayList<String> coordinates;
 	public Color shipColor;
 	
-	public Ships() {
-		coordinates = new ArrayList<>();
+	public Ships(String start, String end) {
 		colorShip();
+		setupShip(start,end);
 	}
 	
 	public int findloc(char a) {
@@ -23,8 +23,10 @@ public class Ships {
 		}//for	
 		return loc;
 	}
-	
+
 	public void setupShip(String start, String end) {
+		coordinates = new ArrayList<>();
+
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
 		int var = xy1[0].compareTo(xy2[0]);

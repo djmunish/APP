@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.Insets;
 
 
-import java.util.ArrayList;
-
 import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import javafx.application.Application;
@@ -31,7 +29,6 @@ import javafx.beans.value.ChangeListener;
 public class checkingfx2 extends Application {
 	
 	static int shipnum=0;
-	static int startend=0;
 	
     public static void main(String[] args) {
         launch(args);
@@ -46,8 +43,6 @@ public class checkingfx2 extends Application {
         
         StackPane stackpane=new StackPane();
         
-        ArrayList<String> coordarr=new ArrayList<String>();
-       
         
         //Setting size for the pane  
         //gridPane.setMinSize(400, 200);  
@@ -139,28 +134,15 @@ public class checkingfx2 extends Application {
             	
             	
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
-                String xycor=null;
                 
                 //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-                        
-                xycor=Integer.toString(buttonok.getCoordX())+Integer.toString(buttonok.getCoordY());
-                coordarr.add(xycor);
                 
-                if(coordarr.size()==2){
-                	
-                	System.out.println("Inside sending function");
-                	
-                	Ships s=new Ships();
-                               		
-                	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
-                	s.setupShip(coordarr.get(0) ,coordarr.get(1));
-                	
-                }
-                               
-               // System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
-               
+                System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
+
+                
                 buttonok.setVisible(true);
-                               
+                
+                
             } 
         };
   		

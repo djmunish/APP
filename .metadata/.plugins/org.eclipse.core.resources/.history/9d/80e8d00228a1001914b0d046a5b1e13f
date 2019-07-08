@@ -151,9 +151,13 @@ public class checkingfx2 extends Application {
                 	System.out.println("Inside sending function");
                 	
                 	Ships s=new Ships();
-                               		
-                	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
-                	s.setupShip(coordarr.get(0) ,coordarr.get(1));
+                      
+                	for(String co:coordarr){
+                		String ch[]=co.split("");
+                		
+                		System.out.println("sending x and y"+ch[0]+" "+ ch[1]);
+                		s.setupShip(ch[0] , ch[1]);
+                	}
                 	
                 }
                                
