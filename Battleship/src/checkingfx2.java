@@ -73,19 +73,29 @@ public class checkingfx2 extends Application {
 
         RadioButton rb1 = new RadioButton("carrier");
         rb1.setToggleGroup(group);
+        rb1.setTranslateX(60);
+        rb1.setTranslateY(190);
         //rb1.setSelected(true);
 
         RadioButton rb2 = new RadioButton("Battleship");
         rb2.setToggleGroup(group);
+        rb2.setTranslateX(60);
+        rb2.setTranslateY(200);
 
         RadioButton rb3 = new RadioButton("Cruiser");
         rb3.setToggleGroup(group);
+        rb3.setTranslateX(60);
+        rb3.setTranslateY(210);
 
         RadioButton rb4 = new RadioButton("Submarine");
         rb4.setToggleGroup(group);
+        rb4.setTranslateX(60);
+        rb4.setTranslateY(220);
 
         RadioButton rb5 = new RadioButton("Destroyer");
         rb5.setToggleGroup(group);
+        rb5.setTranslateX(60);
+        rb5.setTranslateY(230);
         
         HBox hbox = new HBox();
         VBox vbox = new VBox();
@@ -99,7 +109,11 @@ public class checkingfx2 extends Application {
         vbox.setSpacing(10);
 
 
-        Button btnok=new Button("OK");
+        Button btnok=new Button("I'm Ready!");
+        btnok.setStyle("-fx-background-color: White");
+        btnok.setTranslateX(-120);
+        btnok.setTranslateY(550);
+        btnok.setPrefSize(150, 50);
         
         btnok.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -340,7 +354,7 @@ public class checkingfx2 extends Application {
         primaryStage.setWidth(1000);
         primaryStage.setHeight(800);
         //gridPane.setAlignment(Pos.CENTER_RIGHT);
-        gridPane.setTranslateX(160);
+        gridPane.setTranslateX(190);
         gridPane.setTranslateY(160);
         primaryStage.show();    
     }        
