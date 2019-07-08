@@ -19,6 +19,8 @@ import javafx.scene.paint.Color;
 
 public class Arena extends Application {
 
+    Player humanPlayer;
+
     String selectedAddress;
     public void start(Stage stage) {
 
@@ -265,4 +267,8 @@ public class Arena extends Application {
 
         return gridPane;
     }
+
+    
+
+
 }
