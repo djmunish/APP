@@ -9,7 +9,7 @@ public class Player {
     	}
     Random ran = new Random();
     
-    public ArrayList<Ships> shipsArr;
+    public static ArrayList<Ships> shipsArr;
     ArrayList<String> inputs;
     public Board playingBrd, referenceBrd;
     ArrayList<String> computerships = createInputs();
@@ -27,6 +27,7 @@ public class Player {
 	
 	public Ships setupShip(String start, String end) {
 		Ships shipFormed = new Ships(start, end);
+		updateShipsArr(shipFormed);
 		return shipFormed;
 	}
 	

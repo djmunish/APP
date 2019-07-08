@@ -185,7 +185,7 @@ public class checkingfx2 extends Application {
                 	System.out.println("Inside sending function");
                 	
                 	Ships s = new Ships(coordarr.get(0),coordarr.get(1));
-                    humanPlayer.shipsArr.add(s);
+                               		
                 	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
                 	
                 	ArrayList<String> colorsh=s.coordinates;
