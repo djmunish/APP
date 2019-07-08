@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
+//import javafx.scene.paint.Color;
 
  
 public class checkingfx2 extends Application {
@@ -331,11 +333,15 @@ public class checkingfx2 extends Application {
             
             
         //Setting the Grid alignment 
-        gridPane.setAlignment(Pos.TOP_CENTER); 
-        //stackpane.setAlignment(Pos.BOTTOM_CENTER);
-       
-        primaryStage.setScene(new Scene(hbox, 300, 250));
-        //primaryStage.setScene(new Scene(stackpane, 200, 200));
+        //gridPane.setAlignment(Pos.TOP_CENTER); 
+        Scene scene = new Scene(hbox, 1000, 800);
+        hbox.setStyle("-fx-background-color: Grey");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(800);
+        //gridPane.setAlignment(Pos.CENTER_RIGHT);
+        gridPane.setTranslateX(160);
+        gridPane.setTranslateY(160);
         primaryStage.show();    
     }        
 }
