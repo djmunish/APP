@@ -6,6 +6,7 @@ public class Ships {
 	
 	public ArrayList<String> coordinates;
 	public Color shipColor;
+	public String hexColor;
 	
 	public Ships(String start, String end) {
 		colorShip();
@@ -77,6 +78,7 @@ public class Ships {
 		float g = rand.nextFloat();
 		float b = rand.nextFloat();
 		shipColor = new Color(r, g, b);
+		hexColor = String.format("#%02x%02x%02x", r, g, b);
 	}
 
 }

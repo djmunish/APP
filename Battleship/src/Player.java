@@ -13,6 +13,7 @@ public class Player {
     ArrayList<String> inputs;
     public Board playingBrd, referenceBrd;
     ArrayList<String> computerships = createInputs();
+    String name;
     
     public playerType type;
     
