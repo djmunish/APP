@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -16,6 +17,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 public class Arena extends Application {
 
@@ -56,7 +59,9 @@ public class Arena extends Application {
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(300, 40);
 
-            split_pane1.getItems().addAll(createGrid(),createGrid(), right);
+            GridPane playerGrid = createGrid();
+
+            split_pane1.getItems().addAll(createGrid(), playerGrid, right);
 
             hbox.getChildren().add(split_pane1);
 
@@ -72,6 +77,7 @@ public class Arena extends Application {
             humanPlayer.createInputs();
 
             final ComboBox inputComboBox = new ComboBox();
+            inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-background-color: #CD853F;");
             inputComboBox.getItems().addAll(
@@ -94,9 +100,33 @@ public class Arena extends Application {
 
                 @Override
                 public void handle(ActionEvent event) {
+                    humanPlayer.updateDropdown(selectedAddress,humanPlayer.inputs);
+                    inputComboBox.getItems().remove(selectedAddress);
+                    inputComboBox.setPromptText("Select Location");
                     System.out.println("chako == " + selectedAddress);
                 }
             });
+
+
+
+            // HIT / MISS
+
+
+            for(Ships p : humanPlayer.shipsArr){
+
+                ArrayList<String> got = p.coordinates;
+
+                for(int i= 0; i< got.size();i++){
+
+                    String s[] = got.get(i).split("");
+                    int x = Constants.mapInConstants.get(s[0]);	//c
+                    int y = Integer.parseInt(s[1]);	//r
+                    Button b = (Button) getNodeFromGridPane(playerGrid,x+1,y);
+                    b.setStyle( "-fx-background-color:"+p.hexColor);
+                }
+
+
+            }
 
 
 
@@ -124,7 +154,17 @@ public class Arena extends Application {
         }
     }
 
-    // Main Method
+    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
+        for (Node node : gridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+
+        // Main Method
     public static void main(String args[]) {
 
         // launch the application
@@ -138,9 +178,9 @@ public class Arena extends Application {
 
         int nRows,nCols;
 
-        for(int i=0;i<Constants.row;i++){
+        for(int i=0;i<Constants.row+1;i++){
             for(int j=0;j<Constants.col+1;j++){
-                if(j==0 && i!=Constants.row-1){
+                if(j==0 && i!=Constants.row){
                     String buttonname="button"+i+j;
                     Button button  = new Button(Integer.toString(i+1));
                     //button.setEnabled(false);
@@ -149,7 +189,7 @@ public class Arena extends Application {
                     button.setDisable(true);
                     gridPane.add(button, j, i);
                 }
-                else if (i==Constants.row-1 && j!=0){
+                else if (i==Constants.row && j!=0){
 
                     if(j==1){
 
@@ -251,7 +291,7 @@ public class Arena extends Application {
                     //ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
                     Button	button  = new Button("-");
                     button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
-                    button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFDAB9");
+                    button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
                     button.setDisable(true);
 
                     gridPane.add(button, j, i);
