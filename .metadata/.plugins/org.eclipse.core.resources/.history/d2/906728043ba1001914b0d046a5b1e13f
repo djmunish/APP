@@ -5,7 +5,6 @@ import java.awt.Insets;
 import java.util.ArrayList;
 
 
-
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,7 +14,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
@@ -112,13 +110,9 @@ public class checkingfx2 extends Application {
         
         btnok.setDisable(true);
         
-        Label l =new Label("PLEASE SET UP YOUR SHIPS: "+humanPlayer.name);
-        
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
         hbox.getChildren().add(btnok);
-        hbox.getChildren().add(l);
-        
         hbox.setSpacing(50);
         //hbox.setPadding(new Insets(200, 10, 10, 20));
 
@@ -164,12 +158,13 @@ public class checkingfx2 extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             { 
-            	         	
+            	System.out.println(humanPlayer.name);
+            	
             	if(humanPlayer.shipsArr.size() < 5){
             		
             	
-                System.out.println("ship size----"+humanPlayer.shipsArr.size());	            	
-            	System.out.println("inside action performed");           	
+            	System.out.println("inside action performed");
+            	
             	
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
                 String xycor=null;
@@ -185,7 +180,7 @@ public class checkingfx2 extends Application {
                 	System.out.println("Inside sending function");
                 	
                 	Ships s = new Ships(coordarr.get(0),coordarr.get(1));
-                    humanPlayer.shipsArr.add(s);
+                               		
                 	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
                 	
                 	ArrayList<String> colorsh=s.coordinates;
@@ -222,9 +217,6 @@ public class checkingfx2 extends Application {
             	
                 
             else{
-            	
-            	System.out.println("ship size----"+humanPlayer.shipsArr.size());
-            	System.out.println("we are in else after 5");
             	
             	btnok.setDisable(false);
             	

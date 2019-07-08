@@ -166,9 +166,7 @@ public class checkingfx2 extends Application {
             { 
             	         	
             	if(humanPlayer.shipsArr.size() < 5){
-            		
-            	
-                System.out.println("ship size----"+humanPlayer.shipsArr.size());	            	
+            		            	
             	System.out.println("inside action performed");           	
             	
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
@@ -185,7 +183,7 @@ public class checkingfx2 extends Application {
                 	System.out.println("Inside sending function");
                 	
                 	Ships s = new Ships(coordarr.get(0),coordarr.get(1));
-                    humanPlayer.shipsArr.add(s);
+                               		
                 	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
                 	
                 	ArrayList<String> colorsh=s.coordinates;
@@ -222,9 +220,6 @@ public class checkingfx2 extends Application {
             	
                 
             else{
-            	
-            	System.out.println("ship size----"+humanPlayer.shipsArr.size());
-            	System.out.println("we are in else after 5");
             	
             	btnok.setDisable(false);
             	
