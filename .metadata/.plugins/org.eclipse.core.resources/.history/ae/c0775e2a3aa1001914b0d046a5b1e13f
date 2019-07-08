@@ -213,15 +213,15 @@ public class checkingfx2 extends Application {
                
                 buttonok.setVisible(true);
                                
-            } 
+            //} 
             	
-                
+                /*
             else{
             	
             	btnok.setDisable(false);
             	
             }
-            
+            */
             }
         };
         

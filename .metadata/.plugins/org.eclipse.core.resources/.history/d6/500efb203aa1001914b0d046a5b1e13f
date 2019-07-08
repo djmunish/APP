@@ -158,9 +158,9 @@ public class checkingfx2 extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             { 
-            	System.out.println(humanPlayer.name);
             	
-            	if(humanPlayer.shipsArr.size() < 5){
+            	
+            	//if(humanPlayer.shipsArr.size() < 5){
             		
             	
             	System.out.println("inside action performed");
@@ -213,15 +213,15 @@ public class checkingfx2 extends Application {
                
                 buttonok.setVisible(true);
                                
-            } 
+            //} 
             	
-                
+                /*
             else{
             	
             	btnok.setDisable(false);
             	
             }
-            
+            */
             }
         };
         

@@ -158,7 +158,7 @@ public class checkingfx2 extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             { 
-            	System.out.println(humanPlayer.name);
+            	
             	
             	if(humanPlayer.shipsArr.size() < 5){
             		
@@ -215,13 +215,11 @@ public class checkingfx2 extends Application {
                                
             } 
             	
-                
             else{
             	
             	btnok.setDisable(false);
             	
             }
-            
             }
         };
         
