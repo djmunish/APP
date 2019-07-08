@@ -8,8 +8,8 @@ public class Ships {
 	public Color shipColor;
 	
 	public Ships(String start, String end) {
-		setupShip(start,end);
 		colorShip();
+		setupShip(start,end);
 	}
 	
 	public int findloc(char a) {
@@ -30,14 +30,7 @@ public class Ships {
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
 
-System.out.println(start+ "========" + end);
-		String x1 = Constants.indexToAlpha.get(xy1[0]);
-		String x2 = Constants.indexToAlpha.get(xy2[0]);
-
-
-		System.out.println(x1+"   "+x2);
-
-		int var = x1.compareTo(x2);
+		int var = xy1[0].compareTo(xy2[0]);
 
 		char[] arr = Constants.alphabets.toCharArray();
 		if(var == 0) {
@@ -45,25 +38,25 @@ System.out.println(start+ "========" + end);
 			
 			if(Integer.parseInt(xy1[1]) < Integer.parseInt(xy2[1])) {
 				for(int i = Integer.parseInt(xy1[1]) ; i<= Integer.parseInt(xy2[1]); i++) {
-					coordinates.add(x1 + i);
+					coordinates.add(xy1[0] + i);
 				}//for
 			}else {
 				for(int i = Integer.parseInt(xy2[1]) ; i>= Integer.parseInt(xy2[1]); i--) {
-					coordinates.add(x1 + i);
+					coordinates.add(xy1[0] + i);
 				}//for
 			}	
 		}//if equals
 		else if(var < 0){
-			int loci = findloc(x1.charAt(0));
-			int locf = findloc(x2.charAt(0));
+			int loci = findloc(xy1[0].charAt(0));
+			int locf = findloc(xy2[0].charAt(0));
 			for(int  i = loci ; i<= locf ; i++) {
 				String s = Character.toString(arr[i]) + xy1[1];
 				coordinates.add(s);
 			}//for
 		}else if(var > 0) {
 			
-			int loci = findloc(x1.charAt(0));
-			int locf = findloc(x2.charAt(0));
+			int loci = findloc(xy1[0].charAt(0));
+			int locf = findloc(xy2[0].charAt(0));
 			for(int  i = locf ; i>= loci ; i--) {
 				String s = Character.toString(arr[i]) + xy1[1];
 				coordinates.add(s);
