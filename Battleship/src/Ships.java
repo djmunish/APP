@@ -7,8 +7,8 @@ public class Ships {
 	public ArrayList<String> coordinates;
 	public Color shipColor;
 	
-	public Ships() {
-		coordinates = new ArrayList<>();
+	public Ships(String start, String end) {
+		setupShip(start,end);
 		colorShip();
 	}
 	
@@ -25,9 +25,7 @@ public class Ships {
 	}
 
 	public void setupShip(String start, String end) {
-
-
-
+		coordinates = new ArrayList<>();
 
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
