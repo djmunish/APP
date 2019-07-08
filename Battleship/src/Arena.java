@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -25,15 +26,21 @@ public class Arena extends Application {
 
             // set title for the stage
             stage.setTitle("LET'S PLAY");
+            stage.setWidth(400);
+            stage.setHeight(180);
 
             HBox hbox = new HBox(70);
             hbox.setTranslateX(20);
             hbox.setTranslateY(20);
 
-            //Creating Grid
+            Label right=new Label("PLAYER");
 
+            right.setFont(new Font("Arial", 30));
 
+            Label left=new Label("COMPUTER");
+            left.setFont(new Font("Arial", 30));
 
+            left.setPrefHeight(50);
             EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e)
                 {
@@ -47,7 +54,7 @@ public class Arena extends Application {
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(300, 40);
 
-            split_pane1.getItems().addAll(createGrid(),createGrid());
+            split_pane1.getItems().addAll(createGrid(),createGrid(), right);
 
             hbox.getChildren().add(split_pane1);
 
@@ -92,7 +99,7 @@ public class Arena extends Application {
 
 
 
-            split_pane2.getItems().addAll(createGrid(),createGrid());
+            split_pane2.getItems().addAll(createGrid(),createGrid(),left);
             hbox.getChildren().add(inputComboBox);
             hbox.getChildren().add(btn);
             hbox.setSpacing(50);

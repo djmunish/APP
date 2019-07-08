@@ -25,8 +25,8 @@ public class Player {
 		referenceBrd = new Board();
 	}
 	
-	public void setupShip(String start, String end) {
-
+	public Ships setupShip(String start, String end) {
+		return new Ships(start, end);
 	}
 	
 
@@ -108,7 +108,8 @@ public class Player {
 				String s = randomblock();
 				String[] arr = randomshipblocks(s, length).split(" ");
 				if (arr[0].equals("T")) {
-					setupShip(arr[1], arr[2]);
+					Ships shipcomp = setupShip(arr[1], arr[2]);
+					shipsArr.add(shipcomp);
 					flag =  false;
 					break;
 				}//if
