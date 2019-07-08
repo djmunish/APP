@@ -32,6 +32,7 @@ public class Ships {
 		String[] xy2 = end.split("");
 
 		int var = xy1[0].compareTo(xy2[0]);
+		//System.out.println("var is" + var);
 
 		char[] arr = Constants.alphabets.toCharArray();
 		if(var == 0) {
@@ -42,24 +43,32 @@ public class Ships {
 					coordinates.add(xy1[0] + i);
 				}//for
 			}else {
-				for(int i = Integer.parseInt(xy2[1]) ; i>= Integer.parseInt(xy2[1]); i--) {
-					coordinates.add(xy1[0] + i);
+				//System.out.println("added are :");
+				for(int i = Integer.parseInt(xy1[1]) ; i>= Integer.parseInt(xy2[1]); i--) {
+					//System.out.println("i =" + i);
+					String s = xy1[0] + i;
+					//System.out.println(s + " ");
+					coordinates.add(s);
 				}//for
 			}	
 		}//if equals
 		else if(var < 0){
 			int loci = findloc(xy1[0].charAt(0));
 			int locf = findloc(xy2[0].charAt(0));
+			//System.out.println("added are :");
 			for(int  i = loci ; i<= locf ; i++) {
 				String s = Character.toString(arr[i]) + xy1[1];
+				//System.out.println(s + " ");
 				coordinates.add(s);
 			}//for
 		}else if(var > 0) {
 			
 			int loci = findloc(xy1[0].charAt(0));
 			int locf = findloc(xy2[0].charAt(0));
-			for(int  i = locf ; i>= loci ; i--) {
+			//System.out.println("added are :");
+			for(int  i = loci ; i>= locf ; i--) {
 				String s = Character.toString(arr[i]) + xy1[1];
+				//System.out.println(s + " ");
 				coordinates.add(s);
 			}//for		
 		}//var>0
