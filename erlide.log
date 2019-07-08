@@ -27,3 +27,11 @@
 20:17:20,191 F: (OtpNodeProxy.java:307) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca running
 20:17:20,370 F: (LogEventHandler.java:27) : info: {"Monitoring java node",'jerlide_ed76be9@DESKTOP-EURO21A.wireless.concordia.ca'}
 20:17:20,371 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
+21:24:33,150 W: (OtpNodeProxy.java:180) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca died, but process is still running; killing it
+21:24:33,152 F: (OtpNodeProxy.java:302) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca starting
+21:24:33,155 F: (OtpNodeProxy.java:420) : START node :> ["c:\program files\erl10.4/bin/erl", -name, 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca, -setcookie, erlide] *** C:\Users\14382\Documents\GitHub\APP
+21:24:33,169 F: (OtpNodeProxy.java:213) : 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca: waiting connection to peer... 
+21:24:33,649 F: (OtpNodeProxy.java:220) : connected!
+21:24:33,751 F: (OtpNodeProxy.java:307) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca running
+21:24:33,895 F: (LogEventHandler.java:27) : info: {"Monitoring java node",'jerlide_ed76be9@DESKTOP-EURO21A.wireless.concordia.ca'}
+21:24:33,896 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
