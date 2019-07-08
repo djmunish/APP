@@ -1,0 +1,46 @@
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+ 
+public class checkingfx extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Window to Choose Players");
+        Button btn1 = new Button();
+        Button btn2 = new Button();
+        btn1.setText("Play with Pc");
+        btn2.setText("Play with Another Player");
+        btn1.setOnAction(new EventHandler<ActionEvent>() {
+ 
+            @Override
+            public void handle(ActionEvent event) {
+                
+            }
+        });
+        
+        
+        btn2.setOnAction(new EventHandler<ActionEvent>() {
+        	 
+            @Override
+            public void handle(ActionEvent event) {
+                
+            }
+        });
+        
+        GridPane root = new GridPane();
+        root.getChildren().add(btn1);
+        root.getChildren().add(btn2);
+        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.show();
+    }
+}

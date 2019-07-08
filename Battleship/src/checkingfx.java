@@ -1,8 +1,13 @@
+import java.awt.Insets;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
  
@@ -13,20 +18,36 @@ public class checkingfx extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        primaryStage.setTitle("Window to Choose Players");
+        Button btn1 = new Button();
+        Button btn2 = new Button();
+        btn1.setText("Play with Pc");
+        btn2.setText("Play with Another Player");
+        btn1.setOnAction(new EventHandler<ActionEvent>() {
  
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+            	System.out.println("okay boy thats fine");
+            	checkingfx2 fx2=new checkingfx2();
+            	fx2.start(primaryStage);
             }
         });
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
+        
+        btn2.setOnAction(new EventHandler<ActionEvent>() {
+        	 
+            @Override
+            public void handle(ActionEvent event) {
+                
+            }
+        });
+        
+        
+        FlowPane flow = new FlowPane();
+        //flow.setPadding(new Insets(10, 10, 10, 10));
+        flow.setHgap(5);
+        flow.getChildren().addAll(btn1, btn2);
+        primaryStage.setScene(new Scene(flow, 300, 250));
         primaryStage.show();
     }
 }

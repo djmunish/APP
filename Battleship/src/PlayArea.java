@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
-import org.omg.CORBA.PERSIST_STORE;
+//import org.omg.CORBA.PERSIST_STORE;
 
 
 public class PlayArea extends JFrame implements ActionListener {
