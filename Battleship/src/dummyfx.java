@@ -11,6 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+import java.util.Optional;
+
 public class dummyfx extends Application {
 
     Player p1;
@@ -44,6 +46,8 @@ public class dummyfx extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("chako ==" + selectedAddress);
+                showInputTextDialog();
+
             }
         });
 
@@ -63,5 +67,22 @@ public class dummyfx extends Application {
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
     }
+
+
+    private void showInputTextDialog() {
+
+        TextInputDialog dialog = new TextInputDialog("Tran");
+
+        dialog.setTitle("o7planning");
+        dialog.setHeaderText("Enter your name:");
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(name -> {
+            System.out.println(name);
+        });
+    }
+
 
 }

@@ -175,7 +175,7 @@ public class checkingfx2 extends Application {
 						int ycor=Constants.mapInConstants.get(corsh[0])+1;
 						
 						ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
-						b.setStyle( "-fx-background-color:"+s.hexColor);
+//						b.setStyle( "-fx-background-color:"+s.hexColor);
 						
                 	}
                 	

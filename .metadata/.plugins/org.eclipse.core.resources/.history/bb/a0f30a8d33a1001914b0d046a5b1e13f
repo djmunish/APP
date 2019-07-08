@@ -4,6 +4,7 @@ import java.awt.Insets;
 
 import java.util.ArrayList;
 
+import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -37,15 +38,6 @@ public class checkingfx2 extends Application {
         
     }
   
-	private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-	    for (Node node : gridPane.getChildren()) {
-	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-	            return node;
-	        }
-	    }
-	    return null;
-	}	
-	
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Window to program the play area");
@@ -155,7 +147,7 @@ public class checkingfx2 extends Application {
                 xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
                 coordarr.add(xycor);
                 
-                
+                System.out.println(gridPane.getChildren());
                 
                 if(coordarr.size()==2){
                 	
@@ -166,7 +158,6 @@ public class checkingfx2 extends Application {
                 	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
                 	
                 	ArrayList<String> colorsh=s.coordinates;
-                	System.out.println("color====="+s.hexColor);
                 	
                 	for(String c1:colorsh){
                 		
@@ -174,8 +165,8 @@ public class checkingfx2 extends Application {
 						int xcor=Integer.parseInt(corsh[1]);
 						int ycor=Constants.mapInConstants.get(corsh[0])+1;
 						
-						ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
-						b.setStyle( "-fx-background-color:"+s.hexColor);
+						
+						
 						
                 	}
                 	

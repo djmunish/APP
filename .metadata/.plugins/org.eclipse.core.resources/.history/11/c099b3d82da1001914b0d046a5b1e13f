@@ -6,7 +6,6 @@ public class Ships {
 	
 	public ArrayList<String> coordinates;
 	public Color shipColor;
-	public String hexColor;
 	
 	public Ships(String start, String end) {
 		colorShip();
@@ -30,8 +29,19 @@ public class Ships {
 
 		String[] xy1 = start.split("");
 		String[] xy2 = end.split("");
+<<<<<<< HEAD
 
+System.out.println(start+ "========" + end);
+		String x1 = Constants.indexToAlpha.get(xy1[0]);
+		String x2 = Constants.indexToAlpha.get(xy2[0]);
+
+
+		System.out.println(x1+"   "+x2);
+
+		int var = x1.compareTo(x2);
+=======
 		int var = xy1[0].compareTo(xy2[0]);
+>>>>>>> 4bdefdee3e64fc8bc23a6831be5cee3db68f104c
 
 		char[] arr = Constants.alphabets.toCharArray();
 		if(var == 0) {
@@ -72,30 +82,12 @@ public class Ships {
 	}
 	
 	
-//	public void colorShip() {
-//		Random rand = new Random();
-//		float r = rand.nextFloat();
-//		float g = rand.nextFloat();
-//		float b = rand.nextFloat();
-//		shipColor = new Color(r, g, b);
-////		hexColor = String.format("#%02x%02x%02x", r, g, b);
-//	}
-	
-	
 	public void colorShip() {
-
-        // create random object - reuse this as often as possible
-        Random random = new Random();
-
-        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
-        int nextInt = random.nextInt(0xffffff + 1);
-
-        // format it as hexadecimal string (with hashtag and leading zeros)
-        String colorCode = String.format("#%06x", nextInt);
-
-        // print it
-        System.out.println(colorCode);
-        hexColor = colorCode;
-    }
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		shipColor = new Color(r, g, b);
+	}
 
 }

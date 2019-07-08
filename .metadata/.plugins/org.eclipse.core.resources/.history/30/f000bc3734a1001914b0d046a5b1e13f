@@ -166,7 +166,6 @@ public class checkingfx2 extends Application {
                 	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
                 	
                 	ArrayList<String> colorsh=s.coordinates;
-                	System.out.println("color====="+s.hexColor);
                 	
                 	for(String c1:colorsh){
                 		
