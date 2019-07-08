@@ -1,24 +1,37 @@
+import java.awt.Color;
 import java.awt.Insets;
 
-import javax.swing.JButton;
+
+import java.util.ArrayList;
 
 import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
+
  
 public class checkingfx2 extends Application {
+	
+	static int shipnum=0;
+	static int startend=0;
 	
     public static void main(String[] args) {
         launch(args);
@@ -30,9 +43,14 @@ public class checkingfx2 extends Application {
         primaryStage.setTitle("Window to program the play area");
         
         GridPane gridPane=new GridPane();
+        
+        StackPane stackpane=new StackPane();
+        
+        ArrayList<String> coordarr=new ArrayList<String>();
+       
+        
         //Setting size for the pane  
-        //gridPane.setMinSize(400, 200); 
-         
+        //gridPane.setMinSize(400, 200);  
         //Text text1 = new Text("Email");       
         //creating label password 
         //Text text2 = new Text("Password"); 
@@ -40,26 +58,130 @@ public class checkingfx2 extends Application {
         // gridPane.setPadding(new Insets(10, 10, 10, 10)); 
         
         
+        final ToggleGroup group = new ToggleGroup();
+
+        RadioButton rb1 = new RadioButton("carrier");
+        rb1.setToggleGroup(group);
+        //rb1.setSelected(true);
+
+        RadioButton rb2 = new RadioButton("Battleship");
+        rb2.setToggleGroup(group);
+
+        RadioButton rb3 = new RadioButton("Cruiser");
+        rb3.setToggleGroup(group);
+
+        RadioButton rb4 = new RadioButton("Submarine");
+        rb4.setToggleGroup(group);
+
+        RadioButton rb5 = new RadioButton("Destroyer");
+        rb5.setToggleGroup(group);
+        
+        HBox hbox = new HBox();
+        VBox vbox = new VBox();
+
+        vbox.getChildren().add(rb1);
+        vbox.getChildren().add(rb2);
+        vbox.getChildren().add(rb3);
+        vbox.getChildren().add(rb4);
+        vbox.getChildren().add(rb5);
+        
+        vbox.setSpacing(10);
+
+
+        hbox.getChildren().add(vbox);
+        hbox.getChildren().add(gridPane);
+        hbox.setSpacing(50);
+        //hbox.setPadding(new Insets(200, 10, 10, 20));
+
+        //stackpane.getChildren().add(hbox);
+        
+        
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ob,
+                                Toggle o, Toggle n)  {
+
+
+                RadioButton rb = (RadioButton)group.getSelectedToggle();
+
+                if (rb != null) {
+                    String s = rb.getText();
+
+                    if(s=="carrier"){
+                    	checkingfx2.shipnum=5;
+                    }
+                    else if(s=="Battleship"){
+                    	checkingfx2.shipnum=4;
+                    }
+                    else if(s=="Cruiser"){
+                    	checkingfx2.shipnum=3;
+                    }
+                    else if(s=="Submarine"){
+                    	checkingfx2.shipnum=3;
+                    }
+                    else if(s=="Destroyer"){
+                    	checkingfx2.shipnum=2;
+                    }
+                    
+                    // change the label
+                    //System.out.println(s + " selected");
+                }
+
+               
+            }
+        });
+        
+             
         
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             { 
-                System.out.println("button pressed");
+            	System.out.println("inside action performed");
+            	
+            	
+                ButtonClicks buttonok = (ButtonClicks) e.getSource();  
+                String xycor=null;
+                
+                buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+                        
+                xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
+                coordarr.add(xycor);
+                
+                if(coordarr.size()==2){
+                	
+                	System.out.println("Inside sending function");
+                	
+                	Ships s = new Ships(coordarr.get(0),coordarr.get(1));
+                               		
+                	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
+                	System.out.println(s.coordinates);
+                	System.out.println(s.shipColor);
+                	
+                	//s.setupShip( ,coordarr.get(1));
+                	
+                	
+                	
+                }
+                
+                               
+               // System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
+               
+                buttonok.setVisible(true);
+                               
             } 
         };
   		
 		int nRows,nCols;
 		
-		for(int i=0;i<Constants.row;i++){
+		for(int i=0;i<Constants.row+1;i++){
 			for(int j=0;j<Constants.col+1;j++){
-				if(j==0 && i!=Constants.row-1){
+				if(j==0 && i!=Constants.row){
 					String buttonname="button"+i+j;
 					Button	button  = new Button(Integer.toString(i+1));
 					//button.setEnabled(false);
 					button.setDisable(true);
 					gridPane.add(button, j, i);					
 				}
-				else if (i==Constants.row-1 && j!=0){
+				else if (i==Constants.row && j!=0){
 					
 					if(j==1){
 						
@@ -135,12 +257,13 @@ public class checkingfx2 extends Application {
 		            nRows = i;
 		            nCols = j;
 		           
-		            //ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
+		            ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
 		            Button	button  = new Button();
 		            
-		            gridPane.add(button, j, i);
+		            gridPane.add(buttonsclk, j, i);
 		            
-		            button.setOnAction(event);
+		            
+		            buttonsclk.setOnAction(event);
 		            
 		         				
 					//buttonsclk.addActionListener(this);
@@ -149,21 +272,18 @@ public class checkingfx2 extends Application {
 				
 			}//inner for
 		}//outer for
-		
- 
-        
-       // gridPane.add(text1, 0, 0);
-       // gridPane.add(text2, 0, 1);
-       //Setting the vertical and horizontal gaps between the columns 
-		
+				
         gridPane.setVgap(5); 
         gridPane.setHgap(5); 
         gridPane.setGridLinesVisible(true);
-                
+            
+            
         //Setting the Grid alignment 
         gridPane.setAlignment(Pos.TOP_CENTER); 
+        //stackpane.setAlignment(Pos.BOTTOM_CENTER);
        
-        primaryStage.setScene(new Scene(gridPane, 300, 250));
+        primaryStage.setScene(new Scene(hbox, 300, 250));
+        //primaryStage.setScene(new Scene(stackpane, 200, 200));
         primaryStage.show();    
     }        
 }

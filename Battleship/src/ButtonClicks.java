@@ -1,7 +1,8 @@
 
-import javax.swing.*;
+import javafx.scene.control.Button;
 
-public class ButtonClicks extends JButton {
+
+public class ButtonClicks extends Button {
 
     int coordX;
     int coordY;

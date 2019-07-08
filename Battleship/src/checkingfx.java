@@ -47,7 +47,7 @@ public class checkingfx extends Application {
  
             @Override
             public void handle(ActionEvent event) {
-            	System.out.println("okay boy thats fine");
+            	//System.out.println("okay boy thats fine");
             	checkingfx2 fx2=new checkingfx2();
             	fx2.start(primaryStage);
             }

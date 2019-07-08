@@ -27,6 +27,25 @@ public final class Constants {
         mapInConstants.put("K",10);
     	
     }
-    
-    
+
+
+    public static HashMap<String, String> indexToAlpha ;
+    static {
+    	indexToAlpha = new HashMap<>();
+
+    	indexToAlpha.put("1","A");
+    	indexToAlpha.put("1","B");
+    	indexToAlpha.put("2","C");
+        indexToAlpha.put("3","D");
+        indexToAlpha.put("4","E");
+        indexToAlpha.put("5","F");
+        indexToAlpha.put("6","G");
+        indexToAlpha.put("7","H");
+        indexToAlpha.put("8","I");
+        indexToAlpha.put("9","J");
+        indexToAlpha.put("10","K");
+
+    }
+
+
 }
