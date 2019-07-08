@@ -223,14 +223,13 @@ public class checkingfx2 extends Application {
                 		
                 		System.out.println("Y ka difference:--"+Math.abs(axisxyendinty-axisxystartinty));
                 		
-                		if(checkingfx2.shipnum == Math.abs(axisxyendinty-axisxystartinty)+1){
+                		if(checkingfx2.shipnum == Math.abs(axisxyendinty-axisxystartinty)){
                 			
                 			System.out.println("Make the flag true");
                 			flag1=true;
                 		}
                 		           		
                 	}
-                	
                 	else if(axisxystartinty==axisxyendinty){
                 		System.out.println("y is equal");
                 		
@@ -240,7 +239,6 @@ public class checkingfx2 extends Application {
                 			flag1=true;
                 			
                 	}
-                	}	
               		
               if(flag1){
             	  
@@ -297,7 +295,7 @@ public class checkingfx2 extends Application {
                 }
             
             }// if human player
-            
+            }
         };
         
         

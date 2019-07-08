@@ -297,7 +297,7 @@ public class checkingfx2 extends Application {
                 }
             
             }// if human player
-            
+            }
         };
         
         

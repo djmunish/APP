@@ -126,7 +126,6 @@ public class checkingfx2 extends Application {
             }
         });
         
-        
         btnok.setDisable(true);
         
         Label l =new Label("PLEASE SET UP YOUR SHIPS: "+humanPlayer.name);
@@ -183,7 +182,8 @@ public class checkingfx2 extends Application {
             { 
             	         	
             	if(humanPlayer.shipsArr.size() < 5){
-            		          	
+            		
+            	
                 System.out.println("ship size----"+humanPlayer.shipsArr.size());	            	
             	System.out.println("inside action performed");           	
             	
@@ -191,65 +191,17 @@ public class checkingfx2 extends Application {
                 String xycor=null;
                 
                 buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-                    
-                	
+                        
                 System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                 xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
                 coordarr.add(xycor);
                               
                 if(coordarr.size()==2){
                 	
-                	boolean flag1=false;
-                	
                 	System.out.println("Inside sending function");
                 	
-                	String axisxystart[]=coordarr.get(0).split("");
-                	String axisxyend[]=coordarr.get(1).split("");
-                	
-                	int axisxystartinty=Constants.mapInConstants.get(axisxystart[0])+1;
-                	int axisxystartintx=Integer.parseInt(axisxystart[1]);
-                	
-                	int axisxyendinty=Constants.mapInConstants.get(axisxyend[0])+1;
-                	int axisxyendintx=Integer.parseInt(axisxyend[1]);    
-                	
-                	if(axisxystartintx==axisxyendintx){
-                		
-                		System.out.println("x is equal");
-                		
-                		System.out.println("SHIPSLOTS--:"+checkingfx2.shipnum);
-                		
-                		System.out.println("axisxyendinty :"+ axisxyendinty);
-                		System.out.println("axisxystartinty :"+ axisxystartinty);
-                		
-                		System.out.println("Y ka difference:--"+Math.abs(axisxyendinty-axisxystartinty));
-                		
-                		if(checkingfx2.shipnum == Math.abs(axisxyendinty-axisxystartinty)+1){
-                			
-                			System.out.println("Make the flag true");
-                			flag1=true;
-                		}
-                		           		
-                	}
-                	
-                	else if(axisxystartinty==axisxyendinty){
-                		System.out.println("y is equal");
-                		
-                		if(checkingfx2.shipnum ==Math.abs(axisxyendintx - axisxystartintx)){
-                			
-                			System.out.println("Make the flag true");
-                			flag1=true;
-                			
-                	}
-                	}	
-              		
-              if(flag1){
-            	  
-            	  	System.out.println("After making flag true");
-              
                 	Ships s = new Ships(coordarr.get(0),coordarr.get(1));
-                	
                     humanPlayer.shipsArr.add(s);
-                    
                 	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
                 	
                 	ArrayList<String> colorsh=s.coordinates;
@@ -271,9 +223,7 @@ public class checkingfx2 extends Application {
                 	System.out.println(s.shipColor);
                 	              	
                 	//s.setupShip( ,coordarr.get(1));
-                	
-              }// flagif
-              
+                	      
                 	coordarr.clear();
                 	
                 }//if end
@@ -294,10 +244,9 @@ public class checkingfx2 extends Application {
             	
             	btnok.setDisable(false);
             	
-                }
+            }
             
-            }// if human player
-            
+            }
         };
         
         

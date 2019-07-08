@@ -230,7 +230,6 @@ public class checkingfx2 extends Application {
                 		}
                 		           		
                 	}
-                	
                 	else if(axisxystartinty==axisxyendinty){
                 		System.out.println("y is equal");
                 		
@@ -240,7 +239,6 @@ public class checkingfx2 extends Application {
                 			flag1=true;
                 			
                 	}
-                	}	
               		
               if(flag1){
             	  
@@ -297,7 +295,7 @@ public class checkingfx2 extends Application {
                 }
             
             }// if human player
-            
+            }
         };
         
         

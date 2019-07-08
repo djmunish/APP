@@ -209,28 +209,23 @@ public class checkingfx2 extends Application {
                 	int axisxystartinty=Constants.mapInConstants.get(axisxystart[0])+1;
                 	int axisxystartintx=Integer.parseInt(axisxystart[1]);
                 	
-                	int axisxyendinty=Constants.mapInConstants.get(axisxyend[0])+1;
+                	int axisxyendinty=Constants.mapInConstants.get(axisxyend[0]);
                 	int axisxyendintx=Integer.parseInt(axisxyend[1]);    
                 	
                 	if(axisxystartintx==axisxyendintx){
-                		
                 		System.out.println("x is equal");
                 		
                 		System.out.println("SHIPSLOTS--:"+checkingfx2.shipnum);
                 		
-                		System.out.println("axisxyendinty :"+ axisxyendinty);
-                		System.out.println("axisxystartinty :"+ axisxystartinty);
-                		
                 		System.out.println("Y ka difference:--"+Math.abs(axisxyendinty-axisxystartinty));
                 		
-                		if(checkingfx2.shipnum == Math.abs(axisxyendinty-axisxystartinty)+1){
+                		if(checkingfx2.shipnum == Math.abs(axisxyendinty-axisxystartinty)){
                 			
                 			System.out.println("Make the flag true");
                 			flag1=true;
                 		}
                 		           		
                 	}
-                	
                 	else if(axisxystartinty==axisxyendinty){
                 		System.out.println("y is equal");
                 		
@@ -240,7 +235,6 @@ public class checkingfx2 extends Application {
                 			flag1=true;
                 			
                 	}
-                	}	
               		
               if(flag1){
             	  
@@ -297,7 +291,7 @@ public class checkingfx2 extends Application {
                 }
             
             }// if human player
-            
+            }
         };
         
         
