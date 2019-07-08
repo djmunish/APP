@@ -4,7 +4,6 @@ import java.awt.Insets;
 
 import java.util.ArrayList;
 
-import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
