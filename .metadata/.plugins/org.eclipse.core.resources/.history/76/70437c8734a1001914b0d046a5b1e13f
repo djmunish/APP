@@ -10,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,15 +25,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
-//import javafx.scene.paint.Color;
 
  
 public class checkingfx2 extends Application {
 	
 	static int shipnum=0;
 	static int startend=0;
-	
-	Player humanPlayer;
 	
     public static void main(String[] args) {
         launch(args);
@@ -60,6 +56,7 @@ public class checkingfx2 extends Application {
         
         ArrayList<String> coordarr=new ArrayList<String>();
        
+        
         //Setting size for the pane  
         //gridPane.setMinSize(400, 200);  
         //Text text1 = new Text("Email");       
@@ -99,20 +96,8 @@ public class checkingfx2 extends Application {
         vbox.setSpacing(10);
 
 
-        Button btnok=new Button("OK");
-        
-        btnok.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        btnok.setDisable(true);
-        
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
-        hbox.getChildren().add(btnok);
         hbox.setSpacing(50);
         //hbox.setPadding(new Insets(200, 10, 10, 20));
 
@@ -158,11 +143,6 @@ public class checkingfx2 extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
             public void handle(ActionEvent e) 
             { 
-            	
-            	
-            	if(humanPlayer.shipsArr.size() < 5){
-            		
-            	
             	System.out.println("inside action performed");
             	
             	
@@ -174,7 +154,9 @@ public class checkingfx2 extends Application {
                 System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                 xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
                 coordarr.add(xycor);
-                              
+                
+                
+                
                 if(coordarr.size()==2){
                 	
                 	System.out.println("Inside sending function");
@@ -184,7 +166,7 @@ public class checkingfx2 extends Application {
                 	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
                 	
                 	ArrayList<String> colorsh=s.coordinates;
-                	System.out.println("color====="+s.hexColor);
+                	System.out.println(s.hexColor);
                 	
                 	for(String c1:colorsh){
                 		
@@ -200,13 +182,14 @@ public class checkingfx2 extends Application {
                 	
                 	System.out.println(s.coordinates);
                 	System.out.println(s.shipColor);
-                	              	
-                	//s.setupShip( ,coordarr.get(1));
-                	      
-                	coordarr.clear();
                 	
-                }//if end
-                
+                	
+                	
+                	//s.setupShip( ,coordarr.get(1));
+                	
+                	
+                	
+                }
                 
                                
                // System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
@@ -214,16 +197,8 @@ public class checkingfx2 extends Application {
                 buttonok.setVisible(true);
                                
             } 
-            	
-            else{
-            	
-            	btnok.setDisable(false);
-            	
-            }
-            }
         };
-        
-        
+  		
 		int nRows,nCols;
 		
 		for(int i=0;i<Constants.row+1;i++){
@@ -333,15 +308,11 @@ public class checkingfx2 extends Application {
             
             
         //Setting the Grid alignment 
-        //gridPane.setAlignment(Pos.TOP_CENTER); 
-        Scene scene = new Scene(hbox, 1000, 800);
-        hbox.setStyle("-fx-background-color: Grey");
-        primaryStage.setScene(scene);
-        primaryStage.setWidth(1000);
-        primaryStage.setHeight(800);
-        //gridPane.setAlignment(Pos.CENTER_RIGHT);
-        gridPane.setTranslateX(160);
-        gridPane.setTranslateY(160);
+        gridPane.setAlignment(Pos.TOP_CENTER); 
+        //stackpane.setAlignment(Pos.BOTTOM_CENTER);
+       
+        primaryStage.setScene(new Scene(hbox, 300, 250));
+        //primaryStage.setScene(new Scene(stackpane, 200, 200));
         primaryStage.show();    
     }        
 }

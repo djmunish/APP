@@ -91,7 +91,7 @@ public class checkingfx extends Application {
         flow.setHgap(5);
         flow.getChildren().addAll(btn1, btn2,imageView);
         flow.setStyle("-fx-background-color: Grey");
-        primaryStage.setScene(new Scene(flow, 1000, 1000));
+        primaryStage.setScene(new Scene(flow, 1000, 800));
         primaryStage.show();
     }
 

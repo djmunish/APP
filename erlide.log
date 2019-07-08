@@ -37,3 +37,4 @@
 21:24:33,896 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
 22:47:33,724 F: (InterpretedModulesView.java:90) : no debug target found for <empty selection>
 22:47:33,904 F: (InterpretedModulesView.java:90) : no debug target found for <empty selection>
+00:00:00,001 I: (ErlideUIPlugin.java:233) : *** Automatically cleaning caches ***

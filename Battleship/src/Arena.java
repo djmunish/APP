@@ -109,8 +109,10 @@ public class Arena extends Application {
             // Creating scene
 
             Scene scene = new Scene(new Group(hbox), 800, 800);
-            scene.setFill(Color.YELLOWGREEN);
+            scene.setFill(Color.GRAY);
             stage.setScene(scene);
+            stage.setWidth(1000);
+            stage.setHeight(800);
 
 
             stage.show();
