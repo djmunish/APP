@@ -110,7 +110,7 @@ public class checkingfx2 extends Application {
 
 
         Button btnok=new Button("I'm Ready!");
-        btnok.setStyle("-fx-background-color: White");
+        btnok.setStyle("-fx-background-color: ");
         btnok.setTranslateX(-120);
         btnok.setTranslateY(550);
         btnok.setPrefSize(150, 50);
