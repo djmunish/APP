@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 public class checkingfx extends Application {
 
     Player humanPlayer;
+    Player computer;
 
     public static void main(String[] args) {
         launch(args);
@@ -53,6 +54,14 @@ public class checkingfx extends Application {
             @Override
             public void handle(ActionEvent event) {
                 humanPlayer =  new Player();
+                computer = new Player();
+                computer.randomship();
+                for(Ships s:computer.shipsArr) {
+                	System.out.println("random ships");
+        			System.out.println(s.coordinates);
+        			System.out.println(s.hexColor);
+        			
+        		}
 //                showInputTextDialog();
 
                 TextInputDialog dialog = new TextInputDialog("Enter your name");
