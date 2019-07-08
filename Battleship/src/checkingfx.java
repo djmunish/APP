@@ -67,6 +67,7 @@ public class checkingfx extends Application {
                     System.out.println(humanPlayer.name);
 
             	checkingfx2 fx2 = new checkingfx2();
+            	fx2.humanPlayer = humanPlayer;
             	fx2.start(primaryStage);
                 });
 
@@ -94,23 +95,6 @@ public class checkingfx extends Application {
         primaryStage.setScene(new Scene(flow, 1000, 800));
         primaryStage.show();
     }
+    
 
-
-    private void showInputTextDialog() {
-
-        TextInputDialog dialog = new TextInputDialog("Enter your name");
-
-        dialog.setHeaderText("Enter your name:");
-        dialog.setContentText("Name:");
-
-        Optional<String> result = dialog.showAndWait();
-
-        result.ifPresent(name -> {
-            humanPlayer.name = name;
-            System.out.println(humanPlayer.name);
-
-//            	checkingfx2 fx2=new checkingfx2();
-//            	fx2.start(primaryStage);
-        });
-    }
 }
