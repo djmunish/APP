@@ -1,10 +1,14 @@
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.Group;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -22,32 +26,39 @@ public class Arena extends Application {
             hbox.setTranslateX(20);
             hbox.setTranslateY(20);
 
-            // create a splitpane
+            //Creating Grid
+
+
+
+            EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e)
+                {
+                    System.out.println("button pressed");
+                }
+            };
+
+            // create split pane 1
+
             SplitPane split_pane1 = new SplitPane();
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(400, 400);
 
-            Label label1 = new Label("1");
-            label1.setPrefHeight(200);
-            Label label2 = new Label("2");
-            label2.setPrefHeight(200);
-            split_pane1.getItems().addAll(label1, label2);
+            split_pane1.getItems().addAll(createGrid(),createGrid());
 
             hbox.getChildren().add(split_pane1);
+
+            // create split pane 2
 
             SplitPane split_pane2 = new SplitPane();
             split_pane2.setPrefSize(400, 400);
             split_pane2.setOrientation(Orientation.VERTICAL);
 
-            Label label3 = new Label("3");
-            label3.setPrefHeight(200);
-            Label label4 = new Label("4");
-            label4.setPrefHeight(200);
-
-            split_pane2.getItems().addAll(label3, label4);
-
+            split_pane2.getItems().addAll(createGrid(), createGrid());
 
             hbox.getChildren().add(split_pane2);
+
+
+            // Creating scene
 
             Scene scene = new Scene(new Group(hbox), 400, 800);
             scene.setFill(Color.GHOSTWHITE);
@@ -66,5 +77,114 @@ public class Arena extends Application {
 
         // launch the application
         launch(args);
+    }
+
+    // Create Grid
+    public GridPane createGrid(){
+        GridPane gridPane = new GridPane();
+
+
+        int nRows,nCols;
+
+        for(int i=0;i<Constants.row;i++){
+            for(int j=0;j<Constants.col+1;j++){
+                if(j==0 && i!=Constants.row-1){
+                    String buttonname="button"+i+j;
+                    Button button  = new Button(Integer.toString(i+1));
+                    //button.setEnabled(false);
+                    button.setDisable(true);
+                    gridPane.add(button, j, i);
+                }
+                else if (i==Constants.row-1 && j!=0){
+
+                    if(j==1){
+
+                        Button	button  = new Button("A");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==2){
+                        Button	button  = new Button("B");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==3){
+                        Button	button  = new Button("C");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==4){
+                        Button	button  = new Button("D");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==5){
+                        Button	button  = new Button("E");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==6){
+                        Button	button  = new Button("F");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==7){
+                        Button	button  = new Button("G");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==8){
+                        Button	button  = new Button("H");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==9){
+                        Button	button  = new Button("I");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                    else if(j==10){
+                        Button	button  = new Button("J");
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+
+                    }
+
+                    else if(j==11){
+                        Button	button  = new Button("K");
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                }
+
+                else{
+
+                    nRows = i;
+                    nCols = j;
+
+                    //ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
+                    Button	button  = new Button();
+
+                    gridPane.add(button, j, i);
+
+//                    button.setOnAction(event);
+
+                }
+
+
+            }//inner for
+        }//outer for
+
+        return gridPane;
     }
 }
