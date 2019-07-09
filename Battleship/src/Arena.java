@@ -196,15 +196,20 @@ public class Arena extends Application {
                         }
 
 
-
-
-
-
-
-
-
-
-
+                    	ButtonType yes = new ButtonType("foo", ButtonBar.ButtonData.YES);
+                    	ButtonType no = new ButtonType("bar", ButtonBar.ButtonData.NO);
+                    	Alert alert = new Alert (Alert.AlertType.WARNING, null , yes, no); 
+                        alert.setTitle("Action");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Do you wish to continue?");
+                        
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.YES) {
+                            //New Game
+                        }
+                        if (result.get() == ButtonType.NO) {
+                            //Quit
+                        }
 
                     }
 
@@ -422,9 +427,6 @@ public class Arena extends Application {
         }else {
         	return false;
         }
-    }
+    }//checkWinner
 
-
-
-
-}
+}//Arena
