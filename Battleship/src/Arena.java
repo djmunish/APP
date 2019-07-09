@@ -158,13 +158,7 @@ public class Arena extends Application {
                   //  flag2 = true;
 
                     if(flag2 || flag3) {
-
-
-
-
-
-
-
+                        
 
                         Alert alert = new Alert(AlertType.CONFIRMATION);
                         alert.setTitle("Select");
