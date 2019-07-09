@@ -1,3 +1,5 @@
+import javafx.scene.control.Button;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
@@ -75,8 +77,14 @@ public class Ships {
 		
 	}//setupship
 	
-	public boolean checkhit(String checkcordinate) {
-		boolean flag = coordinates.contains(checkcordinate);
+	public boolean checkhit(String checkcordinate, Player p) {
+		boolean flag = false);
+		for(Ships p : p.shipsArr){
+			ArrayList<String> got = p.coordinates;
+			for(int i= 0; i< got.size();i++){
+				flag = got.get(i).contains(checkcordinate);
+			}
+		}
 		return flag;
 	}
 	
