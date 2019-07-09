@@ -335,14 +335,7 @@ public class shipSetupController extends Application {
 					}
 					else {
 
-						Alert alert = new Alert(AlertType.INFORMATION);
-
-						alert.setTitle("ALERT");
-						alert.setHeaderText(null);
-						alert.setContentText("Please correct the overlapping ship coordinates!");
-
-						alert.showAndWait();
-						
+						Constants.showAlert("Please correct the overlapping ship coordinates!");
 						shipsprocessed.remove(shipSetupController.shipnumname);
 						coordarr.clear();
 
