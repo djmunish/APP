@@ -84,8 +84,16 @@ public class Ships {
 			ArrayList<String> got = s.coordinates;
 			for(int i= 0; i< got.size();i++){
 				flag = got.get(i).contains(checkcordinate);
+				System.out.print("flag is : " + flag);
+				if(flag) {
+					break;
+				}
+			}
+			if(flag) {
+				break;
 			}
 		}
+		System.out.print("checkhit is : " + flag);
 		return flag;
 	}
 	
@@ -120,18 +128,26 @@ public class Ships {
     public static void colorButton(GridPane G1, GridPane G2, String S, Arena a, Player playerRef){
 
 		String s[] = S.split("");
-		int x = Constants.mapInConstants.get(s[0]);	//c
-		int y = Integer.parseInt(s[1]);	//r
-		Button bActual = (Button) a.getNodeFromGridPane(G1,x+1,y);
-		Button bReference = (Button) a.getNodeFromGridPane(G2,x+1,y);
+		String s1 = S.substring(0, 1);
+		String s2 = S.substring(1);
+		System.out.println("Split new is: " + s1 +" "+ s2);
+		
+		System.out.println("Split is: " + s[0] +" "+ s[1]);
+	//	int x = Constants.mapInConstants.get(s[0]);	//c
+		int x = Constants.mapInConstants.get(s1);	//c
+		//int y = Integer.parseInt(s[1]);	//r
+		int y = Integer.parseInt(s2);	//r
+		System.out.println("Cordinates are: " + (x+1) +" "+ (y-1));
+		Button bActual = (Button) a.getNodeFromGridPane(G1,x+1,y-1);
+		Button bReference = (Button) a.getNodeFromGridPane(G2,x+1,y-1);
 
 		if(checkhit(S,playerRef)){
-			bActual.setStyle( "-fx-background-color: #FF0000;");
-			bReference.setStyle( "-fx-background-color: #FF0000;");
+			bActual.setStyle( "-fx-background-color: Red");
+			bReference.setStyle( "-fx-background-color: Red");
 		}
 		else{
-			bActual.setStyle( "-fx-background-color: #FFFFFF;");
-			bReference.setStyle( "-fx-background-color: #FFFFFF;");
+			bActual.setStyle( "-fx-background-color: Grey;");
+			bReference.setStyle( "-fx-background-color: Grey");
 		}
 	}
 
