@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -344,6 +345,18 @@ public class Arena extends Application {
         }//outer for
 
         return gridPane;
+    }
+
+    public void checkWinner(Player p){
+        if(p.shipsArr.size()==0){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            alert.setTitle("Winner");
+            alert.setHeaderText(null);
+            alert.setContentText(p.name + "won the game!!!");
+
+            alert.showAndWait();
+        }
     }
 
 

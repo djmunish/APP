@@ -86,6 +86,11 @@ public class Ships {
 				flag = got.get(i).contains(checkcordinate);
 				System.out.print("flag is : " + flag);
 				if(flag) {
+					s.coordinates.remove(checkcordinate);
+					if(s.coordinates.size() == 0)
+					{
+						p.shipsArr.remove(s.coordinates);
+					}
 					break;
 				}
 			}

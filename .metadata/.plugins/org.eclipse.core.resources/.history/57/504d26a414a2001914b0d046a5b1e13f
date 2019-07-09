@@ -11,7 +11,7 @@ public class Player {
     
     public ArrayList<Ships> shipsArr;
     ArrayList<String> inputs;
-    
+    public Board playingBrd, referenceBrd;
     ArrayList<String> computerships = createInputs();
     String name;
     
@@ -21,8 +21,8 @@ public class Player {
 		shipsArr = new ArrayList<>();
 		//inputs = new ArrayList<>();
 		inputs = createInputs();
-		
-		
+		playingBrd = new Board();
+		referenceBrd = new Board();
 	}
 	
 	public Ships setupShip(String start, String end) {
