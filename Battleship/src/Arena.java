@@ -1,5 +1,6 @@
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+import java.io.FileNotFoundException;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
@@ -151,16 +154,58 @@ public class Arena extends Application {
                     	alert2.showAndWait();
                     	flag3 = checkWinner(humanPlayer, computer);
                     }
-                    
+
+                  //  flag2 = true;
+
                     if(flag2 || flag3) {
-                    	ButtonType yes = new ButtonType("foo", ButtonBar.ButtonData.YES);
-                    	ButtonType no = new ButtonType("bar", ButtonBar.ButtonData.NO);
-                    	Alert alert = new Alert (Alert.AlertType.WARNING, null , yes, no); 
-                        alert.setTitle("Action");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Do you wish to continue?");
-                        
-                        Optional<ButtonType> result = alert.showAndWait();
+
+
+
+
+
+
+
+
+                        Alert alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setTitle("Select");
+                        alert.setHeaderText("\"Do you wish to continue?\" the sport you like:");
+
+                        ButtonType yes = new ButtonType("Yes");
+                        ButtonType no = new ButtonType("No");
+
+                        // Remove default ButtonTypes
+                        alert.getButtonTypes().clear();
+
+                        alert.getButtonTypes().addAll(yes, no);
+
+                        // option != null.
+                        Optional<ButtonType> option = alert.showAndWait();
+
+                         if (option.get() == yes) {
+                             System.out.println("You like Football");
+                             initiateController fx2 = new initiateController();
+                             try {
+                                 fx2.start(stage);
+                             } catch (FileNotFoundException e) {
+                                 e.printStackTrace();
+                             }
+                        } else if (option.get() == no) {
+                             System.out.println("canceled");
+                             Platform.exit();
+                             System.out.println("You like Badminton");
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
                     }
 
                 }
