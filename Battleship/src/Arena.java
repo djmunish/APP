@@ -161,6 +161,12 @@ public class Arena extends Application {
                         alert.setContentText("Do you wish to continue?");
                         
                         Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.YES) {
+                            //New Game
+                        }
+                        if (result.get() == ButtonType.NO) {
+                            //Quit
+                        }
                     }
 
                 }
@@ -377,9 +383,6 @@ public class Arena extends Application {
         }else {
         	return false;
         }
-    }
+    }//checkWinner
 
-
-
-
-}
+}//Arena
