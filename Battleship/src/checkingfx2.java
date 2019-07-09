@@ -129,7 +129,13 @@ public class checkingfx2 extends Application {
         
         btnok.setDisable(true);
         
-        Label l =new Label("PLEASE SET UP YOUR SHIPS: "+humanPlayer.name);
+        Label l =new Label("PLEASE SET UP YOUR SHIPS "+humanPlayer.name + "!");
+       // l.setStyle("-fx-background-color: Blue");
+       // l.setStyle("-fx-font-size: "+ 2.0 +"em;");
+        //l.setMinWidth(90);
+        //l.setMinHeight(90);
+        l.setTranslateX(-500);
+        l.setTranslateY(100);
         
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
