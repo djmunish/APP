@@ -37,6 +37,7 @@ public class checkingfx2 extends Application {
 	static int startend=0;
 	
 	Player humanPlayer;
+	Player computer;
 	
     public static void main(String[] args) {
         launch(args);
@@ -125,6 +126,7 @@ public class checkingfx2 extends Application {
                 System.out.println("Hello World!");
                 Arena a1=new Arena();
                 a1.humanPlayer = humanPlayer;
+                a1.computer = computer;
             	a1.start(primaryStage);
 
             }

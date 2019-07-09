@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class Arena extends Application {
 
     Player humanPlayer;
+    Player computer;
 
     String selectedAddress;
     public void start(Stage stage) {
@@ -71,10 +72,7 @@ public class Arena extends Application {
             split_pane2.setPrefSize(300, 400);
             split_pane2.setOrientation(Orientation.VERTICAL);
 
-
-
-
-            humanPlayer.createInputs();
+            //humanPlayer.createInputs();
 
             final ComboBox inputComboBox = new ComboBox();
             inputComboBox.setPromptText("Select Location");
@@ -83,8 +81,7 @@ public class Arena extends Application {
             inputComboBox.getItems().addAll(
                     humanPlayer.inputs
             );
-
-
+            
             inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue ov, String t, String t1) {
@@ -104,6 +101,11 @@ public class Arena extends Application {
                     inputComboBox.getItems().remove(selectedAddress);
                     inputComboBox.setPromptText("Select Location");
                     System.out.println("chako == " + selectedAddress);
+                    String s = computer.randomhitcomp();
+                    System.out.println("computerinputs are: "+ computer.inputs);
+                    System.out.println("computerhit is"+ s);
+                    computer.inputs.remove(s);
+                    System.out.println("computerinputs updated are: "+ computer.inputs);
                 }
             });
 
@@ -124,11 +126,7 @@ public class Arena extends Application {
                     Button b = (Button) getNodeFromGridPane(playerGrid,x+1,y);
                     b.setStyle( "-fx-background-color:"+p.hexColor);
                 }
-
-
             }
-
-
 
             split_pane2.getItems().addAll(createGrid(),createGrid(),left);
             hbox.getChildren().add(inputComboBox);

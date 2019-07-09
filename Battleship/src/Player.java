@@ -42,9 +42,14 @@ public class Player {
 		return s;
 	}
 	
-	public String randomhitcomp(Player computer) {
+	/*public String randomhitcomp(Player computer) {
 		int n = ran.nextInt(computer.inputs.size());
 		return computer.inputs.get(n);
+	}*/
+	
+	public String randomhitcomp() {
+		int n = ran.nextInt(inputs.size());
+		return inputs.get(n);
 	}
 	
 	
