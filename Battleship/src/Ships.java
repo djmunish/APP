@@ -78,8 +78,8 @@ public class Ships {
 		
 	}//setupship
 	
-	public boolean checkhit(String checkcordinate, Player p) {
-		boolean flag = false);
+	public static boolean checkhit(String checkcordinate, Player p) {
+		boolean flag = false;
 		for(Ships s : p.shipsArr){
 			ArrayList<String> got = s.coordinates;
 			for(int i= 0; i< got.size();i++){
@@ -117,16 +117,25 @@ public class Ships {
     }
 
 
-    public static void colorButton(GridPane G1, GridPane G2, String S, Arena a){
+    public static void colorButton(GridPane G1, GridPane G2, String S, Arena a, Player playerRef){
 
 		String s[] = S.split("");
 		int x = Constants.mapInConstants.get(s[0]);	//c
 		int y = Integer.parseInt(s[1]);	//r
 		Button bActual = (Button) a.getNodeFromGridPane(G1,x+1,y);
 		Button bReference = (Button) a.getNodeFromGridPane(G2,x+1,y);
-		bActual.setStyle( "-fx-background-color: #FF0000;");
-		bReference.setStyle( "-fx-background-color: #FF0000;");
+
+		if(checkhit(S,playerRef)){
+			bActual.setStyle( "-fx-background-color: #FF0000;");
+			bReference.setStyle( "-fx-background-color: #FF0000;");
+		}
+		else{
+			bActual.setStyle( "-fx-background-color: #FFFFFF;");
+			bReference.setStyle( "-fx-background-color: #FFFFFF;");
+		}
 	}
+
+
 
 
 

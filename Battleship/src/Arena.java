@@ -109,7 +109,7 @@ public class Arena extends Application {
                     inputComboBox.setPromptText("Select Location");
                     System.out.println("chako == " + selectedAddress);
 
-                    Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this);
+                    Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this, );
 
 
                 }
