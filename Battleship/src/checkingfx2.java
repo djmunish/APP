@@ -133,6 +133,7 @@ public class checkingfx2 extends Application {
         
         btnok.setDisable(true);
         
+
         Label l1 =new Label("PLEASE SET UP YOUR SHIPS "+humanPlayer.name + "!");
         Label l2 =new Label("PLEASE SELECT THE SHIP TYPE "+"!");
         
@@ -142,6 +143,11 @@ public class checkingfx2 extends Application {
         //l.setMinHeight(90);
         l1.setTranslateX(-500);
         l1.setTranslateY(100);
+
+        
+        l2.setTranslateX(-300);
+        l2.setTranslateY(100);
+
         
         gridPane.setVisible(false);
                 
