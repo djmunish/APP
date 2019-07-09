@@ -90,6 +90,7 @@ public class Arena extends Application {
                 @Override
                 public void changed(ObservableValue ov, String t, String t1) {
                     selectedAddress = t1;
+                    //System.out.println("Value is: " + inputComboBox.getValue());
                 }
             });
 
@@ -101,10 +102,13 @@ public class Arena extends Application {
 
                 @Override
                 public void handle(ActionEvent event) {
+                	//System.out.println("chako current== " + inputComboBox.getValue());
+                	selectedAddress = (String)inputComboBox.getValue();
+                	System.out.println("chako == " + selectedAddress);
                     humanPlayer.updateDropdown(selectedAddress,humanPlayer.inputs);
+                    System.out.println("humanPlayerinputs updated are: "+ humanPlayer.inputs);
                     inputComboBox.getItems().remove(selectedAddress);
                     inputComboBox.setPromptText("Select Location");
-                    System.out.println("chako == " + selectedAddress);
                     String s = computer.randomhitcomp();
                     System.out.println("computerinputs are: "+ computer.inputs);
                     System.out.println("computerhit is"+ s);
@@ -113,6 +117,7 @@ public class Arena extends Application {
 
 
                     Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this,humanPlayer);
+
 
 
                 }
@@ -139,7 +144,7 @@ public class Arena extends Application {
 
 
             split_pane2.getItems().addAll(createGrid(),createGrid(),left);
-            split_pane2.getItems().addAll(compRefGrid,compGrid,left);
+            //split_pane2.getItems().addAll(compRefGrid,compGrid,left);
 
             hbox.getChildren().add(inputComboBox);
             hbox.getChildren().add(btn);

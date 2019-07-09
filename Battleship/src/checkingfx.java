@@ -29,7 +29,7 @@ public class checkingfx extends Application {
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Window to Choose Players");
-        FileInputStream input= new FileInputStream("/Users/ankursehdev/Desktop/Meng - SE/APP/D1/APP/APP/Battleship/battleship.jpg" );
+        FileInputStream input= new FileInputStream("battleship.jpg" );
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
         imageView.setTranslateX(-220);
