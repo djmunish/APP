@@ -333,13 +333,7 @@ public class Arena extends Application {
 
     public void checkWinner(Player p){
         if(p.shipsArr.size()==0){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-            alert.setTitle("Winner");
-            alert.setHeaderText(null);
-            alert.setContentText(p.name + "won the game!!!");
-
-            alert.showAndWait();
+            Constants.showAlert("p.name + \"won the game!!!\" ship is already set, please select the other ship!");
         }
     }
 

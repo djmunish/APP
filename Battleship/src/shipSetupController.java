@@ -12,8 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -346,15 +344,7 @@ public class shipSetupController extends Application {
               }// flagif
               
               else{
-            	  
-            	  Alert alert = new Alert(AlertType.INFORMATION);
-
-            	  alert.setTitle("ALERT");
-            	  alert.setHeaderText(null);
-            	  alert.setContentText("Please select the correct ship coordinates!");
-
-            	  alert.showAndWait();
-
+              		Constants.showAlert("Please select the correct ship coordinates!");
 
             	  shipsprocessed.remove(shipSetupController.shipnumname);
             	  coordarr.clear();
@@ -368,16 +358,10 @@ public class shipSetupController extends Application {
                 
                  }
                 else{
-                	
-              	  Alert alert = new Alert(AlertType.INFORMATION);
-            	  
-              	  alert.setTitle("ALERT");
-              	  alert.setHeaderText(null);
-              	  alert.setContentText("This ship is already set, please select the other ship!");
 
-              	  alert.showAndWait();
-              	  
-              	  coordarr.clear();
+					 Constants.showAlert("This ship is already set, please select the other ship!");
+
+					 coordarr.clear();
                 }
                 }
             	}                        	

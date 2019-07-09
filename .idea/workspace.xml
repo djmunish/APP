@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a6e7aac-ed78-4bde-a54b-246a9e453570" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Battleship/src/test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Battleship/src/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Battleship/src/initiateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/initiateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Battleship/src/Arena.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Arena.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Battleship/src/shipSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/shipSetupController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -38,23 +35,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="796" />
+          <entry key="java" value="799" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="796" />
+          <entry key="JAVA" value="799" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Battleship/src/Arena.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="329" selection-start-line="329" selection-end-line="329" />
+            <state relative-caret-position="82">
+              <caret line="334" column="33" selection-start-line="334" selection-start-column="33" selection-end-line="334" selection-end-column="33" />
               <folding>
                 <element signature="e#1459#1460#0" expanded="true" />
                 <element signature="e#1535#1536#0" expanded="true" />
@@ -67,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/Battleship/src/test.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="1" column="12" lean-forward="true" selection-start-line="1" selection-end-line="2" />
+              <caret line="1" column="12" selection-start-line="1" selection-end-line="2" />
               <folding>
                 <element signature="e#282#283#0" expanded="true" />
                 <element signature="e#322#323#0" expanded="true" />
@@ -80,16 +77,16 @@
         <entry file="file://$PROJECT_DIR$/Battleship/src/initiateController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="93" column="58" lean-forward="true" selection-start-line="93" selection-start-column="58" selection-end-line="93" selection-end-column="58" />
+              <caret line="93" column="58" selection-start-line="93" selection-start-column="58" selection-end-line="93" selection-end-column="58" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Battleship/src/shipSetupController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="337" column="96" selection-start-line="337" selection-start-column="96" selection-end-line="337" selection-end-column="96" />
+            <state relative-caret-position="97">
+              <caret line="361" column="40" selection-start-line="361" selection-start-column="35" selection-end-line="361" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -156,9 +153,9 @@
       <find>gridPane</find>
       <find>shipsArr</find>
       <find>setupShip</find>
-      <find>Alert</find>
-      <find>alert</find>
       <find>computer</find>
+      <find>alert</find>
+      <find>Alert</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -170,11 +167,11 @@
         <option value="$PROJECT_DIR$/Battleship/src/Player.java" />
         <option value="$PROJECT_DIR$/Battleship/src/checkingfx2.java" />
         <option value="$PROJECT_DIR$/Battleship/src/Ships.java" />
-        <option value="$PROJECT_DIR$/Battleship/src/Arena.java" />
         <option value="$PROJECT_DIR$/Battleship/src/test.java" />
         <option value="$PROJECT_DIR$/Battleship/src/initiateController.java" />
         <option value="$PROJECT_DIR$/Battleship/src/Constants.java" />
         <option value="$PROJECT_DIR$/Battleship/src/shipSetupController.java" />
+        <option value="$PROJECT_DIR$/Battleship/src/Arena.java" />
       </list>
     </option>
   </component>
@@ -284,6 +281,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="25" y="23" width="1280" height="706" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24959612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -366,21 +364,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Battleship/src/Arena.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="329" selection-start-line="329" selection-end-line="329" />
-          <folding>
-            <element signature="e#1459#1460#0" expanded="true" />
-            <element signature="e#1535#1536#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Battleship/src/test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="1" column="12" lean-forward="true" selection-start-line="1" selection-end-line="2" />
+          <caret line="1" column="12" selection-start-line="1" selection-end-line="2" />
           <folding>
             <element signature="e#282#283#0" expanded="true" />
             <element signature="e#322#323#0" expanded="true" />
@@ -412,23 +399,104 @@
     <entry file="file://$PROJECT_DIR$/Battleship/src/initiateController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="93" column="58" lean-forward="true" selection-start-line="93" selection-start-column="58" selection-end-line="93" selection-end-column="58" />
+          <caret line="93" column="58" selection-start-line="93" selection-start-column="58" selection-end-line="93" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Battleship/src/shipSetupController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="337" column="96" selection-start-line="337" selection-start-column="96" selection-end-line="337" selection-end-column="96" />
+        <state relative-caret-position="97">
+          <caret line="361" column="40" selection-start-line="361" selection-start-column="35" selection-end-line="361" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Battleship/src/Arena.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="334" column="33" selection-start-line="334" selection-start-column="33" selection-end-line="334" selection-end-column="33" />
+          <folding>
+            <element signature="e#1459#1460#0" expanded="true" />
+            <element signature="e#1535#1536#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>APP</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
       <state key="ProjectJDKs.UI">
         <settings>
           <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
           <splitter-proportions>
             <option name="proportions">
               <list>
