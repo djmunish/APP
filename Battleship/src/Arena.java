@@ -182,7 +182,6 @@ public class Arena extends Application {
                         Optional<ButtonType> option = alert.showAndWait();
 
                          if (option.get() == yes) {
-                             System.out.println("You like Football");
                              initiateController fx2 = new initiateController();
                              try {
                                  fx2.start(stage);
@@ -192,24 +191,10 @@ public class Arena extends Application {
                         } else if (option.get() == no) {
                              System.out.println("canceled");
                              Platform.exit();
-                             System.out.println("You like Badminton");
                         }
 
 
-                    	ButtonType yes = new ButtonType("foo", ButtonBar.ButtonData.YES);
-                    	ButtonType no = new ButtonType("bar", ButtonBar.ButtonData.NO);
-                    	Alert alert = new Alert (Alert.AlertType.WARNING, null , yes, no); 
-                        alert.setTitle("Action");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Do you wish to continue?");
-                        
-                        Optional<ButtonType> result = alert.showAndWait();
-                        if (result.get() == ButtonType.YES) {
-                            //New Game
-                        }
-                        if (result.get() == ButtonType.NO) {
-                            //Quit
-                        }
+
 
                     }
 
