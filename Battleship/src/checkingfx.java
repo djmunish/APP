@@ -56,6 +56,7 @@ public class checkingfx extends Application {
                 humanPlayer =  new Player();
                 computer = new Player();
                 computer.randomship();
+                //computer.createInputs();
                 for(Ships s:computer.shipsArr) {
                 	System.out.println("random ships");
         			System.out.println(s.coordinates);
@@ -77,6 +78,7 @@ public class checkingfx extends Application {
 
             	checkingfx2 fx2 = new checkingfx2();
             	fx2.humanPlayer = humanPlayer;
+            	fx2.computer = computer;
             	fx2.start(primaryStage);
                 });
 
