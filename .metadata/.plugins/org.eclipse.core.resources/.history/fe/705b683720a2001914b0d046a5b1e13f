@@ -31,7 +31,6 @@ public class shipSetupController extends Application {
 	static String shipnumname=null;
 	static int startend=0;
 	
-	
 	Player humanPlayer;
 	Player computer;
 	
@@ -48,28 +47,6 @@ public class shipSetupController extends Application {
 	    }
 	    return null;
 	}	
-
-	/*
-  public void dovisible(GridPane gridPane){
-		
-	for(int i=0;i<Constants.row+1;i++){
-		for(int j=0;j<Constants.col+1;j++){
-			
-				
-			if(!((j==1||j==2||j==3||j==4||j==5||j==6||j==7||j==8||j==9||j==10||j==11)||(j==0 && i!=Constants.row+1))){
-				
-				int nRows = i;
-	            int nCols = j;
-	            
-				ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,nCols,nRows);
-				b.setVisible(true);
-	           
-			}
-													
-		}//inner for
-	}//outer for
-}
-	*/
 	
     @Override
     public void start(Stage primaryStage) {
@@ -159,21 +136,21 @@ public class shipSetupController extends Application {
        // l.setStyle("-fx-font-size: "+ 2.0 +"em;");
         //l.setMinWidth(90);
         //l.setMinHeight(90);
-        l1.setTranslateX(-560);
+        l1.setTranslateX(-500);
         l1.setTranslateY(100);
 
         
-        l2.setTranslateX(-660);
+        l2.setTranslateX(-300);
         l2.setTranslateY(100);
 
         
-        //gridPane.setVisible(false);
+        gridPane.setVisible(false);
                 
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
         hbox.getChildren().add(btnok);
-        hbox.getChildren().add(l2);
         hbox.getChildren().add(l1);
+        hbox.getChildren().add(l2);
         
         hbox.setSpacing(50);
         //hbox.setPadding(new Insets(200, 10, 10, 20));
@@ -194,34 +171,28 @@ public class shipSetupController extends Application {
                     if(s == "carrier"){
                     	shipSetupController.shipnumname = "5c";
                     	coordarr.clear();
-                    	gridPane.setDisable(false);
-                    	
-                    	//gridPane.setVisible(true);                     	
+                    	gridPane.setVisible(true); 
 
                     }
                     else if(s == "Battleship"){
                     	shipSetupController.shipnumname = "4b";
                     	coordarr.clear();
-                    	gridPane.setDisable(false);
-                    	//gridPane.setVisible(true);
+                    	gridPane.setVisible(true);
                     }
                     else if(s=="Cruiser"){
                     	shipSetupController.shipnumname = "3c";
                     	coordarr.clear();
-                    	gridPane.setDisable(false);
-                    	//gridPane.setVisible(true);
+                    	gridPane.setVisible(true);
                     }
                     else if(s=="Submarine"){
                     	shipSetupController.shipnumname = "3s";
                     	coordarr.clear();
-                    	gridPane.setDisable(false);
-                    	//gridPane.setVisible(true);
+                    	gridPane.setVisible(true);
                     }
                     else if(s=="Destroyer"){
                     	shipSetupController.shipnumname = "2d";
                     	coordarr.clear();
-                    	gridPane.setDisable(false);
-                    	//gridPane.setVisible(true);
+                    	gridPane.setVisible(true);
                     }
                     
                     // change the label
@@ -300,7 +271,8 @@ public class shipSetupController extends Application {
                 		
                 		System.out.println("Y ka difference:--"+Math.abs(axisxyendinty-axisxystartinty));
                 		
-                		                		
+                		
+                		
                 		if(Integer.parseInt(namenum[0]) == Math.abs(axisxyendinty-axisxystartinty)+1){
                 			
                 			System.out.println("Make the flag true");
@@ -316,7 +288,9 @@ public class shipSetupController extends Application {
                 		System.out.println("axisxystartintx :"+ axisxystartintx);
                 		
                 		System.out.println("Y ka difference:--"+Math.abs(axisxyendintx-axisxystartintx));
-                		                		              		
+                		                		
+                		
+                		
                 		if(Integer.parseInt(namenum[0])==Math.abs(axisxyendintx - axisxystartintx)+1){
                 			
                 			System.out.println("Make the flag true");
@@ -420,8 +394,6 @@ public class shipSetupController extends Application {
                   
 		int nRows,nCols;
 		
-		
-		
 		for(int i=0;i<Constants.row+1;i++){
 			for(int j=0;j<Constants.col+1;j++){
 				if(j==0 && i!=Constants.row+1){
@@ -521,13 +493,7 @@ public class shipSetupController extends Application {
 		            ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
 		            buttonsclk.setText("-");
 		            Button	button  = new Button();
-		            
-		        
-		            
-		            //button.setVisible(false);
-		            //button.setDisable(true);
-		            gridPane.setDisable(true);
-		            
+
 		            gridPane.add(buttonsclk, j, i);
 		            buttonsclk.setOnAction(event);
 		            
@@ -541,7 +507,6 @@ public class shipSetupController extends Application {
 				
         gridPane.setVgap(5); 
         gridPane.setHgap(5); 
-       
         gridPane.setGridLinesVisible(true);
             
             
