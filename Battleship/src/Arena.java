@@ -55,7 +55,7 @@ public class Arena extends Application {
 
             SplitPane split_pane1 = new SplitPane();
             split_pane1.setOrientation(Orientation.VERTICAL);
-            split_pane1.setPrefSize(300, 40);
+            split_pane1.setPrefSize(350, 40);
 
             GridPane playerGrid = createGrid();
             GridPane playerRefGrid = createGrid();
@@ -70,7 +70,7 @@ public class Arena extends Application {
             // create split pane 2
 
             SplitPane split_pane2 = new SplitPane();
-            split_pane2.setPrefSize(300, 400);
+            split_pane2.setPrefSize(350, 400);
             split_pane2.setOrientation(Orientation.VERTICAL);
            // split_pane2.getItems().addAll(createGrid(),createGrid(),left);
             split_pane2.getItems().addAll(compRefGrid,compGrid,left);
@@ -190,14 +190,28 @@ public class Arena extends Application {
 
         for(int i=0;i<Constants.row+1;i++){
             for(int j=0;j<Constants.col+1;j++){
-                if(j==0 && i!=Constants.row){
-                    String buttonname="button"+i+j;
-                    Button button  = new Button(Integer.toString(i+1));
-                    //button.setEnabled(false);
-                    button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
-                    button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
-                    button.setDisable(true);
-                    gridPane.add(button, j, i);
+                if(j==0 && i!=Constants.row+1){
+
+                    if(i==Constants.row){
+                        Button	button  = new Button();
+                        //button.setEnabled(false);
+                        button.setDisable(true);
+                        button.setText("-");
+                        button.setStyle("-fx-font-size: 2em; ");
+                        button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
+                        button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
+                        gridPane.add(button, j, i);
+                    }
+                    else{
+                        String buttonname="button"+i+j;
+                        Button button  = new Button(Integer.toString(i+1));
+                        //button.setEnabled(false);
+                        button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
+                        button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+
                 }
                 else if (i==Constants.row && j!=0){
 
@@ -301,7 +315,7 @@ public class Arena extends Application {
                     //ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
                     Button	button  = new Button("-");
                     button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
-                    button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
+                    button.setStyle("-fx-border-color: #000000; -fx-background-color: #808080");
                     button.setDisable(true);
 
                     gridPane.add(button, j, i);
