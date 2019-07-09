@@ -19,12 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
@@ -57,13 +52,13 @@ public class checkingfx2 extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Window to program the play area");
         
-        GridPane gridPane=new GridPane();
+        GridPane gridPane = new GridPane();
         
-        StackPane stackpane=new StackPane();
+        StackPane stackpane = new StackPane();
         
-        ArrayList<String> coordarr=new ArrayList<String>();
+        ArrayList<String> coordarr = new ArrayList<String>();
        
-        ArrayList<String> shipsprocessed=new ArrayList<String>();
+        ArrayList<String> shipsprocessed = new ArrayList<String>();
         
         //Setting size for the pane  
         //gridPane.setMinSize(400, 200);  
@@ -71,7 +66,7 @@ public class checkingfx2 extends Application {
         //creating label password 
         //Text text2 = new Text("Password"); 
         //Setting the padding  
-        // gridPane.setPadding(new Insets(10, 10, 10, 10)); 
+        // gridPane.setPadding(new Insets(10, 10, 10, 10));
         
         
         final ToggleGroup group = new ToggleGroup();
@@ -114,7 +109,7 @@ public class checkingfx2 extends Application {
         vbox.setSpacing(10);
 
 
-        Button btnok=new Button("I'm Ready!");
+        Button btnok = new Button("I'm Ready!");
         btnok.setStyle("-fx-background-color: ");
         btnok.setTranslateX(-120);
         btnok.setTranslateY(550);
@@ -128,16 +123,14 @@ public class checkingfx2 extends Application {
                 a1.humanPlayer = humanPlayer;
                 a1.computer = computer;
             	a1.start(primaryStage);
-
             }
         });
         
         
         btnok.setDisable(true);
-        
 
-        Label l1 =new Label("PLEASE SET UP YOUR SHIPS "+humanPlayer.name + "!");
-        Label l2 =new Label("PLEASE SELECT THE SHIP TYPE "+"!");
+        Label l1 = new Label("PLEASE SET UP YOUR SHIPS " + humanPlayer.name + "!");
+        Label l2 = new Label("PLEASE SELECT THE SHIP TYPE "+"!");
         
        // l.setStyle("-fx-background-color: Blue");
        // l.setStyle("-fx-font-size: "+ 2.0 +"em;");
@@ -175,29 +168,29 @@ public class checkingfx2 extends Application {
                 if (rb != null) {
                     String s = rb.getText();
 
-                    if(s=="carrier"){
-                    	checkingfx2.shipnumname="5c";
+                    if(s == "carrier"){
+                    	checkingfx2.shipnumname = "5c";
                     	coordarr.clear();
                     	gridPane.setVisible(true); 
 
                     }
-                    else if(s=="Battleship"){
-                    	checkingfx2.shipnumname="4b";
+                    else if(s == "Battleship"){
+                    	checkingfx2.shipnumname = "4b";
                     	coordarr.clear();
                     	gridPane.setVisible(true);
                     }
                     else if(s=="Cruiser"){
-                    	checkingfx2.shipnumname="3c";
+                    	checkingfx2.shipnumname = "3c";
                     	coordarr.clear();
                     	gridPane.setVisible(true);
                     }
                     else if(s=="Submarine"){
-                    	checkingfx2.shipnumname="3s";
+                    	checkingfx2.shipnumname = "3s";
                     	coordarr.clear();
                     	gridPane.setVisible(true);
                     }
                     else if(s=="Destroyer"){
-                    	checkingfx2.shipnumname="2d";
+                    	checkingfx2.shipnumname = "2d";
                     	coordarr.clear();
                     	gridPane.setVisible(true);
                     }
@@ -223,7 +216,7 @@ public class checkingfx2 extends Application {
             	System.out.println("inside action performed");           	
             	
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
-                String xycor=null;
+                String xycor = null;
                 
                 //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                     
@@ -234,7 +227,7 @@ public class checkingfx2 extends Application {
                 
                 
                               
-                if(coordarr.size()==2){//2
+                if(coordarr.size() == 2){//2
                 	
                 	if(humanPlayer.shipsArr.size()==4){
                 		btnok.setDisable(false);
@@ -312,31 +305,53 @@ public class checkingfx2 extends Application {
               
                 	Ships s = new Ships(coordarr.get(0),coordarr.get(1));
                 	
-                    humanPlayer.shipsArr.add(s);
-                    
-                	System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
-                	
-                	ArrayList<String> colorsh=s.coordinates;
-                	System.out.println("color====="+s.hexColor);
-                	
-                	for(String c1:colorsh){
-                		
-						String corsh[]=c1.split("");
-						int xcor=Integer.parseInt(corsh[1]);
-						int ycor=Constants.mapInConstants.get(corsh[0])+1;
-						
-						ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
-						b.setStyle( "-fx-background-color:"+s.hexColor);
 
 
-                	}
-                	
-                	
-                	System.out.println(s.coordinates);
-                	System.out.println(s.shipColor);
-                	
-                	coordarr.clear();
-                	              	
+                    if(humanPlayer.checkOverlap(s.coordinates)){
+						humanPlayer.shipsArr.add(s);
+						System.out.println(humanPlayer.shipsArr.size());
+
+						System.out.println("sending x and y :"+coordarr.get(0)+" "+ coordarr.get(1));
+
+						ArrayList<String> colorsh=s.coordinates;
+						System.out.println("color====="+s.hexColor);
+
+
+						for(String c1:colorsh){
+
+							String corsh[]=c1.split("");
+							int xcor=Integer.parseInt(corsh[1]);
+							int ycor=Constants.mapInConstants.get(corsh[0])+1;
+
+							ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
+							b.setStyle( "-fx-background-color:"+s.hexColor);
+							System.out.println(s.coordinates);
+							System.out.println(s.shipColor);
+
+							coordarr.clear();
+
+						}
+					}
+					else {
+
+						Alert alert = new Alert(AlertType.INFORMATION);
+
+						alert.setTitle("Ship Overlappeed!!");
+						alert.setHeaderText(null);
+						alert.setContentText("Please correct the overlapping ship coordinates!");
+
+						alert.showAndWait();
+						coordarr.clear();
+
+					}
+
+
+
+
+
+
+
+
                 	//s.setupShip( ,coordarr.get(1));
                 	
               }// flagif
@@ -344,14 +359,14 @@ public class checkingfx2 extends Application {
               else{
             	  
             	  Alert alert = new Alert(AlertType.INFORMATION);
-            	  
+
             	  alert.setTitle("ALERT");
             	  alert.setHeaderText(null);
             	  alert.setContentText("Please select the correct ship coordinates!");
 
             	  alert.showAndWait();
-            	  
-            
+
+
             	  shipsprocessed.remove(checkingfx2.shipnumname);
             	  coordarr.clear();
               }
@@ -375,11 +390,7 @@ public class checkingfx2 extends Application {
               	  
               	  coordarr.clear();
                 }
-                 
-                
-                               
                 }
-                
             	}
              
             	
@@ -404,7 +415,7 @@ public class checkingfx2 extends Application {
 		for(int i=0;i<Constants.row+1;i++){
 			for(int j=0;j<Constants.col+1;j++){
 				if(j==0 && i!=Constants.row){
-					String buttonname="button"+i+j;
+					String buttonname = "button" + i + j;
 					Button	button  = new Button(Integer.toString(i+1));
 					//button.setEnabled(false);
 					button.setDisable(true);
@@ -487,7 +498,7 @@ public class checkingfx2 extends Application {
 		            nCols = j;
 		           
 		            ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
-		            buttonsclk.setText("");
+		            buttonsclk.setText("-");
 		            Button	button  = new Button();
 
 		            gridPane.add(buttonsclk, j, i);

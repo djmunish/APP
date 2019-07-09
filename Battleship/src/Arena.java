@@ -112,8 +112,7 @@ public class Arena extends Application {
                     System.out.println("computerinputs updated are: "+ computer.inputs);
 
 
-                    Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this, );
-
+                    Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this,humanPlayer);
 
 
                 }
