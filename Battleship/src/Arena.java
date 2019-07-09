@@ -196,14 +196,14 @@ public class Arena extends Application {
                         }
 
 
-                    	ButtonType yes = new ButtonType("foo", ButtonBar.ButtonData.YES);
-                    	ButtonType no = new ButtonType("bar", ButtonBar.ButtonData.NO);
-                    	Alert alert = new Alert (Alert.AlertType.WARNING, null , yes, no); 
-                        alert.setTitle("Action");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Do you wish to continue?");
+                    	ButtonType yess = new ButtonType("foo", ButtonBar.ButtonData.YES);
+                    	ButtonType noo = new ButtonType("bar", ButtonBar.ButtonData.NO);
+                    	Alert ale = new Alert (Alert.AlertType.WARNING, null , yess, noo); 
+                    	ale.setTitle("Action");
+                    	ale.setHeaderText(null);
+                    	ale.setContentText("Do you wish to continue?");
                         
-                        Optional<ButtonType> result = alert.showAndWait();
+                        Optional<ButtonType> result = ale.showAndWait();
                         if (result.get() == ButtonType.YES) {
                             //New Game
                         }
