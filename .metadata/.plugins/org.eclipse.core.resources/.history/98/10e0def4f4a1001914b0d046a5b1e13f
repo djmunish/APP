@@ -216,7 +216,7 @@ public class checkingfx2 extends Application {
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
                 String xycor=null;
                 
-                //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+                buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                     
                 	
                 System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
