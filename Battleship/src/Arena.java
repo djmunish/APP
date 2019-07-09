@@ -61,8 +61,12 @@ public class Arena extends Application {
             split_pane1.setPrefSize(300, 40);
 
             GridPane playerGrid = createGrid();
+            GridPane playerRefGrid = createGrid();
 
-            split_pane1.getItems().addAll(createGrid(), playerGrid, right);
+            GridPane compGrid = createGrid();
+            GridPane compRefGrid = createGrid();
+
+            split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
 
             hbox.getChildren().add(split_pane1);
 
@@ -106,6 +110,12 @@ public class Arena extends Application {
                     System.out.println("computerhit is"+ s);
                     computer.inputs.remove(s);
                     System.out.println("computerinputs updated are: "+ computer.inputs);
+
+
+                    Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this);
+
+
+
                 }
             });
 
@@ -128,7 +138,10 @@ public class Arena extends Application {
                 }
             }
 
+
             split_pane2.getItems().addAll(createGrid(),createGrid(),left);
+            split_pane2.getItems().addAll(compRefGrid,compGrid,left);
+
             hbox.getChildren().add(inputComboBox);
             hbox.getChildren().add(btn);
             hbox.setSpacing(50);
@@ -152,7 +165,7 @@ public class Arena extends Application {
         }
     }
 
-    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
+    public Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
         for (Node node : gridPane.getChildren()) {
             if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
                 return node;

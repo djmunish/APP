@@ -242,7 +242,7 @@ public class checkingfx2 extends Application {
                 	
                 	
                 	boolean flag1=false;
-                	
+
                 	System.out.println("Inside sending function");
                 	
                 	String axisxystart[]=coordarr.get(0).split("");
@@ -327,8 +327,8 @@ public class checkingfx2 extends Application {
 						
 						ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
 						b.setStyle( "-fx-background-color:"+s.hexColor);
-						
-						
+
+
                 	}
                 	
                 	
@@ -487,9 +487,10 @@ public class checkingfx2 extends Application {
 		            nCols = j;
 		           
 		            ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
-		            
+		            buttonsclk.setText("");
+		            Button	button  = new Button();
+
 		            gridPane.add(buttonsclk, j, i);
-		            
 		            buttonsclk.setOnAction(event);
 		            
 		         				
