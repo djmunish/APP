@@ -133,7 +133,7 @@ public class checkingfx2 extends Application {
         
         btnok.setDisable(true);
         
-
+<<<<<<< HEAD
         Label l1 =new Label("PLEASE SET UP YOUR SHIPS "+humanPlayer.name + "!");
         Label l2 =new Label("PLEASE SELECT THE SHIP TYPE "+"!");
         
@@ -143,11 +143,11 @@ public class checkingfx2 extends Application {
         //l.setMinHeight(90);
         l1.setTranslateX(-500);
         l1.setTranslateY(100);
-
-        
-        l2.setTranslateX(-300);
-        l2.setTranslateY(100);
-
+=======
+        Label l =new Label("PLEASE SET UP YOUR SHIPS "+humanPlayer.name + "!");
+        l.setTranslateX(-300);
+        l.setTranslateY(100);
+>>>>>>> 88b73759cbcd027e3370d27dc21d8c2d1d29a610
         
         gridPane.setVisible(false);
                 
@@ -216,7 +216,7 @@ public class checkingfx2 extends Application {
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
                 String xycor=null;
                 
-                //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+                buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                     
                 	
                 System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());

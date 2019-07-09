@@ -33,7 +33,7 @@ import javafx.beans.value.ChangeListener;
  
 public class checkingfx2 extends Application {
 	
-	static String shipnumname=null;
+	static int shipnum=0;
 	static int startend=0;
 	
 	Player humanPlayer;
@@ -62,8 +62,6 @@ public class checkingfx2 extends Application {
         
         ArrayList<String> coordarr=new ArrayList<String>();
        
-        ArrayList<String> shipsprocessed=new ArrayList<String>();
-        
         //Setting size for the pane  
         //gridPane.setMinSize(400, 200);  
         //Text text1 = new Text("Email");       
@@ -133,7 +131,6 @@ public class checkingfx2 extends Application {
         
         btnok.setDisable(true);
         
-
         Label l1 =new Label("PLEASE SET UP YOUR SHIPS "+humanPlayer.name + "!");
         Label l2 =new Label("PLEASE SELECT THE SHIP TYPE "+"!");
         
@@ -143,14 +140,9 @@ public class checkingfx2 extends Application {
         //l.setMinHeight(90);
         l1.setTranslateX(-500);
         l1.setTranslateY(100);
-
-        
-        l2.setTranslateX(-300);
-        l2.setTranslateY(100);
-
         
         gridPane.setVisible(false);
-                
+        
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
         hbox.getChildren().add(btnok);
@@ -174,23 +166,24 @@ public class checkingfx2 extends Application {
                     String s = rb.getText();
 
                     if(s=="carrier"){
-                    	checkingfx2.shipnumname="5c";
-                    	gridPane.setVisible(true);                  	
+                    	checkingfx2.shipnum=5;
+                    	gridPane.setVisible(true);
+                    	
                     }
                     else if(s=="Battleship"){
-                    	checkingfx2.shipnumname="4b";
+                    	checkingfx2.shipnum=4;
                     	gridPane.setVisible(true);
                     }
                     else if(s=="Cruiser"){
-                    	checkingfx2.shipnumname="3c";
+                    	checkingfx2.shipnum=3;
                     	gridPane.setVisible(true);
                     }
                     else if(s=="Submarine"){
-                    	checkingfx2.shipnumname="3s";
+                    	checkingfx2.shipnum=3;
                     	gridPane.setVisible(true);
                     }
                     else if(s=="Destroyer"){
-                    	checkingfx2.shipnumname="2d";
+                    	checkingfx2.shipnum=2;
                     	gridPane.setVisible(true);
                     }
                     
@@ -208,7 +201,7 @@ public class checkingfx2 extends Application {
             public void handle(ActionEvent e) 
             { 
             	         	
-            	if(humanPlayer.shipsArr.size() < 5){//1
+            	if(humanPlayer.shipsArr.size() < 5){
             		          	
                 System.out.println("ship size----"+humanPlayer.shipsArr.size());	            	
             	System.out.println("inside action performed");           	
@@ -216,14 +209,14 @@ public class checkingfx2 extends Application {
                 ButtonClicks buttonok = (ButtonClicks) e.getSource();  
                 String xycor=null;
                 
-                //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+                buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                     
                 	
                 System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                 xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
                 coordarr.add(xycor);
                               
-                if(coordarr.size()==2){//2
+                if(coordarr.size()==2){
                 	
                 	boolean flag1=false;
                 	
@@ -236,40 +229,26 @@ public class checkingfx2 extends Application {
                 	int axisxystartintx=Integer.parseInt(axisxystart[1]);
                 	
                 	int axisxyendinty=Constants.mapInConstants.get(axisxyend[0])+1;
-                	int axisxyendintx=Integer.parseInt(axisxyend[1]);   
+                	int axisxyendintx=Integer.parseInt(axisxyend[1]);    
                 	
-                	
-                	System.out.println(shipsprocessed.contains(checkingfx2.shipnumname));	
-                	
-                 if(!shipsprocessed.contains(checkingfx2.shipnumname)){//3
-             
-                	 
-                	  System.out.println("inside shiparray doesnt contain");
-                	  
-                	  shipsprocessed.add(checkingfx2.shipnumname);
-                	  
-                	  String namenum[]=checkingfx2.shipnumname.split("");
-                               	
                 	if(axisxystartintx==axisxyendintx){
                 		
                 		System.out.println("x is equal");
                 		
-                		System.out.println("SHIPSLOTS--:"+checkingfx2.shipnumname);
+                		System.out.println("SHIPSLOTS--:"+checkingfx2.shipnum);
                 		
                 		System.out.println("axisxyendinty :"+ axisxyendinty);
                 		System.out.println("axisxystartinty :"+ axisxystartinty);
                 		
                 		System.out.println("Y ka difference:--"+Math.abs(axisxyendinty-axisxystartinty));
                 		
-                		
-                		
-                		if(Integer.parseInt(namenum[0]) == Math.abs(axisxyendinty-axisxystartinty)+1){
+                		if(checkingfx2.shipnum == Math.abs(axisxyendinty-axisxystartinty)+1){
                 			
                 			System.out.println("Make the flag true");
                 			flag1=true;
                 		}
                 		           		
-                	}// if x end
+                	}
                 	
                 	else if(axisxystartinty==axisxyendinty){
                 		System.out.println("y is equal");
@@ -281,13 +260,13 @@ public class checkingfx2 extends Application {
                 		                		
                 		
                 		
-                		if(Integer.parseInt(namenum[0])==Math.abs(axisxyendintx - axisxystartintx)+1){
+                		if(checkingfx2.shipnum ==Math.abs(axisxyendintx - axisxystartintx)+1){
                 			
                 			System.out.println("Make the flag true");
                 			flag1=true;
                 			
                 	}
-                	}	//else if y end
+                	}	
               		
               if(flag1){
             	  
@@ -311,7 +290,6 @@ public class checkingfx2 extends Application {
 						ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
 						b.setStyle( "-fx-background-color:"+s.hexColor);
 						
-						
                 	}
                 	
                 	
@@ -330,40 +308,25 @@ public class checkingfx2 extends Application {
             	  
             	  alert.setTitle("ALERT");
             	  alert.setHeaderText(null);
-            	  alert.setContentText("Please select the correct ship coordinates!");
+            	  alert.setContentText("Please select the correct ship!");
 
             	  alert.showAndWait();
             	  
-            
-            	  shipsprocessed.remove(checkingfx2.shipnumname);
             	  coordarr.clear();
               }
               
-                                              
+                	
+                	
+                }//if end
+                
+                
+                               
                // System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
                
                 buttonok.setVisible(true);
-                
-                
-                 }
-                else{
-                	
-              	  Alert alert = new Alert(AlertType.INFORMATION);
-            	  
-              	  alert.setTitle("ALERT");
-              	  alert.setHeaderText(null);
-              	  alert.setContentText("This ship is already set, please select the other ship!");
-
-              	  alert.showAndWait();
-              	  
-              	  coordarr.clear();
-                }
-                 
-                
                                
-                }
-                
-            	}
+            } 
+            	
                 
             else{
             	
@@ -374,11 +337,11 @@ public class checkingfx2 extends Application {
             	
                 }
             
-          
-            }    
+            }// if human player
+            
         };
         
-            
+        
 		int nRows,nCols;
 		
 		for(int i=0;i<Constants.row+1;i++){
