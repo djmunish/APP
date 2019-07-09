@@ -168,7 +168,7 @@ public class Arena extends Application {
 
                         Alert alert = new Alert(AlertType.CONFIRMATION);
                         alert.setTitle("Select");
-                        alert.setHeaderText("\"Do you wish to continue?\" the sport you like:");
+                        alert.setHeaderText("Do you wish to continue?");
 
                         ButtonType yes = new ButtonType("Yes");
                         ButtonType no = new ButtonType("No");
@@ -189,12 +189,8 @@ public class Arena extends Application {
                                  e.printStackTrace();
                              }
                         } else if (option.get() == no) {
-                             System.out.println("canceled");
                              Platform.exit();
                         }
-
-
-
 
                     }
 
