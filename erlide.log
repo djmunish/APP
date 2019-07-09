@@ -3886,3 +3886,37 @@
 21:06:52,288 F: (OtpNodeProxy.java:302) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca starting
 21:06:52,288 F: (OtpNodeProxy.java:420) : START node :> ["c:\program files\erl10.4/bin/erl", -name, 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca, -setcookie, erlide] *** C:\Users\14382\Documents\GitHub\APP
 21:06:52,300 F: (OtpNodeProxy.java:213) : 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca: waiting connection to peer... 
+21:07:37,632 F: (OtpNodeProxy.java:220) : connected!
+21:07:37,742 F: (OtpNodeProxy.java:307) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca running
+21:07:37,883 F: (LogEventHandler.java:27) : info: {"Monitoring java node",'jerlide_ed76be9@DESKTOP-EURO21A.wireless.concordia.ca'}
+21:07:38,396 F: (OtpNodeProxy.java:302) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca starting
+21:07:38,396 F: (OtpNodeProxy.java:420) : START node :> ["c:\program files\erl10.4/bin/erl", -name, 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca, -setcookie, erlide] *** C:\Users\14382\Documents\GitHub\APP
+21:07:38,396 F: (OtpNodeProxy.java:213) : 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca: waiting connection to peer... 
+21:07:38,396 F: (OtpNodeProxy.java:220) : connected!
+21:07:38,505 F: (OtpNodeProxy.java:307) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca running
+21:07:38,645 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
+21:07:38,645 F: (LogEventHandler.java:27) : info: {"Monitoring java node",'jerlide_ed76be9@DESKTOP-EURO21A.wireless.concordia.ca'}
+21:07:39,256 W: (OtpNodeProxy.java:281) : Runtime 7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca crashed, exit code: 1.
+21:07:39,360 I: (ConsoleMessageReporter.java:14) : 4::: Backend '7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca' is down
+
+Please report the problem and restart Eclipse.
+If this happened at startup, it is likely that your network is misconfigured or uses 'strange' host names.
+
+Please check the pageWindow->preferences->erlang->network for hints about that.
+
+Also, check if you can create and connect two erlang nodes on your machine using "erl -name foo1" and "erl -name foo2".
+
+If this happened after a while, the Erlang runtime might have run out of memory.
+
+If an error report named '14382_<timestamp>.txt' has been created in your home directory, please consider reporting the problem. 
+http://github.com/erlide/erlide/issues
+------
+21:07:39,360 S: (ErlRuntimeReporter.java:69) : Backend '7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca' crashed with exit code 1.
+21:07:39,454 I: (ConsoleMessageReporter.java:14) : 4::: Backend '7c870_14382_d76bc0_erlide@DESKTOP-EURO21A.wireless.concordia.ca' crashed with exit code 1.
+
+This error is not recoverable, please restart your Eclipse instance.
+
+
+An error log has been created at C:\Users\14382/14382_20190708_210739.txt. Please report the problem so that we can fix it.
+https://github.com/erlide/erlide/issues
+------

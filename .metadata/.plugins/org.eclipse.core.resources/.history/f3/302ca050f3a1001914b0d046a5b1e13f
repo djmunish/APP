@@ -369,10 +369,10 @@ public class checkingfx2 extends Application {
                 }
             
           
-            }    
+            
         };
         
-            
+        
 		int nRows,nCols;
 		
 		for(int i=0;i<Constants.row+1;i++){

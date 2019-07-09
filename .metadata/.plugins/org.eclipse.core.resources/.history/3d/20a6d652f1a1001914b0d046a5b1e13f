@@ -202,7 +202,7 @@ public class checkingfx2 extends Application {
             public void handle(ActionEvent e) 
             { 
             	         	
-            	if(humanPlayer.shipsArr.size() < 5){//1
+            	if(humanPlayer.shipsArr.size() < 5){
             		          	
                 System.out.println("ship size----"+humanPlayer.shipsArr.size());	            	
             	System.out.println("inside action performed");           	
@@ -217,7 +217,7 @@ public class checkingfx2 extends Application {
                 xycor=Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))+Integer.toString(buttonok.getCoordX());
                 coordarr.add(xycor);
                               
-                if(coordarr.size()==2){//2
+                if(coordarr.size()==2){
                 	
                 	boolean flag1=false;
                 	
@@ -232,10 +232,7 @@ public class checkingfx2 extends Application {
                 	int axisxyendinty=Constants.mapInConstants.get(axisxyend[0])+1;
                 	int axisxyendintx=Integer.parseInt(axisxyend[1]);   
                 	
-                	
-                	System.out.println(shipsprocessed.contains(checkingfx2.shipnumname));	
-                	
-                 if(!shipsprocessed.contains(checkingfx2.shipnumname)){//3
+                 if(!shipsprocessed.contains(checkingfx2.shipnumname)){
              
                 	 
                 	  System.out.println("inside shiparray doesnt contain");
@@ -305,7 +302,6 @@ public class checkingfx2 extends Application {
 						ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,ycor,xcor);
 						b.setStyle( "-fx-background-color:"+s.hexColor);
 						
-						
                 	}
                 	
                 	
@@ -324,22 +320,27 @@ public class checkingfx2 extends Application {
             	  
             	  alert.setTitle("ALERT");
             	  alert.setHeaderText(null);
-            	  alert.setContentText("Please select the correct ship coordinates!");
+            	  alert.setContentText("Please select the correct ship!");
 
             	  alert.showAndWait();
             	  
-            
+            	  
             	  shipsprocessed.remove(checkingfx2.shipnumname);
             	  coordarr.clear();
               }
               
-                                              
+                	
+                	
+                }//if end
+                
+                
+                               
                // System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
                
                 buttonok.setVisible(true);
                 
+                }
                 
-                 }
                 else{
                 	
               	  Alert alert = new Alert(AlertType.INFORMATION);
@@ -352,12 +353,9 @@ public class checkingfx2 extends Application {
               	  
               	  coordarr.clear();
                 }
-                 
-                
                                
-                }
-                
-            	}
+            } 
+            	
                 
             else{
             	
@@ -368,11 +366,11 @@ public class checkingfx2 extends Application {
             	
                 }
             
-          
-            }    
+            }// if human player
+            
         };
         
-            
+        
 		int nRows,nCols;
 		
 		for(int i=0;i<Constants.row+1;i++){

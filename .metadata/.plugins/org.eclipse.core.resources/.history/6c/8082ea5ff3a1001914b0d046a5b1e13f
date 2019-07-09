@@ -369,9 +369,8 @@ public class checkingfx2 extends Application {
                 }
             
           
-            }    
-        };
-        
+            
+        }
             
 		int nRows,nCols;
 		
