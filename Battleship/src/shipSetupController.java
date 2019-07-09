@@ -12,8 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -361,14 +359,7 @@ public class shipSetupController extends Application {
 					}
 					else {
 
-						Alert alert = new Alert(AlertType.INFORMATION);
-
-						alert.setTitle("ALERT");
-						alert.setHeaderText(null);
-						alert.setContentText("Please correct the overlapping ship coordinates!");
-
-						alert.showAndWait();
-						
+						Constants.showAlert("Please correct the overlapping ship coordinates!");
 						shipsprocessed.remove(shipSetupController.shipnumname);
 						coordarr.clear();
 
@@ -379,15 +370,7 @@ public class shipSetupController extends Application {
               }// flagif
               
               else{
-            	  
-            	  Alert alert = new Alert(AlertType.INFORMATION);
-
-            	  alert.setTitle("ALERT");
-            	  alert.setHeaderText(null);
-            	  alert.setContentText("Please select the correct ship coordinates!");
-
-            	  alert.showAndWait();
-
+              		Constants.showAlert("Please select the correct ship coordinates!");
 
             	  shipsprocessed.remove(shipSetupController.shipnumname);
             	  coordarr.clear();
@@ -401,16 +384,10 @@ public class shipSetupController extends Application {
                 
                  }
                 else{
-                	
-              	  Alert alert = new Alert(AlertType.INFORMATION);
-            	  
-              	  alert.setTitle("ALERT");
-              	  alert.setHeaderText(null);
-              	  alert.setContentText("This ship is already set, please select the other ship!");
 
-              	  alert.showAndWait();
-              	  
-              	  coordarr.clear();
+					 Constants.showAlert("This ship is already set, please select the other ship!");
+
+					 coordarr.clear();
                 }
                 }
             	}                        	
@@ -426,14 +403,14 @@ public class shipSetupController extends Application {
 			for(int j=0;j<Constants.col+1;j++){
 				if(j==0 && i!=Constants.row+1){
 					
-					if(i==Constants.row){
-						Button	button  = new Button();
+					if(i==Constants.row) {
+						Button button = new Button();
 						//button.setEnabled(false);
 						button.setDisable(true);
 						button.setText("-");
-						gridPane.add(button, j, i);	
+						button.setStyle("-fx-font-size: 2em; ");
+						gridPane.add(button, j, i);
 					}
-					
 					else{
 						Button	button  = new Button(Integer.toString(i+1));
 						//button.setEnabled(false);

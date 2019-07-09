@@ -86,6 +86,11 @@ public class Ships {
 				flag = got.get(i).contains(checkcordinate);
 				System.out.print("flag is : " + flag);
 				if(flag) {
+					s.coordinates.remove(checkcordinate);
+					if(s.coordinates.size() == 0)
+					{
+						p.shipsArr.remove(s);
+					}
 					break;
 				}
 			}
@@ -125,14 +130,14 @@ public class Ships {
     }
 
 
-    public static void colorButton(GridPane G1, GridPane G2, String S, Arena a, Player playerRef){
+    public static boolean colorButton(GridPane G1, GridPane G2, String S, Arena a, Player playerRef){
 
-		String s[] = S.split("");
+		//String s[] = S.split("");
 		String s1 = S.substring(0, 1);
 		String s2 = S.substring(1);
-		System.out.println("Split new is: " + s1 +" "+ s2);
+		//System.out.println("Split new is: " + s1 +" "+ s2);
 		
-		System.out.println("Split is: " + s[0] +" "+ s[1]);
+		//System.out.println("Split is: " + s[0] +" "+ s[1]);
 	//	int x = Constants.mapInConstants.get(s[0]);	//c
 		int x = Constants.mapInConstants.get(s1);	//c
 		//int y = Integer.parseInt(s[1]);	//r
@@ -144,10 +149,12 @@ public class Ships {
 		if(checkhit(S,playerRef)){
 			bActual.setStyle( "-fx-background-color: Red");
 			bReference.setStyle( "-fx-background-color: Red");
+			return true;
 		}
 		else{
 			bActual.setStyle( "-fx-background-color: Grey;");
 			bReference.setStyle( "-fx-background-color: Grey");
+			return false;
 		}
 	}
 

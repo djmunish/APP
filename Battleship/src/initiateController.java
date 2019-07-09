@@ -55,6 +55,7 @@ public class initiateController extends Application {
             public void handle(ActionEvent event) {
                 humanPlayer =  new Player();
                 computer = new Player();
+                computer.name = "COMPUTER";
                 computer.randomship();
                 //computer.createInputs();
                 for(Ships s:computer.shipsArr) {
@@ -73,13 +74,17 @@ public class initiateController extends Application {
                 Optional<String> result = dialog.showAndWait();
 
                 result.ifPresent(name -> {
+
+                    if(name.length()>0 && !name.equals("Enter your name")){
                     humanPlayer.name = name;
-                    System.out.println(humanPlayer.name);
 
                 shipSetupController fx2 = new shipSetupController();
             	fx2.humanPlayer = humanPlayer;
             	fx2.computer = computer;
-            	fx2.start(primaryStage);
+            	fx2.start(primaryStage);}
+            	else {
+            	    Constants.showAlert("Please enter player name.");
+                    }
                 });
 
             }
