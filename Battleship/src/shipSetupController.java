@@ -392,14 +392,14 @@ public class shipSetupController extends Application {
 			for(int j=0;j<Constants.col+1;j++){
 				if(j==0 && i!=Constants.row+1){
 					
-					if(i==Constants.row){
-						Button	button  = new Button();
+					if(i==Constants.row) {
+						Button button = new Button();
 						//button.setEnabled(false);
 						button.setDisable(true);
 						button.setText("-");
-						gridPane.add(button, j, i);	
+						button.setStyle("-fx-font-size: 2em; ");
+						gridPane.add(button, j, i);
 					}
-					
 					else{
 						Button	button  = new Button(Integer.toString(i+1));
 						//button.setEnabled(false);
