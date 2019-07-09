@@ -107,8 +107,23 @@ public class Player {
 		String f = flagf.concat(" "+start+" "+end);
 		return f;
 	}
-	
-	public String randomship() {
+
+
+
+	public boolean checkOverlap(ArrayList<String> newShip) {
+	for(Ships s:shipsArr){
+		for(String i:s.coordinates){
+			for(String g:newShip){
+				if(i.equals(g)){
+					return false;
+				}
+			}
+		}
+	}
+		return true;
+	}
+
+		public String randomship() {
 		int[] len = {2,3,3,4,5};
 		int length = 0;
 		for(int i = 0; i<len.length; i++) {
