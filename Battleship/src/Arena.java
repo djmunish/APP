@@ -75,7 +75,8 @@ public class Arena extends Application {
             SplitPane split_pane2 = new SplitPane();
             split_pane2.setPrefSize(300, 400);
             split_pane2.setOrientation(Orientation.VERTICAL);
-
+           // split_pane2.getItems().addAll(createGrid(),createGrid(),left);
+            split_pane2.getItems().addAll(compRefGrid,compGrid,left);
             //humanPlayer.createInputs();
 
             final ComboBox inputComboBox = new ComboBox();
@@ -89,7 +90,7 @@ public class Arena extends Application {
             inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue ov, String t, String t1) {
-                    selectedAddress = t1;
+                    //selectedAddress = t1;
                     //System.out.println("Value is: " + inputComboBox.getValue());
                 }
             });
@@ -109,14 +110,16 @@ public class Arena extends Application {
                     System.out.println("humanPlayerinputs updated are: "+ humanPlayer.inputs);
                     inputComboBox.getItems().remove(selectedAddress);
                     inputComboBox.setPromptText("Select Location");
+                    Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
                     String s = computer.randomhitcomp();
                     System.out.println("computerinputs are: "+ computer.inputs);
-                    System.out.println("computerhit is"+ s);
+                    System.out.println("computerhit is == "+ s);
                     computer.inputs.remove(s);
                     System.out.println("computerinputs updated are: "+ computer.inputs);
+                    Ships.colorButton(playerGrid, compRefGrid, s , Arena.this, humanPlayer);
 
 
-                   // Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this );
+                  // Ships.colorButton(compGrid,playerRefGrid,selectedAddress, Arena.this );
 
 
 
@@ -143,7 +146,7 @@ public class Arena extends Application {
             }
 
 
-            split_pane2.getItems().addAll(createGrid(),createGrid(),left);
+            //split_pane2.getItems().addAll(createGrid(),createGrid(),left);
             //split_pane2.getItems().addAll(compRefGrid,compGrid,left);
 
             hbox.getChildren().add(inputComboBox);
