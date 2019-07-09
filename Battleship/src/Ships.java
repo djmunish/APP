@@ -1,4 +1,5 @@
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -114,5 +115,22 @@ public class Ships {
         System.out.println(colorCode);
         hexColor = colorCode;
     }
+
+
+    public static void colorButton(GridPane G1, GridPane G2, String S, Arena a){
+
+		String s[] = S.split("");
+		int x = Constants.mapInConstants.get(s[0]);	//c
+		int y = Integer.parseInt(s[1]);	//r
+		Button bActual = (Button) a.getNodeFromGridPane(G1,x+1,y);
+		Button bReference = (Button) a.getNodeFromGridPane(G2,x+1,y);
+		bActual.setStyle( "-fx-background-color: #FF0000;");
+		bReference.setStyle( "-fx-background-color: #FF0000;");
+	}
+
+
+
+
+
 
 }
