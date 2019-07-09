@@ -80,8 +80,8 @@ public class Ships {
 	
 	public boolean checkhit(String checkcordinate, Player p) {
 		boolean flag = false);
-		for(Ships p : p.shipsArr){
-			ArrayList<String> got = p.coordinates;
+		for(Ships s : p.shipsArr){
+			ArrayList<String> got = s.coordinates;
 			for(int i= 0; i< got.size();i++){
 				flag = got.get(i).contains(checkcordinate);
 			}
