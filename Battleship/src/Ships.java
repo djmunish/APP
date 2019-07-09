@@ -89,7 +89,7 @@ public class Ships {
 					s.coordinates.remove(checkcordinate);
 					if(s.coordinates.size() == 0)
 					{
-						p.shipsArr.remove(s.coordinates);
+						p.shipsArr.remove(s);
 					}
 					break;
 				}

@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
@@ -23,6 +24,7 @@ import javafx.scene.paint.Color;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Arena extends Application {
 
@@ -107,7 +109,7 @@ public class Arena extends Application {
 
                 @Override
                 public void handle(ActionEvent event) {
-                	
+                	boolean flag3 = false;
                 	//System.out.println("chako current== " + inputComboBox.getValue());
                 	selectedAddress = (String)inputComboBox.getValue();
                 	System.out.println("chako == " + selectedAddress);
@@ -124,26 +126,42 @@ public class Arena extends Application {
                     }else {
                     	alert1.setContentText("Bohoo!! You missed it!!");}
                     alert1.showAndWait();
+                    
+                    boolean flag2 = checkWinner(computer,humanPlayer);
                    /* try {
 						TimeUnit.SECONDS.sleep(1);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} */
-                    String s = computer.randomhitcomp();
-                    System.out.println("computerinputs are: "+ computer.inputs);
-                    System.out.println("computerhit is == "+ s);
-                    computer.inputs.remove(s);
-                    System.out.println("computerinputs updated are: " + computer.inputs);
-                    boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s , Arena.this, humanPlayer);
-                    Alert alert2 = new Alert(AlertType.INFORMATION);
-                    alert2.setTitle("Information");
-                    alert2.setHeaderText(null);
-                    if(flag1) {
-                    	alert2.setContentText("It was a hit by Computer at " + s);
-                    }else {
-                    	alert2.setContentText("Wohoo!! Computer missed the shot and hit you at " + s);}
-                    alert2.showAndWait();
+                    if(!flag2) {
+                    	String s = computer.randomhitcomp();
+                    	System.out.println("computerinputs are: "+ computer.inputs);
+                    	System.out.println("computerhit is == "+ s);
+                    	computer.inputs.remove(s);
+                    	System.out.println("computerinputs updated are: " + computer.inputs);
+                    	boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s , Arena.this, humanPlayer);
+                    	Alert alert2 = new Alert(AlertType.INFORMATION);
+                    	alert2.setTitle("Information");
+                    	alert2.setHeaderText(null);
+                    	if(flag1) {
+                    		alert2.setContentText("It was a hit by Computer at " + s);
+                    	}else {
+                    		alert2.setContentText("Wohoo!! Computer missed the shot and hit you at " + s);}
+                    	alert2.showAndWait();
+                    	flag3 = checkWinner(humanPlayer, computer);
+                    }
+                    
+                    if(flag2 || flag3) {
+                    	ButtonType yes = new ButtonType("foo", ButtonBar.ButtonData.YES);
+                    	ButtonType no = new ButtonType("bar", ButtonBar.ButtonData.NO);
+                    	Alert alert = new Alert (Alert.AlertType.WARNING, null , yes, no); 
+                        alert.setTitle("Action");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Do you wish to continue?");
+                        
+                        Optional<ButtonType> result = alert.showAndWait();
+                    }
 
                 }
             });
@@ -347,15 +365,17 @@ public class Arena extends Application {
         return gridPane;
     }
 
-    public void checkWinner(Player p){
-        if(p.shipsArr.size()==0){
+    public boolean checkWinner(Player p1, Player p2){
+    	System.out.print("Ships array size is " + p1.shipsArr.size());
+        if(p1.shipsArr.size()==0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
             alert.setTitle("Winner");
             alert.setHeaderText(null);
-            alert.setContentText(p.name + "won the game!!!");
-
+            alert.setContentText(p2.name + " won the game!!!");
             alert.showAndWait();
+            return true;
+        }else {
+        	return false;
         }
     }
 
