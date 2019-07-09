@@ -403,7 +403,6 @@ public class shipSetupController extends Application {
 						Button	button  = new Button();
 						//button.setEnabled(false);
 						button.setDisable(true);
-						button.setText("-");
 						gridPane.add(button, j, i);	
 					}
 					
