@@ -3920,3 +3920,4 @@ This error is not recoverable, please restart your Eclipse instance.
 An error log has been created at C:\Users\14382/14382_20190708_210739.txt. Please report the problem so that we can fix it.
 https://github.com/erlide/erlide/issues
 ------
+00:00:00,032 I: (ErlideUIPlugin.java:233) : *** Automatically cleaning caches ***
