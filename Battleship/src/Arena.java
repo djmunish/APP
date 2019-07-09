@@ -7,16 +7,19 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
 
@@ -103,6 +106,7 @@ public class Arena extends Application {
 
                 @Override
                 public void handle(ActionEvent event) {
+                	
                 	//System.out.println("chako current== " + inputComboBox.getValue());
                 	selectedAddress = (String)inputComboBox.getValue();
                 	System.out.println("chako == " + selectedAddress);
@@ -110,13 +114,35 @@ public class Arena extends Application {
                     System.out.println("humanPlayerinputs updated are: "+ humanPlayer.inputs);
                     inputComboBox.getItems().remove(selectedAddress);
                     inputComboBox.setPromptText("Select Location");
-                    Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                    boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                    Alert alert1 = new Alert(AlertType.INFORMATION);
+                    alert1.setTitle("Information");
+                    alert1.setHeaderText(null);
+                    if(flag) {
+                    	alert1.setContentText("Wohoo!! Its a hit!!");
+                    }else {
+                    	alert1.setContentText("Bohoo!! You missed it!!");}
+                    alert1.showAndWait();
+                   /* try {
+						TimeUnit.SECONDS.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} */
                     String s = computer.randomhitcomp();
                     System.out.println("computerinputs are: "+ computer.inputs);
                     System.out.println("computerhit is == "+ s);
                     computer.inputs.remove(s);
-                    System.out.println("computerinputs updated are: "+ computer.inputs);
-                    Ships.colorButton(playerGrid, compRefGrid, s , Arena.this, humanPlayer);
+                    System.out.println("computerinputs updated are: " + computer.inputs);
+                    boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s , Arena.this, humanPlayer);
+                    Alert alert2 = new Alert(AlertType.INFORMATION);
+                    alert2.setTitle("Information");
+                    alert2.setHeaderText(null);
+                    if(flag1) {
+                    	alert2.setContentText("It was a hit by Computer at " + s);
+                    }else {
+                    	alert2.setContentText("Wohoo!! Computer missed the shot and hit you at " + s);}
+                    alert2.showAndWait();
 
                 }
             });
