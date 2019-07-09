@@ -55,6 +55,7 @@ public class initiateController extends Application {
             public void handle(ActionEvent event) {
                 humanPlayer =  new Player();
                 computer = new Player();
+                computer.name = "COMPUTER";
                 computer.randomship();
                 //computer.createInputs();
                 for(Ships s:computer.shipsArr) {
