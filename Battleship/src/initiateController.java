@@ -86,7 +86,6 @@ public class initiateController extends Application {
                         Constants.showAlert("Please enter player name.");
                     }
                 });
-
             }
         });
 
@@ -95,7 +94,7 @@ public class initiateController extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-
+                Constants.showAlert("In Progress for build 2!");
             }
         });
 

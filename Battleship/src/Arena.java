@@ -121,15 +121,15 @@ public class Arena extends Application {
                     inputComboBox.getItems().remove(selectedAddress);
                     inputComboBox.setPromptText("Select Location");
                     boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
-                    Alert alert1 = new Alert(AlertType.INFORMATION);
-                    alert1.setTitle("Information");
-                    alert1.setHeaderText(null);
-                    if (flag) {
-                        alert1.setContentText("Wohoo!! Its a hit!!");
-                    } else {
-                        alert1.setContentText("Bohoo!! You missed it!!");
+
+
+
+                    String message = "Wohoo!! Its a hit!!";
+                    if (!flag) {
+                        message = "Bohoo!! You missed it!!";
                     }
-                    alert1.showAndWait();
+                    Constants.showAlert(message);
+
 
                     boolean flag2 = checkWinner(computer, humanPlayer);
                    /* try {
@@ -144,16 +144,18 @@ public class Arena extends Application {
                         System.out.println("computerhit is == " + s);
                         computer.inputs.remove(s);
                         System.out.println("computerinputs updated are: " + computer.inputs);
+
                         boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
-                        Alert alert2 = new Alert(AlertType.INFORMATION);
-                        alert2.setTitle("Information");
-                        alert2.setHeaderText(null);
+
+
+                        String messageComp;
                         if (flag1) {
-                            alert2.setContentText("It was a hit by Computer at " + s);
+                            messageComp = "It was a hit by Computer at " + s;
                         } else {
-                            alert2.setContentText("Wohoo!! Computer missed the shot and hit you at " + s);
+                            messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
                         }
-                        alert2.showAndWait();
+                        Constants.showAlert(messageComp);
+
                         flag3 = checkWinner(humanPlayer, computer);
                     }
 
@@ -380,11 +382,7 @@ public class Arena extends Application {
     public boolean checkWinner(Player p1, Player p2) {
         System.out.print("Ships array size is " + p1.shipsArr.size());
         if (p1.shipsArr.size() == 0) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Winner");
-            alert.setHeaderText(null);
-            alert.setContentText(p2.name + " won the game!!!");
-            alert.showAndWait();
+            Constants.showAlert(p2.name + " won the game!!!");
             return true;
         } else {
             return false;
