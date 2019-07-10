@@ -256,7 +256,7 @@ public class shipSetupController extends Application {
 
 
                     System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-                    xycor = Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY())) + Integer.toString(buttonok.getCoordX());
+                    xycor = Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY())) + Integer.toString(buttonok.getCoordX() + 1);
                     coordarr.add(xycor);
 
 
@@ -271,14 +271,25 @@ public class shipSetupController extends Application {
 
                         System.out.println("Inside sending function");
 
-                        String axisxystart[] = coordarr.get(0).split("");
-                        String axisxyend[] = coordarr.get(1).split("");
+//                        String axisxystart[] = coordarr.get(0).split("");
+//                        String axisxyend[] = coordarr.get(1).split("");
+                        
+                        String axisxystart0 = coordarr.get(0).substring(0,1);
+                        String axisxyend0 = coordarr.get(1).substring(0,1);
+                        
+                        System.out.println("colll corrrrr====== "+ axisxystart0 + "    === "+ axisxyend0); 
+                        
+                        String axisxystart1 = coordarr.get(0).substring(1);
+                        String axisxyend1 = coordarr.get(1).substring(1);
+                        
+                        System.out.println("row   corrrrr====== "+ axisxystart1 + "    === "+ axisxyend1);
+                        
 
-                        int axisxystartinty = Constants.mapInConstants.get(axisxystart[0]) + 1;
-                        int axisxystartintx = Integer.parseInt(axisxystart[1]);
+                        int axisxystartinty = Constants.mapInConstants.get(axisxystart0) + 1;
+                        int axisxystartintx = Integer.parseInt(axisxystart1);
 
-                        int axisxyendinty = Constants.mapInConstants.get(axisxyend[0]) + 1;
-                        int axisxyendintx = Integer.parseInt(axisxyend[1]);
+                        int axisxyendinty = Constants.mapInConstants.get(axisxyend0) + 1;
+                        int axisxyendintx = Integer.parseInt(axisxyend1);
 
 
                         System.out.println(shipsprocessed.contains(shipSetupController.shipnumname));
@@ -349,11 +360,14 @@ public class shipSetupController extends Application {
 
                                     for (String c1 : colorsh) {
 
-                                        String corsh[] = c1.split("");
-                                        int xcor = Integer.parseInt(corsh[1]);
-                                        int ycor = Constants.mapInConstants.get(corsh[0]) + 1;
+                                        String corsh0 = c1.substring(0,1);
+                                        String corsh1 = c1.substring(1);
 
-                                        ButtonClicks b = (ButtonClicks) getNodeFromGridPane(gridPane, ycor, xcor);
+                                        
+                                        int xcor = Integer.parseInt(corsh1);
+                                        int ycor = Constants.mapInConstants.get(corsh0) + 1;
+
+                                        ButtonClicks b = (ButtonClicks) getNodeFromGridPane(gridPane, ycor,xcor - 1);
                                         b.setStyle("-fx-background-color:" + s.hexColor);
                                         System.out.println(s.coordinates);
                                         System.out.println(s.shipColor);

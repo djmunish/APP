@@ -205,10 +205,31 @@ public class Arena extends Application {
 
                 for (int i = 0; i < got.size(); i++) {
 
-                    String s[] = got.get(i).split("");
-                    int x = Constants.mapInConstants.get(s[0]);    //c
-                    int y = Integer.parseInt(s[1]);    //r
-                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1, y);
+//                    String s[] = got.get(i).split("");
+                	String s0 = got.get(i).substring(0,1);
+                	String s1 = got.get(i).substring(1);
+                	
+                    int x = Constants.mapInConstants.get(s0);    //c
+                    int y = Integer.parseInt(s1) - 1;    //r
+                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1 , y);
+                    b.setStyle("-fx-background-color:" + p.hexColor);
+                }
+            }
+            
+            for (Ships p : computer.shipsArr) {
+
+                ArrayList<String> got = p.coordinates;
+
+                for (int i = 0; i < got.size(); i++) {
+
+//                    String s[] = got.get(i).split("");
+                    
+                    String s0 = got.get(i).substring(0,1);
+                	String s1 = got.get(i).substring(1);
+                	
+                    int x = Constants.mapInConstants.get(s0);    //c
+                    int y = Integer.parseInt(s1);    //r
+                    Button b = (Button) getNodeFromGridPane(compGrid, x + 1, y - 1);
                     b.setStyle("-fx-background-color:" + p.hexColor);
                 }
             }
