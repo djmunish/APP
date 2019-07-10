@@ -1,5 +1,6 @@
 import javafx.scene.control.Alert;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class Constants {
@@ -68,5 +69,6 @@ public final class Constants {
         alert.showAndWait();
     }
 
+    public static ArrayList<String> shipColors = new ArrayList<>();
 
 }
