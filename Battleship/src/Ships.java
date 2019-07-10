@@ -31,46 +31,52 @@ public class Ships {
     public void setupShip(String start, String end) {
         coordinates = new ArrayList<>();
 
-        String[] xy1 = start.split("");
-        String[] xy2 = end.split("");
+       // String[] xy1 = start.split("");
+        String xy10 = start.substring(0, 1);
+        String xy11 = start.substring(1);
+       // String[] xy2 = end.split("");
+        String xy20 = end.substring(0, 1);
+        String xy21 = end.substring(1);
+        
+        
 
-        int var = xy1[0].compareTo(xy2[0]);
+        int var = xy10.compareTo(xy20);
         //System.out.println("var is" + var);
 
         char[] arr = Constants.alphabets.toCharArray();
         if (var == 0) {
             //if(xy1[0].equals(xy2[0])) {
 
-            if (Integer.parseInt(xy1[1]) < Integer.parseInt(xy2[1])) {
-                for (int i = Integer.parseInt(xy1[1]); i <= Integer.parseInt(xy2[1]); i++) {
-                    coordinates.add(xy1[0] + i);
+            if (Integer.parseInt(xy11) < Integer.parseInt(xy21)) {
+                for (int i = Integer.parseInt(xy11); i <= Integer.parseInt(xy21); i++) {
+                    coordinates.add(xy10 + i);
                 }//for
             } else {
                 //System.out.println("added are :");
-                for (int i = Integer.parseInt(xy1[1]); i >= Integer.parseInt(xy2[1]); i--) {
+                for (int i = Integer.parseInt(xy11); i >= Integer.parseInt(xy21); i--) {
                     //System.out.println("i =" + i);
-                    String s = xy1[0] + i;
+                    String s = xy10 + i;
                     //System.out.println(s + " ");
                     coordinates.add(s);
                 }//for
             }
         }//if equals
         else if (var < 0) {
-            int loci = findloc(xy1[0].charAt(0));
-            int locf = findloc(xy2[0].charAt(0));
+            int loci = findloc(xy10.charAt(0));
+            int locf = findloc(xy20.charAt(0));
             //System.out.println("added are :");
             for (int i = loci; i <= locf; i++) {
-                String s = Character.toString(arr[i]) + xy1[1];
+                String s = Character.toString(arr[i]) + xy11;
                 //System.out.println(s + " ");
                 coordinates.add(s);
             }//for
         } else if (var > 0) {
 
-            int loci = findloc(xy1[0].charAt(0));
-            int locf = findloc(xy2[0].charAt(0));
+            int loci = findloc(xy10.charAt(0));
+            int locf = findloc(xy20.charAt(0));
             //System.out.println("added are :");
             for (int i = loci; i >= locf; i--) {
-                String s = Character.toString(arr[i]) + xy1[1];
+                String s = Character.toString(arr[i]) + xy11;
                 //System.out.println(s + " ");
                 coordinates.add(s);
             }//for
@@ -98,6 +104,25 @@ public class Ships {
             }
         }
         System.out.print("checkhit is : " + flag);
+        return flag;
+    }
+    public static boolean checkifship(String checkcordinate, Player p) {
+        boolean flag = false;
+        for (Ships s : p.shipsArr) {
+            ArrayList<String> got = s.coordinates;
+            System.out.println("Ship arraylist is : " + got);
+            for (int i = 0; i < got.size(); i++) {
+                flag = got.get(i).contains(checkcordinate);
+                //System.out.print("flag is : " + flag);
+                if (flag) {
+                    break;
+                }
+            }//for
+            if (flag) {
+                break;
+            }
+        }
+        System.out.println("checkifship is : " + flag + " for " + checkcordinate);
         return flag;
     }
 

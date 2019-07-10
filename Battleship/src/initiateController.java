@@ -57,14 +57,12 @@ public class initiateController extends Application {
                 computer = new Player();
                 computer.name = "COMPUTER";
                 computer.randomship();
-                //computer.createInputs();
                 for (Ships s : computer.shipsArr) {
                     System.out.println("random ships");
                     System.out.println(s.coordinates);
                     System.out.println(s.hexColor);
 
                 }
-//                showInputTextDialog();
 
                 TextInputDialog dialog = new TextInputDialog("Enter your name");
 

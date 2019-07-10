@@ -139,10 +139,12 @@ public class Arena extends Application {
 						e.printStackTrace();
 					} */
                     if (!flag2) {
-                        String s = computer.randomhitcomp();
+                       // String s = computer.randomhitcomp();
+                    	String s = computer.randomhitcompai(humanPlayer);
+                    
                         System.out.println("computerinputs are: " + computer.inputs);
                         System.out.println("computerhit is == " + s);
-                        computer.inputs.remove(s);
+                        //computer.inputs.remove(s);
                         System.out.println("computerinputs updated are: " + computer.inputs);
                         boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                         Alert alert2 = new Alert(AlertType.INFORMATION);
