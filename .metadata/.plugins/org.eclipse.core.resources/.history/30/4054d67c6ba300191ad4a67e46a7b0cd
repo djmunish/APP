@@ -11,13 +11,6 @@ public final class Constants {
 
     public static final int row = 10;
     public static final int col = 11;
-    
-    public static final String CARRIER = "Carrier(5)";
-    public static final String BATTLESHIP = "Battleship(4)";
-    public static final String CRUISER = "Cruiser(3)";
-    public static final String SUBMARINE = "Submarine(3)";
-    public static final String DESTROYER = "Destroyer(2)";
-    
     public static final String alphabets = "ABCDEFGHIJK";
 
     public static HashMap<String, Integer> mapInConstants;
@@ -68,11 +61,14 @@ public final class Constants {
         alert.showAndWait();
     }
 
-
+<<<<<<< HEAD
     
     public static final ArrayList<String> shipColors = new ArrayList<>();
     
     
-
+    
+=======
+    public static ArrayList<String> shipColors = new ArrayList<>();
+>>>>>>> fbc40d6de11e45f6c43771fb63f7ff9eb57d81a4
 
 }
