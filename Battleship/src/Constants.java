@@ -1,5 +1,6 @@
 import javafx.scene.control.Alert;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class Constants {
@@ -10,14 +11,6 @@ public final class Constants {
 
     public static final int row = 10;
     public static final int col = 11;
-
-
-    public static final String CARRIER = "Carrier(5)";
-    public static final String BATTLESHIP = "Battleship(4)";
-    public static final String CRUISER = "Cruiser(3)";
-    public static final String SUBMARINE = "Submarine(3)";
-    public static final String DESTROYER = "Destroyer(2)";
-
     public static final String alphabets = "ABCDEFGHIJK";
 
     public static HashMap<String, Integer> mapInConstants;
@@ -68,5 +61,10 @@ public final class Constants {
         alert.showAndWait();
     }
 
+    
+    public static final ArrayList<String> shipColors = new ArrayList<>();
+    
+    
+    
 
 }

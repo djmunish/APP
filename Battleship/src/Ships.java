@@ -149,7 +149,9 @@ public class Ships {
         String colorCode = String.format("#%06x", nextInt);
 
         // print it
-                
+             
+        
+        
         
         if(!Constants.shipColors.contains(colorCode) || colorCode.equals("#ff0000")|| colorCode.equals("#d3d3d3")){
             Constants.shipColors.add(colorCode);

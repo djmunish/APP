@@ -1,0 +1,16 @@
+package abc;
+
+public class okchekc {
+
+	public static void main(String args[]) {
+		// TODO Auto-generated method stub
+		String arr[]=new String[1];
+		arr[0]=" ";
+		String[] a=arr[0].split(" ");
+		for(int i=0;i<1;i++){
+			System.out.println("space:-"+a[i]);
+		}
+		
+		
+	}
+}
