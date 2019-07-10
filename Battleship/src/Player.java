@@ -151,13 +151,17 @@ public class Player {
     	System.out.println("Randomcomphit is" + s);
         boolean flag = Ships.checkifship(s, human);
         if(flag) {
-        	String[] farr = checkneighbors(s, human).split(" ");
+        	String f = checkneighbors(s, human).trim();
+        	String[] farr = f.split(" ");
         	System.out.print("Neighbors with ships are: ");
         	for(int j=0; j<farr.length; j++) {
         		System.out.print(farr[j] + " ");
-        		inputsfirst.add(farr[j]);
-        		inputs.remove(farr[j]);
-        	}
+        		if(farr[j].equals("")) {
+        			System.out.print("");
+        		}else {
+        		inputsfirst.add(farr[j].trim());
+        		inputs.remove(farr[j]);}
+        	}//for
         	System.out.println("Inputsfirst is in: " + inputsfirst);
         	System.out.println("Inputs is in: " + inputs);
         	return s;
