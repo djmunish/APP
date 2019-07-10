@@ -44,7 +44,7 @@ public class Arena extends Application {
             stage.setTitle("LET'S PLAY");
 
             HBox hbox = new HBox(70);
-            hbox.setTranslateX(20);
+            hbox.setTranslateX(200);
             hbox.setTranslateY(20);
 
             Label right = new Label(humanPlayer.name);
@@ -235,9 +235,6 @@ public class Arena extends Application {
             }
 
 
-            //split_pane2.getItems().addAll(createGrid(),createGrid(),left);
-            //split_pane2.getItems().addAll(compRefGrid,compGrid,left);
-
             hbox.getChildren().add(inputComboBox);
             hbox.getChildren().add(btn);
             hbox.setSpacing(50);
@@ -249,12 +246,12 @@ public class Arena extends Application {
             Scene scene = new Scene(new Group(hbox), 1000, 800);
             scene.setFill(Color.GRAY);
             stage.setScene(scene);
-            stage.setWidth(1000);
+            stage.setWidth(2000);
             stage.setHeight(800);
 
 
             stage.show();
-            stage.setMaximized(true);
+//            stage.setMaximized(true);
 
         } catch (Exception e) {
 
