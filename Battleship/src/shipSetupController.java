@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Insets;
 
 
@@ -18,6 +17,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
@@ -92,30 +93,36 @@ public class shipSetupController extends Application {
 
         final ToggleGroup group = new ToggleGroup();
 
-        RadioButton rb1 = new RadioButton("carrier");
+        RadioButton rb1 = new RadioButton(Constants.CARRIER);
+
         rb1.setToggleGroup(group);
+        rb1.setPrefSize(150, 50);
         rb1.setTranslateX(60);
         rb1.setTranslateY(190);
         //rb1.setSelected(true);
 
-        RadioButton rb2 = new RadioButton("Battleship");
+        RadioButton rb2 = new RadioButton(Constants.BATTLESHIP);
         rb2.setToggleGroup(group);
+        rb2.setPrefSize(150, 50);
         rb2.setTranslateX(60);
         rb2.setTranslateY(200);
 
-        RadioButton rb3 = new RadioButton("Cruiser");
+        RadioButton rb3 = new RadioButton(Constants.CRUISER);
         rb3.setToggleGroup(group);
+        rb3.setPrefSize(150, 50);
         rb3.setTranslateX(60);
         rb3.setTranslateY(210);
 
-        RadioButton rb4 = new RadioButton("Submarine");
+        RadioButton rb4 = new RadioButton(Constants.SUBMARINE);
         rb4.setToggleGroup(group);
+        rb4.setPrefSize(150, 50);
         rb4.setTranslateX(60);
         rb4.setTranslateY(220);
 
-        RadioButton rb5 = new RadioButton("Destroyer");
+        RadioButton rb5 = new RadioButton(Constants.DESTROYER);
         rb5.setToggleGroup(group);
         rb5.setTranslateX(60);
+        rb5.setPrefSize(150, 50);
         rb5.setTranslateY(230);
 
         HBox hbox = new HBox();
@@ -132,8 +139,8 @@ public class shipSetupController extends Application {
 
         Button btnok = new Button("I'm Ready!");
         btnok.setStyle("-fx-background-color: ");
-        btnok.setTranslateX(-120);
-        btnok.setTranslateY(550);
+        btnok.setTranslateX(300);
+        btnok.setTranslateY(650);
         btnok.setPrefSize(150, 50);
 
         btnok.setOnAction(new EventHandler<ActionEvent>() {
@@ -150,23 +157,29 @@ public class shipSetupController extends Application {
 
         btnok.setDisable(true);
 
-        Label l1 = new Label("PLEASE SET UP YOUR SHIPS " + humanPlayer.name + "!");
+        Label l1 = new Label("WELCOME " + humanPlayer.name + " ! SET UP YOUR SHIPS !");
+        l1.setTextFill(Color.FLORALWHITE);
+        l1.setFont(new Font("Arial", 20));
         Label l2 = new Label("PLEASE SELECT THE SHIP TYPE " + "!");
+        l2.setTextFill(Color.FLORALWHITE);
+        l2.setFont(new Font("Arial", 20));
 
         // l.setStyle("-fx-background-color: Blue");
         // l.setStyle("-fx-font-size: "+ 2.0 +"em;");
         //l.setMinWidth(90);
         //l.setMinHeight(90);
-        l1.setTranslateX(-560);
-        l1.setTranslateY(100);
+        l1.setTranslateX(-330);
+        l1.setTranslateY(50);
+        l1.setWrapText(true);
 
 
-        l2.setTranslateX(-660);
-        l2.setTranslateY(100);
+        l2.setTranslateX(-700);
+        l2.setTranslateY(50);
+        l2.setWrapText(true);
 
 
         //gridPane.setVisible(false);
-
+//        hbox.setSpacing(50);
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
         hbox.getChildren().add(btnok);
@@ -189,29 +202,29 @@ public class shipSetupController extends Application {
                 if (rb != null) {
                     String s = rb.getText();
 
-                    if (s == "carrier") {
+                    if (s == Constants.CARRIER) {
                         shipSetupController.shipnumname = "5c";
                         coordarr.clear();
                         gridPane.setDisable(false);
 
                         //gridPane.setVisible(true);
 
-                    } else if (s == "Battleship") {
+                    } else if (s == Constants.BATTLESHIP) {
                         shipSetupController.shipnumname = "4b";
                         coordarr.clear();
                         gridPane.setDisable(false);
                         //gridPane.setVisible(true);
-                    } else if (s == "Cruiser") {
+                    } else if (s == Constants.CRUISER) {
                         shipSetupController.shipnumname = "3c";
                         coordarr.clear();
                         gridPane.setDisable(false);
                         //gridPane.setVisible(true);
-                    } else if (s == "Submarine") {
+                    } else if (s == Constants.SUBMARINE) {
                         shipSetupController.shipnumname = "3s";
                         coordarr.clear();
                         gridPane.setDisable(false);
                         //gridPane.setVisible(true);
-                    } else if (s == "Destroyer") {
+                    } else if (s == Constants.DESTROYER) {
                         shipSetupController.shipnumname = "2d";
                         coordarr.clear();
                         gridPane.setDisable(false);
@@ -502,9 +515,10 @@ public class shipSetupController extends Application {
         primaryStage.setWidth(1000);
         primaryStage.setHeight(800);
         //gridPane.setAlignment(Pos.CENTER_RIGHT);
-        gridPane.setTranslateX(190);
-        gridPane.setTranslateY(160);
+        gridPane.setTranslateX(600);
+        gridPane.setTranslateY(200);
         primaryStage.show();
+        primaryStage.setMaximized(true);
 
     }
 }
