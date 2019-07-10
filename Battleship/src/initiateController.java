@@ -32,10 +32,10 @@ public class initiateController extends Application {
         FileInputStream input = new FileInputStream("battleship.jpg");
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(-220);
+        imageView.setTranslateX(-150);
         imageView.setTranslateY(10);
-        imageView.setFitHeight(450);
-        imageView.setFitWidth(450);
+        imageView.setFitHeight(540);
+        imageView.setFitWidth(720);
         imageView.setPreserveRatio(true);
         Button btn1 = new Button();
         Button btn2 = new Button();
@@ -43,9 +43,9 @@ public class initiateController extends Application {
         btn2.setText("Play with Another Player");
         btn1.setStyle("-fx-background-color: Skyblue");
         btn2.setStyle("-fx-background-color: Skyblue");
-        btn1.setTranslateX(400);
+        btn1.setTranslateX(600);
         btn1.setTranslateY(350);
-        btn2.setTranslateX(145);
+        btn2.setTranslateX(344);
         btn2.setTranslateY(450);
         btn1.setPrefSize(250, 70);
         btn2.setPrefSize(250, 70);
@@ -84,7 +84,6 @@ public class initiateController extends Application {
                         Constants.showAlert("Please enter player name.");
                     }
                 });
-
             }
         });
 
@@ -93,7 +92,7 @@ public class initiateController extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-
+                Constants.showAlert("In Progress for build 2!");
             }
         });
 
@@ -107,7 +106,9 @@ public class initiateController extends Application {
         flow.getChildren().addAll(btn1, btn2, imageView);
         flow.setStyle("-fx-background-color: Grey");
         primaryStage.setScene(new Scene(flow, 1000, 800));
+        primaryStage.setMaximized(true);
         primaryStage.show();
+
     }
 
 
