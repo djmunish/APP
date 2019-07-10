@@ -142,7 +142,7 @@ public class shipSetupController extends Application {
         btnok.setTranslateX(300);
         btnok.setTranslateY(650);
         btnok.setPrefSize(150, 50);
-
+  
         btnok.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

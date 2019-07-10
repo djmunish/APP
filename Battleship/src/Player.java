@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Iterator;
 
 public class Player {
 
@@ -12,6 +13,7 @@ public class Player {
 
     public ArrayList<Ships> shipsArr;
     ArrayList<String> inputs;
+    ArrayList<String> inputsfirst;
 
     ArrayList<String> computerships = createInputs();
     String name;
@@ -22,6 +24,7 @@ public class Player {
         shipsArr = new ArrayList<>();
         //inputs = new ArrayList<>();
         inputs = createInputs();
+        inputsfirst = new ArrayList<>();
 
 
     }
@@ -36,12 +39,7 @@ public class Player {
     }
 
 
-    public String randomblock() {
-        int n = ran.nextInt(10) + 1;
-        Character alpha = Constants.alphabets.charAt(ran.nextInt(Constants.alphabets.length()));
-        String s = Character.toString(alpha) + n;
-        return s;
-    }
+ 
 	
 	/*public String randomhitcomp(Player computer) {
 		int n = ran.nextInt(computer.inputs.size());
@@ -51,6 +49,125 @@ public class Player {
     public String randomhitcomp() {
         int n = ran.nextInt(inputs.size());
         return inputs.get(n);
+    }
+    
+    public String checkneighbors(String s, Player human) {
+    	ArrayList<String> neighbor = new ArrayList<String>();
+    	String f = "";
+    	String s1 = s.substring(0, 1);
+    	String s2 = s.substring(1);
+    	//string left
+    	int index1 = Constants.mapInConstants.get(s1);
+    	int index2 = Integer.parseInt(s2);
+    	if(index1== 0 && index2 ==1) { //TOPLEFT
+    		neighbor.add("D");
+    		neighbor.add("R");
+    	}else if(index1== 10 && index2 ==1) { //TOPRIGHT
+    		neighbor.add("D");
+    		neighbor.add("L");
+    	}else if(index1 == 1 && index2 ==10) { //BOTTOMLEFT
+    		neighbor.add("U");
+    		neighbor.add("R");
+    	}else if(index1 == 10 && index2 == 10) { //BOTTOMRIGHT
+    		neighbor.add("U");
+    		neighbor.add("L");
+    	}else if(index1 == 0 ) { //leftcol
+    		neighbor.add("U");
+    		neighbor.add("D");
+    		neighbor.add("R");
+    	}else if(index1 == 10) { //rightcol
+    		neighbor.add("U");
+    		neighbor.add("D");
+    		neighbor.add("L");
+    	}else if(index2 == 1) { //toprow
+    		neighbor.add("R");
+    		neighbor.add("D");
+    		neighbor.add("L");
+    	}else if(index2 == 10) { //bottomrow
+    		neighbor.add("U");
+    		neighbor.add("R");
+    		neighbor.add("L");
+    	}else {
+    		neighbor.add("U");
+    		neighbor.add("R");
+    		neighbor.add("L");
+    		neighbor.add("D");
+    	}
+    	Iterator i = neighbor.iterator(); 
+    	System.out.println("Neighbors with ships are:");
+    	while(i.hasNext()) {
+    		String s3 = (String)i.next();
+    		if(s3.equals("U")) {
+    			int in = index2-1;
+    			String t = s1 + Integer.toString(in);
+    			System.out.println(t);
+    			boolean flag = Ships.checkifship(t, human);
+    			if(flag && inputs.contains(t)) {
+    				f = f.concat(t + " ");
+    			}
+    			
+    		}else if(s3.equals("D")){
+    			int in = index2+1;
+    			String t = s1 + Integer.toString(in);
+    			System.out.print(t);
+    			boolean flag = Ships.checkifship(t, human);
+    			if(flag && inputs.contains(t)) {
+    				f = f.concat(t + " ");
+    			}	
+    		}else if(s3.equals("L")) {
+    			Character st = Constants.alphabets.charAt(index1-1);
+    			String t = Character.toString(st) + index2;
+    			System.out.print(t);
+    			boolean flag = Ships.checkifship(t, human);
+    			if(flag && inputs.contains(t)) {
+    				f = f.concat(t + " ");
+    			}	
+    		}else if(s3.equals("R")) {
+    			Character st = Constants.alphabets.charAt(index1+1);
+    			String t = Character.toString(st) + index2;
+    			System.out.print(t);
+    			boolean flag = Ships.checkifship(t, human);
+    			if(flag && inputs.contains(t)) {
+    				f = f.concat(t + " ");
+    			}
+    		}//R
+    	}//while
+    	return f;
+    }
+    
+    public String randomhitcompai(Player human) {
+    	System.out.println("Inputsfirst is: " + inputsfirst);
+    	System.out.println("Inputs is: " + inputs);
+    	String s = "";
+    	if(inputsfirst.size() == 0) {
+    		int n = ran.nextInt(inputs.size()); 
+    		s = inputs.get(n);
+    		inputs.remove(s);
+        }else {
+        	int n = ran.nextInt(inputsfirst.size()); 
+    		s = inputsfirst.get(n);
+    		inputsfirst.remove(s);
+        }
+    	System.out.println("Randomcomphit is" + s);
+        boolean flag = Ships.checkifship(s, human);
+        if(flag) {
+        	String[] farr = checkneighbors(s, human).split(" ");
+        	System.out.print("Neighbors with ships are: ");
+        	for(int j=0; j<farr.length; j++) {
+        		System.out.print(farr[j] + " ");
+        		inputsfirst.add(farr[j]);
+        		inputs.remove(farr[j]);
+        	}
+        	System.out.println("Inputsfirst is in: " + inputsfirst);
+        	System.out.println("Inputs is in: " + inputs);
+        	return s;
+        }else {
+        	System.out.println("Inputsfirst is: " + inputsfirst);
+        	System.out.println("Inputs is: " + inputs);
+        	return s;
+        }
+        
+        
     }
 
 
@@ -122,15 +239,25 @@ public class Player {
         }
         return true;
     }
+    
+    public String randomblock() {
+        int n = ran.nextInt(10) ;
+        System.out.println("n is :" + n);
+        Character alpha = Constants.alphabets.charAt(ran.nextInt(Constants.alphabets.length()));
+        String s = Character.toString(alpha) + n;
+        return s;
+    }
 
     public String randomship() {
         int[] len = {2, 3, 3, 4, 5};
         int length = 0;
         for (int i = 0; i < len.length; i++) {
             length = len[i];
+            System.out.println("length is :" + length);
             boolean flag = true;
             while (flag) {
                 String s = randomblock();
+                System.out.println("random block is :" + s);
                 String[] arr = randomshipblocks(s, length).split(" ");
                 if (arr[0].equals("T")) {
                     Ships shipcomp = setupShip(arr[1], arr[2]);
