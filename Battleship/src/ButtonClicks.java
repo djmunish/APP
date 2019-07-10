@@ -8,7 +8,7 @@ public class ButtonClicks extends Button {
     int coordY;
 
     public ButtonClicks(int coordX, int coordY) {
-       // super(buttonText);
+        // super(buttonText);
         this.coordX = coordX;
         this.coordY = coordY;
     }

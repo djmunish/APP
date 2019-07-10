@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;  
+import javafx.scene.image.ImageView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,7 +16,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
- 
+
 public class initiateController extends Application {
 
     Player humanPlayer;
@@ -25,11 +25,11 @@ public class initiateController extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Window to Choose Players");
-        FileInputStream input= new FileInputStream("battleship.jpg" );
+        FileInputStream input = new FileInputStream("battleship.jpg");
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
         imageView.setTranslateX(-220);
@@ -50,20 +50,20 @@ public class initiateController extends Application {
         btn1.setPrefSize(250, 70);
         btn2.setPrefSize(250, 70);
         btn1.setOnAction(new EventHandler<ActionEvent>() {
- 
+
             @Override
             public void handle(ActionEvent event) {
-                humanPlayer =  new Player();
+                humanPlayer = new Player();
                 computer = new Player();
                 computer.name = "COMPUTER";
                 computer.randomship();
                 //computer.createInputs();
-                for(Ships s:computer.shipsArr) {
-                	System.out.println("random ships");
-        			System.out.println(s.coordinates);
-        			System.out.println(s.hexColor);
-        			
-        		}
+                for (Ships s : computer.shipsArr) {
+                    System.out.println("random ships");
+                    System.out.println(s.coordinates);
+                    System.out.println(s.hexColor);
+
+                }
 //                showInputTextDialog();
 
                 TextInputDialog dialog = new TextInputDialog("Enter your name");
@@ -75,38 +75,38 @@ public class initiateController extends Application {
 
                 result.ifPresent(name -> {
 
-                    if(name.length()>0 && !name.equals("Enter your name")){
-                    humanPlayer.name = name;
+                    if (name.length() > 0 && !name.equals("Enter your name")) {
+                        humanPlayer.name = name;
 
-                shipSetupController fx2 = new shipSetupController();
-            	fx2.humanPlayer = humanPlayer;
-            	fx2.computer = computer;
-            	fx2.start(primaryStage);}
-            	else {
-            	    Constants.showAlert("Please enter player name.");
+                        shipSetupController fx2 = new shipSetupController();
+                        fx2.humanPlayer = humanPlayer;
+                        fx2.computer = computer;
+                        fx2.start(primaryStage);
+                    } else {
+                        Constants.showAlert("Please enter player name.");
                     }
                 });
 
             }
         });
-        
-        
+
+
         btn2.setOnAction(new EventHandler<ActionEvent>() {
-        	 
+
             @Override
             public void handle(ActionEvent event) {
-                
+
             }
         });
-        
-        
+
+
         FlowPane flow = new FlowPane();
         //flow.setPadding(new Insets(10, 10, 10, 10));
         btn1.setLayoutX(350);
         btn1.setLayoutY(350);
-        
+
         flow.setHgap(5);
-        flow.getChildren().addAll(btn1, btn2,imageView);
+        flow.getChildren().addAll(btn1, btn2, imageView);
         flow.setStyle("-fx-background-color: Grey");
         primaryStage.setScene(new Scene(flow, 1000, 800));
         primaryStage.show();

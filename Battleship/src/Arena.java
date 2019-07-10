@@ -35,6 +35,7 @@ public class Arena extends Application {
     Player computer;
 
     String selectedAddress;
+
     public void start(Stage stage) {
 
         try {
@@ -48,17 +49,16 @@ public class Arena extends Application {
             hbox.setTranslateX(20);
             hbox.setTranslateY(20);
 
-            Label right=new Label(humanPlayer.name);
+            Label right = new Label(humanPlayer.name);
 
             right.setFont(new Font("Arial", 30));
 
-            Label left=new Label("COMPUTER");
+            Label left = new Label("COMPUTER");
             left.setFont(new Font("Arial", 30));
 
             left.setPrefHeight(50);
             EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e)
-                {
+                public void handle(ActionEvent e) {
                     System.out.println("button pressed");
                 }
             };
@@ -84,8 +84,8 @@ public class Arena extends Application {
             SplitPane split_pane2 = new SplitPane();
             split_pane2.setPrefSize(300, 400);
             split_pane2.setOrientation(Orientation.VERTICAL);
-           // split_pane2.getItems().addAll(createGrid(),createGrid(),left);
-            split_pane2.getItems().addAll(compRefGrid,compGrid,left);
+            // split_pane2.getItems().addAll(createGrid(),createGrid(),left);
+            split_pane2.getItems().addAll(compRefGrid, compGrid, left);
             //humanPlayer.createInputs();
 
             final ComboBox inputComboBox = new ComboBox();
@@ -95,7 +95,7 @@ public class Arena extends Application {
             inputComboBox.getItems().addAll(
                     humanPlayer.inputs
             );
-            
+
             inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue ov, String t, String t1) {
@@ -112,53 +112,55 @@ public class Arena extends Application {
 
                 @Override
                 public void handle(ActionEvent event) {
-                	boolean flag3 = false;
-                	//System.out.println("chako current== " + inputComboBox.getValue());
-                	selectedAddress = (String)inputComboBox.getValue();
-                	System.out.println("chako == " + selectedAddress);
-                    humanPlayer.updateDropdown(selectedAddress,humanPlayer.inputs);
-                    System.out.println("humanPlayerinputs updated are: "+ humanPlayer.inputs);
+                    boolean flag3 = false;
+                    //System.out.println("chako current== " + inputComboBox.getValue());
+                    selectedAddress = (String) inputComboBox.getValue();
+                    System.out.println("chako == " + selectedAddress);
+                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                    System.out.println("humanPlayerinputs updated are: " + humanPlayer.inputs);
                     inputComboBox.getItems().remove(selectedAddress);
                     inputComboBox.setPromptText("Select Location");
                     boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
                     Alert alert1 = new Alert(AlertType.INFORMATION);
                     alert1.setTitle("Information");
                     alert1.setHeaderText(null);
-                    if(flag) {
-                    	alert1.setContentText("Wohoo!! Its a hit!!");
-                    }else {
-                    	alert1.setContentText("Bohoo!! You missed it!!");}
+                    if (flag) {
+                        alert1.setContentText("Wohoo!! Its a hit!!");
+                    } else {
+                        alert1.setContentText("Bohoo!! You missed it!!");
+                    }
                     alert1.showAndWait();
-                    
-                    boolean flag2 = checkWinner(computer,humanPlayer);
+
+                    boolean flag2 = checkWinner(computer, humanPlayer);
                    /* try {
 						TimeUnit.SECONDS.sleep(1);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} */
-                    if(!flag2) {
-                    	String s = computer.randomhitcomp();
-                    	System.out.println("computerinputs are: "+ computer.inputs);
-                    	System.out.println("computerhit is == "+ s);
-                    	computer.inputs.remove(s);
-                    	System.out.println("computerinputs updated are: " + computer.inputs);
-                    	boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s , Arena.this, humanPlayer);
-                    	Alert alert2 = new Alert(AlertType.INFORMATION);
-                    	alert2.setTitle("Information");
-                    	alert2.setHeaderText(null);
-                    	if(flag1) {
-                    		alert2.setContentText("It was a hit by Computer at " + s);
-                    	}else {
-                    		alert2.setContentText("Wohoo!! Computer missed the shot and hit you at " + s);}
-                    	alert2.showAndWait();
-                    	flag3 = checkWinner(humanPlayer, computer);
+                    if (!flag2) {
+                        String s = computer.randomhitcomp();
+                        System.out.println("computerinputs are: " + computer.inputs);
+                        System.out.println("computerhit is == " + s);
+                        computer.inputs.remove(s);
+                        System.out.println("computerinputs updated are: " + computer.inputs);
+                        boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                        Alert alert2 = new Alert(AlertType.INFORMATION);
+                        alert2.setTitle("Information");
+                        alert2.setHeaderText(null);
+                        if (flag1) {
+                            alert2.setContentText("It was a hit by Computer at " + s);
+                        } else {
+                            alert2.setContentText("Wohoo!! Computer missed the shot and hit you at " + s);
+                        }
+                        alert2.showAndWait();
+                        flag3 = checkWinner(humanPlayer, computer);
                     }
 
-                  //  flag2 = true;
+                    //  flag2 = true;
 
-                    if(flag2 || flag3) {
-                        
+                    if (flag2 || flag3) {
+
 
                         Alert alert = new Alert(AlertType.CONFIRMATION);
                         alert.setTitle("Select");
@@ -175,15 +177,15 @@ public class Arena extends Application {
                         // option != null.
                         Optional<ButtonType> option = alert.showAndWait();
 
-                         if (option.get() == yes) {
-                             initiateController fx2 = new initiateController();
-                             try {
-                                 fx2.start(stage);
-                             } catch (FileNotFoundException e) {
-                                 e.printStackTrace();
-                             }
+                        if (option.get() == yes) {
+                            initiateController fx2 = new initiateController();
+                            try {
+                                fx2.start(stage);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         } else if (option.get() == no) {
-                             Platform.exit();
+                            Platform.exit();
                         }
 
                     }
@@ -192,21 +194,20 @@ public class Arena extends Application {
             });
 
 
-
             // HIT / MISS
 
 
-            for(Ships p : humanPlayer.shipsArr){
+            for (Ships p : humanPlayer.shipsArr) {
 
                 ArrayList<String> got = p.coordinates;
 
-                for(int i= 0; i< got.size();i++){
+                for (int i = 0; i < got.size(); i++) {
 
                     String s[] = got.get(i).split("");
-                    int x = Constants.mapInConstants.get(s[0]);	//c
-                    int y = Integer.parseInt(s[1]);	//r
-                    Button b = (Button) getNodeFromGridPane(playerGrid,x+1,y);
-                    b.setStyle( "-fx-background-color:"+p.hexColor);
+                    int x = Constants.mapInConstants.get(s[0]);    //c
+                    int y = Integer.parseInt(s[1]);    //r
+                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1, y);
+                    b.setStyle("-fx-background-color:" + p.hexColor);
                 }
             }
 
@@ -247,7 +248,7 @@ public class Arena extends Application {
     }
 
 
-        // Main Method
+    // Main Method
     public static void main(String args[]) {
 
         // launch the application
@@ -255,124 +256,110 @@ public class Arena extends Application {
     }
 
     // Create Grid
-    public GridPane createGrid(){
+    public GridPane createGrid() {
         GridPane gridPane = new GridPane();
 
 
-        int nRows,nCols;
+        int nRows, nCols;
 
-        for(int i=0;i<Constants.row+1;i++){
-            for(int j=0;j<Constants.col+1;j++){
-                if(j==0 && i!=Constants.row){
-                    String buttonname="button"+i+j;
-                    Button button  = new Button(Integer.toString(i+1));
+        for (int i = 0; i < Constants.row + 1; i++) {
+            for (int j = 0; j < Constants.col + 1; j++) {
+                if (j == 0 && i != Constants.row) {
+                    String buttonname = "button" + i + j;
+                    Button button = new Button(Integer.toString(i + 1));
                     //button.setEnabled(false);
                     button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                     button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                     button.setDisable(true);
                     gridPane.add(button, j, i);
-                }
-                else if (i==Constants.row && j!=0){
+                } else if (i == Constants.row && j != 0) {
 
-                    if(j==1){
+                    if (j == 1) {
 
-                        Button	button  = new Button("A");
+                        Button button = new Button("A");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==2){
-                        Button	button  = new Button("B");
+                    } else if (j == 2) {
+                        Button button = new Button("B");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==3){
-                        Button	button  = new Button("C");
+                    } else if (j == 3) {
+                        Button button = new Button("C");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==4){
-                        Button	button  = new Button("D");
+                    } else if (j == 4) {
+                        Button button = new Button("D");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==5){
-                        Button	button  = new Button("E");
+                    } else if (j == 5) {
+                        Button button = new Button("E");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==6){
-                        Button	button  = new Button("F");
+                    } else if (j == 6) {
+                        Button button = new Button("F");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==7){
-                        Button	button  = new Button("G");
+                    } else if (j == 7) {
+                        Button button = new Button("G");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==8){
-                        Button	button  = new Button("H");
+                    } else if (j == 8) {
+                        Button button = new Button("H");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==9){
-                        Button	button  = new Button("I");
+                    } else if (j == 9) {
+                        Button button = new Button("I");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
-                    }
-                    else if(j==10){
-                        Button	button  = new Button("J");
+                    } else if (j == 10) {
+                        Button button = new Button("J");
                         //button.setEnabled(false);
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
 
-                    }
-
-                    else if(j==11){
-                        Button	button  = new Button("K");
+                    } else if (j == 11) {
+                        Button button = new Button("K");
                         button.setDisable(true);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     }
-                }
-
-                else{
+                } else {
 
                     nRows = i;
                     nCols = j;
 
                     //ButtonClicks buttonsclk = new ButtonClicks(nRows,nCols);
-                    Button	button  = new Button("-");
+                    Button button = new Button("-");
                     button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                     button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
                     button.setDisable(true);
@@ -390,17 +377,17 @@ public class Arena extends Application {
         return gridPane;
     }
 
-    public boolean checkWinner(Player p1, Player p2){
-    	System.out.print("Ships array size is " + p1.shipsArr.size());
-        if(p1.shipsArr.size()==0){
+    public boolean checkWinner(Player p1, Player p2) {
+        System.out.print("Ships array size is " + p1.shipsArr.size());
+        if (p1.shipsArr.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Winner");
             alert.setHeaderText(null);
             alert.setContentText(p2.name + " won the game!!!");
             alert.showAndWait();
             return true;
-        }else {
-        	return false;
+        } else {
+            return false;
         }
     }//checkWinner
 
