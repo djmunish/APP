@@ -16,7 +16,7 @@ public class Ships {
         setupShip(start, end);
     }
 
-    public int findloc(char a) {
+    public int findloc(char a) { //Function to find location in Play area grid
         int loc = 0;
         char[] arr = Constants.alphabets.toCharArray();
         for (int i = 0; i < arr.length; i++) {
@@ -28,35 +28,28 @@ public class Ships {
         return loc;
     }
 
-    public void setupShip(String start, String end) {
+    public void setupShip(String start, String end) { //Function to setup a ship for Human Player
         coordinates = new ArrayList<>();
 
-       // String[] xy1 = start.split("");
         String xy10 = start.substring(0, 1);
         String xy11 = start.substring(1);
-       // String[] xy2 = end.split("");
         String xy20 = end.substring(0, 1);
         String xy21 = end.substring(1);
         
         
 
         int var = xy10.compareTo(xy20);
-        //System.out.println("var is" + var);
 
         char[] arr = Constants.alphabets.toCharArray();
         if (var == 0) {
-            //if(xy1[0].equals(xy2[0])) {
 
             if (Integer.parseInt(xy11) < Integer.parseInt(xy21)) {
                 for (int i = Integer.parseInt(xy11); i <= Integer.parseInt(xy21); i++) {
                     coordinates.add(xy10 + i);
                 }//for
             } else {
-                //System.out.println("added are :");
                 for (int i = Integer.parseInt(xy11); i >= Integer.parseInt(xy21); i--) {
-                    //System.out.println("i =" + i);
                     String s = xy10 + i;
-                    //System.out.println(s + " ");
                     coordinates.add(s);
                 }//for
             }
@@ -64,27 +57,23 @@ public class Ships {
         else if (var < 0) {
             int loci = findloc(xy10.charAt(0));
             int locf = findloc(xy20.charAt(0));
-            //System.out.println("added are :");
             for (int i = loci; i <= locf; i++) {
                 String s = Character.toString(arr[i]) + xy11;
-                //System.out.println(s + " ");
                 coordinates.add(s);
             }//for
         } else if (var > 0) {
 
             int loci = findloc(xy10.charAt(0));
             int locf = findloc(xy20.charAt(0));
-            //System.out.println("added are :");
             for (int i = loci; i >= locf; i--) {
                 String s = Character.toString(arr[i]) + xy11;
-                //System.out.println(s + " ");
                 coordinates.add(s);
             }//for
         }//var>0
 
     }//setupship
 
-    public static boolean checkhit(String checkcordinate, Player p) {
+    public static boolean checkhit(String checkcordinate, Player p) { //Function to check if it is a hit or not
         boolean flag = false;
         for (Ships s : p.shipsArr) {
             ArrayList<String> got = s.coordinates;
@@ -106,7 +95,7 @@ public class Ships {
         System.out.print("checkhit is : " + flag);
         return flag;
     }
-    public static boolean checkifship(String checkcordinate, Player p) {
+    public static boolean checkifship(String checkcordinate, Player p) { //Function for computer to check if ship is positioned ord not
         boolean flag = false;
         for (Ships s : p.shipsArr) {
             ArrayList<String> got = s.coordinates;
@@ -117,34 +106,14 @@ public class Ships {
                 break;
             }
 
-
-//            for (int i = 0; i < got.size(); i++) {
-//                flag = got.get(i).contains(checkcordinate);
-//                //System.out.print("flag is : " + flag);
-//                if (flag) {
-//                    break;
-//                }
-//            }//for
-//            if (flag) {
-//                break;
-//            }
         }
         System.out.println("checkifship is : " + flag + " for " + checkcordinate);
         return flag;
     }
 
 
-//	public void colorShip() {
-//		Random rand = new Random();
-//		float r = rand.nextFloat();
-//		float g = rand.nextFloat();
-//		float b = rand.nextFloat();
-//		shipColor = new Color(r, g, b);
-////		hexColor = String.format("#%02x%02x%02x", r, g, b);
-//	}
 
-
-    public void colorShip() {
+    public void colorShip() { //function to update coler of the ship
 
         // create random object - reuse this as often as possible
         Random random = new Random();
@@ -154,11 +123,7 @@ public class Ships {
 
         // format it as hexadecimal string (with hashtag and leading zeros)
         String colorCode = String.format("#%06x", nextInt);
-
-        // print it
-             
-        
-        
+                     
         
         if(!Constants.shipColors.contains(colorCode) || colorCode.equals("#ff0000")|| colorCode.equals("#d3d3d3")){
             Constants.shipColors.add(colorCode);
@@ -172,15 +137,9 @@ public class Ships {
 
     public static boolean colorButton(GridPane G1, GridPane G2, String S, Arena a, Player playerRef) {
 
-        //String s[] = S.split("");
         String s1 = S.substring(0, 1);
         String s2 = S.substring(1);
-        //System.out.println("Split new is: " + s1 +" "+ s2);
-
-        //System.out.println("Split is: " + s[0] +" "+ s[1]);
-        //	int x = Constants.mapInConstants.get(s[0]);	//c
         int x = Constants.mapInConstants.get(s1);    //c
-        //int y = Integer.parseInt(s[1]);	//r
         int y = Integer.parseInt(s2);    //r
         System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
         Button bActual = (Button) a.getNodeFromGridPane(G1, x + 1, y - 1);
