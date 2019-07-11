@@ -142,11 +142,11 @@ public class shipSetupController extends Application {
         btnok.setTranslateX(300);
         btnok.setTranslateY(650);
         btnok.setPrefSize(150, 50);
-  
+
+        // Navigation to Arena.
         btnok.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
                 Arena a1 = new Arena();
                 a1.humanPlayer = humanPlayer;
                 a1.computer = computer;
@@ -192,6 +192,7 @@ public class shipSetupController extends Application {
         //stackpane.getChildren().add(hbox);
 
 
+        // Radio Button Method, Select ship to place.
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ob,
                                 Toggle o, Toggle n) {
@@ -240,6 +241,7 @@ public class shipSetupController extends Application {
         });
 
 
+        //Placement of ships on button click event in grid.
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
 
@@ -412,8 +414,10 @@ public class shipSetupController extends Application {
             }
         };
 
-        int nRows, nCols;
 
+
+        // Grid Creation
+        int nRows, nCols;
 
         for (int i = 0; i < Constants.row + 1; i++) {
             for (int j = 0; j < Constants.col + 1; j++) {

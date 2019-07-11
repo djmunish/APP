@@ -20,7 +20,7 @@ public class Player {
 
     public playerType type;
 
-    public Player() {
+    public Player() { // Constructor to create Player object
         shipsArr = new ArrayList<>();
         //inputs = new ArrayList<>();
         inputs = createInputs();
@@ -29,29 +29,29 @@ public class Player {
 
     }
 
-    public Ships setupShip(String start, String end) {
+    public Ships setupShip(String start, String end) { // Create ship for player
         Ships shipFormed = new Ships(start, end);
         return shipFormed;
     }
 
-    public void updateShipsArr(Ships s) {
+    public void updateShipsArr(Ships s) { // Update ships array of player
         shipsArr.add(s);
     }
 
 
- 
+
 	
 	/*public String randomhitcomp(Player computer) {
 		int n = ran.nextInt(computer.inputs.size());
 		return computer.inputs.get(n);
 	}*/
 
-    public String randomhitcomp() {
+    public String randomhitcomp() { // random selection of location for computer
         int n = ran.nextInt(inputs.size());
         return inputs.get(n);
     }
     
-    public String checkneighbors(String s, Player human) {
+    public String checkneighbors(String s, Player human) { // AI -- Check nearby ship location for computer
     	ArrayList<String> neighbor = new ArrayList<String>();
     	String f = "";
     	String s1 = s.substring(0, 1);
@@ -135,7 +135,7 @@ public class Player {
     	return f;
     }
     
-    public String randomhitcompai(Player human) {
+    public String randomhitcompai(Player human) {  // Generate Priority list of random computer hits.
     	System.out.println("Inputsfirst is: " + inputsfirst);
     	System.out.println("Inputs is: " + inputs);
     	String s = "";
@@ -175,7 +175,7 @@ public class Player {
     }
 
 
-    public String randomshipblocks(String s, int length) {
+    public String randomshipblocks(String s, int length) { // Check the length of the ship and the valid neighbors
         ArrayList<String> temp = new ArrayList<String>();
         String start = "";
         String end = "";
@@ -231,7 +231,7 @@ public class Player {
     }
 
 
-    public boolean checkOverlap(ArrayList<String> newShip) {
+    public boolean checkOverlap(ArrayList<String> newShip) { // Check overlapping of ships for player
         for (Ships s : shipsArr) {
             for (String i : s.coordinates) {
                 for (String g : newShip) {
@@ -244,7 +244,7 @@ public class Player {
         return true;
     }
     
-    public String randomblock() {
+    public String randomblock() { //generate random block from the Play Area grid
         int n = ran.nextInt(10) ;
         System.out.println("n is :" + n);
         Character alpha = Constants.alphabets.charAt(ran.nextInt(Constants.alphabets.length()));
@@ -252,7 +252,7 @@ public class Player {
         return s;
     }
 
-    public String randomship() {
+    public String randomship() { //Create Random ships for the computer for length 2/3/3/4/5.
         int[] len = {2, 3, 3, 4, 5};
         int length = 0;
         for (int i = 0; i < len.length; i++) {
@@ -275,7 +275,7 @@ public class Player {
         //return s;
     }
 
-    public ArrayList<String> createInputs() {
+    public ArrayList<String> createInputs() { // Create whole set of input location for player
         ArrayList<String> temp = new ArrayList<String>();
         String[] col = Constants.alphabets.split("");
         int[] rows = new int[Constants.row];
@@ -290,7 +290,7 @@ public class Player {
         return temp;
     }//createInputs
 
-    public void updateDropdown(String s, ArrayList<String> drop) {
+    public void updateDropdown(String s, ArrayList<String> drop) { // Update human player input drop down
         drop.remove(s);
     }
 
