@@ -98,7 +98,6 @@ public class initiateController extends Application {
 
 
         FlowPane flow = new FlowPane();
-        //flow.setPadding(new Insets(10, 10, 10, 10));
         btn1.setLayoutX(350);
         btn1.setLayoutY(350);
 

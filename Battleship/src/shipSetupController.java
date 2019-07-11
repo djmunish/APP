@@ -131,12 +131,12 @@ public class shipSetupController extends Application {
         Label l2 = new Label("PLEASE SELECT THE SHIP TYPE " + "!");
         l2.setTextFill(Color.FLORALWHITE);
         l2.setFont(new Font("Arial", 20));
-        l1.setTranslateX(-330);
+        l1.setTranslateX(-550);
         l1.setTranslateY(50);
         l1.setWrapText(true);
 
 
-        l2.setTranslateX(-700);
+        l2.setTranslateX(-900);
         l2.setTranslateY(50);
         l2.setWrapText(true);
 
@@ -386,42 +386,52 @@ public class shipSetupController extends Application {
 
                         Button button = new Button("A");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 2) {
                         Button button = new Button("B");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 3) {
                         Button button = new Button("C");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 4) {
                         Button button = new Button("D");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 5) {
                         Button button = new Button("E");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 6) {
                         Button button = new Button("F");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 7) {
                         Button button = new Button("G");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 8) {
                         Button button = new Button("H");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 9) {
                         Button button = new Button("I");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 10) {
                         Button button = new Button("J");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     } else if (j == 11) {
                         Button button = new Button("K");
