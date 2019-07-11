@@ -46,7 +46,7 @@ public class Arena extends Application {
             hbox.setTranslateX(200);
             hbox.setTranslateY(20);
 
-            Label right = new Label(humanPlayer.name);
+            Label right = new Label(humanPlayer.name.toUpperCase());
             right.setFont(new Font("Arial", 30));
             Label left = new Label("COMPUTER");
             left.setFont(new Font("Arial", 30));
