@@ -125,7 +125,7 @@ public class shipSetupController extends Application {
 
 
         btnok.setDisable(true);
-        Label l1 = new Label("WELCOME " + humanPlayer.name + " ! SET UP YOUR SHIPS !");
+        Label l1 = new Label("WELCOME " + humanPlayer.name.toUpperCase() + " ! SET UP YOUR SHIPS !");
         l1.setTextFill(Color.FLORALWHITE);
         l1.setFont(new Font("Arial", 20));
         Label l2 = new Label("PLEASE SELECT THE SHIP TYPE " + "!");
