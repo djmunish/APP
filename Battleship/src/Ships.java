@@ -111,16 +111,23 @@ public class Ships {
         for (Ships s : p.shipsArr) {
             ArrayList<String> got = s.coordinates;
             System.out.println("Ship arraylist is : " + got);
-            for (int i = 0; i < got.size(); i++) {
-                flag = got.get(i).contains(checkcordinate);
-                //System.out.print("flag is : " + flag);
-                if (flag) {
-                    break;
-                }
-            }//for
-            if (flag) {
+
+            if(got.contains(checkcordinate)){
+                flag = true;
                 break;
             }
+
+
+//            for (int i = 0; i < got.size(); i++) {
+//                flag = got.get(i).contains(checkcordinate);
+//                //System.out.print("flag is : " + flag);
+//                if (flag) {
+//                    break;
+//                }
+//            }//for
+//            if (flag) {
+//                break;
+//            }
         }
         System.out.println("checkifship is : " + flag + " for " + checkcordinate);
         return flag;

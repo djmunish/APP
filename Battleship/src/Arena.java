@@ -215,25 +215,8 @@ public class Arena extends Application {
                     b.setStyle("-fx-background-color:" + p.hexColor);
                 }
             }
-            
-            for (Ships p : computer.shipsArr) {
 
-                ArrayList<String> got = p.coordinates;
-
-                for (int i = 0; i < got.size(); i++) {
-
-//                    String s[] = got.get(i).split("");
-                    
-                    String s0 = got.get(i).substring(0,1);
-                	String s1 = got.get(i).substring(1);
-                	
-                    int x = Constants.mapInConstants.get(s0);    //c
-                    int y = Integer.parseInt(s1);    //r
-                    Button b = (Button) getNodeFromGridPane(compGrid, x + 1, y - 1);
-                    b.setStyle("-fx-background-color:" + p.hexColor);
-                }
-            }
-
+            showHideComputerShip(true, compGrid); // show hide Computer ships
 
             hbox.getChildren().add(inputComboBox);
             hbox.getChildren().add(btn);
@@ -274,6 +257,30 @@ public class Arena extends Application {
 
         // launch the application
         launch(args);
+    }
+
+    public void showHideComputerShip(Boolean show , GridPane cGrid) {
+        if (show) {
+            {
+                for (Ships p : computer.shipsArr) {
+
+                    ArrayList<String> got = p.coordinates;
+
+                    for (int i = 0; i < got.size(); i++) {
+
+//                    String s[] = got.get(i).split("");
+
+                        String s0 = got.get(i).substring(0, 1);
+                        String s1 = got.get(i).substring(1);
+
+                        int x = Constants.mapInConstants.get(s0);    //c
+                        int y = Integer.parseInt(s1);    //r
+                        Button b = (Button) getNodeFromGridPane(cGrid, x + 1, y - 1);
+                        b.setStyle("-fx-background-color:" + p.hexColor);
+                    }
+                }
+            }
+        }
     }
 
     // Create Grid
