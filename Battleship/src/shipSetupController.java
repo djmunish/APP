@@ -365,15 +365,15 @@ public class shipSetupController extends Application {
 
                     if (i == Constants.row) {
                         Button button = new Button();
-                        //button.setEnabled(false);
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setText("-");
                         button.setStyle("-fx-font-size: 2em; ");
                         gridPane.add(button, j, i);
                     } else {
                         Button button = new Button(Integer.toString(i + 1));
-                        //button.setEnabled(false);
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     }
                 } else if (i == Constants.row && j != 0) {
@@ -432,17 +432,13 @@ public class shipSetupController extends Application {
                     ButtonClicks buttonsclk = new ButtonClicks(nRows, nCols);
                     buttonsclk.setText("-");
                     Button button = new Button();
-
-
+                    buttonsclk.setPrefSize(40, 15);
                   
                     gridPane.setDisable(true);
 
                     gridPane.add(buttonsclk, j, i);
                     buttonsclk.setOnAction(event);
-
-
                 }
-
 
             }//inner for
         }//outer for

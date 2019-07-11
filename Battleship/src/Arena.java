@@ -61,7 +61,7 @@ public class Arena extends Application {
 
             SplitPane split_pane1 = new SplitPane();
             split_pane1.setOrientation(Orientation.VERTICAL);
-            split_pane1.setPrefSize(300, 40);
+            split_pane1.setPrefSize(500, 500);
             GridPane playerGrid = createGrid();
             GridPane playerRefGrid = createGrid();
 
@@ -72,7 +72,7 @@ public class Arena extends Application {
 
             // create split pane 2
             SplitPane split_pane2 = new SplitPane();
-            split_pane2.setPrefSize(300, 400);
+            split_pane2.setPrefSize(500, 500);
             split_pane2.setOrientation(Orientation.VERTICAL);
             split_pane2.getItems().addAll(compRefGrid, compGrid, left);
             final ComboBox inputComboBox = new ComboBox();
@@ -253,6 +253,7 @@ public class Arena extends Application {
                 if (j == 0 && i != Constants.row) {
                     String buttonname = "button" + i + j;
                     Button button = new Button(Integer.toString(i + 1));
+                    button.setPrefSize(40, 15);
                     button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                     button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                     button.setDisable(true);
@@ -263,60 +264,70 @@ public class Arena extends Application {
 
                         Button button = new Button("A");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 2) {
                         Button button = new Button("B");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 3) {
                         Button button = new Button("C");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 4) {
                         Button button = new Button("D");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 5) {
                         Button button = new Button("E");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 6) {
                         Button button = new Button("F");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 7) {
                         Button button = new Button("G");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 8) {
                         Button button = new Button("H");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 9) {
                         Button button = new Button("I");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     } else if (j == 10) {
                         Button button = new Button("J");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
@@ -324,6 +335,7 @@ public class Arena extends Application {
                     } else if (j == 11) {
                         Button button = new Button("K");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
@@ -337,11 +349,13 @@ public class Arena extends Application {
                     button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                     button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
                     button.setDisable(true);
+                    button.setPrefSize(40, 15);
 
                     gridPane.add(button, j, i);
                 }
             }//inner for
         }//outer for
+        gridPane.setPrefSize(500, 500);
 
         return gridPane;
     }
