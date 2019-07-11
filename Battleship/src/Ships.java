@@ -79,7 +79,6 @@ public class Ships {
             ArrayList<String> got = s.coordinates;
             for (int i = 0; i < got.size(); i++) {
                 flag = got.get(i).contains(checkcordinate);
-                System.out.print("flag is : " + flag);
                 if (flag) {
                     s.coordinates.remove(checkcordinate);
                     if (s.coordinates.size() == 0) {
@@ -92,22 +91,18 @@ public class Ships {
                 break;
             }
         }
-        System.out.print("checkhit is : " + flag);
         return flag;
     }
     public static boolean checkifship(String checkcordinate, Player p) { //Function for computer to check if ship is positioned ord not
         boolean flag = false;
         for (Ships s : p.shipsArr) {
             ArrayList<String> got = s.coordinates;
-            System.out.println("Ship arraylist is : " + got);
-
             if(got.contains(checkcordinate)){
                 flag = true;
                 break;
             }
 
         }
-        System.out.println("checkifship is : " + flag + " for " + checkcordinate);
         return flag;
     }
 
