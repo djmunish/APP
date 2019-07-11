@@ -22,7 +22,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
-//import javafx.scene.paint.Color;
 
 
 public class shipSetupController extends Application {
@@ -48,31 +47,10 @@ public class shipSetupController extends Application {
         return null;
     }
 
-	/*
-  public void dovisible(GridPane gridPane){
-		
-	for(int i=0;i<Constants.row+1;i++){
-		for(int j=0;j<Constants.col+1;j++){
-			
-				
-			if(!((j==1||j==2||j==3||j==4||j==5||j==6||j==7||j==8||j==9||j==10||j==11)||(j==0 && i!=Constants.row+1))){
-				
-				int nRows = i;
-	            int nCols = j;
-	            
-				ButtonClicks b=(ButtonClicks)getNodeFromGridPane(gridPane,nCols,nRows);
-				b.setVisible(true);
-	           
-			}
-													
-		}//inner for
-	}//outer for
-}
-	*/
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Window to program the play area");
+        primaryStage.setTitle("Set Ships for your play!");
 
         GridPane gridPane = new GridPane();
 
@@ -81,14 +59,6 @@ public class shipSetupController extends Application {
         ArrayList<String> coordarr = new ArrayList<String>();
 
         ArrayList<String> shipsprocessed = new ArrayList<String>();
-
-        //Setting size for the pane  
-        //gridPane.setMinSize(400, 200);  
-        //Text text1 = new Text("Email");       
-        //creating label password 
-        //Text text2 = new Text("Password"); 
-        //Setting the padding  
-        // gridPane.setPadding(new Insets(10, 10, 10, 10));
 
 
         final ToggleGroup group = new ToggleGroup();
@@ -99,7 +69,6 @@ public class shipSetupController extends Application {
         rb1.setPrefSize(150, 50);
         rb1.setTranslateX(60);
         rb1.setTranslateY(190);
-        //rb1.setSelected(true);
 
         RadioButton rb2 = new RadioButton(Constants.BATTLESHIP);
         rb2.setToggleGroup(group);
@@ -156,18 +125,12 @@ public class shipSetupController extends Application {
 
 
         btnok.setDisable(true);
-
         Label l1 = new Label("WELCOME " + humanPlayer.name + " ! SET UP YOUR SHIPS !");
         l1.setTextFill(Color.FLORALWHITE);
         l1.setFont(new Font("Arial", 20));
         Label l2 = new Label("PLEASE SELECT THE SHIP TYPE " + "!");
         l2.setTextFill(Color.FLORALWHITE);
         l2.setFont(new Font("Arial", 20));
-
-        // l.setStyle("-fx-background-color: Blue");
-        // l.setStyle("-fx-font-size: "+ 2.0 +"em;");
-        //l.setMinWidth(90);
-        //l.setMinHeight(90);
         l1.setTranslateX(-330);
         l1.setTranslateY(50);
         l1.setWrapText(true);
@@ -178,8 +141,7 @@ public class shipSetupController extends Application {
         l2.setWrapText(true);
 
 
-        //gridPane.setVisible(false);
-//        hbox.setSpacing(50);
+
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
         hbox.getChildren().add(btnok);
@@ -187,10 +149,6 @@ public class shipSetupController extends Application {
         hbox.getChildren().add(l1);
 
         hbox.setSpacing(50);
-        //hbox.setPadding(new Insets(200, 10, 10, 20));
-
-        //stackpane.getChildren().add(hbox);
-
 
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ob,
@@ -207,32 +165,23 @@ public class shipSetupController extends Application {
                         coordarr.clear();
                         gridPane.setDisable(false);
 
-                        //gridPane.setVisible(true);
-
                     } else if (s == Constants.BATTLESHIP) {
                         shipSetupController.shipnumname = "4b";
                         coordarr.clear();
                         gridPane.setDisable(false);
-                        //gridPane.setVisible(true);
                     } else if (s == Constants.CRUISER) {
                         shipSetupController.shipnumname = "3c";
                         coordarr.clear();
                         gridPane.setDisable(false);
-                        //gridPane.setVisible(true);
                     } else if (s == Constants.SUBMARINE) {
                         shipSetupController.shipnumname = "3s";
                         coordarr.clear();
                         gridPane.setDisable(false);
-                        //gridPane.setVisible(true);
                     } else if (s == Constants.DESTROYER) {
                         shipSetupController.shipnumname = "2d";
                         coordarr.clear();
                         gridPane.setDisable(false);
-                        //gridPane.setVisible(true);
                     }
-
-                    // change the label
-                    //System.out.println(s + " selected");
                 }
 
 
@@ -252,8 +201,6 @@ public class shipSetupController extends Application {
                     ButtonClicks buttonok = (ButtonClicks) e.getSource();
                     String xycor = null;
 
-                    //buttonok.setText(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-
 
                     System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
                     xycor = Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY())) + Integer.toString(buttonok.getCoordX() + 1);
@@ -270,9 +217,6 @@ public class shipSetupController extends Application {
                         boolean flag1 = false;
 
                         System.out.println("Inside sending function");
-
-//                        String axisxystart[] = coordarr.get(0).split("");
-//                        String axisxyend[] = coordarr.get(1).split("");
                         
                         String axisxystart0 = coordarr.get(0).substring(0,1);
                         String axisxyend0 = coordarr.get(1).substring(0,1);
@@ -383,7 +327,7 @@ public class shipSetupController extends Application {
 
                                 }
 
-                                //s.setupShip( ,coordarr.get(1));
+                             
 
                             }// flagif
 
@@ -395,7 +339,7 @@ public class shipSetupController extends Application {
                             }
 
 
-                            // System.out.println("abc"+buttonok.getCoordX() + ", " + buttonok.getCoordY());
+                          
 
                             buttonok.setVisible(true);
 
@@ -437,52 +381,42 @@ public class shipSetupController extends Application {
                     if (j == 1) {
 
                         Button button = new Button("A");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 2) {
                         Button button = new Button("B");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 3) {
                         Button button = new Button("C");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 4) {
                         Button button = new Button("D");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 5) {
                         Button button = new Button("E");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 6) {
                         Button button = new Button("F");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 7) {
                         Button button = new Button("G");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 8) {
                         Button button = new Button("H");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 9) {
                         Button button = new Button("I");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 10) {
                         Button button = new Button("J");
-                        //button.setEnabled(false);
                         button.setDisable(true);
                         gridPane.add(button, j, i);
                     } else if (j == 11) {
@@ -500,15 +434,13 @@ public class shipSetupController extends Application {
                     Button button = new Button();
 
 
-                    //button.setVisible(false);
-                    //button.setDisable(true);
+                  
                     gridPane.setDisable(true);
 
                     gridPane.add(buttonsclk, j, i);
                     buttonsclk.setOnAction(event);
 
 
-                    //buttonsclk.addActionListener(this);
                 }
 
 
@@ -520,15 +452,11 @@ public class shipSetupController extends Application {
 
         gridPane.setGridLinesVisible(true);
 
-
-        //Setting the Grid alignment 
-        //gridPane.setAlignment(Pos.TOP_CENTER); 
         Scene scene = new Scene(hbox, 1000, 800);
         hbox.setStyle("-fx-background-color: Grey");
         primaryStage.setScene(scene);
         primaryStage.setWidth(1000);
         primaryStage.setHeight(800);
-        //gridPane.setAlignment(Pos.CENTER_RIGHT);
         gridPane.setTranslateX(600);
         gridPane.setTranslateY(200);
         primaryStage.show();
