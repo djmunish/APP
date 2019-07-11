@@ -1,21 +1,21 @@
-15:42:44,323 I: (ErlangCore.java:63) : Starting CORE Thread[Worker-1,5,main]
-15:42:44,328 I: (ErlangCore.java:78) : *** starting Erlide v0.33.0.201605251547 (core=0.32.2.201605251547) (model api=0.32.1.201605251547) *** (Cp1252) ui
-15:42:44,331 I: (ErlangCore.java:85) : Started CORE
-15:42:44,331 F: (ErlangPlugin.java:89) : Core started
-15:42:50,709 F: (ErlangHostnameRetriever.java:42) : Erlang long hostname: null
-15:42:56,433 F: (ErlangHostnameRetriever.java:42) : Erlang short hostname: DESKTOP-EURO21A
-15:42:57,136 F: (HostnameChecker.java:205) : Detected:: 'DESKTOP-EURO21A' && '127.0.0.1'
-15:42:57,148 F: (BackendActivator.java:25) : Backend plugin started
-15:42:57,154 I: (ErlideUIPlugin.java:121) : Starting UI Thread[Worker-1,5,main]
-15:42:57,168 F: (ModelActivator.java:19) : Starting Erlang model api
-15:42:57,192 F: (BackendFactory.java:40) : Create ide backend 22.0.0
-15:42:57,192 F: (BackendFactory.java:54) : Create backend 7c870_14382_690aa3_erlide
-15:42:57,224 F: (OtpNodeProxy.java:302) : Runtime 7c870_14382_690aa3_erlide@127.0.0.1 starting
-15:42:57,225 F: (OtpNodeProxy.java:420) : START node :> ["c:\program files\erl10.4/bin/erl", -name, 7c870_14382_690aa3_erlide@127.0.0.1, -setcookie, erlide] *** C:\Users\14382\Documents\GitHub\APP
-15:42:57,258 F: (OtpNodeProxy.java:213) : 7c870_14382_690aa3_erlide@127.0.0.1: waiting connection to peer... 
-15:42:57,745 F: (OtpNodeProxy.java:220) : connected!
-15:42:57,864 F: (OtpNodeProxy.java:307) : Runtime 7c870_14382_690aa3_erlide@127.0.0.1 running
-15:42:58,149 F: (LogEventHandler.java:27) : info: {"Monitoring java node",'jerlide_d690ae0@127.0.0.1'}
-15:42:58,151 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
-15:42:58,391 F: (ModelActivator.java:30) : Started model api
-15:42:58,414 I: (ErlideUIPlugin.java:142) : Started UI
+19:39:58,534 I: (ErlangCore.java:63) : Starting CORE Thread[Worker-2,5,main]
+19:39:58,539 I: (ErlangCore.java:78) : *** starting Erlide v0.33.0.201605251547 (core=0.32.2.201605251547) (model api=0.32.1.201605251547) *** (Cp1252) ui
+19:39:58,543 I: (ErlangCore.java:85) : Started CORE
+19:39:58,544 F: (ErlangPlugin.java:89) : Core started
+19:40:00,893 F: (ErlangHostnameRetriever.java:42) : Erlang long hostname: null
+19:40:02,479 F: (ErlangHostnameRetriever.java:42) : Erlang short hostname: DESKTOP-EURO21A
+19:40:03,062 F: (HostnameChecker.java:205) : Detected:: 'DESKTOP-EURO21A' && '127.0.0.1'
+19:40:03,074 F: (BackendActivator.java:25) : Backend plugin started
+19:40:03,081 I: (ErlideUIPlugin.java:121) : Starting UI Thread[Worker-2,5,main]
+19:40:03,084 F: (ModelActivator.java:19) : Starting Erlang model api
+19:40:03,129 F: (BackendFactory.java:40) : Create ide backend 22.0.0
+19:40:03,129 F: (BackendFactory.java:54) : Create backend 7c870_14382_421c9d_erlide
+19:40:03,159 F: (OtpNodeProxy.java:302) : Runtime 7c870_14382_421c9d_erlide@127.0.0.1 starting
+19:40:03,159 F: (OtpNodeProxy.java:420) : START node :> ["c:\program files\erl10.4/bin/erl", -name, 7c870_14382_421c9d_erlide@127.0.0.1, -setcookie, erlide] *** C:\Users\14382\Documents\GitHub\APP
+19:40:03,195 F: (OtpNodeProxy.java:213) : 7c870_14382_421c9d_erlide@127.0.0.1: waiting connection to peer... 
+19:40:03,667 F: (OtpNodeProxy.java:220) : connected!
+19:40:03,989 F: (OtpNodeProxy.java:307) : Runtime 7c870_14382_421c9d_erlide@127.0.0.1 running
+19:40:03,991 F: (LogEventHandler.java:27) : info: {"Monitoring java node",'jerlide_e421cf0@127.0.0.1'}
+19:40:03,992 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
+19:40:04,311 F: (ModelActivator.java:30) : Started model api
+19:40:04,322 I: (ErlideUIPlugin.java:142) : Started UI
