@@ -22,7 +22,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-
 import java.io.FileNotFoundException;
 import java.util.concurrent.TimeUnit;
 
@@ -108,88 +107,90 @@ public class Arena extends Application {
             btn.setStyle("-fx-border-color: #000000; -fx-background-color: #CD853F");
             btn.setOnAction(new EventHandler<ActionEvent>() {
 
-                @Override
-                public void handle(ActionEvent event) {
-                    boolean flag3 = false;
-                    //System.out.println("chako current== " + inputComboBox.getValue());
-                    selectedAddress = (String) inputComboBox.getValue();
-                    System.out.println("chako == " + selectedAddress);
-                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
-                    System.out.println("humanPlayerinputs updated are: " + humanPlayer.inputs);
-                    inputComboBox.getItems().remove(selectedAddress);
-                    inputComboBox.setPromptText("Select Location");
-                    boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                	@Override
+                	public void handle(ActionEvent event) {
+                		boolean flag3 = false;
+                		try {
+                			selectedAddress = (String) inputComboBox.getValue();
+                			System.out.println("chako == " + selectedAddress);
+                		}
+                		catch(Exception e){
+                			System.out.print("");
+                		} 
+                    	if(selectedAddress!= null){
+                    	System.out.println("chako == " + selectedAddress);
+                    	humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                    	System.out.println("humanPlayerinputs updated are: " + humanPlayer.inputs);
+                    	inputComboBox.getItems().remove(selectedAddress);
+                    	inputComboBox.setPromptText("Select Location");
+                    	boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
 
 
 
-                    String message = "Wohoo!! Its a hit!!";
-                    if (!flag) {
-                        message = "Bohoo!! You missed it!!";
-                    }
-                    Constants.showAlert(message);
+                    	String message = "Wohoo!! Its a hit!!";
+                    	if (!flag) {
+                    		message = "Bohoo!! You missed it!!";
+                    	}
+                    	Constants.showAlert(message);
 
 
-                    boolean flag2 = checkWinner(computer, humanPlayer);
-                   /* try {
-						TimeUnit.SECONDS.sleep(1);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} */
-                    if (!flag2) {
-                       // String s = computer.randomhitcomp();
-                    	String s = computer.randomhitcompai(humanPlayer);
+                    	boolean flag2 = checkWinner(computer, humanPlayer);
+                    	if (!flag2) {
+                    		// String s = computer.randomhitcomp();
+                    		String s = computer.randomhitcompai(humanPlayer);
                     
-                        System.out.println("computerinputs are: " + computer.inputs);
-                        System.out.println("computerhit is == " + s);
+                    		System.out.println("computerinputs are: " + computer.inputs);
+                    		System.out.println("computerhit is == " + s);
                         //computer.inputs.remove(s);
-                        System.out.println("computerinputs updated are: " + computer.inputs);
+                    		System.out.println("computerinputs updated are: " + computer.inputs);
 
-                        boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
-
-
-                        String messageComp;
-                        if (flag1) {
-                            messageComp = "It was a hit by Computer at " + s;
-                        } else {
-                            messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
-                        }
-                        Constants.showAlert(messageComp);
-
-                        flag3 = checkWinner(humanPlayer, computer);
-                    }
-
-                    //  flag2 = true;
-
-                    if (flag2 || flag3) {
+                    		boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
 
 
-                        Alert alert = new Alert(AlertType.CONFIRMATION);
-                        alert.setTitle("Select");
-                        alert.setHeaderText("Do you wish to continue?");
+                    		String messageComp;
+                    		if (flag1) {
+                    			messageComp = "It was a hit by Computer at " + s;
+                    		} else {
+                    			messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+                    		}
+                    		Constants.showAlert(messageComp);
 
-                        ButtonType yes = new ButtonType("Yes");
-                        ButtonType no = new ButtonType("No");
+                    		flag3 = checkWinner(humanPlayer, computer);
+                    	}
+
+                    	if (flag2 || flag3) {
+
+
+                    		Alert alert = new Alert(AlertType.CONFIRMATION);
+                    		alert.setTitle("Select");
+                    		alert.setHeaderText("Do you wish to continue?");
+
+                    		ButtonType yes = new ButtonType("Yes");
+                    		ButtonType no = new ButtonType("No");
 
                         // Remove default ButtonTypes
-                        alert.getButtonTypes().clear();
+                    		alert.getButtonTypes().clear();
 
-                        alert.getButtonTypes().addAll(yes, no);
+                    		alert.getButtonTypes().addAll(yes, no);
 
                         // option != null.
-                        Optional<ButtonType> option = alert.showAndWait();
+                    		Optional<ButtonType> option = alert.showAndWait();
 
-                        if (option.get() == yes) {
-                            initiateController fx2 = new initiateController();
-                            try {
-                                fx2.start(stage);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                        } else if (option.get() == no) {
-                            Platform.exit();
-                        }
+                    		if (option.get() == yes) {
+                    			initiateController fx2 = new initiateController();
+                    			try {
+                    				fx2.start(stage);
+                    			} catch (FileNotFoundException e) {
+                    				e.printStackTrace();
+                    			}
+                    		} else if (option.get() == no) {
+                    			Platform.exit();
+                    		}
 
+                    	}
+                    }else {
+                    	String serror = "Please select a location and then click 'Hit' Button!";
+                        	Constants.showAlert(serror);
                     }
 
                 }
