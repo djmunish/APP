@@ -72,6 +72,8 @@ public class Ships {
         }//var>0
 
     }//setupship
+    
+    
 
     public static boolean checkhit(String checkcordinate, Player p) { //Function to check if it is a hit or not
         boolean flag = false;
