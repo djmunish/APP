@@ -19,6 +19,7 @@ public class Player {
     String name;
 
     public playerType type;
+    public boolean gamePlayType;
 
     public Player() { // Constructor to create Player object
         shipsArr = new ArrayList<>();
