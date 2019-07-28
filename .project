@@ -3,6 +3,7 @@
 	<name>APP</name>
 	<comment></comment>
 	<projects>
+		<project>Battleship</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>

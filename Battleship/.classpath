@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/14382/Desktop/jar_files/jfxtras-labs-2.2-r5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

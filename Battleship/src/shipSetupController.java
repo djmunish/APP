@@ -1,14 +1,13 @@
-import java.awt.Insets;
-
-
+import java.awt.TextField;
 import java.util.ArrayList;
 
+import com.sun.scenario.effect.DropShadow;
+
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,12 +15,24 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.beans.value.ChangeListener;
+import jfxtras.labs.scene.layout.ScalableContentPane;
+import jfxtras.labs.util.event.MouseControlUtil;
+
 
 
 public class shipSetupController extends Application {
@@ -53,8 +64,9 @@ public class shipSetupController extends Application {
         primaryStage.setTitle("Set Ships for your play!");
 
         GridPane gridPane = new GridPane();
-
-        StackPane stackpane = new StackPane();
+        
+        ScalableContentPane scale=new ScalableContentPane();
+        
 
         ArrayList<String> coordarr = new ArrayList<String>();
 
@@ -97,11 +109,32 @@ public class shipSetupController extends Application {
         HBox hbox = new HBox();
         VBox vbox = new VBox();
 
+        Button ok=new Button();
+        ok.setDisable(true);
+        
+        
+        
+       // Pane root=scale.getContentPane();
+        
+        //MouseControlUtil.makeDraggable(ok);
+        
+       
+        /*
+        MouseControlUtil.makeDraggable (ok, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                ok.setText("abc");
+
+            }
+        }, null);
+        */
+        
         vbox.getChildren().add(rb1);
         vbox.getChildren().add(rb2);
         vbox.getChildren().add(rb3);
         vbox.getChildren().add(rb4);
         vbox.getChildren().add(rb5);
+        
 
         vbox.setSpacing(10);
 
@@ -140,16 +173,85 @@ public class shipSetupController extends Application {
         l2.setTranslateY(50);
         l2.setWrapText(true);
 
+        GridPane gridPane5 = new GridPane();
+         
+        for(int j=0;j<5;j++){
+        	
+            Button button = new Button("-");
+            button.setDisable(true);
+            button.setPrefSize(40, 15);
+            gridPane5.add(button, j, 0);
+        }      
+                   
 
-
+        
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
+        hbox.getChildren().add(gridPane5);
+        //hbox.getChildren().add(l3);
         hbox.getChildren().add(btnok);
         hbox.getChildren().add(l2);
         hbox.getChildren().add(l1);
 
         hbox.setSpacing(50);
 
+        
+        TextField tf = new TextField();  
+        
+        hbox.setOnDragOver(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                //statusLabel.setText(color.toString() + " over");
+                System.out.println("foo");
+                //if (event.getGestureSource() != gridPane) 
+                	
+                    event.acceptTransferModes(TransferMode.ANY);
+                    gridPane5.setStyle("-fx-effect: dropshadow");
+               
+                //}
+                
+                event.consume();
+            }
+        });
+
+        gridPane.setOnDragDropped(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+            	
+            	gridPane.setStyle("-fx-background-color: #1d1d1d;");
+            	
+            	//gridPane.setVisible(true);
+                //statusLabel.setText(color.toString() + " dropped");
+            }
+        });
+        
+
+        gridPane5.setOnDragDetected(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+            	gridPane5.startDragAndDrop(TransferMode.ANY);
+            	
+                Dragboard db = gridPane5.startDragAndDrop(TransferMode.ANY);
+
+                /*
+                * Put a string on a dragboard
+                */
+                ClipboardContent content = new ClipboardContent();
+                content.putString("foo");
+                db.setContent(content);
+
+                event.consume();
+
+                //statusLabel.setText(color.toString() + " xxxxxxxxxxxxxxxxxxxxxxx");
+            }
+        });
+        
+        
+        
+              
         // Radio Button Method, Select ship to place.
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ob,
