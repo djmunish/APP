@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
@@ -102,7 +103,77 @@ public class Arena extends Application {
             if(humanPlayer.gamePlayType){
                 hitBtn.setDisable(true);
             }
-            hitBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+
+
+
+            // To check if it is a HIT / MISS by any player
+            for (Ships p : humanPlayer.shipsArr) {
+                ArrayList<String> got = p.coordinates;
+                for (int i = 0; i < got.size(); i++) {
+                	String s0 = got.get(i).substring(0,1);
+                	String s1 = got.get(i).substring(1);
+                	
+                    int x = Constants.mapInConstants.get(s0);    //c
+                    int y = Integer.parseInt(s1) - 1;    //r
+                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1 , y);
+                    b.setStyle("-fx-background-color:" + p.hexColor);
+                }
+            }
+
+            showHideComputerShip(true, compGrid); // show hide Computer ships
+
+
+            VBox vbox = new VBox();
+            vbox.getChildren().add(inputComboBox);
+
+
+            if(humanPlayer.gamePlayType) {
+                GridPane salvaGrid = createGrid(1, 5, true);
+                vbox.getChildren().add(salvaGrid);
+
+
+//                inputComboBox.setOnAction(e -> {
+//                    if(humanPlayer.gamePlayType){
+//                        updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
+//                    }
+//                });
+
+//                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
+//                    @Override
+//                    public void changed(ObservableValue ov, String t, String t1) {
+//                        if(humanPlayer.gamePlayType){
+//                            updateSalvaGRid(salvaGrid,t1);
+//                        }
+//                    }
+//                });
+                if(humanPlayer.salvaArr.size()<5){
+                    hitBtn.setText("OK");
+                    hitBtn.setDisable(false);
+
+                    hitBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            if(humanPlayer.gamePlayType){
+                                updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
+                            }
+                        }
+                    });
+                }else {
+                    hitBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            clearSalvaAfterHit(salvaGrid);
+                            hitBtn.setDisable(true);
+                        }
+                    });
+                }
+
+            }
+            else {
+            	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
                 	@Override
                 	public void handle(ActionEvent event) {
@@ -194,50 +265,13 @@ public class Arena extends Application {
                     		}
 
                     	}
-                   
-
-                }
-            });
-
-
-            // To check if it is a HIT / MISS by any player
-            for (Ships p : humanPlayer.shipsArr) {
-                ArrayList<String> got = p.coordinates;
-                for (int i = 0; i < got.size(); i++) {
-                	String s0 = got.get(i).substring(0,1);
-                	String s1 = got.get(i).substring(1);
-                	
-                    int x = Constants.mapInConstants.get(s0);    //c
-                    int y = Integer.parseInt(s1) - 1;    //r
-                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1 , y);
-                    b.setStyle("-fx-background-color:" + p.hexColor);
-                }
-            }
-
-            showHideComputerShip(true, compGrid); // show hide Computer ships
-
-
-            VBox vbox = new VBox();
-            vbox.getChildren().add(inputComboBox);
-
-
-            if(humanPlayer.gamePlayType) {
-                GridPane salvaGrid = createGrid(1, 5, true);
-                vbox.getChildren().add(salvaGrid);
-
-
-
-                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
-                    @Override
-                    public void changed(ObservableValue ov, String t, String t1) {
-                        if(humanPlayer.gamePlayType){
-                            updateSalvaGRid(salvaGrid,t1);
+                        else {
+                            String serror = "Please select a location and then click 'Hit' Button!";
+                            Constants.showAlert(serror);
                         }
+
                     }
                 });
-
-
-
             }
             vbox.setSpacing(10);
             hbox.getChildren().add(vbox);
@@ -439,10 +473,9 @@ public class Arena extends Application {
                                    button.setDisable(true);
 
                                    humanPlayer.inputs.add(button.getText());
-//                                   inputComboBox.getItems().add(button.getText());
-//                                   inputComboBox.setPromptText("Select Location");
-                                   hitBtn.setDisable(true);
-//                                   Collections.sort(inputComboBox.getItems());
+                                   inputComboBox.getItems().add(button.getText());
+                                   inputComboBox.setPromptText("Select Location");
+                                   Collections.sort(inputComboBox.getItems());
                                    button.setText("-");
 
                                }
@@ -474,17 +507,28 @@ public class Arena extends Application {
             b.setText(inp);
             b.setDisable(false);
 
-//            humanPlayer.updateDropdown(inp, humanPlayer.inputs);
-//            System.out.println(inp);
-//
-//            inputComboBox.getItems().remove(inp);
-//            inputComboBox.setPromptText("Select Location");
+            humanPlayer.updateDropdown(inp, humanPlayer.inputs);
+            System.out.println(inp);
 
-            hitBtn.setDisable(!(humanPlayer.salvaArr.size() == 5));
+            inputComboBox.getItems().remove(inp);
+            inputComboBox.setPromptText("Select Location");
+
+            hitBtn.setText(humanPlayer.salvaArr.size() == 5 ? "Hit" : "OK");
         }
 
     }
 
+
+    public void clearSalvaAfterHit(GridPane g){
+        int s = 5;
+        for(int i = 0 ; i < s;i++){
+            Button b = (Button) getNodeFromGridPane(g, i, 0);
+            b.setText("-");
+            b.setDisable(true);
+        }
+        humanPlayer.salvaArr.clear();
+
+    }
     public boolean checkWinner(Player p1, Player p2) { //Function to check the winner of the game after every hit by each player
         System.out.print("Ships array size is " + p1.shipsArr.size());
         if (p1.shipsArr.size() == 0) {
