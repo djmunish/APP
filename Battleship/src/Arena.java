@@ -169,6 +169,7 @@ public class Arena extends Application {
                     }
                 });
                 if(humanPlayer.salvaArr.size()<salvaWindow){
+                	System.out.println("here when salvarr < window---1");
                     hitBtn.setText("OK");
                     hitBtn.setDisable(false);
 
@@ -178,17 +179,76 @@ public class Arena extends Application {
                         public void handle(ActionEvent event) {
 
                             if(humanPlayer.salvaArr.size()<salvaWindow){
+                            	System.out.println("here when salvarr < window---2");
                                 updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                             }
                             else{
+                            	System.out.println("here when salvarr < window----else");
+                            	boolean flag3 = false;
+                            	Iterator<String> it = humanPlayer.salvaArr.iterator();
+                    			while(it.hasNext()) {
+                    				String s = it.next();
+                    				humanPlayer.updateDropdown(s, humanPlayer.inputs);
+                    				Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                    			} 
                                 clearSalvaAfterHit(salvaGrid);
                                 hitBtn.setText("OK");
                                 index=0;
-                            }
+                                boolean flag2 = checkWinner(computer, humanPlayer);
+                                if (!flag2) {
+                                	for(int i = 0;i<salvaWindow;i++) {
+                        				String s = computer.randomhitcompai(humanPlayer);
+                            			System.out.println("computerhit is == " + s);
+                            			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                            			flag3 = checkWinner(humanPlayer, computer);
+                                		if(flag3) {
+                                			Constants.showAlert(computer.name + " won the game!!!");}
+                        			}//for
+                                }//not flag2
+                                else { //Human Player won the game!
+                            		finishTime = System.currentTimeMillis();
+                            		long elapsedtime = finishTime - startTime;
+                            		String score  = calcScore(elapsedtime);
+                            		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                            	}
+                                
+                                if (flag2 || flag3) { 		
+                            		Alert alert = new Alert(AlertType.CONFIRMATION);
+                            		alert.setTitle("Select");
+                            		alert.setHeaderText("Do you wish to continue?");
+                            		ButtonType yes = new ButtonType("Yes");
+                            		ButtonType no = new ButtonType("No");
+
+                                // Remove default ButtonTypes
+                            		alert.getButtonTypes().clear();
+                            		alert.getButtonTypes().addAll(yes, no);
+                            		Optional<ButtonType> option = alert.showAndWait();
+
+                            		if (option.get() == yes) {
+                            			initiateController fx2 = new initiateController();
+                            			try {
+                            				fx2.start(stage);
+                            			} catch (FileNotFoundException e) {
+                            				e.printStackTrace();
+                            			}
+                            		} else if (option.get() == no) {
+                            			Platform.exit();
+                            		}
+
+                            	}// if any player has won the game
+                                 //No player won the game after the hits
+                                int shipcount  = computer.shipsArr.size(); //check if any ship of computer is down
+                                System.out.println("\n \n computer ship count is " + shipcount);
+                                if(shipcount < salvaWindow) {
+                                	salvaWindow = shipcount;
+                                	System.out.println("\n \n Window size updated to " + salvaWindow);
+                                }
+                                
+                                
+                            }//else
                         }
                     });
                 }
-
             }
             else {
             	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -196,15 +256,6 @@ public class Arena extends Application {
                 	@Override
                 	public void handle(ActionEvent event) {
                 		boolean flag3 = false;
-                		if (humanPlayer.gamePlayType) {
-                			Iterator<String> it = humanPlayer.salvaArr.iterator();
-                			while(it.hasNext()) {
-                				String s = it.next();
-                				humanPlayer.updateDropdown(s, humanPlayer.inputs);
-                				Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
-                			}  			
-                		}
-                		else {
                 			try {
                 				selectedAddress = (String) inputComboBox.getValue();
                 			}
@@ -226,17 +277,10 @@ public class Arena extends Application {
                              	String serror = "Please select a location and then click 'Hit' Button!";
                                  	Constants.showAlert(serror);
                              }
-                		}//else gamePlayType
+                		//}//else gamePlayType
 
                     	boolean flag2 = checkWinner(computer, humanPlayer);
                     	if (!flag2) {
-                    		if (humanPlayer.gamePlayType) {
-                    			for(int i = 0;i<5;i++) {
-                    				String s = computer.randomhitcompai(humanPlayer);
-                        			System.out.println("computerhit is == " + s);
-                        			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
-                    			}//for	
-                    		}else {
                     			String s = computer.randomhitcompai(humanPlayer);
                     			System.out.println("computerhit is == " + s);
                     			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
@@ -247,7 +291,7 @@ public class Arena extends Application {
                     				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
                     			}
                     			Constants.showAlert(messageComp);
-                    		}//else
+                    		//}//else
 
                     		flag3 = checkWinner(humanPlayer, computer);
                     		if(flag3) {
