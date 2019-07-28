@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6ad4455-2fb7-49cf-bf99-1910ee51b625" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Battleship/src/Arena.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Arena.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -25,12 +24,12 @@
     <session id="223091848">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2386" />
+          <entry key="java" value="2429" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2386" />
+          <entry key="JAVA" value="2429" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -65,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Battleship/src/Arena.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="508" column="60" selection-start-line="508" selection-start-column="60" selection-end-line="508" selection-end-column="60" />
+            <state relative-caret-position="164">
+              <caret line="528" selection-start-line="528" selection-end-line="528" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1929#1930#0" expanded="true" />
@@ -201,6 +200,7 @@
       <find>index</find>
       <find>updateSalvaGRid</find>
       <find>salvaGrid</find>
+      <find>5</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -402,25 +402,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Battleship/src/Arena.java</url>
-          <line>136</line>
+          <line>137</line>
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Battleship/src/Arena.java</url>
-          <line>501</line>
+          <line>505</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Battleship/src/Arena.java</url>
-          <line>505</line>
+          <line>508</line>
           <properties />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Battleship/src/Arena.java</url>
-          <line>158</line>
+          <line>159</line>
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
@@ -505,8 +505,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Battleship/src/Arena.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="508" column="60" selection-start-line="508" selection-start-column="60" selection-end-line="508" selection-end-column="60" />
+        <state relative-caret-position="164">
+          <caret line="528" selection-start-line="528" selection-end-line="528" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1929#1930#0" expanded="true" />

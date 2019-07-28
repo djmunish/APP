@@ -43,6 +43,7 @@ public class Arena extends Application {
     public ComboBox inputComboBox;
     int index = 0;
     GridPane salvaGrid;
+    int salvaWindow = 5;
     public void start(Stage stage) { 
 
         try {
@@ -130,7 +131,7 @@ public class Arena extends Application {
 
 
             if(humanPlayer.gamePlayType) {
-                salvaGrid = createGrid(1, 5, true);
+                salvaGrid = createGrid(1, salvaWindow, true);
                 vbox.getChildren().add(salvaGrid);
 
 
@@ -143,7 +144,7 @@ public class Arena extends Application {
                 inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue ov, String t, String t1) {
-                        if(t1 == null && humanPlayer.salvaArr.size()<5){
+                        if(t1 == null && humanPlayer.salvaArr.size()<salvaWindow){
                             hitBtn.setDisable(true);
                         }
                         else{
@@ -151,7 +152,7 @@ public class Arena extends Application {
                         }
                     }
                 });
-                if(humanPlayer.salvaArr.size()<5){
+                if(humanPlayer.salvaArr.size()<salvaWindow){
                     hitBtn.setText("OK");
                     hitBtn.setDisable(false);
 
@@ -160,7 +161,7 @@ public class Arena extends Application {
                         @Override
                         public void handle(ActionEvent event) {
 
-                            if(humanPlayer.salvaArr.size()<5){
+                            if(humanPlayer.salvaArr.size()<salvaWindow){
                                 updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                             }
                             else{
@@ -502,7 +503,7 @@ public class Arena extends Application {
 
 
     public void updateSalvaGRid(GridPane g, String inp){
-        if (humanPlayer.salvaArr.size() < 5 && inp != null) {
+        if (humanPlayer.salvaArr.size() < salvaWindow && inp != null) {
 
             humanPlayer.salvaArr.add(index,inp);
             System.out.println(humanPlayer.salvaArr);
@@ -519,14 +520,13 @@ public class Arena extends Application {
             inputComboBox.setPromptText("Select Location");
             index ++ ;
 
-            hitBtn.setText(humanPlayer.salvaArr.size() == 5 ? "Hit" : "OK");
+            hitBtn.setText(humanPlayer.salvaArr.size() == salvaWindow ? "Hit" : "OK");
         }
     }
 
 
     public void clearSalvaAfterHit(GridPane g){
-        int s = 5;
-        for(int i = 0 ; i < s;i++){
+        for(int i = 0 ; i < salvaWindow; i++){
             Button b = (Button) getNodeFromGridPane(g, i, 0);
             b.setText("-");
             b.setDisable(true);
