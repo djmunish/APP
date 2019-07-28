@@ -24,7 +24,8 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import java.io.FileNotFoundException;
-import java.util.Collections;
+import java.text.DecimalFormat;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
@@ -34,7 +35,8 @@ public class Arena extends Application {
 
     Player humanPlayer;
     Player computer;
-
+    long startTime;
+    long finishTime;
     String selectedAddress;
     public Button hitBtn;
     public ComboBox inputComboBox;
@@ -142,9 +144,16 @@ public class Arena extends Application {
                     		Constants.showAlert(messageComp);
 
                     		flag3 = checkWinner(humanPlayer, computer);
+                    		if(flag3) {
+                    			Constants.showAlert(computer.name + " won the game!!!");}
+                    	}else {
+                    		finishTime = System.currentTimeMillis();
+                    		long elapsedtime = finishTime - startTime;
+                    		String score  = calcScore(elapsedtime);
+                    		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                     	}
 
-                    	if (flag2 || flag3) {
+                    	if (flag2 || flag3) { 		
                     		Alert alert = new Alert(AlertType.CONFIRMATION);
                     		alert.setTitle("Select");
                     		alert.setHeaderText("Do you wish to continue?");
@@ -465,11 +474,22 @@ public class Arena extends Application {
     public boolean checkWinner(Player p1, Player p2) { //Function to check the winner of the game after every hit by each player
         System.out.print("Ships array size is " + p1.shipsArr.size());
         if (p1.shipsArr.size() == 0) {
-            Constants.showAlert(p2.name + " won the game!!!");
+           // Constants.showAlert(p2.name + " won the game!!!");
             return true;
         } else {
             return false;
         }
     }//checkWinner
+    
+    public String calcScore(long elapsedtime) {
+    	System.out.println("elapsed time: " + elapsedtime);
+    	double minutes = (double)elapsedtime/60000; 
+    	double scorecalc = (1/minutes)*100;
+    	DecimalFormat d = new DecimalFormat("#.###");
+    	System.out.print(d.format(scorecalc));
+    	System.out.print("score is "+ scorecalc);
+    	System.out.println("Time taken by player is " + Double.toString(minutes)); 	
+    	return d.format(scorecalc);
+    }
 
 }//Arena

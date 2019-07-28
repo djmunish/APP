@@ -1,8 +1,5 @@
 import java.awt.Insets;
-
-
-import java.util.ArrayList;
-
+import java.util.*;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -117,6 +114,7 @@ public class shipSetupController extends Application {
                 Arena a1 = new Arena();
                 a1.humanPlayer = humanPlayer;
                 a1.computer = computer;
+                a1.startTime = System.currentTimeMillis();
                 a1.start(primaryStage);
             }
         });
