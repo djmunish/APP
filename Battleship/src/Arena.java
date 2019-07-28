@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
@@ -130,24 +131,43 @@ public class Arena extends Application {
                 vbox.getChildren().add(salvaGrid);
 
 
+//                inputComboBox.setOnAction(e -> {
+//                    if(humanPlayer.gamePlayType){
+//                        updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
+//                    }
+//                });
 
-                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
-                    @Override
-                    public void changed(ObservableValue ov, String t, String t1) {
-                        if(humanPlayer.gamePlayType){
-                            updateSalvaGRid(salvaGrid,t1);
+//                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
+//                    @Override
+//                    public void changed(ObservableValue ov, String t, String t1) {
+//                        if(humanPlayer.gamePlayType){
+//                            updateSalvaGRid(salvaGrid,t1);
+//                        }
+//                    }
+//                });
+                if(humanPlayer.salvaArr.size()<5){
+                    hitBtn.setText("OK");
+                    hitBtn.setDisable(false);
+
+                    hitBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            if(humanPlayer.gamePlayType){
+                                updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
+                            }
                         }
-                    }
-                });
-                hitBtn.setOnAction(new EventHandler<ActionEvent>() {
+                    });
+                }else {
+                    hitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
-                    @Override
-                    public void handle(ActionEvent event) {
-                    clearSalvaAfterHit(salvaGrid);
-                    hitBtn.setDisable(true);
-                    }
-                });
-
+                        @Override
+                        public void handle(ActionEvent event) {
+                            clearSalvaAfterHit(salvaGrid);
+                            hitBtn.setDisable(true);
+                        }
+                    });
+                }
 
             }
             else {
@@ -435,10 +455,9 @@ public class Arena extends Application {
                                    button.setDisable(true);
 
                                    humanPlayer.inputs.add(button.getText());
-//                                   inputComboBox.getItems().add(button.getText());
-//                                   inputComboBox.setPromptText("Select Location");
-                                   hitBtn.setDisable(true);
-//                                   Collections.sort(inputComboBox.getItems());
+                                   inputComboBox.getItems().add(button.getText());
+                                   inputComboBox.setPromptText("Select Location");
+                                   Collections.sort(inputComboBox.getItems());
                                    button.setText("-");
 
                                }
@@ -470,13 +489,13 @@ public class Arena extends Application {
             b.setText(inp);
             b.setDisable(false);
 
-//            humanPlayer.updateDropdown(inp, humanPlayer.inputs);
-//            System.out.println(inp);
-//
-//            inputComboBox.getItems().remove(inp);
-//            inputComboBox.setPromptText("Select Location");
+            humanPlayer.updateDropdown(inp, humanPlayer.inputs);
+            System.out.println(inp);
 
-            hitBtn.setDisable(!(humanPlayer.salvaArr.size() == 5));
+            inputComboBox.getItems().remove(inp);
+            inputComboBox.setPromptText("Select Location");
+
+            hitBtn.setText(humanPlayer.salvaArr.size() == 5 ? "Hit" : "OK");
         }
 
     }
