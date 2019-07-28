@@ -170,10 +170,9 @@ public class Player {
         	System.out.println("Inputsfirst is: " + inputsfirst);
         	System.out.println("Inputs is: " + inputs);
         	return s;
-        }
-        
-        
+        }     
     }
+    
 
 
     public String randomshipblocks(String s, int length) { // Check the length of the ship and the valid neighbors
