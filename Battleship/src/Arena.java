@@ -18,6 +18,7 @@ import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
@@ -51,7 +52,7 @@ public class Arena extends Application {
 
             Label right = new Label(humanPlayer.name.toUpperCase());
             right.setFont(new Font("Arial", 30));
-            Label left = new Label("COMPUTER");
+            Label left = new Label(computer.name.toUpperCase());
             left.setFont(new Font("Arial", 30));
             left.setPrefHeight(50);
             EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -65,11 +66,16 @@ public class Arena extends Application {
             SplitPane split_pane1 = new SplitPane();
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(500, 500);
-            GridPane playerGrid = createGrid();
-            GridPane playerRefGrid = createGrid();
+            GridPane playerGrid = createGrid(Constants.row + 1,Constants.col + 1);
+            GridPane playerRefGrid = createGrid(Constants.row + 1,Constants.col + 1);
 
-            GridPane compGrid = createGrid();
-            GridPane compRefGrid = createGrid();
+
+            GridPane salvaGrid = createGrid( 1,5);
+
+
+
+            GridPane compGrid = createGrid(Constants.row + 1,Constants.col + 1);
+            GridPane compRefGrid = createGrid(Constants.row + 1,Constants.col + 1);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
             hbox.getChildren().add(split_pane1);
 
@@ -78,6 +84,7 @@ public class Arena extends Application {
             split_pane2.setPrefSize(500, 500);
             split_pane2.setOrientation(Orientation.VERTICAL);
             split_pane2.getItems().addAll(compRefGrid, compGrid, left);
+
             final ComboBox inputComboBox = new ComboBox();
             inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
@@ -197,10 +204,23 @@ public class Arena extends Application {
 
             showHideComputerShip(true, compGrid); // show hide Computer ships
 
-            hbox.getChildren().add(inputComboBox);
+
+            VBox vbox = new VBox();
+            vbox.getChildren().add(inputComboBox);
+            vbox.getChildren().add(salvaGrid);
+            vbox.setSpacing(10);
+            hbox.getChildren().add(vbox);
             hbox.getChildren().add(btn);
-            hbox.setSpacing(50);
+            vbox.setPrefWidth(80);
+
+
+
+            hbox.setSpacing(10);
             hbox.getChildren().add(split_pane2);
+
+
+
+
 
             // Creating scene
             Scene scene = new Scene(new Group(hbox), 1000, 800);
@@ -255,11 +275,10 @@ public class Arena extends Application {
     }
 
     // Function to Create Grid to setup the ships by the Human Player
-    public GridPane createGrid() {
+    public GridPane createGrid(int rows, int col) {
         GridPane gridPane = new GridPane();
-        int nRows, nCols;
-        for (int i = 0; i < Constants.row + 1; i++) {
-            for (int j = 0; j < Constants.col + 1; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j <  col; j++) {
                 if (j == 0 && i != Constants.row) {
                     String buttonname = "button" + i + j;
                     Button button = new Button(Integer.toString(i + 1));
@@ -352,9 +371,6 @@ public class Arena extends Application {
                     }
                 } else {
 
-                    nRows = i;
-                    nCols = j;
-
                     Button button = new Button("-");
                     button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
                     button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
@@ -365,10 +381,16 @@ public class Arena extends Application {
                 }
             }//inner for
         }//outer for
-        gridPane.setPrefSize(500, 500);
-
+        if(rows>1) {
+            gridPane.setPrefSize(500, 500);
+        }
+        else{
+            gridPane.setPrefSize(500, 20);
+        }
         return gridPane;
     }
+
+
 
     public boolean checkWinner(Player p1, Player p2) { //Function to check the winner of the game after every hit by each player
         System.out.print("Ships array size is " + p1.shipsArr.size());
