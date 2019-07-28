@@ -3,6 +3,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,13 +58,15 @@ public class initiateController extends Application {
             public void handle(ActionEvent event) {
                 humanPlayer = new Player();
                 computer = new Player();
+                humanPlayer.type = Player.playerType.HUMAN;
                 computer.name = "COMPUTER";
+                computer.type = Player.playerType.COMPUTER;
+
                 computer.randomship();
                 for (Ships s : computer.shipsArr) {
                     System.out.println("random ships");
                     System.out.println(s.coordinates);
                     System.out.println(s.hexColor);
-
                 }
 
                 TextInputDialog dialog = new TextInputDialog("Enter your name");
@@ -76,10 +81,29 @@ public class initiateController extends Application {
                     if (name.length() > 0 && !name.equals("Enter your name")) {
                         humanPlayer.name = name;
 
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Select");
+                        alert.setHeaderText("Do you wish to play in Salva Variation?");
+                        ButtonType yes = new ButtonType("Yes");
+                        ButtonType no = new ButtonType("No");
+
+                        // Remove default ButtonTypes
+                        alert.getButtonTypes().clear();
+                        alert.getButtonTypes().addAll(yes, no);
+                        Optional<ButtonType> option = alert.showAndWait();
+
+                        if (option.get() == yes) {
+                            humanPlayer.initiateSalva();
+
+                        } else if (option.get() == no) {
+                            humanPlayer.gamePlayType = false;
+                        }
                         shipSetupController fx2 = new shipSetupController();
                         fx2.humanPlayer = humanPlayer;
                         fx2.computer = computer;
                         fx2.start(primaryStage);
+
+
                     } else {
                         Constants.showAlert("Please enter player name.");
                     }

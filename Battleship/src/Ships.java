@@ -1,9 +1,9 @@
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
+//import java.util.ArrayList;
+//import java.util.Random;
 
 public class Ships {
 
@@ -95,7 +95,27 @@ public class Ships {
         }
         return flag;
     }
-    public static boolean checkifship(String checkcordinate, Player p) { //Function for computer to check if ship is positioned ord not
+    
+    public static String checkHitSalva(ArrayList<String> hits, Player p) {
+    	Iterator<String> it = hits.iterator();
+    	String comphit = "";
+    	String nohit = "";
+    	while(it.hasNext()) {
+    		String hit = it.next();
+    		System.out.println("Hit is " + hit);
+    		boolean flag = checkhit(hit, p);
+    		if(flag) {
+    			comphit = hit + ",";
+    		}else {
+    			nohit = hit + ",";
+    		}
+    	}//while-end
+    	String finalhits = comphit + "!" + nohit;
+    	return finalhits;
+    }
+    
+    
+    public static boolean checkifship(String checkcordinate, Player p) { //Function for computer to check if ship is positioned or not
         boolean flag = false;
         for (Ships s : p.shipsArr) {
             ArrayList<String> got = s.coordinates;

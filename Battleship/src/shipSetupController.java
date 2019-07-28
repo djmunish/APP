@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import com.sun.scenario.effect.DropShadow;
 
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -29,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
+
 import javafx.stage.Stage;
 import jfxtras.labs.scene.layout.ScalableContentPane;
 import jfxtras.labs.util.event.MouseControlUtil;
@@ -152,6 +154,7 @@ public class shipSetupController extends Application {
                 Arena a1 = new Arena();
                 a1.humanPlayer = humanPlayer;
                 a1.computer = computer;
+                a1.startTime = System.currentTimeMillis();
                 a1.start(primaryStage);
             }
         });
