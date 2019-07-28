@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class Arena extends Application {
     Player computer;
 
     String selectedAddress;
-
+    public Button hitBtn;
+    public ComboBox inputComboBox;
     public void start(Stage stage) { 
 
         try {
@@ -63,16 +65,14 @@ public class Arena extends Application {
             SplitPane split_pane1 = new SplitPane();
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(500, 500);
-            GridPane playerGrid = createGrid(Constants.row + 1,Constants.col + 1);
-            GridPane playerRefGrid = createGrid(Constants.row + 1,Constants.col + 1);
-
-
-            GridPane salvaGrid = createGrid( 1,5);
+            GridPane playerGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
+            GridPane playerRefGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
 
 
 
-            GridPane compGrid = createGrid(Constants.row + 1,Constants.col + 1);
-            GridPane compRefGrid = createGrid(Constants.row + 1,Constants.col + 1);
+
+            GridPane compGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
+            GridPane compRefGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
             hbox.getChildren().add(split_pane1);
 
@@ -82,7 +82,7 @@ public class Arena extends Application {
             split_pane2.setOrientation(Orientation.VERTICAL);
             split_pane2.getItems().addAll(compRefGrid, compGrid, left);
 
-            final ComboBox inputComboBox = new ComboBox();
+            inputComboBox = new ComboBox();
             inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-background-color: #CD853F;");
@@ -90,17 +90,16 @@ public class Arena extends Application {
                humanPlayer.inputs
             );
 
-            inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue ov, String t, String t1) {
-                }
-            });
 
-            Button btn = new Button();
-            btn.setText("Hit");
-            btn.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
-            btn.setStyle("-fx-border-color: #000000; -fx-background-color: #CD853F");
-            btn.setOnAction(new EventHandler<ActionEvent>() {
+
+            hitBtn = new Button();
+            hitBtn.setText("Hit");
+            hitBtn.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
+            hitBtn.setStyle("-fx-border-color: #000000; -fx-background-color: #CD853F");
+            if(humanPlayer.gamePlayType){
+                hitBtn.setDisable(true);
+            }
+            hitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
                 	@Override
                 	public void handle(ActionEvent event) {
@@ -197,18 +196,35 @@ public class Arena extends Application {
 
             VBox vbox = new VBox();
             vbox.getChildren().add(inputComboBox);
-            vbox.getChildren().add(salvaGrid);
+
+
+            if(humanPlayer.gamePlayType) {
+                GridPane salvaGrid = createGrid(1, 5, true);
+                vbox.getChildren().add(salvaGrid);
+
+
+
+                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue ov, String t, String t1) {
+                        if(humanPlayer.gamePlayType){
+                            updateSalvaGRid(salvaGrid,t1);
+                        }
+                    }
+                });
+
+
+
+            }
             vbox.setSpacing(10);
             hbox.getChildren().add(vbox);
-            hbox.getChildren().add(btn);
-            vbox.setPrefWidth(80);
+            hbox.getChildren().add(hitBtn);
+            vbox.setPrefWidth(250);
 
 
 
             hbox.setSpacing(10);
             hbox.getChildren().add(split_pane2);
-
-
 
 
 
@@ -265,11 +281,12 @@ public class Arena extends Application {
     }
 
     // Function to Create Grid to setup the ships by the Human Player
-    public GridPane createGrid(int rows, int col) {
+    public GridPane createGrid(int rows, int col, Boolean isSalva) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j <  col; j++) {
-                if (j == 0 && i != Constants.row) {
+                if(!isSalva){
+                    if (j == 0 && i != Constants.row) {
                     String buttonname = "button" + i + j;
                     Button button = new Button(Integer.toString(i + 1));
                     button.setPrefSize(40, 15);
@@ -359,15 +376,57 @@ public class Arena extends Application {
                         button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFD700");
                         gridPane.add(button, j, i);
                     }
-                } else {
 
-                    Button button = new Button("-");
-                    button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
-                    button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
-                    button.setDisable(true);
-                    button.setPrefSize(40, 15);
+                    }else {
 
-                    gridPane.add(button, j, i);
+                        Button button = new Button("-");
+                        button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
+                        button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+
+                        gridPane.add(button, j, i);
+                    }
+                    }
+                    else {
+                        Button button = new Button("-");
+                        button.setStyle("-fx-border-color: #000000 ; -fx-border-width: 2px;");
+                        button.setStyle("-fx-border-color: #000000; -fx-background-color: #FFFFFF");
+                        button.setDisable(true);
+                        button.setPrefSize(100, 15);
+                        button.setOnAction(new EventHandler<ActionEvent>() {
+                           @Override
+                           public void handle(ActionEvent event) {
+
+
+                               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                               alert.setTitle("Select");
+                               alert.setHeaderText("Do you wish to remove this in Salva entry?");
+                               ButtonType yes = new ButtonType("Yes");
+                               ButtonType no = new ButtonType("No");
+
+                               // Remove default ButtonTypes
+                               alert.getButtonTypes().clear();
+                               alert.getButtonTypes().addAll(yes, no);
+                               Optional<ButtonType> option = alert.showAndWait();
+
+                               if (option.get() == yes) {
+                                   System.out.println(button.getText());
+                                   humanPlayer.salvaArr.remove(button.getText());
+                                   button.setDisable(true);
+
+                                   humanPlayer.inputs.add(button.getText());
+//                                   inputComboBox.getItems().add(button.getText());
+//                                   inputComboBox.setPromptText("Select Location");
+                                   hitBtn.setDisable(true);
+//                                   Collections.sort(inputComboBox.getItems());
+                                   button.setText("-");
+
+                               }
+                           }
+                           });
+
+                        gridPane.add(button, j, i);
                 }
             }//inner for
         }//outer for
@@ -381,6 +440,27 @@ public class Arena extends Application {
     }
 
 
+
+    public void updateSalvaGRid(GridPane g, String inp){
+        if (humanPlayer.salvaArr.size() < 5) {
+
+            humanPlayer.salvaArr.add(inp);
+            System.out.println(humanPlayer.salvaArr);
+
+            Button b = (Button) getNodeFromGridPane(g, humanPlayer.salvaArr.size() - 1, 0);
+            b.setText(inp);
+            b.setDisable(false);
+
+//            humanPlayer.updateDropdown(inp, humanPlayer.inputs);
+//            System.out.println(inp);
+//
+//            inputComboBox.getItems().remove(inp);
+//            inputComboBox.setPromptText("Select Location");
+
+            hitBtn.setDisable(!(humanPlayer.salvaArr.size() == 5));
+        }
+
+    }
 
     public boolean checkWinner(Player p1, Player p2) { //Function to check the winner of the game after every hit by each player
         System.out.print("Ships array size is " + p1.shipsArr.size());

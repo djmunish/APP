@@ -67,7 +67,6 @@ public class initiateController extends Application {
                     System.out.println("random ships");
                     System.out.println(s.coordinates);
                     System.out.println(s.hexColor);
-
                 }
 
                 TextInputDialog dialog = new TextInputDialog("Enter your name");
@@ -94,19 +93,16 @@ public class initiateController extends Application {
                         Optional<ButtonType> option = alert.showAndWait();
 
                         if (option.get() == yes) {
-                            humanPlayer.gamePlayType = true;
-                            shipSetupController fx2 = new shipSetupController();
-                            fx2.humanPlayer = humanPlayer;
-                            fx2.computer = computer;
-                            fx2.start(primaryStage);
+                            humanPlayer.initiateSalva();
 
                         } else if (option.get() == no) {
                             humanPlayer.gamePlayType = false;
-                            shipSetupController fx2 = new shipSetupController();
-                            fx2.humanPlayer = humanPlayer;
-                            fx2.computer = computer;
-                            fx2.start(primaryStage);
                         }
+                        shipSetupController fx2 = new shipSetupController();
+                        fx2.humanPlayer = humanPlayer;
+                        fx2.computer = computer;
+                        fx2.start(primaryStage);
+
 
                     } else {
                         Constants.showAlert("Please enter player name.");
