@@ -29,6 +29,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class Arena extends Application {
@@ -106,42 +107,58 @@ public class Arena extends Application {
                 	@Override
                 	public void handle(ActionEvent event) {
                 		boolean flag3 = false;
-                		try {
-                			selectedAddress = (String) inputComboBox.getValue();
+                		if (humanPlayer.gamePlayType) {
+                			Iterator<String> it = humanPlayer.salvaArr.iterator();
+                			while(it.hasNext()) {
+                				String s = it.next();
+                				humanPlayer.updateDropdown(s, humanPlayer.inputs);
+                				Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                			}  			
                 		}
-                		catch(Exception e){
-                			System.out.print("");
-                		} 
-                    	if(selectedAddress!= null){
-                    	System.out.println("Human Player hit is == " + selectedAddress);
-                    	humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
-                    	inputComboBox.getItems().remove(selectedAddress);
-                    	inputComboBox.setPromptText("Select Location");
-                    	boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
-
-
-
-                    	String message = "Wohoo!! Its a hit!!";
-                    	if (!flag) {
-                    		message = "Bohoo!! You missed it!!";
-                    	}
-                    	Constants.showAlert(message);
-
+                		else {
+                			try {
+                				selectedAddress = (String) inputComboBox.getValue();
+                			}
+                			catch(Exception e){
+                				System.out.print("");
+                			} 
+                			if(selectedAddress!= null){
+                				System.out.println("Human Player hit is == " + selectedAddress);
+                				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                				inputComboBox.getItems().remove(selectedAddress);
+                				inputComboBox.setPromptText("Select Location");
+                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                				String message = "Wohoo!! Its a hit!!";
+                				if (!flag) {
+                					message = "Bohoo!! You missed it!!";
+                				}
+                				Constants.showAlert(message);
+                			 }else {
+                             	String serror = "Please select a location and then click 'Hit' Button!";
+                                 	Constants.showAlert(serror);
+                             }
+                		}//else gamePlayType
 
                     	boolean flag2 = checkWinner(computer, humanPlayer);
                     	if (!flag2) {
-                    		String s = computer.randomhitcompai(humanPlayer);
-                    		System.out.println("computerhit is == " + s);
-                    		boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
-
-
-                    		String messageComp;
-                    		if (flag1) {
-                    			messageComp = "It was a hit by Computer at " + s;
-                    		} else {
-                    			messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
-                    		}
-                    		Constants.showAlert(messageComp);
+                    		if (humanPlayer.gamePlayType) {
+                    			for(int i = 0;i<5;i++) {
+                    				String s = computer.randomhitcompai(humanPlayer);
+                        			System.out.println("computerhit is == " + s);
+                        			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                    			}//for	
+                    		}else {
+                    			String s = computer.randomhitcompai(humanPlayer);
+                    			System.out.println("computerhit is == " + s);
+                    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                    			String messageComp;
+                    			if (flag1) {
+                    				messageComp = "It was a hit by Computer at " + s;
+                    			} else {
+                    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+                    			}
+                    			Constants.showAlert(messageComp);
+                    		}//else
 
                     		flag3 = checkWinner(humanPlayer, computer);
                     		if(flag3) {
@@ -177,10 +194,7 @@ public class Arena extends Application {
                     		}
 
                     	}
-                    }else {
-                    	String serror = "Please select a location and then click 'Hit' Button!";
-                        	Constants.showAlert(serror);
-                    }
+                   
 
                 }
             });
