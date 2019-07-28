@@ -6,6 +6,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+
+import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -28,7 +30,7 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
-
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
@@ -42,12 +44,24 @@ public class Arena extends Application {
     String selectedAddress;
     public Button hitBtn;
     public ComboBox inputComboBox;
+    //int seconds;
+    //Timer timerhere = new Timer();
+   // Label b = new Label();
+    //TimerTask tasker = new TimerTask() {
+    //		public void run() {
+    //			seconds++;
+    //			b.setText(Integer.toString(seconds));
+    //			System.out.print("seconds passed" + seconds);
+    //		}
+    //};
+    
     public void start(Stage stage) { 
 
         try {
 
             // set title for the stage
             stage.setTitle("LET'S PLAY");
+           // timerhere.scheduleAtFixedRate(tasker, 1000, 1000);
 
             HBox hbox = new HBox(70);
             hbox.setTranslateX(200);
@@ -105,8 +119,6 @@ public class Arena extends Application {
             }
 
 
-
-
             // To check if it is a HIT / MISS by any player
             for (Ships p : humanPlayer.shipsArr) {
                 ArrayList<String> got = p.coordinates;
@@ -126,6 +138,7 @@ public class Arena extends Application {
 
             VBox vbox = new VBox();
             vbox.getChildren().add(inputComboBox);
+          //  vbox.getChildren().add(b);
 
 
             if(humanPlayer.gamePlayType) {
