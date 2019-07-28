@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class Arena extends Application {
@@ -105,6 +106,7 @@ public class Arena extends Application {
 
 
 
+
             // To check if it is a HIT / MISS by any player
             for (Ships p : humanPlayer.shipsArr) {
                 ArrayList<String> got = p.coordinates;
@@ -171,83 +173,99 @@ public class Arena extends Application {
 
             }
             else {
-                hitBtn.setOnAction(new EventHandler<ActionEvent>() {
+            	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
-                    @Override
-                    public void handle(ActionEvent event) {
-                        boolean flag3 = false;
-                        try {
-                            selectedAddress = (String) inputComboBox.getValue();
-                        }
-                        catch(Exception e){
-                            System.out.print("");
-                        }
-                        if(selectedAddress!= null){
-                            System.out.println("Human Player hit is == " + selectedAddress);
-                            humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
-                            inputComboBox.getItems().remove(selectedAddress);
-                            inputComboBox.setPromptText("Select Location");
-                            boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                	@Override
+                	public void handle(ActionEvent event) {
+                		boolean flag3 = false;
+                		if (humanPlayer.gamePlayType) {
+                			Iterator<String> it = humanPlayer.salvaArr.iterator();
+                			while(it.hasNext()) {
+                				String s = it.next();
+                				humanPlayer.updateDropdown(s, humanPlayer.inputs);
+                				Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                			}  			
+                		}
+                		else {
+                			try {
+                				selectedAddress = (String) inputComboBox.getValue();
+                			}
+                			catch(Exception e){
+                				System.out.print("");
+                			} 
+                			if(selectedAddress!= null){
+                				System.out.println("Human Player hit is == " + selectedAddress);
+                				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                				inputComboBox.getItems().remove(selectedAddress);
+                				inputComboBox.setPromptText("Select Location");
+                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                				String message = "Wohoo!! Its a hit!!";
+                				if (!flag) {
+                					message = "Bohoo!! You missed it!!";
+                				}
+                				Constants.showAlert(message);
+                			 }else {
+                             	String serror = "Please select a location and then click 'Hit' Button!";
+                                 	Constants.showAlert(serror);
+                             }
+                		}//else gamePlayType
 
+                    	boolean flag2 = checkWinner(computer, humanPlayer);
+                    	if (!flag2) {
+                    		if (humanPlayer.gamePlayType) {
+                    			for(int i = 0;i<5;i++) {
+                    				String s = computer.randomhitcompai(humanPlayer);
+                        			System.out.println("computerhit is == " + s);
+                        			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                    			}//for	
+                    		}else {
+                    			String s = computer.randomhitcompai(humanPlayer);
+                    			System.out.println("computerhit is == " + s);
+                    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                    			String messageComp;
+                    			if (flag1) {
+                    				messageComp = "It was a hit by Computer at " + s;
+                    			} else {
+                    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+                    			}
+                    			Constants.showAlert(messageComp);
+                    		}//else
 
+                    		flag3 = checkWinner(humanPlayer, computer);
+                    		if(flag3) {
+                    			Constants.showAlert(computer.name + " won the game!!!");}
+                    	}else {
+                    		finishTime = System.currentTimeMillis();
+                    		long elapsedtime = finishTime - startTime;
+                    		String score  = calcScore(elapsedtime);
+                    		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                    	}
 
-                            String message = "Wohoo!! Its a hit!!";
-                            if (!flag) {
-                                message = "Bohoo!! You missed it!!";
-                            }
-                            Constants.showAlert(message);
+                    	if (flag2 || flag3) { 		
+                    		Alert alert = new Alert(AlertType.CONFIRMATION);
+                    		alert.setTitle("Select");
+                    		alert.setHeaderText("Do you wish to continue?");
+                    		ButtonType yes = new ButtonType("Yes");
+                    		ButtonType no = new ButtonType("No");
 
+                        // Remove default ButtonTypes
+                    		alert.getButtonTypes().clear();
+                    		alert.getButtonTypes().addAll(yes, no);
+                    		Optional<ButtonType> option = alert.showAndWait();
 
-                            boolean flag2 = checkWinner(computer, humanPlayer);
-                            if (!flag2) {
-                                String s = computer.randomhitcompai(humanPlayer);
-                                System.out.println("computerhit is == " + s);
-                                boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                    		if (option.get() == yes) {
+                    			initiateController fx2 = new initiateController();
+                    			try {
+                    				fx2.start(stage);
+                    			} catch (FileNotFoundException e) {
+                    				e.printStackTrace();
+                    			}
+                    		} else if (option.get() == no) {
+                    			Platform.exit();
+                    		}
 
-
-                                String messageComp;
-                                if (flag1) {
-                                    messageComp = "It was a hit by Computer at " + s;
-                                } else {
-                                    messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
-                                }
-                                Constants.showAlert(messageComp);
-
-                                flag3 = checkWinner(humanPlayer, computer);
-                                if(flag3) {
-                                    Constants.showAlert(computer.name + " won the game!!!");}
-                            }else {
-                                finishTime = System.currentTimeMillis();
-                                long elapsedtime = finishTime - startTime;
-                                String score  = calcScore(elapsedtime);
-                                Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
-                            }
-
-                            if (flag2 || flag3) {
-                                Alert alert = new Alert(AlertType.CONFIRMATION);
-                                alert.setTitle("Select");
-                                alert.setHeaderText("Do you wish to continue?");
-                                ButtonType yes = new ButtonType("Yes");
-                                ButtonType no = new ButtonType("No");
-
-                                // Remove default ButtonTypes
-                                alert.getButtonTypes().clear();
-                                alert.getButtonTypes().addAll(yes, no);
-                                Optional<ButtonType> option = alert.showAndWait();
-
-                                if (option.get() == yes) {
-                                    initiateController fx2 = new initiateController();
-                                    try {
-                                        fx2.start(stage);
-                                    } catch (FileNotFoundException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else if (option.get() == no) {
-                                    Platform.exit();
-                                }
-
-                            }
-                        }else {
+                    	}
+                        else {
                             String serror = "Please select a location and then click 'Hit' Button!";
                             Constants.showAlert(serror);
                         }

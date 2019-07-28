@@ -25,7 +25,7 @@ public class Player {
 
     public Player() { // Constructor to create Player object
         shipsArr = new ArrayList<>();
-        //inputs = new ArrayList<>();
+        inputsfirst = new ArrayList<>();
         inputs = createInputs();
     }
 
