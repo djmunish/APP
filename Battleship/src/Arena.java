@@ -42,6 +42,7 @@ public class Arena extends Application {
     public Button hitBtn;
     public ComboBox inputComboBox;
     int index = 0;
+    GridPane salvaGrid;
     public void start(Stage stage) { 
 
         try {
@@ -129,7 +130,7 @@ public class Arena extends Application {
 
 
             if(humanPlayer.gamePlayType) {
-                GridPane salvaGrid = createGrid(1, 5, true);
+                salvaGrid = createGrid(1, 5, true);
                 vbox.getChildren().add(salvaGrid);
 
 
@@ -471,10 +472,9 @@ public class Arena extends Application {
                                    System.out.println(button.getText());
 
                                    index = humanPlayer.salvaArr.indexOf(button.getText());
-
                                    humanPlayer.salvaArr.remove(button.getText());
-                                   button.setDisable(true);
 
+                                   button.setDisable(true);
                                    humanPlayer.inputs.add(button.getText());
                                    inputComboBox.getItems().add(button.getText());
                                    Collections.sort(inputComboBox.getItems());
@@ -502,14 +502,13 @@ public class Arena extends Application {
 
 
     public void updateSalvaGRid(GridPane g, String inp){
-        if (humanPlayer.salvaArr.size() < 5 && inp!=null) {
+        if (humanPlayer.salvaArr.size() < 5 && inp != null) {
 
             humanPlayer.salvaArr.add(index,inp);
-            index ++ ;
             System.out.println(humanPlayer.salvaArr);
 
 
-            Button b = (Button) getNodeFromGridPane(g, humanPlayer.salvaArr.size() - 1, 0);
+            Button b = (Button) getNodeFromGridPane(g, index, 0);
             b.setText(inp);
             b.setDisable(false);
 
@@ -518,6 +517,7 @@ public class Arena extends Application {
 
             inputComboBox.getItems().remove(inp);
             inputComboBox.setPromptText("Select Location");
+            index ++ ;
 
             hitBtn.setText(humanPlayer.salvaArr.size() == 5 ? "Hit" : "OK");
         }
