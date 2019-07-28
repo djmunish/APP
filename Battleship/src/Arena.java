@@ -14,7 +14,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
@@ -41,6 +40,7 @@ public class Arena extends Application {
     String selectedAddress;
     public Button hitBtn;
     public ComboBox inputComboBox;
+    int index = 0;
     public void start(Stage stage) { 
 
         try {
@@ -137,14 +137,17 @@ public class Arena extends Application {
 //                    }
 //                });
 
-//                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
-//                    @Override
-//                    public void changed(ObservableValue ov, String t, String t1) {
-//                        if(humanPlayer.gamePlayType){
-//                            updateSalvaGRid(salvaGrid,t1);
-//                        }
-//                    }
-//                });
+                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue ov, String t, String t1) {
+                        if(t1 == null && humanPlayer.salvaArr.size()<5){
+                            hitBtn.setDisable(true);
+                        }
+                        else{
+                            hitBtn.setDisable(false);
+                        }
+                    }
+                });
                 if(humanPlayer.salvaArr.size()<5){
                     hitBtn.setText("OK");
                     hitBtn.setDisable(false);
@@ -153,18 +156,15 @@ public class Arena extends Application {
 
                         @Override
                         public void handle(ActionEvent event) {
-                            if(humanPlayer.gamePlayType){
+
+                            if(humanPlayer.salvaArr.size()<5){
                                 updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                             }
-                        }
-                    });
-                }else {
-                    hitBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-                        @Override
-                        public void handle(ActionEvent event) {
-                            clearSalvaAfterHit(salvaGrid);
-                            hitBtn.setDisable(true);
+                            else{
+                                clearSalvaAfterHit(salvaGrid);
+                                hitBtn.setText("OK");
+                                index=0;
+                            }
                         }
                     });
                 }
@@ -451,14 +451,18 @@ public class Arena extends Application {
 
                                if (option.get() == yes) {
                                    System.out.println(button.getText());
+
+                                   index = humanPlayer.salvaArr.indexOf(button.getText());
+
                                    humanPlayer.salvaArr.remove(button.getText());
                                    button.setDisable(true);
 
                                    humanPlayer.inputs.add(button.getText());
                                    inputComboBox.getItems().add(button.getText());
-                                   inputComboBox.setPromptText("Select Location");
                                    Collections.sort(inputComboBox.getItems());
                                    button.setText("-");
+                                   inputComboBox.setPromptText("Select Location");
+                                   hitBtn.setText("OK");
 
                                }
                            }
@@ -480,10 +484,12 @@ public class Arena extends Application {
 
 
     public void updateSalvaGRid(GridPane g, String inp){
-        if (humanPlayer.salvaArr.size() < 5) {
+        if (humanPlayer.salvaArr.size() < 5 && inp!=null) {
 
-            humanPlayer.salvaArr.add(inp);
+            humanPlayer.salvaArr.add(index,inp);
+            index ++ ;
             System.out.println(humanPlayer.salvaArr);
+
 
             Button b = (Button) getNodeFromGridPane(g, humanPlayer.salvaArr.size() - 1, 0);
             b.setText(inp);
@@ -497,7 +503,6 @@ public class Arena extends Application {
 
             hitBtn.setText(humanPlayer.salvaArr.size() == 5 ? "Hit" : "OK");
         }
-
     }
 
 
@@ -509,8 +514,8 @@ public class Arena extends Application {
             b.setDisable(true);
         }
         humanPlayer.salvaArr.clear();
-
     }
+
     public boolean checkWinner(Player p1, Player p2) { //Function to check the winner of the game after every hit by each player
         System.out.print("Ships array size is " + p1.shipsArr.size());
         if (p1.shipsArr.size() == 0) {
