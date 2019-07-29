@@ -14,10 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.ImageCursor;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -217,8 +214,6 @@ public class shipSetupController extends Application {
 
 
         ImageView source = new ImageView(image);
-
-//        while(MouseButton.SECONDARY)
         source.setOnMouseClicked(event ->
         {
             if (event.getButton() == MouseButton.SECONDARY)
@@ -248,7 +243,6 @@ public class shipSetupController extends Application {
                 content.putString("detected");
                 db.setContent(content);
                 scene.setCursor(new ImageCursor(image));
-//                ImageCursor.getBestSize(-100,-100);
                 event.consume();
             }
         });
@@ -267,9 +261,7 @@ public class shipSetupController extends Application {
                 System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
                 event.acceptTransferModes(TransferMode.ANY);
                 scene.setCursor(new ImageCursor(image));
-//                ImageCursor.getBestSize(-100,-100);
                 source.setVisible(true);
-//                scene.setCursor(cursor);
                 event.consume();
             }
         });
@@ -308,8 +300,6 @@ public class shipSetupController extends Application {
                 Integer rowIndex = GridPane.getRowIndex(source);
                 System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
                 * */
-                scene.setCursor(new ImageCursor(image));
-//                ImageCursor.getBestSize(-100,-100);
                 event.consume();
             }
         });
@@ -323,8 +313,9 @@ public class shipSetupController extends Application {
 
 
                 source.setVisible(true);
-                gridPane.add(source, 0, 0);
+                target.add(source, 0, 0);
                 target.setOpacity(1);
+                scene.setCursor(Cursor.DEFAULT);
                 System.out.println("Drag exit");
                 event.consume();
             }
@@ -337,8 +328,6 @@ public class shipSetupController extends Application {
             @Override
             public void handle(DragEvent event) {
                 //statusLabel.setText(color.toString() + " dropped");
-//                scene.setCursor(new ImageCursor(image));
-//                ImageCursor.getBestSize(-100,-100);
             }
         });
 
