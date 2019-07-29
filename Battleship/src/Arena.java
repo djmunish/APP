@@ -21,6 +21,8 @@ import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -53,7 +55,7 @@ public class Arena extends Application {
     private int minutes = 0;
     private int hours = 0;
     boolean timerstop = false;
-    private final Text text = new Text("Timer - "+(hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
+    private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
 
     private void incrementCount() {
     	if(!timerstop) {
@@ -67,7 +69,7 @@ public class Arena extends Application {
     			hours = hours + 1;
     		}
     	}
-        text.setText("Timer - "+(hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
+        text.setText((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     }
 
     public void start(Stage stage) { 
@@ -79,7 +81,6 @@ public class Arena extends Application {
             HBox hbox = new HBox(70);
             hbox.setTranslateX(200);
             hbox.setTranslateY(20);
-
             Label right = new Label(humanPlayer.name.toUpperCase());
             right.setFont(new Font("Arial", 30));
             Label left = new Label(computer.name.toUpperCase());
@@ -105,6 +106,11 @@ public class Arena extends Application {
             GridPane compGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
             GridPane compRefGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
+            text.resize(150, 40);
+            text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+            //text.setUnderline(true);
+            text.setTranslateX(-130);
+            hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
 
             // create split pane 2
@@ -141,7 +147,7 @@ public class Arena extends Application {
                 	
                     int x = Constants.mapInConstants.get(s0);    //c
                     int y = Integer.parseInt(s1) - 1;    //r
-                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1 , y);
+                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1 , y); 
                     b.setStyle("-fx-background-color:" + p.hexColor);
                 }
             }
@@ -151,44 +157,45 @@ public class Arena extends Application {
 
             VBox vbox = new VBox();
             vbox.getChildren().add(inputComboBox);
-          //  vbox.getChildren().add(b);
+            
+            
+            
+            
+            // longrunning operation runs on different thread
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Runnable updater = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            incrementCount();
+                        }
+                    };
+
+                    while (true) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                        }
+
+                        // UI update is run on the Application thread
+                        Platform.runLater(updater);
+                    }
+                }
+
+            });
+            // don't let thread prevent JVM shutdown
+            thread.setDaemon(true);
+            thread.start();
+
 
 
             if(humanPlayer.gamePlayType) {
                 salvaGrid = createGrid(1, salvaWindow, true);
                 vbox.getChildren().add(salvaGrid);
-                vbox.getChildren().add(text);
-                
-                
-                // longrunning operation runs on different thread
-                Thread thread = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        Runnable updater = new Runnable() {
-
-                            @Override
-                            public void run() {
-                                incrementCount();
-                            }
-                        };
-
-                        while (true) {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException ex) {
-                            }
-
-                            // UI update is run on the Application thread
-                            Platform.runLater(updater);
-                        }
-                    }
-
-                });
-                // don't let thread prevent JVM shutdown
-                thread.setDaemon(true);
-                thread.start();
-
+               
                 inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue ov, String t, String t1) {
@@ -331,11 +338,13 @@ public class Arena extends Application {
 
                     		flag3 = checkWinner(humanPlayer, computer);
                     		if(flag3) {
+                    			timerstop = true;
                     			Constants.showAlert(computer.name + " won the game!!!");}
                     	}else {
                     		finishTime = System.currentTimeMillis();
                     		long elapsedtime = finishTime - startTime;
                     		String score  = calcScore(elapsedtime);
+                    		timerstop = true;
                     		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                     	}
 
@@ -363,15 +372,13 @@ public class Arena extends Application {
                     		}
 
                     	}
-                        else {
-                            String serror = "Please select a location and then click 'Hit' Button!";
-                            Constants.showAlert(serror);
-                        }
-
                     }
                 });
             }
             vbox.setSpacing(10);
+           // vbox1.setTranslateX(-420);
+            //vbox1.setSpacing(-100);
+           // hbox.getChildren().add(vbox1);
             hbox.getChildren().add(vbox);
             hbox.getChildren().add(hitBtn);
             vbox.setPrefWidth(250);
