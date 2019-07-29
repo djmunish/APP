@@ -37,6 +37,12 @@ import java.util.Iterator;
 import java.util.Optional;
 import javafx.scene.text.Text;
 
+/**
+ * Arena.java deals with the game arena, it records the actions on UI and performs the computation.
+ * @author harshkour
+ * @since 2019-07-06
+ * @version 1.0.0
+ */
 public class Arena extends Application {
 
     Player humanPlayer;
