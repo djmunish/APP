@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
-import java.time.*;
 
 public class Player {
 
@@ -20,16 +19,15 @@ public class Player {
     String name;
 
     public playerType type;
-    public boolean gamePlayType;
-    public ArrayList<String> salvaArr;
 
     public Player() { // Constructor to create Player object
         shipsArr = new ArrayList<>();
-        inputsfirst = new ArrayList<>();
+        //inputs = new ArrayList<>();
         inputs = createInputs();
+        inputsfirst = new ArrayList<>();
+
+
     }
-
-
 
     public Ships setupShip(String start, String end) { // Create ship for player
         Ships shipFormed = new Ships(start, end);
@@ -230,8 +228,6 @@ public class Player {
         String f = flagf.concat(" " + start + " " + end);
         return f;
     }
-    
-
 
 
     public boolean checkOverlap(ArrayList<String> newShip) { // Check overlapping of ships for player
@@ -279,7 +275,6 @@ public class Player {
     }
 
     public ArrayList<String> createInputs() { // Create whole set of input location for player
-
         ArrayList<String> temp = new ArrayList<String>();
         String[] col = Constants.alphabets.split("");
         int[] rows = new int[Constants.row];
@@ -294,15 +289,9 @@ public class Player {
         return temp;
     }//createInputs
 
-    public void initiateSalva(){
-            salvaArr = new ArrayList<>();
-            gamePlayType = true;
-    }
-
     public void updateDropdown(String s, ArrayList<String> drop) { // Update human player input drop down
         drop.remove(s);
     }
-
 
 
 }
