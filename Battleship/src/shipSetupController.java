@@ -157,7 +157,7 @@ public class shipSetupController extends Application {
         l2.setWrapText(true);
 
 
-//        vbox.getChildren().add(txt);\
+
 
 
         GridPane gridPane5 = new GridPane();
@@ -242,6 +242,12 @@ public class shipSetupController extends Application {
             public void handle(DragEvent event) {
 
                 System.out.println("Over");
+                System.out.println(event.getX()+"========="+event.getY());
+                Node source = (Node)event.getTarget() ;
+
+                Integer colIndex = GridPane.getColumnIndex(source);
+                Integer rowIndex = GridPane.getRowIndex(source);
+                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
                 event.acceptTransferModes(TransferMode.ANY);
                 source.setVisible(true);
 
@@ -260,6 +266,28 @@ public class shipSetupController extends Application {
                     target.setOpacity(0.7);
                     System.out.println("Drag entered");
                 }
+
+//                System.out.println("target over");
+//                System.out.println(event.getX()+"========="+event.getY());
+//                Node source = (Node)event.getTarget() ;
+//
+//                Integer colIndex = GridPane.getColumnIndex(source);
+//                Integer rowIndex = GridPane.getRowIndex(source);
+//                System.out.printf("Mouse entered cell ");
+//
+//                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+
+                /*
+                *
+                *
+                System.out.println("Over");
+                System.out.println(event.getX()+"========="+event.getY());
+                Node source = (Node)event.getSource() ;
+
+                Integer colIndex = GridPane.getColumnIndex(source);
+                Integer rowIndex = GridPane.getRowIndex(source);
+                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+                * */
                 event.consume();
             }
         });
@@ -268,8 +296,12 @@ public class shipSetupController extends Application {
         target.setOnDragExited(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 //mouse moved away, remove graphical cues
+
+                System.out.println(event.getX()+"========="+event.getY());
+
+
                 source.setVisible(true);
-                gridPane.add(source, 5, 5);
+                gridPane.add(source, 0, 0);
                 target.setOpacity(1);
                 System.out.println("Drag exit");
                 event.consume();
