@@ -101,7 +101,14 @@ public class initiateController extends Application {
                         shipSetupController fx2 = new shipSetupController();
                         fx2.humanPlayer = humanPlayer;
                         fx2.computer = computer;
-                        fx2.start(primaryStage);
+
+
+                        try {
+                            fx2.start(primaryStage);
+                        }
+                        catch (Exception e){
+                            System.out.println(e);
+                        }
 
 
                     } else {
