@@ -1,47 +1,28 @@
 import java.awt.Insets;
-
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
-
+import java.util.*;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-
 
 
 public class shipSetupController extends Application {
 
-
-    // Set the Custom Data Format
-    static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
-
     static String shipnumname = null;
     static int startend = 0;
-    public ImageView[] ships;
 
 
     Player humanPlayer;
@@ -63,9 +44,8 @@ public class shipSetupController extends Application {
 
 
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("Set Ships for your play!");
-
 
         GridPane gridPane = new GridPane();
 
@@ -134,6 +114,7 @@ public class shipSetupController extends Application {
                 Arena a1 = new Arena();
                 a1.humanPlayer = humanPlayer;
                 a1.computer = computer;
+                a1.startTime = System.currentTimeMillis();
                 a1.start(primaryStage);
             }
         });
@@ -150,7 +131,6 @@ public class shipSetupController extends Application {
         l1.setTranslateY(50);
         l1.setWrapText(true);
 
-        TextField txt = new TextField();
 
         l2.setTranslateX(-900);
         l2.setTranslateY(50);
@@ -158,502 +138,335 @@ public class shipSetupController extends Application {
 
 
 
-
-
-        GridPane gridPane5 = new GridPane();
-
-        for(int j=0;j<5;j++){
-
-            Button button = new Button("-");
-            button.setDisable(true);
-            button.setPrefSize(40, 15);
-            gridPane5.add(button, j, 0);
-        }
-
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
         hbox.getChildren().add(btnok);
         hbox.getChildren().add(l2);
         hbox.getChildren().add(l1);
-//        vbox.getChildren().add(gridPane5);
+
         hbox.setSpacing(50);
 
-
-        // Drag and Drop using Image   ***********************
-        //*****************************
-
-
-
-        FileInputStream input = new FileInputStream("ship5.jpg");
-        Image image = new Image(input);
+        // Radio Button Method, Select ship to place.
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ob,
+                                Toggle o, Toggle n) {
 
 
-        ships = new ImageView[5];
-        ships[0] = new ImageView(image);
-//        ships[0].setPreserveRatio(true);
-//        ships[1] = new ImageView("Ships/ship2.png");
-//        ships[2] = new ImageView("Ships/ship3.png");
-//        ships[3] = new ImageView("Ships/ship4.png");
-//        ships[4] = new ImageView("Ships/ship5.png");
-//        for(int i=0; i < 5; i++){
-//            ships[i].setPreserveRatio(true);
-//        }
-        ships[0].setFitWidth(200);
-        ships[0].setFitHeight(20);
-        ships[0].setTranslateX(200);
-        ships[0].setTranslateY(200);
-//        ships[1].setFitWidth(120);
-//        ships[2].setFitWidth(120);
-//        ships[3].setFitWidth(160);
-//        ships[4].setFitWidth(200);
+                RadioButton rb = (RadioButton) group.getSelectedToggle();
 
-//        vbox.getChildren().add(ships[0]);
+                if (rb != null) {
+                    String s = rb.getText();
 
+                    if (s == Constants.CARRIER) {
+                        shipSetupController.shipnumname = "5c";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
 
-
-        ImageView source = new ImageView(image);
-        source.setPreserveRatio(true);
-        source.setFitWidth(80);
-        vbox.getChildren().add(source);
-
-        final GridPane target = gridPane;
-
-
-
-        source.setOnDragDetected(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                source.startDragAndDrop(TransferMode.ANY);
-
-                Dragboard db = source.startDragAndDrop(TransferMode.ANY);
-
-                ClipboardContent content = new ClipboardContent();
-                content.putString("detected");
-                db.setContent(content);
-
-                event.consume();
-            }
-        });
-
-        hbox.setOnDragOver(new EventHandler<DragEvent>() {
-
-            @Override
-            public void handle(DragEvent event) {
-
-                System.out.println("Over");
-                System.out.println(event.getX()+"========="+event.getY());
-                Node source = (Node)event.getTarget() ;
-
-                Integer colIndex = GridPane.getColumnIndex(source);
-                Integer rowIndex = GridPane.getRowIndex(source);
-                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
-                event.acceptTransferModes(TransferMode.ANY);
-                source.setVisible(true);
-
-                event.consume();
-            }
-        });
-
-
-        //Drag entered changes the appearance of the receiving node to indicate to the player that they can place there
-        target.setOnDragEntered(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                //The drag-and-drop gesture entered the target
-                //show the user that it is an actual gesture target
-                if(event.getGestureSource() != target && event.getDragboard().hasImage()){
-                    source.setVisible(true);
-                    target.setOpacity(0.7);
-                    System.out.println("Drag entered");
-                }
-
-//                System.out.println("target over");
-//                System.out.println(event.getX()+"========="+event.getY());
-//                Node source = (Node)event.getTarget() ;
-//
-//                Integer colIndex = GridPane.getColumnIndex(source);
-//                Integer rowIndex = GridPane.getRowIndex(source);
-//                System.out.printf("Mouse entered cell ");
-//
-//                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
-
-                /*
-                *
-                *
-                System.out.println("Over");
-                System.out.println(event.getX()+"========="+event.getY());
-                Node source = (Node)event.getSource() ;
-
-                Integer colIndex = GridPane.getColumnIndex(source);
-                Integer rowIndex = GridPane.getRowIndex(source);
-                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
-                * */
-                event.consume();
-            }
-        });
-
-        //Drag exited reverts the appearance of the receiving node when the mouse is outside of the node
-        target.setOnDragExited(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                //mouse moved away, remove graphical cues
-
-                System.out.println(event.getX()+"========="+event.getY());
-
-
-                source.setVisible(true);
-                gridPane.add(source, 0, 0);
-                target.setOpacity(1);
-                System.out.println("Drag exit");
-                event.consume();
-            }
-        });
-
-
-
-        gridPane.setOnDragDropped(new EventHandler<DragEvent>() {
-
-            @Override
-            public void handle(DragEvent arg0) {
-                //statusLabel.setText(color.toString() + " dropped");
-            }
-        });
-
-
-
-
-        source.setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                //the drag and drop gesture has ended
-                //if the data was successfully moved, clear it
-                if(event.getTransferMode() == TransferMode.MOVE){
-                    source.setVisible(false);
-                }
-                System.out.println("Drag done");
-                event.consume();
-            }
-        });
-
-        // ************** DRAG END ****************
-
-
-            // Radio Button Method, Select ship to place.
-            group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-                public void changed(ObservableValue<? extends Toggle> ob,
-                                    Toggle o, Toggle n) {
-
-
-                    RadioButton rb = (RadioButton) group.getSelectedToggle();
-
-                    if (rb != null) {
-                        String s = rb.getText();
-
-                        if (s == Constants.CARRIER) {
-                            shipSetupController.shipnumname = "5c";
-                            coordarr.clear();
-                            gridPane.setDisable(false);
-
-                        } else if (s == Constants.BATTLESHIP) {
-                            shipSetupController.shipnumname = "4b";
-                            coordarr.clear();
-                            gridPane.setDisable(false);
-                        } else if (s == Constants.CRUISER) {
-                            shipSetupController.shipnumname = "3c";
-                            coordarr.clear();
-                            gridPane.setDisable(false);
-                        } else if (s == Constants.SUBMARINE) {
-                            shipSetupController.shipnumname = "3s";
-                            coordarr.clear();
-                            gridPane.setDisable(false);
-                        } else if (s == Constants.DESTROYER) {
-                            shipSetupController.shipnumname = "2d";
-                            coordarr.clear();
-                            gridPane.setDisable(false);
-                        }
+                    } else if (s == Constants.BATTLESHIP) {
+                        shipSetupController.shipnumname = "4b";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                    } else if (s == Constants.CRUISER) {
+                        shipSetupController.shipnumname = "3c";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                    } else if (s == Constants.SUBMARINE) {
+                        shipSetupController.shipnumname = "3s";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                    } else if (s == Constants.DESTROYER) {
+                        shipSetupController.shipnumname = "2d";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
                     }
-
-
                 }
-            });
 
 
-            //Placement of ships on button click event in grid.
-            EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e) {
-
-                    if (humanPlayer.shipsArr.size() < 5) {//1
+            }
+        });
 
 
-                        System.out.println("if ship size----" + humanPlayer.shipsArr.size());
-                        System.out.println("inside action performed");
+        //Placement of ships on button click event in grid.
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
 
-                        ButtonClicks buttonok = (ButtonClicks) e.getSource();
-                        String xycor = null;
-
-
-                        System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-                        xycor = Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY())) + Integer.toString(buttonok.getCoordX() + 1);
-                        coordarr.add(xycor);
+                if (humanPlayer.shipsArr.size() < 5) {//1
 
 
-                        if (coordarr.size() == 2) {//2
+                    System.out.println("if ship size----" + humanPlayer.shipsArr.size());
+                    System.out.println("inside action performed");
 
-                            if (humanPlayer.shipsArr.size() == 4) {
-                                btnok.setDisable(false);
-                            }
-
-
-                            boolean flag1 = false;
-
-                            System.out.println("Inside sending function");
-
-                            String axisxystart0 = coordarr.get(0).substring(0, 1);
-                            String axisxyend0 = coordarr.get(1).substring(0, 1);
-
-                            System.out.println("colll corrrrr====== " + axisxystart0 + "    === " + axisxyend0);
-
-                            String axisxystart1 = coordarr.get(0).substring(1);
-                            String axisxyend1 = coordarr.get(1).substring(1);
-
-                            System.out.println("row   corrrrr====== " + axisxystart1 + "    === " + axisxyend1);
+                    ButtonClicks buttonok = (ButtonClicks) e.getSource();
+                    String xycor = null;
 
 
-                            int axisxystartinty = Constants.mapInConstants.get(axisxystart0) + 1;
-                            int axisxystartintx = Integer.parseInt(axisxystart1);
-
-                            int axisxyendinty = Constants.mapInConstants.get(axisxyend0) + 1;
-                            int axisxyendintx = Integer.parseInt(axisxyend1);
+                    System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
+                    xycor = Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY())) + Integer.toString(buttonok.getCoordX() + 1);
+                    coordarr.add(xycor);
 
 
-                            System.out.println(shipsprocessed.contains(shipSetupController.shipnumname));
+                    if (coordarr.size() == 2) {//2
 
-                            if (!shipsprocessed.contains(shipSetupController.shipnumname)) {//3
-
-
-                                System.out.println("inside shiparray doesnt contain");
-
-                                shipsprocessed.add(shipSetupController.shipnumname);
-
-                                String namenum[] = shipSetupController.shipnumname.split("");
+                        if (humanPlayer.shipsArr.size() == 4) {
+                            btnok.setDisable(false);
+                        }
 
 
-                                if (axisxystartintx == axisxyendintx) {
+                        boolean flag1 = false;
 
-                                    System.out.println("x is equal");
+                        System.out.println("Inside sending function");
+                        
+                        String axisxystart0 = coordarr.get(0).substring(0,1);
+                        String axisxyend0 = coordarr.get(1).substring(0,1);
+                        
+                        System.out.println("colll corrrrr====== "+ axisxystart0 + "    === "+ axisxyend0); 
+                        
+                        String axisxystart1 = coordarr.get(0).substring(1);
+                        String axisxyend1 = coordarr.get(1).substring(1);
+                        
+                        System.out.println("row   corrrrr====== "+ axisxystart1 + "    === "+ axisxyend1);
+                        
 
-                                    System.out.println("SHIPSLOTS--:" + shipSetupController.shipnumname);
+                        int axisxystartinty = Constants.mapInConstants.get(axisxystart0) + 1;
+                        int axisxystartintx = Integer.parseInt(axisxystart1);
 
-                                    System.out.println("axisxyendinty :" + axisxyendinty);
-                                    System.out.println("axisxystartinty :" + axisxystartinty);
-
-                                    System.out.println("Y ka difference:--" + Math.abs(axisxyendinty - axisxystartinty));
-
-
-                                    if (Integer.parseInt(namenum[0]) == Math.abs(axisxyendinty - axisxystartinty) + 1) {
-
-                                        System.out.println("Make the flag true");
-                                        flag1 = true;
-                                    }
-
-                                }// if x end
-
-                                else if (axisxystartinty == axisxyendinty) {
-                                    System.out.println("y is equal");
-
-                                    System.out.println("axisxyendintx :" + axisxyendintx);
-                                    System.out.println("axisxystartintx :" + axisxystartintx);
-
-                                    System.out.println("Y ka difference:--" + Math.abs(axisxyendintx - axisxystartintx));
-
-                                    if (Integer.parseInt(namenum[0]) == Math.abs(axisxyendintx - axisxystartintx) + 1) {
-
-                                        System.out.println("Make the flag true");
-                                        flag1 = true;
-
-                                    }
-                                }    //else if y end
-
-                                if (flag1) {
-
-                                    System.out.println("After making flag true");
-
-                                    Ships s = new Ships(coordarr.get(0), coordarr.get(1));
+                        int axisxyendinty = Constants.mapInConstants.get(axisxyend0) + 1;
+                        int axisxyendintx = Integer.parseInt(axisxyend1);
 
 
-                                    if (humanPlayer.checkOverlap(s.coordinates)) {
+                        System.out.println(shipsprocessed.contains(shipSetupController.shipnumname));
 
-                                        humanPlayer.shipsArr.add(s);
-                                        System.out.println(humanPlayer.shipsArr.size());
-
-                                        System.out.println("sending x and y :" + coordarr.get(0) + " " + coordarr.get(1));
-
-                                        ArrayList<String> colorsh = s.coordinates;
-                                        System.out.println("color=====" + s.hexColor);
+                        if (!shipsprocessed.contains(shipSetupController.shipnumname)) {//3
 
 
-                                        for (String c1 : colorsh) {
+                            System.out.println("inside shiparray doesnt contain");
 
-                                            String corsh0 = c1.substring(0, 1);
-                                            String corsh1 = c1.substring(1);
+                            shipsprocessed.add(shipSetupController.shipnumname);
+
+                            String namenum[] = shipSetupController.shipnumname.split("");
 
 
-                                            int xcor = Integer.parseInt(corsh1);
-                                            int ycor = Constants.mapInConstants.get(corsh0) + 1;
+                            if (axisxystartintx == axisxyendintx) {
 
-                                            ButtonClicks b = (ButtonClicks) getNodeFromGridPane(gridPane, ycor, xcor - 1);
-                                            b.setStyle("-fx-background-color:" + s.hexColor);
-                                            System.out.println(s.coordinates);
-                                            System.out.println(s.shipColor);
+                                System.out.println("x is equal");
 
-                                            coordarr.clear();
+                                System.out.println("SHIPSLOTS--:" + shipSetupController.shipnumname);
 
-                                        }
-                                    } else {
+                                System.out.println("axisxyendinty :" + axisxyendinty);
+                                System.out.println("axisxystartinty :" + axisxystartinty);
 
-                                        Constants.showAlert("Please correct the overlapping ship coordinates!");
-                                        shipsprocessed.remove(shipSetupController.shipnumname);
+                                System.out.println("Y ka difference:--" + Math.abs(axisxyendinty - axisxystartinty));
+
+
+                                if (Integer.parseInt(namenum[0]) == Math.abs(axisxyendinty - axisxystartinty) + 1) {
+
+                                    System.out.println("Make the flag true");
+                                    flag1 = true;
+                                }
+
+                            }// if x end
+
+                            else if (axisxystartinty == axisxyendinty) {
+                                System.out.println("y is equal");
+
+                                System.out.println("axisxyendintx :" + axisxyendintx);
+                                System.out.println("axisxystartintx :" + axisxystartintx);
+
+                                System.out.println("Y ka difference:--" + Math.abs(axisxyendintx - axisxystartintx));
+
+                                if (Integer.parseInt(namenum[0]) == Math.abs(axisxyendintx - axisxystartintx) + 1) {
+
+                                    System.out.println("Make the flag true");
+                                    flag1 = true;
+
+                                }
+                            }    //else if y end
+
+                            if (flag1) {
+
+                                System.out.println("After making flag true");
+
+                                Ships s = new Ships(coordarr.get(0), coordarr.get(1));
+
+
+                                if (humanPlayer.checkOverlap(s.coordinates)) {
+
+                                    humanPlayer.shipsArr.add(s);
+                                    System.out.println(humanPlayer.shipsArr.size());
+
+                                    System.out.println("sending x and y :" + coordarr.get(0) + " " + coordarr.get(1));
+
+                                    ArrayList<String> colorsh = s.coordinates;
+                                    System.out.println("color=====" + s.hexColor);
+
+
+                                    for (String c1 : colorsh) {
+
+                                        String corsh0 = c1.substring(0,1);
+                                        String corsh1 = c1.substring(1);
+
+                                        
+                                        int xcor = Integer.parseInt(corsh1);
+                                        int ycor = Constants.mapInConstants.get(corsh0) + 1;
+
+                                        ButtonClicks b = (ButtonClicks) getNodeFromGridPane(gridPane, ycor,xcor - 1);
+                                        b.setStyle("-fx-background-color:" + s.hexColor);
+                                        System.out.println(s.coordinates);
+                                        System.out.println(s.shipColor);
+
                                         coordarr.clear();
 
                                     }
+                                } else {
 
-
-                                }// flagif
-
-                                else {
-                                    Constants.showAlert("Please select the correct ship coordinates!");
-
+                                    Constants.showAlert("Please correct the overlapping ship coordinates!");
                                     shipsprocessed.remove(shipSetupController.shipnumname);
                                     coordarr.clear();
+
                                 }
 
+                             
 
-                                buttonok.setVisible(true);
+                            }// flagif
 
+                            else {
+                                Constants.showAlert("Please select the correct ship coordinates!");
 
-                            } else {
-
-                                Constants.showAlert("This ship is already set, please select the other ship!");
-
+                                shipsprocessed.remove(shipSetupController.shipnumname);
                                 coordarr.clear();
                             }
-                        }
-                    }
-
-                }
-            };
 
 
-            // Grid Creation
-            int nRows, nCols;
+                          
 
-            for (int i = 0; i < Constants.row + 1; i++) {
-                for (int j = 0; j < Constants.col + 1; j++) {
-                    if (j == 0 && i != Constants.row + 1) {
+                            buttonok.setVisible(true);
 
-                        if (i == Constants.row) {
-                            Button button = new Button();
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            button.setText("-");
-                            button.setStyle("-fx-font-size: 2em; ");
-                            gridPane.add(button, j, i);
+
                         } else {
-                            Button button = new Button(Integer.toString(i + 1));
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
+
+                            Constants.showAlert("This ship is already set, please select the other ship!");
+
+                            coordarr.clear();
                         }
-                    } else if (i == Constants.row && j != 0) {
-
-                        if (j == 1) {
-
-                            Button button = new Button("A");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 2) {
-                            Button button = new Button("B");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 3) {
-                            Button button = new Button("C");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 4) {
-                            Button button = new Button("D");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 5) {
-                            Button button = new Button("E");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 6) {
-                            Button button = new Button("F");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 7) {
-                            Button button = new Button("G");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 8) {
-                            Button button = new Button("H");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 9) {
-                            Button button = new Button("I");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 10) {
-                            Button button = new Button("J");
-                            button.setDisable(true);
-                            button.setPrefSize(40, 15);
-                            gridPane.add(button, j, i);
-                        } else if (j == 11) {
-                            Button button = new Button("K");
-                            button.setDisable(true);
-                            gridPane.add(button, j, i);
-                        }
-                    } else {
-
-                        nRows = i;
-                        nCols = j;
-
-                        ButtonClicks buttonsclk = new ButtonClicks(nRows, nCols);
-                        buttonsclk.setText("-");
-                        Button button = new Button();
-                        buttonsclk.setPrefSize(40, 15);
-
-                        gridPane.setDisable(true);
-
-                        gridPane.add(buttonsclk, j, i);
-                        buttonsclk.setOnAction(event);
                     }
+                }
 
-                }//inner for
-            }//outer for
-
-            gridPane.setVgap(5);
-            gridPane.setHgap(5);
+            }
+        };
 
 
-            gridPane.setGridLinesVisible(true);
 
-            Scene scene = new Scene(hbox, 1000, 800);
-            hbox.setStyle("-fx-background-color: Grey");
-            primaryStage.setScene(scene);
-            primaryStage.setWidth(1000);
-            primaryStage.setHeight(800);
-            gridPane.setTranslateX(600);
-            gridPane.setTranslateY(200);
-            primaryStage.show();
-            primaryStage.setMaximized(true);
+        // Grid Creation
+        int nRows, nCols;
 
-        }
+        for (int i = 0; i < Constants.row + 1; i++) {
+            for (int j = 0; j < Constants.col + 1; j++) {
+                if (j == 0 && i != Constants.row + 1) {
+
+                    if (i == Constants.row) {
+                        Button button = new Button();
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        button.setText("-");
+                        button.setStyle("-fx-font-size: 2em; ");
+                        gridPane.add(button, j, i);
+                    } else {
+                        Button button = new Button(Integer.toString(i + 1));
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    }
+                } else if (i == Constants.row && j != 0) {
+
+                    if (j == 1) {
+
+                        Button button = new Button("A");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 2) {
+                        Button button = new Button("B");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 3) {
+                        Button button = new Button("C");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 4) {
+                        Button button = new Button("D");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 5) {
+                        Button button = new Button("E");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 6) {
+                        Button button = new Button("F");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 7) {
+                        Button button = new Button("G");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 8) {
+                        Button button = new Button("H");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 9) {
+                        Button button = new Button("I");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 10) {
+                        Button button = new Button("J");
+                        button.setDisable(true);
+                        button.setPrefSize(40, 15);
+                        gridPane.add(button, j, i);
+                    } else if (j == 11) {
+                        Button button = new Button("K");
+                        button.setDisable(true);
+                        gridPane.add(button, j, i);
+                    }
+                } else {
+
+                    nRows = i;
+                    nCols = j;
+
+                    ButtonClicks buttonsclk = new ButtonClicks(nRows, nCols);
+                    buttonsclk.setText("-");
+                    Button button = new Button();
+                    buttonsclk.setPrefSize(40, 15);
+                  
+                    gridPane.setDisable(true);
+
+                    gridPane.add(buttonsclk, j, i);
+                    buttonsclk.setOnAction(event);
+                }
+
+            }//inner for
+        }//outer for
+
+        gridPane.setVgap(5);
+        gridPane.setHgap(5);
+
+        gridPane.setGridLinesVisible(true);
+
+        Scene scene = new Scene(hbox, 1000, 800);
+        hbox.setStyle("-fx-background-color: Grey");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(800);
+        gridPane.setTranslateX(600);
+        gridPane.setTranslateY(200);
+        primaryStage.show();
+        primaryStage.setMaximized(true);
+
     }
+}
