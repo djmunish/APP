@@ -1,28 +1,48 @@
 import java.awt.Insets;
-import java.util.*;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+
 
 
 public class shipSetupController extends Application {
 
+
+    // Set the Custom Data Format
+    static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
+
     static String shipnumname = null;
     static int startend = 0;
+    public ImageView[] ships;
 
 
     Player humanPlayer;
@@ -44,8 +64,9 @@ public class shipSetupController extends Application {
 
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Set Ships for your play!");
+
 
         GridPane gridPane = new GridPane();
 
@@ -89,9 +110,11 @@ public class shipSetupController extends Application {
         rb5.setPrefSize(150, 50);
         rb5.setTranslateY(230);
 
+
         HBox hbox = new HBox();
         VBox vbox = new VBox();
 
+        Scene scene = new Scene(hbox, 1000, 800);
         vbox.getChildren().add(rb1);
         vbox.getChildren().add(rb2);
         vbox.getChildren().add(rb3);
@@ -114,7 +137,6 @@ public class shipSetupController extends Application {
                 Arena a1 = new Arena();
                 a1.humanPlayer = humanPlayer;
                 a1.computer = computer;
-                a1.startTime = System.currentTimeMillis();
                 a1.start(primaryStage);
             }
         });
@@ -131,6 +153,7 @@ public class shipSetupController extends Application {
         l1.setTranslateY(50);
         l1.setWrapText(true);
 
+        TextField txt = new TextField();
 
         l2.setTranslateX(-900);
         l2.setTranslateY(50);
@@ -138,13 +161,204 @@ public class shipSetupController extends Application {
 
 
 
+
+
+        GridPane gridPane5 = new GridPane();
+
+        for(int j=0;j<5;j++){
+
+            Button button = new Button("-");
+            button.setDisable(true);
+            button.setPrefSize(40, 15);
+            gridPane5.add(button, j, 0);
+        }
+
         hbox.getChildren().add(vbox);
         hbox.getChildren().add(gridPane);
         hbox.getChildren().add(btnok);
         hbox.getChildren().add(l2);
         hbox.getChildren().add(l1);
-
+//        vbox.getChildren().add(gridPane5);
         hbox.setSpacing(50);
+
+
+        // Drag and Drop using Image   ***********************
+        //*****************************
+
+
+
+        FileInputStream input = new FileInputStream("ship5.jpg");
+        Image image = new Image(input);
+
+
+        ships = new ImageView[5];
+        ships[0] = new ImageView(image);
+//        ships[0].setPreserveRatio(true);
+//        ships[1] = new ImageView("Ships/ship2.png");
+//        ships[2] = new ImageView("Ships/ship3.png");
+//        ships[3] = new ImageView("Ships/ship4.png");
+//        ships[4] = new ImageView("Ships/ship5.png");
+//        for(int i=0; i < 5; i++){
+//            ships[i].setPreserveRatio(true);
+//        }
+
+
+        ships[0].setFitWidth(200);
+        ships[0].setFitHeight(20);
+        ships[0].setTranslateX(200);
+        ships[0].setTranslateY(200);
+//        ships[1].setFitWidth(120);
+//        ships[2].setFitWidth(120);
+//        ships[3].setFitWidth(160);
+//        ships[4].setFitWidth(200);
+
+//        vbox.getChildren().add(ships[0]);
+
+
+
+        ImageView source = new ImageView(image);
+
+//        while(MouseButton.SECONDARY)
+        source.setOnMouseClicked(event ->
+        {
+            if (event.getButton() == MouseButton.SECONDARY)
+            {
+                source.setRotate(90);
+
+            }
+        });
+
+        source.setPreserveRatio(true);
+        source.setFitWidth(80);
+        vbox.getChildren().add(source);
+
+        final GridPane target = gridPane;
+
+
+
+        source.setOnDragDetected(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                source.startDragAndDrop(TransferMode.ANY);
+
+                Dragboard db = source.startDragAndDrop(TransferMode.ANY);
+
+                ClipboardContent content = new ClipboardContent();
+                content.putString("detected");
+                db.setContent(content);
+                scene.setCursor(new ImageCursor(image));
+//                ImageCursor.getBestSize(-100,-100);
+                event.consume();
+            }
+        });
+
+        hbox.setOnDragOver(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+
+                System.out.println("Over");
+                System.out.println(event.getX()+"========="+event.getY());
+                Node source = (Node)event.getTarget() ;
+
+                Integer colIndex = GridPane.getColumnIndex(source);
+                Integer rowIndex = GridPane.getRowIndex(source);
+                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+                event.acceptTransferModes(TransferMode.ANY);
+                scene.setCursor(new ImageCursor(image));
+//                ImageCursor.getBestSize(-100,-100);
+                source.setVisible(true);
+//                scene.setCursor(cursor);
+                event.consume();
+            }
+        });
+
+
+        //Drag entered changes the appearance of the receiving node to indicate to the player that they can place there
+        target.setOnDragEntered(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                //The drag-and-drop gesture entered the target
+                //show the user that it is an actual gesture target
+                if(event.getGestureSource() != target && event.getDragboard().hasImage()){
+                    source.setVisible(true);
+                    target.setOpacity(0.7);
+                    System.out.println("Drag entered");
+
+                }
+
+//                System.out.println("target over");
+//                System.out.println(event.getX()+"========="+event.getY());
+//                Node source = (Node)event.getTarget() ;
+//
+//                Integer colIndex = GridPane.getColumnIndex(source);
+//                Integer rowIndex = GridPane.getRowIndex(source);
+//                System.out.printf("Mouse entered cell ");
+//
+//                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+
+                /*
+                *
+                *
+                System.out.println("Over");
+                System.out.println(event.getX()+"========="+event.getY());
+                Node source = (Node)event.getSource() ;
+
+                Integer colIndex = GridPane.getColumnIndex(source);
+                Integer rowIndex = GridPane.getRowIndex(source);
+                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+                * */
+                scene.setCursor(new ImageCursor(image));
+//                ImageCursor.getBestSize(-100,-100);
+                event.consume();
+            }
+        });
+
+        //Drag exited reverts the appearance of the receiving node when the mouse is outside of the node
+        target.setOnDragExited(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                //mouse moved away, remove graphical cues
+
+                System.out.println(event.getX()+"========="+event.getY());
+
+
+                source.setVisible(true);
+                gridPane.add(source, 0, 0);
+                target.setOpacity(1);
+                System.out.println("Drag exit");
+                event.consume();
+            }
+        });
+
+
+
+        gridPane.setOnDragDropped(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                //statusLabel.setText(color.toString() + " dropped");
+//                scene.setCursor(new ImageCursor(image));
+//                ImageCursor.getBestSize(-100,-100);
+            }
+        });
+
+
+
+
+        source.setOnDragDone(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                //the drag and drop gesture has ended
+                //if the data was successfully moved, clear it
+                if(event.getTransferMode() == TransferMode.MOVE){
+                    source.setVisible(false);
+                }
+                System.out.println("Drag done");
+                event.consume();
+            }
+        });
+
+        // ************** DRAG END ****************
+
 
         // Radio Button Method, Select ship to place.
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
@@ -215,17 +429,17 @@ public class shipSetupController extends Application {
                         boolean flag1 = false;
 
                         System.out.println("Inside sending function");
-                        
-                        String axisxystart0 = coordarr.get(0).substring(0,1);
-                        String axisxyend0 = coordarr.get(1).substring(0,1);
-                        
-                        System.out.println("colll corrrrr====== "+ axisxystart0 + "    === "+ axisxyend0); 
-                        
+
+                        String axisxystart0 = coordarr.get(0).substring(0, 1);
+                        String axisxyend0 = coordarr.get(1).substring(0, 1);
+
+                        System.out.println("colll corrrrr====== " + axisxystart0 + "    === " + axisxyend0);
+
                         String axisxystart1 = coordarr.get(0).substring(1);
                         String axisxyend1 = coordarr.get(1).substring(1);
-                        
-                        System.out.println("row   corrrrr====== "+ axisxystart1 + "    === "+ axisxyend1);
-                        
+
+                        System.out.println("row   corrrrr====== " + axisxystart1 + "    === " + axisxyend1);
+
 
                         int axisxystartinty = Constants.mapInConstants.get(axisxystart0) + 1;
                         int axisxystartintx = Integer.parseInt(axisxystart1);
@@ -302,14 +516,14 @@ public class shipSetupController extends Application {
 
                                     for (String c1 : colorsh) {
 
-                                        String corsh0 = c1.substring(0,1);
+                                        String corsh0 = c1.substring(0, 1);
                                         String corsh1 = c1.substring(1);
 
-                                        
+
                                         int xcor = Integer.parseInt(corsh1);
                                         int ycor = Constants.mapInConstants.get(corsh0) + 1;
 
-                                        ButtonClicks b = (ButtonClicks) getNodeFromGridPane(gridPane, ycor,xcor - 1);
+                                        ButtonClicks b = (ButtonClicks) getNodeFromGridPane(gridPane, ycor, xcor - 1);
                                         b.setStyle("-fx-background-color:" + s.hexColor);
                                         System.out.println(s.coordinates);
                                         System.out.println(s.shipColor);
@@ -325,7 +539,6 @@ public class shipSetupController extends Application {
 
                                 }
 
-                             
 
                             }// flagif
 
@@ -336,8 +549,6 @@ public class shipSetupController extends Application {
                                 coordarr.clear();
                             }
 
-
-                          
 
                             buttonok.setVisible(true);
 
@@ -353,7 +564,6 @@ public class shipSetupController extends Application {
 
             }
         };
-
 
 
         // Grid Creation
@@ -443,7 +653,7 @@ public class shipSetupController extends Application {
                     buttonsclk.setText("-");
                     Button button = new Button();
                     buttonsclk.setPrefSize(40, 15);
-                  
+
                     gridPane.setDisable(true);
 
                     gridPane.add(buttonsclk, j, i);
@@ -456,9 +666,10 @@ public class shipSetupController extends Application {
         gridPane.setVgap(5);
         gridPane.setHgap(5);
 
+
         gridPane.setGridLinesVisible(true);
 
-        Scene scene = new Scene(hbox, 1000, 800);
+
         hbox.setStyle("-fx-background-color: Grey");
         primaryStage.setScene(scene);
         primaryStage.setWidth(1000);

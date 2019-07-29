@@ -285,6 +285,12 @@ public class Arena extends Application {
                                 	System.out.println("\n \n Window size updated to " + salvaWindow);
                                 	
                                 	//update UI
+//
+                                    salvaGrid = createGrid(1, salvaWindow, true);
+
+                                    vbox.getChildren().remove(1);
+                                    vbox.getChildren().add(1,salvaGrid);
+
                                 }
                                 
                                 
