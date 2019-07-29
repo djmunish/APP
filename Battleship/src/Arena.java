@@ -33,6 +33,7 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
+import javafx.scene.text.Text;
 
 public class Arena extends Application {
 
@@ -42,23 +43,32 @@ public class Arena extends Application {
     long finishTime;
     String selectedAddress;
     public Button hitBtn;
-    public ComboBox inputComboBox;
-
-    //int seconds;
-    //Timer timerhere = new Timer();
-   // Label b = new Label();
-    //TimerTask tasker = new TimerTask() {
-    //		public void run() {
-    //			seconds++;
-    //			b.setText(Integer.toString(seconds));
-    //			System.out.print("seconds passed" + seconds);
-    //		}
-    //};
-    
+    public ComboBox inputComboBox;  
 
     int index = 0;
     GridPane salvaGrid;
     int salvaWindow = 5;
+    
+    private int seconds = 0;
+    private int minutes = 0;
+    private int hours = 0;
+    boolean timerstop = false;
+    private final Text text = new Text("Timer - "+(hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
+
+    private void incrementCount() {
+    	if(!timerstop) {
+    		seconds++;
+    		if(seconds > 59) {
+    			seconds = 0;
+    			minutes = minutes + 1;
+    		}
+    		if(minutes > 59) {
+    			minutes = 0;
+    			hours = hours + 1;
+    		}
+    	}
+        text.setText("Timer - "+(hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
+    }
 
     public void start(Stage stage) { 
 
@@ -66,8 +76,6 @@ public class Arena extends Application {
 
             // set title for the stage
             stage.setTitle("LET'S PLAY");
-           // timerhere.scheduleAtFixedRate(tasker, 1000, 1000);
-
             HBox hbox = new HBox(70);
             hbox.setTranslateX(200);
             hbox.setTranslateY(20);
@@ -149,13 +157,37 @@ public class Arena extends Application {
             if(humanPlayer.gamePlayType) {
                 salvaGrid = createGrid(1, salvaWindow, true);
                 vbox.getChildren().add(salvaGrid);
+                vbox.getChildren().add(text);
+                
+                
+                // longrunning operation runs on different thread
+                Thread thread = new Thread(new Runnable() {
 
+                    @Override
+                    public void run() {
+                        Runnable updater = new Runnable() {
 
-//                inputComboBox.setOnAction(e -> {
-//                    if(humanPlayer.gamePlayType){
-//                        updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
-//                    }
-//                });
+                            @Override
+                            public void run() {
+                                incrementCount();
+                            }
+                        };
+
+                        while (true) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException ex) {
+                            }
+
+                            // UI update is run on the Application thread
+                            Platform.runLater(updater);
+                        }
+                    }
+
+                });
+                // don't let thread prevent JVM shutdown
+                thread.setDaemon(true);
+                thread.start();
 
                 inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                     @Override
@@ -202,6 +234,7 @@ public class Arena extends Application {
                             			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
+                                			timerstop = true;
                                 			Constants.showAlert(computer.name + " won the game!!!");}
                         			}//for
                                 }//not flag2
@@ -209,6 +242,7 @@ public class Arena extends Application {
                             		finishTime = System.currentTimeMillis();
                             		long elapsedtime = finishTime - startTime;
                             		String score  = calcScore(elapsedtime);
+                            		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
                                 
@@ -242,6 +276,8 @@ public class Arena extends Application {
                                 if(shipcount < salvaWindow) {
                                 	salvaWindow = shipcount;
                                 	System.out.println("\n \n Window size updated to " + salvaWindow);
+                                	
+                                	//update UI
                                 }
                                 
                                 
