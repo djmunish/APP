@@ -38,7 +38,6 @@ public class shipSetupController extends Application {
     static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
 
     static String shipnumname = null;
-    static int startend = 0;
     public ImageView[] ships;
     private Integer x = 0;
     private Integer y = 0;

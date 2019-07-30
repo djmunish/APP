@@ -56,10 +56,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Battleship/src/shipSetupController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="42" column="14" selection-start-line="42" selection-end-line="43" />
+            <state relative-caret-position="-11322">
+              <caret line="44" column="23" lean-forward="true" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
               <folding>
-                <marker date="1564464811287" expanded="true" signature="30567:30586" ph="..." />
+                <marker date="1564465256803" expanded="true" signature="30538:30557" ph="..." />
               </folding>
             </state>
           </provider>
@@ -138,6 +138,7 @@
       <find>setStyle</find>
       <find>dropShip</find>
       <find>Mouse entered cell :-</find>
+      <find>startend</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -344,10 +345,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Battleship/src/shipSetupController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="42" column="14" selection-start-line="42" selection-end-line="43" />
+        <state relative-caret-position="-11322">
+          <caret line="44" column="23" lean-forward="true" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
           <folding>
-            <marker date="1564464811287" expanded="true" signature="30567:30586" ph="..." />
+            <marker date="1564465256803" expanded="true" signature="30538:30557" ph="..." />
           </folding>
         </state>
       </provider>
