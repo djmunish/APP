@@ -164,11 +164,9 @@ public class Player {
     	int upperbound = 0;
     	if(salvaWindow == 5 || salvaWindow == 4) {
     		upperbound = 2;
+    	}else if(salvaWindow == 3 || salvaWindow == 2) {
+    		upperbound = 1;
     	}
-    	if(salvaWindow == 3 || salvaWindow == 2 || salvaWindow ==1) {
-    		upperbound = 2;
-    	}
-    	
     	System.out.println("Inputsfirst is: " + inputsfirst);
     	System.out.println("Inputs is: " + inputs);
     	String s = "";
