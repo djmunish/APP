@@ -74,20 +74,114 @@ public class shipSetupController extends Application {
     public void dropShip(int col, int row, int len, GridPane g, boolean isVertical, String shipColor){
 
         if(checkAvailability(col, row, len, isVertical)) {
+        	
+        	Ships s;
+   	     
+        	String start=null,end=null;
+        	
+        	ArrayList<String> coordxy=new ArrayList<String>();
+        	
             if (isVertical) {
                 for (int i = 0; i < len; i++) {
                     ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col, row + i);
-                    b.setStyle("-fx-background-color: "+ shipColor);
+                    
+                    if(i==0){
+                    	start= Constants.indexToAlpha.get(Integer.toString(b.getCoordY())) + Integer.toString(b.getCoordX() + 1);
+                    }
+                    else if(i==len-1){
+                    	
+                    	end= Constants.indexToAlpha.get(Integer.toString(b.getCoordY())) + Integer.toString(b.getCoordX() + 1);
+                    }
+                    
+                    String xycor=Constants.indexToAlpha.get(Integer.toString(b.getCoordY())) + Integer.toString(b.getCoordX() + 1);
+                    coordxy.add(xycor);
+                    
+                    
                 }
+                
+                
+                s = new Ships(start, end);
+                
+                if (humanPlayer.checkOverlap(s.coordinates)) {
+
+                    humanPlayer.shipsArr.add(s);
+                    
+                    for (String c1 : coordxy) {
+
+                        String corsh0 = c1.substring(0, 1);
+                        String corsh1 = c1.substring(1);
+
+
+                        int xcor = Integer.parseInt(corsh1);
+                        int ycor = Constants.mapInConstants.get(corsh0) + 1;
+
+                        ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, ycor, xcor - 1);
+                        
+                        b.setStyle("-fx-background-color:" + shipColor );
+                                        
+
+                    }
+    
+                    }
+                
+                 else {
+
+                    Constants.showAlert("Please correct the overlapping ship coordinates!");
+                    
+                }
+               
+                
             } else {
                 for (int i = 0; i < len; i++) {
                     ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col + i, row);
-                    b.setStyle("-fx-background-color: "+shipColor);
+                    
+                                     
+                    if(i==0){
+                    	start= Constants.indexToAlpha.get(Integer.toString(b.getCoordY())) + Integer.toString(b.getCoordX() + 1);
+                    }
+                    else if(i==len-1){
+                    	
+                    	end= Constants.indexToAlpha.get(Integer.toString(b.getCoordY())) + Integer.toString(b.getCoordX() + 1);
+                    }    
+                   
+                    
+                    String xycor=Constants.indexToAlpha.get(Integer.toString(b.getCoordY())) + Integer.toString(b.getCoordX() + 1);
+                    coordxy.add(xycor);
                 }
+                             
+                s = new Ships(start, end);
+                
+                if (humanPlayer.checkOverlap(s.coordinates)) {
+
+                    humanPlayer.shipsArr.add(s);
+                    
+                    for (String c1 : coordxy) {
+
+                        String corsh0 = c1.substring(0, 1);
+                        String corsh1 = c1.substring(1);
+
+
+                        int xcor = Integer.parseInt(corsh1);
+                        int ycor = Constants.mapInConstants.get(corsh0) + 1;
+
+                        ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, ycor, xcor - 1);
+                        
+                        b.setStyle("-fx-background-color:" + shipColor );
+                                        
+
+                    }
+    
+                    }
+                
+                else {
+
+                    Constants.showAlert("Please correct the overlapping ship coordinates!");                  
+                }
+                                            
             }
         }
         else{
-            Constants.showAlert("Please choose correct location!!");
+            Constants.showAlert("Please select coordinates inside the grid");
         }
 
     }
@@ -155,8 +249,8 @@ public class shipSetupController extends Application {
 
         Button btnok = new Button("I'm Ready!");
         btnok.setStyle("-fx-background-color: Grey ");
-        btnok.setTranslateX(300);
-        btnok.setTranslateY(650);
+        btnok.setTranslateX(200);
+        btnok.setTranslateY(550);
         btnok.setPrefSize(150, 50);
 
         // Navigation to Arena.
@@ -172,7 +266,8 @@ public class shipSetupController extends Application {
         });
 
 
-        btnok.setDisable(true);
+        btnok.setDisable(false);
+        
         Label l1 = new Label("WELCOME " + humanPlayer.name.toUpperCase() + " ! SET UP YOUR SHIPS !");
         l1.setTextFill(Color.FLORALWHITE);
         l1.setFont(new Font("Arial", 20));
@@ -399,7 +494,7 @@ public class shipSetupController extends Application {
 
                         if(x != null && y != null){
 
-                            dropShip(x , y , len , gridPane, true, color);
+                            dropShip(x , y , len , gridPane, isvertical1, color);
 
                         }
                         System.out.println("Drag done");
