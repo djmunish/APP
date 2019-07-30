@@ -179,105 +179,164 @@ public class shipSetupController extends Application {
         hbox.setSpacing(50);
 
 
-        // Drag and Drop using Image   ***********************
-        //*****************************
 
 
 
-        FileInputStream input = new FileInputStream("ship5.jpg");
-        Image image = new Image(input);
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ob,
+                                Toggle o, Toggle n) {
 
 
-        ships = new ImageView[5];
-        ships[0] = new ImageView(image);
-//        ships[0].setPreserveRatio(true);
-//        ships[1] = new ImageView("Ships/ship2.png");
-//        ships[2] = new ImageView("Ships/ship3.png");
-//        ships[3] = new ImageView("Ships/ship4.png");
-//        ships[4] = new ImageView("Ships/ship5.png");
-//        for(int i=0; i < 5; i++){
-//            ships[i].setPreserveRatio(true);
-//        }
+                RadioButton rb = (RadioButton) group.getSelectedToggle();
+
+                if (rb != null) {
+                    String s = rb.getText();
+
+                    if (s == Constants.CARRIER) {
+                        shipSetupController.shipnumname = "5c";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                        FileInputStream input = null;
+                        try {
+                            input = new FileInputStream("S1.png");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        Image image = new Image(input);
+                        ImageView source = new ImageView(image);
+                        final GridPane target = gridPane;
+                        dragDrop(source,target,image);
 
 
-        ships[0].setFitWidth(200);
-        ships[0].setFitHeight(20);
-        ships[0].setTranslateX(200);
-        ships[0].setTranslateY(200);
-//        ships[1].setFitWidth(120);
-//        ships[2].setFitWidth(120);
-//        ships[3].setFitWidth(160);
-//        ships[4].setFitWidth(200);
+                    } else if (s == Constants.BATTLESHIP) {
+                        shipSetupController.shipnumname = "4b";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                        FileInputStream input = null;
+                        try {
+                            input = new FileInputStream("S2.png");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        Image image = new Image(input);
+                        ImageView source = new ImageView(image);
+                        final GridPane target = gridPane;
+                        dragDrop(source,target,image);
 
-//        vbox.getChildren().add(ships[0]);
+                    } else if (s == Constants.CRUISER) {
+                        shipSetupController.shipnumname = "3c";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                        FileInputStream input = null;
+                        try {
+                            input = new FileInputStream("S3.png");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        Image image = new Image(input);
+                        ImageView source = new ImageView(image);
+                        final GridPane target = gridPane;
+                        dragDrop(source,target,image);
 
+                    } else if (s == Constants.SUBMARINE) {
+                        shipSetupController.shipnumname = "3s";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                        FileInputStream input = null;
+                        try {
+                            input = new FileInputStream("S4.png");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        Image image = new Image(input);
+                        ImageView source = new ImageView(image);
+                        final GridPane target = gridPane;
+                        dragDrop(source,target,image);
 
-
-        ImageView source = new ImageView(image);
-        source.setOnMouseClicked(event ->
-        {
-            if (event.getButton() == MouseButton.SECONDARY)
-            {
-                source.setRotate(90);
-
-            }
-        });
-
-        source.setPreserveRatio(true);
-        source.setFitWidth(80);
-        vbox.getChildren().add(source);
-
-        final GridPane target = gridPane;
-
-
-
-        source.setOnDragDetected(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                source.startDragAndDrop(TransferMode.ANY);
-
-                Dragboard db = source.startDragAndDrop(TransferMode.ANY);
-
-                ClipboardContent content = new ClipboardContent();
-                content.putString("detected");
-                db.setContent(content);
-                scene.setCursor(new ImageCursor(image));
-                event.consume();
-            }
-        });
-
-        hbox.setOnDragOver(new EventHandler<DragEvent>() {
-
-            @Override
-            public void handle(DragEvent event) {
-
-                System.out.println("Over");
-                System.out.println(event.getX()+"========="+event.getY());
-                Node source = (Node)event.getTarget() ;
-
-                Integer colIndex = GridPane.getColumnIndex(source);
-                Integer rowIndex = GridPane.getRowIndex(source);
-                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
-                event.acceptTransferModes(TransferMode.ANY);
-                scene.setCursor(new ImageCursor(image));
-                source.setVisible(true);
-                event.consume();
-            }
-        });
-
-
-        //Drag entered changes the appearance of the receiving node to indicate to the player that they can place there
-        target.setOnDragEntered(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                //The drag-and-drop gesture entered the target
-                //show the user that it is an actual gesture target
-                if(event.getGestureSource() != target && event.getDragboard().hasImage()){
-                    source.setVisible(true);
-                    target.setOpacity(0.7);
-                    System.out.println("Drag entered");
-
+                    } else if (s == Constants.DESTROYER) {
+                        shipSetupController.shipnumname = "2d";
+                        coordarr.clear();
+                        gridPane.setDisable(false);
+                        FileInputStream input = null;
+                        try {
+                            input = new FileInputStream("S5.png");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        Image image = new Image(input);
+                        ImageView source = new ImageView(image);
+                        final GridPane target = gridPane;
+                        dragDrop(source,target,image);
+                    }
                 }
+
+
+            }
+
+            private void dragDrop(ImageView source, GridPane target, Image image) {
+
+                source.setPreserveRatio(true);
+                source.setFitWidth(80);
+                vbox.getChildren().add(source);
+
+
+                source.setOnMouseClicked(event ->
+                {
+                    if (event.getButton() == MouseButton.SECONDARY)
+                    {
+                        source.setRotate(90);
+
+                    }
+                });
+
+
+                source.setOnDragDetected(new EventHandler<MouseEvent>() {
+
+                    @Override
+                    public void handle(MouseEvent event) {
+                        source.startDragAndDrop(TransferMode.ANY);
+
+                        Dragboard db = source.startDragAndDrop(TransferMode.ANY);
+
+                        ClipboardContent content = new ClipboardContent();
+                        content.putString("detected");
+                        db.setContent(content);
+                        scene.setCursor(new ImageCursor(image));
+                        event.consume();
+                    }
+                });
+
+
+                hbox.setOnDragOver(new EventHandler<DragEvent>() {
+
+                    @Override
+                    public void handle(DragEvent event) {
+
+                        System.out.println("Over");
+                        System.out.println(event.getX()+"========="+event.getY());
+                        Node source = (Node)event.getTarget() ;
+
+                        Integer colIndex = GridPane.getColumnIndex(source);
+                        Integer rowIndex = GridPane.getRowIndex(source);
+                        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+                        event.acceptTransferModes(TransferMode.ANY);
+                        scene.setCursor(new ImageCursor(image));
+                        source.setVisible(true);
+                        event.consume();
+                    }
+                });
+
+                //Drag entered changes the appearance of the receiving node to indicate to the player that they can place there
+                target.setOnDragEntered(new EventHandler<DragEvent>() {
+                    public void handle(DragEvent event) {
+                        //The drag-and-drop gesture entered the target
+                        //show the user that it is an actual gesture target
+                        if(event.getGestureSource() != target && event.getDragboard().hasImage()){
+                            source.setVisible(true);
+                            target.setOpacity(0.7);
+                            System.out.println("Drag entered");
+
+                        }
 
 //                System.out.println("target over");
 //                System.out.println(event.getX()+"========="+event.getY());
@@ -300,53 +359,56 @@ public class shipSetupController extends Application {
                 Integer rowIndex = GridPane.getRowIndex(source);
                 System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
                 * */
-                event.consume();
+                        event.consume();
+                    }
+                });
+
+                //Drag exited reverts the appearance of the receiving node when the mouse is outside of the node
+                target.setOnDragExited(new EventHandler<DragEvent>() {
+                    public void handle(DragEvent event) {
+                        //mouse moved away, remove graphical cues
+
+                        System.out.println(event.getX()+"========="+event.getY());
+
+
+                        source.setVisible(true);
+                        target.add(source, 0, 0);
+                        target.setOpacity(1);
+                        scene.setCursor(Cursor.DEFAULT);
+                        System.out.println("Drag exit");
+                        event.consume();
+                    }
+                });
+
+
+
+                gridPane.setOnDragDropped(new EventHandler<DragEvent>() {
+
+                    @Override
+                    public void handle(DragEvent event) {
+                        //statusLabel.setText(color.toString() + " dropped");
+                    }
+                });
+
+
+                source.setOnDragDone(new EventHandler<DragEvent>() {
+                    public void handle(DragEvent event) {
+                        //the drag and drop gesture has ended
+                        //if the data was successfully moved, clear it
+                        if(event.getTransferMode() == TransferMode.MOVE){
+                            source.setVisible(false);
+                        }
+                        System.out.println("Drag done");
+                        event.consume();
+                    }
+                });
             }
         });
 
-        //Drag exited reverts the appearance of the receiving node when the mouse is outside of the node
-        target.setOnDragExited(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                //mouse moved away, remove graphical cues
 
-                System.out.println(event.getX()+"========="+event.getY());
+       // ****  DragDROP END **********
 
 
-                source.setVisible(true);
-                target.add(source, 0, 0);
-                target.setOpacity(1);
-                scene.setCursor(Cursor.DEFAULT);
-                System.out.println("Drag exit");
-                event.consume();
-            }
-        });
-
-
-
-        gridPane.setOnDragDropped(new EventHandler<DragEvent>() {
-
-            @Override
-            public void handle(DragEvent event) {
-                //statusLabel.setText(color.toString() + " dropped");
-            }
-        });
-
-
-
-
-        source.setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                //the drag and drop gesture has ended
-                //if the data was successfully moved, clear it
-                if(event.getTransferMode() == TransferMode.MOVE){
-                    source.setVisible(false);
-                }
-                System.out.println("Drag done");
-                event.consume();
-            }
-        });
-
-        // ************** DRAG END ****************
 
 
         // Radio Button Method, Select ship to place.
