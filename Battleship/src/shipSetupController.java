@@ -41,9 +41,12 @@ public class shipSetupController extends Application {
     public ImageView[] ships;
 
 
-    boolean isvertical1=false;
+    boolean isvertical1 = false;
     Player humanPlayer;
     Player computer;
+
+    private Integer x = 0;
+    private Integer y = 0;
     public static void main(String[] args) {
         launch(args);
 
@@ -309,8 +312,7 @@ public class shipSetupController extends Application {
                 source.setFitWidth(80);
                 vbox.getChildren().add(source);
                 
-                final Integer[] x={0};
-                final Integer[] y={0};
+
                 
                
                 source.setOnMouseClicked(event ->
@@ -362,12 +364,11 @@ public class shipSetupController extends Application {
                         event.acceptTransferModes(TransferMode.ANY);
                                                 
                         
-                        x[0]= target.getColumnIndex(source);
-                        y[0]= target.getRowIndex(source);
+                        x = target.getColumnIndex(source).intValue();
+                        y = target.getRowIndex(source).intValue();
                        
                                                     
-                        System.out.printf("Mouse entered cell :- "+ x[0]+"  "+y[0]);
-                        
+
                         scene.setCursor(new ImageCursor(image));
                         source.setVisible(true);
                         event.consume();
@@ -489,7 +490,7 @@ public class shipSetupController extends Application {
 //                        target.add(source,x[0],y[0]);
 
                         if(x != null && y != null){
-                            dropShip(y,x,len,gridPane,false);
+                            dropShip(x , y , len , gridPane, true);
 
                         }
                         System.out.println("Drag done");
