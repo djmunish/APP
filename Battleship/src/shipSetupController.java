@@ -71,18 +71,18 @@ public class shipSetupController extends Application {
         }
     }
 
-    public void dropShip(int col, int row, int len, GridPane g, boolean isVertical){
+    public void dropShip(int col, int row, int len, GridPane g, boolean isVertical, String shipColor){
 
         if(checkAvailability(col, row, len, isVertical)) {
             if (isVertical) {
                 for (int i = 0; i < len; i++) {
                     ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col, row + i);
-                    b.setStyle("-fx-background-color: Blue");
+                    b.setStyle("-fx-background-color: "+ shipColor);
                 }
             } else {
                 for (int i = 0; i < len; i++) {
                     ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col + i, row);
-                    b.setStyle("-fx-background-color: Blue");
+                    b.setStyle("-fx-background-color: "+shipColor);
                 }
             }
         }
@@ -237,7 +237,8 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,5,isvertical);
+                        String color = Constants.getColor.get("S1");
+                        dragDrop(source,target,image,5,isvertical, color);
 
 
                     } else if (s == Constants.BATTLESHIP) {
@@ -253,7 +254,8 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,4,isvertical);
+                        String color = Constants.getColor.get("S2");
+                        dragDrop(source,target,image,4,isvertical, color);
 
                     } else if (s == Constants.CRUISER) {
                         shipSetupController.shipnumname = "3c";
@@ -268,7 +270,8 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,3,isvertical);
+                        String color = Constants.getColor.get("S3");
+                        dragDrop(source,target,image,3,isvertical, color);
 
                     } else if (s == Constants.SUBMARINE) {
                         shipSetupController.shipnumname = "3s";
@@ -283,7 +286,8 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,3,isvertical);
+                        String color = Constants.getColor.get("S4");
+                        dragDrop(source,target,image,3,isvertical, color);
 
                     } else if (s == Constants.DESTROYER) {
                         shipSetupController.shipnumname = "2d";
@@ -298,7 +302,8 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,2,isvertical);
+                        String color = Constants.getColor.get("S5");
+                        dragDrop(source,target,image,2,isvertical, color);
                     }
                 }
 
@@ -306,7 +311,7 @@ public class shipSetupController extends Application {
             
 
     
-            private void dragDrop(ImageView source, GridPane target, Image image, int len,boolean isvertical) {
+            private void dragDrop(ImageView source, GridPane target, Image image, int len,boolean isvertical,String color) {
 
                 source.setPreserveRatio(true);
                 source.setFitWidth(80);
@@ -490,7 +495,8 @@ public class shipSetupController extends Application {
 //                        target.add(source,x[0],y[0]);
 
                         if(x != null && y != null){
-                            dropShip(x , y , len , gridPane, true);
+
+                            dropShip(x , y , len , gridPane, true, color);
 
                         }
                         System.out.println("Drag done");
