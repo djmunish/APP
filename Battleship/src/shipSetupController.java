@@ -40,9 +40,9 @@ public class shipSetupController extends Application {
     static String shipnumname = null;
     static int startend = 0;
     public ImageView[] ships;
-    private Integer x = 0;
-    private Integer y = 0;
 
+
+    boolean isvertical1=false;
     Player humanPlayer;
     Player computer;
     public static void main(String[] args) {
@@ -59,11 +59,19 @@ public class shipSetupController extends Application {
         return null;
     }
 
-    public void dropShip(int col, int row, int len, GridPane g){
+    public void dropShip(int col, int row, int len, GridPane g,boolean isvertical){
+
         for(int i = 0 ; i <len ; i ++){
+        	
+            System.out.println(col+i);
+            System.out.println(row);
+            
             ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col+i, row);
+            
             b.setStyle("-fx-background-color: Blue");
+
         }
+
     }
 
 
@@ -194,6 +202,8 @@ public class shipSetupController extends Application {
 
                 if (rb != null) {
                     String s = rb.getText();
+                    
+                    boolean isvertical=false;
 
                     if (s == Constants.CARRIER) {
                         shipSetupController.shipnumname = "5c";
@@ -209,7 +219,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,5);
+                        dragDrop(source,target,image,5,isvertical);
 
 
                     } else if (s == Constants.BATTLESHIP) {
@@ -225,7 +235,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,4);
+                        dragDrop(source,target,image,4,isvertical);
 
                     } else if (s == Constants.CRUISER) {
                         shipSetupController.shipnumname = "3c";
@@ -240,7 +250,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,3);
+                        dragDrop(source,target,image,3,isvertical);
 
                     } else if (s == Constants.SUBMARINE) {
                         shipSetupController.shipnumname = "3s";
@@ -255,7 +265,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,3);
+                        dragDrop(source,target,image,3,isvertical);
 
                     } else if (s == Constants.DESTROYER) {
                         shipSetupController.shipnumname = "2d";
@@ -270,7 +280,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image,2);
+                        dragDrop(source,target,image,2,isvertical);
                     }
                 }
 
@@ -278,23 +288,26 @@ public class shipSetupController extends Application {
             
 
     
-            private void dragDrop(ImageView source, GridPane target, Image image, int len) {
+            private void dragDrop(ImageView source, GridPane target, Image image, int len,boolean isvertical) {
 
                 source.setPreserveRatio(true);
                 source.setFitWidth(80);
                 vbox.getChildren().add(source);
                 
-
+                final Integer[] x={0};
+                final Integer[] y={0};
                 
+               
                 source.setOnMouseClicked(event ->
                 {
                     if (event.getButton() == MouseButton.SECONDARY)
                     {
                         source.setRotate(90);
+                        
+                        isvertical1=true;
 
                     }
                 });
-
 
                 source.setOnDragDetected(new EventHandler<MouseEvent>() {
 
@@ -324,6 +337,7 @@ public class shipSetupController extends Application {
                     public void handle(DragEvent event) {
 
                         System.out.println("Over");
+                        System.out.println(event.getX()+"========="+event.getY());
 
                         Node source = (Node)event.getTarget() ;
 
@@ -331,14 +345,13 @@ public class shipSetupController extends Application {
                         Integer rowIndex = GridPane.getRowIndex(source);
 //                        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
                         event.acceptTransferModes(TransferMode.ANY);
+                                                
                         
-                        
-                        
-                        x = target.getColumnIndex(source).intValue();
-                        y = target.getRowIndex(source).intValue();
-
+                        x[0]= target.getColumnIndex(source);
+                        y[0]= target.getRowIndex(source);
+                       
                                                     
-                        System.out.printf("Mouse entered cell :- "+ x+"  "+y);
+                        System.out.printf("Mouse entered cell :- "+ x[0]+"  "+y[0]);
                         
                         scene.setCursor(new ImageCursor(image));
                         source.setVisible(true);
@@ -454,9 +467,15 @@ public class shipSetupController extends Application {
                         boolean success = true;
                                 
 
+
+
+
+
 //                        target.add(source,x[0],y[0]);
-                        if(x != null && y != null){
-                            dropShip(y,x,len,gridPane);
+                        
+                        if(x[0]!=null && y[0]!=null){
+                        	
+                            dropShip(x[0],y[0],len,gridPane,isvertical1);
                         }
                         System.out.println("Drag done");
                         event.consume();
