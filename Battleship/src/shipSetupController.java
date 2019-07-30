@@ -339,8 +339,8 @@ public class shipSetupController extends Application {
                     @Override
                     public void handle(DragEvent event) {
 
-                        System.out.println("Over");
-                        System.out.println(event.getX()+"========="+event.getY());
+//                        System.out.println("Over");
+//                        System.out.println(event.getX()+"========="+event.getY());
 
                         Node source = (Node)event.getTarget() ;
                         try{
