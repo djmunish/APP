@@ -59,17 +59,33 @@ public class shipSetupController extends Application {
         return null;
     }
 
-    public void dropShip(int col, int row, int len, GridPane g,boolean isvertical){
 
-        for(int i = 0 ; i <len ; i ++){
-        	
-            System.out.println(col+i);
-            System.out.println(row);
-            
-            ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col+i, row);
-            
-            b.setStyle("-fx-background-color: Blue");
+    public boolean checkAvailability(int col, int row, int len, boolean isVertical){
+        if (isVertical) {
+            return row+len<Constants.row;
+        }
+            else{
+                return col+len<Constants.col;
+        }
+    }
 
+    public void dropShip(int col, int row, int len, GridPane g, boolean isVertical){
+
+        if(checkAvailability(col, row, len, isVertical)) {
+            if (isVertical) {
+                for (int i = 0; i < len; i++) {
+                    ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col, row + i);
+                    b.setStyle("-fx-background-color: Blue");
+                }
+            } else {
+                for (int i = 0; i < len; i++) {
+                    ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col + i, row);
+                    b.setStyle("-fx-background-color: Blue");
+                }
+            }
+        }
+        else{
+            Constants.showAlert("Please choose correct location!!");
         }
 
     }
@@ -472,10 +488,10 @@ public class shipSetupController extends Application {
 
 
 //                        target.add(source,x[0],y[0]);
-                        
-                        if(x[0]!=null && y[0]!=null){
-                        	
-                            dropShip(x[0],y[0],len,gridPane,isvertical1);
+
+                        if(x != null && y != null){
+                            dropShip(y,x,len,gridPane,false);
+
                         }
                         System.out.println("Drag done");
                         event.consume();
