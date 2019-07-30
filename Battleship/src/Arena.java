@@ -246,14 +246,17 @@ public class Arena extends Application {
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
                                 			timerstop = true;
-                                			Constants.showAlert(computer.name + " won the game!!!");}
+                                			finishTime = System.currentTimeMillis();
+                                    		long elapsedtime = finishTime - startTime;
+                                    		String score  = calcScore(elapsedtime, humanPlayer);
+                                			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                         			}//for
                                 }//not flag2
                                 else { //Human Player won the game!
                             		finishTime = System.currentTimeMillis();
                             		long elapsedtime = finishTime - startTime;
                             		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
-                            		String score  = calcScore(elapsedtime);
+                            		String score  = calcScore(elapsedtime, humanPlayer);
                             		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
@@ -353,11 +356,14 @@ public class Arena extends Application {
                     		flag3 = checkWinner(humanPlayer, computer);
                     		if(flag3) {
                     			timerstop = true;
-                    			Constants.showAlert(computer.name + " won the game!!!");}
+                    			finishTime = System.currentTimeMillis();
+                        		long elapsedtime = finishTime - startTime;
+                        		String score  = calcScore(elapsedtime, humanPlayer);
+                    			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                     	}else {
                     		finishTime = System.currentTimeMillis();
                     		long elapsedtime = finishTime - startTime;
-                    		String score  = calcScore(elapsedtime);
+                    		String score  = calcScore(elapsedtime, humanPlayer);
                     		timerstop = true;
                     		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                     	}
@@ -685,11 +691,11 @@ public class Arena extends Application {
      * @param elapsedtime - time taken by player for the entire game play
      * @return the calculated score in the form of a String.
      */
-    public String calcScore(long elapsedtime) {
+    public String calcScore(long elapsedtime, Player human) {
     	System.out.println("elapsed time: " + elapsedtime);
     	double minutes = (double)elapsedtime/60000; 
     	System.out.println("Time taken by player is " + Double.toString(minutes)); 
-    	double scorecalc = (1/minutes)*100;
+    	double scorecalc = ((1/minutes)*100) + (human.hitscount * 10) - (human.misscount * 1);
     	DecimalFormat d = new DecimalFormat("#.###");
     	//System.out.print(d.format(scorecalc));
     	System.out.println("score is "+ d.format(scorecalc));
