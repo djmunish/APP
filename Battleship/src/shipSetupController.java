@@ -319,7 +319,7 @@ public class shipSetupController extends Application {
 
                         Integer colIndex = GridPane.getColumnIndex(source);
                         Integer rowIndex = GridPane.getRowIndex(source);
-                        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+//                        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
                         event.acceptTransferModes(TransferMode.ANY);
                         scene.setCursor(new ImageCursor(image));
                         source.setVisible(true);
@@ -371,6 +371,11 @@ public class shipSetupController extends Application {
 
                         System.out.println(event.getX()+"========="+event.getY());
 
+                        Node source = (Node)event.getSource() ;
+
+                        Integer colIndex = GridPane.getColumnIndex(source);
+                        Integer rowIndex = GridPane.getRowIndex(source);
+                        System.out.printf("Mouse entered cell end [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
 
                         source.setVisible(true);
                         target.add(source, 0, 0);
@@ -630,7 +635,7 @@ public class shipSetupController extends Application {
                         button.setDisable(true);
                         button.setPrefSize(40, 15);
                         button.setText("-");
-                        button.setStyle("-fx-font-size: 2em; ");
+//                        button.setStyle("-fx-font-size: 2em; ");
                         gridPane.add(button, j, i);
                     } else {
                         Button button = new Button(Integer.toString(i + 1));
@@ -694,6 +699,7 @@ public class shipSetupController extends Application {
                     } else if (j == 11) {
                         Button button = new Button("K");
                         button.setDisable(true);
+                        button.setPrefSize(40, 15);
                         gridPane.add(button, j, i);
                     }
                 } else {
@@ -715,12 +721,13 @@ public class shipSetupController extends Application {
             }//inner for
         }//outer for
 
-        gridPane.setVgap(5);
-        gridPane.setHgap(5);
+//        gridPane.setVgap(5);
+//        gridPane.setHgap(5);
 
 
-        gridPane.setGridLinesVisible(true);
+//        gridPane.setGridLinesVisible(true);
 
+        gridPane.setPrefSize(500, 500);
 
         hbox.setStyle("-fx-background-color: Grey");
         primaryStage.setScene(scene);
