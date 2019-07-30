@@ -227,7 +227,12 @@ public class Arena extends Application {
                     			while(it.hasNext()) {
                     				String s = it.next();
                     				humanPlayer.updateDropdown(s, humanPlayer.inputs);
-                    				Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                    				boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                    				if(flag) {
+                    					humanPlayer.hitscount++;
+                    				}else {
+                    					humanPlayer.misscount++;
+                    				}
                     			} 
                                 clearSalvaAfterHit(salvaGrid);
                                 hitBtn.setText("OK");
@@ -235,7 +240,7 @@ public class Arena extends Application {
                                 boolean flag2 = checkWinner(computer, humanPlayer);
                                 if (!flag2) {
                                 	for(int i = 0;i<salvaWindow;i++) {
-                        				String s = computer.randomhitcompai(humanPlayer);
+                        				String s = computer.randomhitcompai(humanPlayer, i+1 , salvaWindow);
                             			System.out.println("computerhit is == " + s);
                             			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                             			flag3 = checkWinner(humanPlayer, computer);
@@ -247,6 +252,7 @@ public class Arena extends Application {
                                 else { //Human Player won the game!
                             		finishTime = System.currentTimeMillis();
                             		long elapsedtime = finishTime - startTime;
+                            		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
                             		String score  = calcScore(elapsedtime);
                             		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
@@ -319,6 +325,9 @@ public class Arena extends Application {
                 				String message = "Wohoo!! Its a hit!!";
                 				if (!flag) {
                 					message = "Bohoo!! You missed it!!";
+                					humanPlayer.misscount++;
+                				}else {
+                					humanPlayer.hitscount++;
                 				}
                 				Constants.showAlert(message);
                 			 }else {
@@ -329,7 +338,7 @@ public class Arena extends Application {
 
                     	boolean flag2 = checkWinner(computer, humanPlayer);
                     	if (!flag2) {
-                    			String s = computer.randomhitcompai(humanPlayer);
+                    			String s = computer.randomhitcompai(humanPlayer, 0, 0);
                     			System.out.println("computerhit is == " + s);
                     			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                     			String messageComp;
@@ -661,7 +670,8 @@ public class Arena extends Application {
      * @return true if there is a winner of the game i.e. all ships are down else return false.
      */
     public boolean checkWinner(Player p1, Player p2) { 
-        System.out.print("Ships array size is " + p1.shipsArr.size());
+        System.out.println("Ships array size is " + p1.shipsArr.size());
+        System.out.println("Ships array is " + p1.shipsArr);
         if (p1.shipsArr.size() == 0) {
            // Constants.showAlert(p2.name + " won the game!!!");
             return true;
@@ -678,11 +688,11 @@ public class Arena extends Application {
     public String calcScore(long elapsedtime) {
     	System.out.println("elapsed time: " + elapsedtime);
     	double minutes = (double)elapsedtime/60000; 
+    	System.out.println("Time taken by player is " + Double.toString(minutes)); 
     	double scorecalc = (1/minutes)*100;
     	DecimalFormat d = new DecimalFormat("#.###");
-    	System.out.print(d.format(scorecalc));
-    	System.out.print("score is "+ scorecalc);
-    	System.out.println("Time taken by player is " + Double.toString(minutes)); 	
+    	//System.out.print(d.format(scorecalc));
+    	System.out.println("score is "+ d.format(scorecalc));
     	return d.format(scorecalc);
     }
 

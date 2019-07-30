@@ -20,7 +20,8 @@ public class Player {
     public ArrayList<Ships> shipsArr;
     ArrayList<String> inputs;
     ArrayList<String> inputsfirst;
-
+    int hitscount;
+    int misscount;
     ArrayList<String> computerships = createInputs();
     String name;
 
@@ -32,6 +33,8 @@ public class Player {
         shipsArr = new ArrayList<>();
         inputsfirst = new ArrayList<>();
         inputs = createInputs();
+        hitscount = 0;
+        misscount = 0;
     }
 
 
@@ -41,7 +44,7 @@ public class Player {
      * @param end - ending node of the ship.
      * @return return the object of Ship class.
      */
-    public Ships setupShip(String start, String end) { // Create ship for player
+    public Ships setupShip(String start, String end) { 
         Ships shipFormed = new Ships(start, end);
         return shipFormed;
     }
@@ -58,7 +61,7 @@ public class Player {
      * Select random location for the computer's random ship placement.
      * @return random string from the grid like "A1" or "B10".
      */
-    public String randomhitcomp() { // random selection of location for computer
+    public String randomhitcomp() { 
         int n = ran.nextInt(inputs.size());
         return inputs.get(n);
     }
@@ -122,8 +125,7 @@ public class Player {
     			boolean flag = Ships.checkifship(t, human);
     			if(flag && inputs.contains(t)) {
     				f = f.concat(t + " ");
-    			}
-    			
+    			}	
     		}else if(s3.equals("D")){
     			int in = index2+1;
     			String t = s1 + Integer.toString(in);
@@ -158,11 +160,19 @@ public class Player {
      * @param human - Human player's object.
      * @return the next random hit by the computer
      */
-    public String randomhitcompai(Player human) { 
+    public String randomhitcompai(Player human, int salvacount, int salvaWindow) { 
+    	int upperbound = 0;
+    	if(salvaWindow == 5 || salvaWindow == 4) {
+    		upperbound = 2;
+    	}
+    	if(salvaWindow == 3 || salvaWindow == 2 || salvaWindow ==1) {
+    		upperbound = 2;
+    	}
+    	
     	System.out.println("Inputsfirst is: " + inputsfirst);
     	System.out.println("Inputs is: " + inputs);
     	String s = "";
-    	if(inputsfirst.size() == 0) {
+    	if(inputsfirst.size() == 0 || salvacount > salvaWindow - upperbound) {
     		int n = ran.nextInt(inputs.size()); 
     		s = inputs.get(n);
     		inputs.remove(s);
@@ -250,7 +260,6 @@ public class Player {
             end = block;
         }
         if (flagf.equals("T")) {
-            //System.out.println("Computer ship is: " + temp);
             computerships.removeAll(temp);
         }
         String f = flagf.concat(" " + start + " " + end);
@@ -286,9 +295,9 @@ public class Player {
         String s = Character.toString(alpha) + n;
         return s;
     }
+    
     /**
      * Create Random ships for the computer for length 2/3/3/4/5.
-     * @return
      */
     public void randomship() { //
         int[] len = {2, 3, 3, 4, 5};
@@ -312,9 +321,12 @@ public class Player {
        // return null;
         //return s;
     }
-
-    public ArrayList<String> createInputs() { // Create whole set of input location for player
-
+    
+    /**
+     * Create whole set of input locations for player.
+     * @return the arrayList with all the available inputs for the human player.
+     */
+    public ArrayList<String> createInputs() { // 
         ArrayList<String> temp = new ArrayList<String>();
         String[] col = Constants.alphabets.split("");
         int[] rows = new int[Constants.row];
@@ -328,13 +340,21 @@ public class Player {
         }
         return temp;
     }//createInputs
-
+    
+    /**
+     * Function to initiate Salva Variation for the human player.
+     */
     public void initiateSalva(){
             salvaArr = new ArrayList<>();
             gamePlayType = true;
     }
-
-    public void updateDropdown(String s, ArrayList<String> drop) { // Update human player input drop down
+    
+    /**
+     * Update human player input drop down
+     * @param s The input which is already used by the player
+     * @param drop - Inputs of the player.
+     */
+    public void updateDropdown(String s, ArrayList<String> drop) { 
         drop.remove(s);
     }
 
