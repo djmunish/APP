@@ -220,6 +220,7 @@ public class Player {
         String sarr1 = s.substring(1);
         int row = Integer.parseInt(sarr1);
         Character alph = sarr0.charAt(0);
+        System.out.print("sarr0 " + sarr0 );
         int col = Constants.mapInConstants.get(sarr0);
         int j = ran.nextInt(10);
         String block = "";
