@@ -1,19 +1,12 @@
-import java.awt.Insets;
-
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -21,9 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.input.MouseEvent;
@@ -147,6 +138,7 @@ public class shipSetupController extends Application {
                     
                     String xycor=Constants.indexToAlpha.get(Integer.toString(b.getCoordY())) + Integer.toString(b.getCoordX() + 1);
                     coordxy.add(xycor);
+
                 }
                              
                 s = new Ships(start, end);
@@ -183,7 +175,6 @@ public class shipSetupController extends Application {
         else{
             Constants.showAlert("Please select coordinates inside the grid");
         }
-
     }
 
 
@@ -266,19 +257,22 @@ public class shipSetupController extends Application {
         });
 
 
+
         btnok.setDisable(false);
-        
+
+
         Label l1 = new Label("WELCOME " + humanPlayer.name.toUpperCase() + " ! SET UP YOUR SHIPS !");
         l1.setTextFill(Color.FLORALWHITE);
         l1.setFont(new Font("Arial", 20));
+
         Label l2 = new Label("PLEASE SELECT THE SHIP TYPE " + "!");
         l2.setTextFill(Color.FLORALWHITE);
         l2.setFont(new Font("Arial", 20));
+
         l1.setTranslateX(-550);
         l1.setTranslateY(50);
         l1.setWrapText(true);
 
-        TextField txt = new TextField();
 
         l2.setTranslateX(-900);
         l2.setTranslateY(50);
@@ -330,7 +324,7 @@ public class shipSetupController extends Application {
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
                         String color = Constants.getColor.get("S1");
-                        dragDrop(source,target,image,5,isvertical, color);
+                        dragDrop(source,target,image,Constants.LEN_CARRIER, color);
 
 
                     } else if (s == Constants.BATTLESHIP) {
@@ -347,7 +341,7 @@ public class shipSetupController extends Application {
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
                         String color = Constants.getColor.get("S2");
-                        dragDrop(source,target,image,4,isvertical, color);
+                        dragDrop(source,target,image,Constants.LEN_BATTLESHIP, color);
 
                     } else if (s == Constants.CRUISER) {
                         shipSetupController.shipnumname = "3c";
@@ -363,7 +357,7 @@ public class shipSetupController extends Application {
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
                         String color = Constants.getColor.get("S3");
-                        dragDrop(source,target,image,3,isvertical, color);
+                        dragDrop(source,target,image,Constants.LEN_CRUISER, color);
 
                     } else if (s == Constants.SUBMARINE) {
                         shipSetupController.shipnumname = "3s";
@@ -379,7 +373,7 @@ public class shipSetupController extends Application {
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
                         String color = Constants.getColor.get("S4");
-                        dragDrop(source,target,image,3,isvertical, color);
+                        dragDrop(source,target,image,Constants.LEN_SUBMARINE, color);
 
                     } else if (s == Constants.DESTROYER) {
                         shipSetupController.shipnumname = "2d";
@@ -395,7 +389,7 @@ public class shipSetupController extends Application {
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
                         String color = Constants.getColor.get("S5");
-                        dragDrop(source,target,image,2,isvertical, color);
+                        dragDrop(source,target,image,Constants.LEN_DESTROYER, color);
                     }
                 }
 
@@ -403,7 +397,7 @@ public class shipSetupController extends Application {
             
 
     
-            private void dragDrop(ImageView source, GridPane target, Image image, int len,boolean isvertical,String color) {
+            private void dragDrop(ImageView source, GridPane target, Image image, int len,String color) {
 
                 source.setPreserveRatio(true);
                 source.setFitWidth(80);
@@ -414,9 +408,7 @@ public class shipSetupController extends Application {
                     if (event.getButton() == MouseButton.SECONDARY)
                     {
                         source.setRotate(90);
-                        
-                        isvertical1=true;
-
+                        isvertical1 = true;
                     }
                 });
 
@@ -444,14 +436,15 @@ public class shipSetupController extends Application {
                     @Override
                     public void handle(DragEvent event) {
 
-                        System.out.println("Over");
-                        System.out.println(event.getX()+"========="+event.getY());
+//                        System.out.println("Over");
+//                        System.out.println(event.getX()+"========="+event.getY());
 
                         Node source = (Node)event.getTarget() ;
                         try{
                             Integer colIndex = GridPane.getColumnIndex(source);
                             Integer rowIndex = GridPane.getRowIndex(source);
 //                        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+
                             event.acceptTransferModes(TransferMode.ANY);
 
 
@@ -467,6 +460,74 @@ public class shipSetupController extends Application {
                         event.consume();
                     }
                 });
+
+                /*
+                //Drag entered changes the appearance of the receiving node to indicate to the player that they can place there
+                target.setOnDragEntered(new EventHandler<DragEvent>() {
+                    public void handle(DragEvent event) {
+                        //The drag-and-drop gesture entered the target
+                        //show the user that it is an actual gesture target
+                        //if(event.getGestureSource() != target && event.getDragboard().hasImage()){
+                    	                     	
+                            source.setVisible(true);
+                            //target.setOpacity(0.7);
+                            
+                            Node source=(Node)event.getSource();
+                            
+                            Integer colIndex = target.getColumnIndex(source);
+                            Integer rowIndex = target.getRowIndex(source);
+                            
+                            System.out.printf("Mouse entered cell :- "+ colIndex+"  "+rowIndex);
+                                                     
+                            //target.add(source,colIndex.intValue(),rowIndex.intValue());                           
+                            
+                            
+                            
+                            //target.setStyle("-fx-background-color: Blue");
+                            
+                            System.out.println("Drag entered");
+
+                        //}
+
+                                               
+                        event.consume();
+                    }
+                });
+				
+                
+
+                //Drag exited reverts the appearance of the receiving node when the mouse is outside of the node
+                target.setOnDragExited(new EventHandler<DragEvent>() {
+                    public void handle(DragEvent event) {
+                        //mouse moved away, remove graphical cues
+                    	
+                  	System.out.println("drag EXITed KAY ANDAR");
+ 
+                                             
+                        Dragboard db = event.getDragboard();
+                        boolean success = true;
+                         
+                        Node source=(Node)event.getSource();
+                        
+                        Integer colIndex = target.getColumnIndex(source);
+                        Integer rowIndex = target.getRowIndex(source);
+                                                
+                        System.out.printf("Mouse starting --------- :-"+target.getColumnIndex(source)+ " "+
+                        		target.getRowIndex(source));
+                        
+                        
+                       System.out.printf("Mouse entered cell :- "+ colIndex+"  "+rowIndex);
+                                                 
+                       //target.add(source,5,5);
+                                       
+                        System.out.println("Drag done");
+                        event.consume();                   	
+                    	              	
+
+                    }
+                });
+                 
+                 */
 
 
                 target.setOnDragDropped(new EventHandler<DragEvent>() {
@@ -491,10 +552,9 @@ public class shipSetupController extends Application {
                                              
                         Dragboard db = event.getDragboard();
                         boolean success = true;
-
-                        if(x != null && y != null){
-
-                            dropShip(x , y , len , gridPane, isvertical1, color);
+                        
+                        if(x != 0 && y != 0){
+                            dropShip(x , y , len , gridPane, true, color);
 
                         }
                         System.out.println("Drag done");
@@ -557,8 +617,8 @@ public class shipSetupController extends Application {
                 if (humanPlayer.shipsArr.size() < 5) {//1
 
 
-                    System.out.println("if ship size----" + humanPlayer.shipsArr.size());
-                    System.out.println("inside action performed");
+//                    System.out.println("if ship size----" + humanPlayer.shipsArr.size());
+//                    System.out.println("inside action performed");
 
                     ButtonClicks buttonok = (ButtonClicks) e.getSource();
                     String xycor = null;
@@ -612,12 +672,12 @@ public class shipSetupController extends Application {
 
                             if (axisxystartintx == axisxyendintx) {
 
-                                System.out.println("x is equal");
-
-                                System.out.println("SHIPSLOTS--:" + shipSetupController.shipnumname);
-
-                                System.out.println("axisxyendinty :" + axisxyendinty);
-                                System.out.println("axisxystartinty :" + axisxystartinty);
+//                                System.out.println("x is equal");
+//
+//                                System.out.println("SHIPSLOTS--:" + shipSetupController.shipnumname);
+//
+//                                System.out.println("axisxyendinty :" + axisxyendinty);
+//                                System.out.println("axisxystartinty :" + axisxystartinty);
 
                                 System.out.println("Y ka difference:--" + Math.abs(axisxyendinty - axisxystartinty));
 
@@ -631,12 +691,12 @@ public class shipSetupController extends Application {
                             }// if x end
 
                             else if (axisxystartinty == axisxyendinty) {
-                                System.out.println("y is equal");
-
-                                System.out.println("axisxyendintx :" + axisxyendintx);
-                                System.out.println("axisxystartintx :" + axisxystartintx);
-
-                                System.out.println("Y ka difference:--" + Math.abs(axisxyendintx - axisxystartintx));
+//                                System.out.println("y is equal");
+//
+//                                System.out.println("axisxyendintx :" + axisxyendintx);
+//                                System.out.println("axisxystartintx :" + axisxystartintx);
+//
+//                                System.out.println("Y ka difference:--" + Math.abs(axisxyendintx - axisxystartintx));
 
                                 if (Integer.parseInt(namenum[0]) == Math.abs(axisxyendintx - axisxystartintx) + 1) {
 
@@ -808,7 +868,7 @@ public class shipSetupController extends Application {
                     gridPane.setDisable(true);
 
                     gridPane.add(buttonsclk, j, i);
-                    buttonsclk.setOnAction(event);
+//                    buttonsclk.setOnAction(event);
                 }
 
             }//inner for

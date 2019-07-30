@@ -71,6 +71,7 @@ public class Player {
      * @param s is the node which is already a hit.
      * @param human player object for human class.
      * @return a string of all the neighbours of the input node.
+     * @author harshkour
      */
     public String checkneighbors(String s, Player human) { // 
     	ArrayList<String> neighbor = new ArrayList<String>();
@@ -159,6 +160,7 @@ public class Player {
      * Generate Priority list of random computer hits.
      * @param human - Human player's object.
      * @return the next random hit by the computer
+     * @author harshkour
      */
     public String randomhitcompai(Player human, int salvacount, int salvaWindow) { 
     	int upperbound = 0;
@@ -209,6 +211,7 @@ public class Player {
      * @param s- random string generated to be the part of the ship.
      * @param length- length of the ship.
      * @return "T" if the string s is valid for ship placement else return "F".
+     * @author harshkour
      */
     public String randomshipblocks(String s, int length) { 
         ArrayList<String> temp = new ArrayList<String>();
@@ -268,55 +271,94 @@ public class Player {
             String end0 = end.substring(0,1);
         	String end1 = end.substring(1);
         	Iterator<String> it = temp.iterator();
-            if(j>=5) { // when ship is placed vertically 	
-            	int colend = Constants.mapInConstants.get(end0);
+        	int colend = Constants.mapInConstants.get(end0);
+        	int colstart = Constants.mapInConstants.get(start0);
+            if(j>=5) { // when ship is placed horizontally	
+            	
             	if(colend != 10) { //remove ship end+1 block
             		String remover = Constants.indexToAlpha.get(Integer.toString((colend+2)))+end1;
             		System.out.print("\nremovedr :" + remover);
             		computerships.remove(remover);
+            		if(Integer.parseInt(end1)!=10) {
+            			String removerd = Constants.indexToAlpha.get(Integer.toString((colend+2)))+ (Integer.parseInt(end1)+1) ;
+            			System.out.print("\nremovedrd :" + removerd);
+            			computerships.remove(removerd);}
+            		if(Integer.parseInt(end1)!=1) {
+            			String removeru = Constants.indexToAlpha.get(Integer.toString((colend+2)))+ (Integer.parseInt(end1)-1) ;
+            			System.out.print("\nremovedru :" + removeru);
+            			computerships.remove(removeru);}
             	}
-            	int colstart = Constants.mapInConstants.get(start0);
+            	
             	if(colstart!=0) {//remove ship start-1 block
             		String removel = Constants.indexToAlpha.get(Integer.toString(colstart)) + sarr1;
             		System.out.print("\nremovedl :" + removel);
             		computerships.remove(removel);
+            		if(Integer.parseInt(sarr1)!=10) {
+            			String removeld = Constants.indexToAlpha.get(Integer.toString(colstart)) + (Integer.parseInt(sarr1)+1);
+            			System.out.print("\nremovedld :" + removeld);
+            			computerships.remove(removeld);}
+            		if(Integer.parseInt(sarr1)!=1) {
+            			String removelu = Constants.indexToAlpha.get(Integer.toString(colstart)) + (Integer.parseInt(sarr1)-1);
+            			System.out.print("\nremovedlu :" + removelu);
+            			computerships.remove(removelu);}
             	}       	
             	while(it.hasNext()) { //remove ship's top and bottom row
             		String blockship = it.next();
             		String blockship0 = blockship.substring(0,1);
             		String blockship1 = blockship.substring(1);
-            		String removet = blockship0 + (Integer.parseInt(blockship1)-1);
-            		System.out.print("\nremovedt :" + removet);
-            		computerships.remove(removet);
-            		String removed = blockship0 + (Integer.parseInt(blockship1)+1);
-            		System.out.print("\nremovedd :" + removed);
-            		computerships.remove(removed);
+            		if(Integer.parseInt(blockship1)!=1) {
+            			String removet = blockship0 + (Integer.parseInt(blockship1)-1);
+            			System.out.print("\nremovedt :" + removet);
+            			computerships.remove(removet);}
+            		if(Integer.parseInt(blockship1)!=10) {
+            			String removed = blockship0 + (Integer.parseInt(blockship1)+1);
+            			System.out.print("\nremovedd :" + removed);
+            			computerships.remove(removed);}
             	} 	
-            }else { //when ship is placed horizontally
+            }else { //when ship is placed vertically
             	int endb = Integer.parseInt(end1);
             	int startb = Integer.parseInt(start1);
             	if(endb!= 10) {
             		String removed =  end0 + (endb+1);
             		System.out.print("\nremovedd :" + removed);
             		computerships.remove(removed);
+            		if(colend!=0) {
+            			String removedl =  Constants.indexToAlpha.get(Integer.toString(colend)) + (endb+1);
+            			System.out.print("\nremovedl :" + removedl);
+            			computerships.remove(removedl);}
+            		if(colend!=10) {
+            		String removedr =  Constants.indexToAlpha.get(Integer.toString(colend+2)) + (endb+1);
+            		System.out.print("\nremovedr :" + removedr);
+            		computerships.remove(removedr);}
+            		
             	}
             	if(startb != 1) {
-            		int startt = startb-1;
-            		String removet =  start0 + (startt);
+            		//int startt = startb-1;
+            		String removet =  start0 + (startb-1);
             		System.out.print("\nremovedt :" + removet);
             		computerships.remove(removet);
+            		if(colstart!=0) {
+            			String removetl =  Constants.indexToAlpha.get(Integer.toString(colstart)) + (startb-1);
+            			System.out.print("\nremovetl :" + removetl);
+            			computerships.remove(removetl);}
+            		if(colstart!=10) {
+            			String removetr =  Constants.indexToAlpha.get(Integer.toString(colstart+2)) + (startb-1);
+            			System.out.print("\nremovetr :" + removetr);
+            			computerships.remove(removetr);}
             	}
             	while(it.hasNext()) {
             		String blockship = it.next();
             		String blockship0 = blockship.substring(0,1);
             		String blockship1 = blockship.substring(1);
             		int colblockship = Constants.mapInConstants.get(blockship0);
-            		String removel = Constants.indexToAlpha.get(Integer.toString((colblockship))) + blockship1;
-            		System.out.print("\nremovedl :" + removel);
-            		computerships.remove(removel);
-            		String remover = Constants.indexToAlpha.get(Integer.toString((colblockship+2))) + blockship1;
-            		System.out.print("\nremovedd :" + remover);
-            		computerships.remove(remover);
+            		if(colblockship!=0) {
+            			String removel = Constants.indexToAlpha.get(Integer.toString((colblockship))) + blockship1;
+            			System.out.print("\nremovedl :" + removel);
+            			computerships.remove(removel);}
+            		if(colblockship!=10) {
+            			String remover = Constants.indexToAlpha.get(Integer.toString((colblockship+2))) + blockship1;
+            			System.out.print("\nremovedd :" + remover);
+            			computerships.remove(remover);}
             	}
             }
         }
