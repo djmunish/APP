@@ -20,6 +20,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+/**
+ * Initial controller to start the game and choose game play options.
+ * @author harshkour
+ * @since 2019-07-06
+ * @version 1.0.1
+ */
 public class initiateController extends Application {
 
     Player humanPlayer;
