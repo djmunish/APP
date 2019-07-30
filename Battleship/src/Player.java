@@ -217,10 +217,12 @@ public class Player {
         String start = "";
         String end = "";
         String flagf = "T";
-        String[] sarr = s.split("");
-        int row = Integer.parseInt(sarr[1]);
-        Character alph = sarr[0].charAt(0);
-        int col = Constants.mapInConstants.get(sarr[0]);
+       // String[] sarr = s.split("");
+        String sarr0 = s.substring(0,1);
+        String sarr1 = s.substring(1);
+        int row = Integer.parseInt(sarr1);
+        Character alph = sarr0.charAt(0);
+        int col = Constants.mapInConstants.get(sarr0);
         int j = ran.nextInt(10);
         String block = "";
         if (j >= 5) { //same row
@@ -247,7 +249,7 @@ public class Player {
         } else { //same col
             for (int l = 0; l < length; l++) {
                 int row1 = row + l;
-                block = sarr[0] + row1;
+                block = sarr0 + row1;
                 boolean flag = computerships.contains(block);
                 if (!flag) {
                     flagf = "F";
@@ -260,7 +262,64 @@ public class Player {
             end = block;
         }
         if (flagf.equals("T")) {
+        	System.out.println("\n\nShip is " + temp);
             computerships.removeAll(temp);
+            String start0 = start.substring(0,1);
+            String start1 = start.substring(1);
+            String end0 = end.substring(0,1);
+        	String end1 = end.substring(1);
+        	Iterator<String> it = temp.iterator();
+            if(j>=5) { // when ship is placed vertically 	
+            	int colend = Constants.mapInConstants.get(end0);
+            	if(colend != 10) { //remove ship end+1 block
+            		String remover = Constants.indexToAlpha.get(Integer.toString((colend+2)))+end1;
+            		System.out.print("\nremovedr :" + remover);
+            		computerships.remove(remover);
+            	}
+            	int colstart = Constants.mapInConstants.get(start0);
+            	if(colstart!=0) {//remove ship start-1 block
+            		String removel = Constants.indexToAlpha.get(Integer.toString(colstart)) + sarr1;
+            		System.out.print("\nremovedl :" + removel);
+            		computerships.remove(removel);
+            	}       	
+            	while(it.hasNext()) { //remove ship's top and bottom row
+            		String blockship = it.next();
+            		String blockship0 = blockship.substring(0,1);
+            		String blockship1 = blockship.substring(1);
+            		String removet = blockship0 + (Integer.parseInt(blockship1)-1);
+            		System.out.print("\nremovedt :" + removet);
+            		computerships.remove(removet);
+            		String removed = blockship0 + (Integer.parseInt(blockship1)+1);
+            		System.out.print("\nremovedd :" + removed);
+            		computerships.remove(removed);
+            	} 	
+            }else { //when ship is placed horizontally
+            	int endb = Integer.parseInt(end1);
+            	int startb = Integer.parseInt(start1);
+            	if(endb!= 10) {
+            		String removed =  end0 + (endb+1);
+            		System.out.print("\nremovedd :" + removed);
+            		computerships.remove(removed);
+            	}
+            	if(startb != 1) {
+            		int startt = startb-1;
+            		String removet =  start0 + (startt);
+            		System.out.print("\nremovedt :" + removet);
+            		computerships.remove(removet);
+            	}
+            	while(it.hasNext()) {
+            		String blockship = it.next();
+            		String blockship0 = blockship.substring(0,1);
+            		String blockship1 = blockship.substring(1);
+            		int colblockship = Constants.mapInConstants.get(blockship0);
+            		String removel = Constants.indexToAlpha.get(Integer.toString((colblockship))) + blockship1;
+            		System.out.print("\nremovedl :" + removel);
+            		computerships.remove(removel);
+            		String remover = Constants.indexToAlpha.get(Integer.toString((colblockship+2))) + blockship1;
+            		System.out.print("\nremovedd :" + remover);
+            		computerships.remove(remover);
+            	}
+            }
         }
         String f = flagf.concat(" " + start + " " + end);
         return f;
