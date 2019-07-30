@@ -64,7 +64,6 @@ public class shipSetupController extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Set Ships for your play!");
 
-
         GridPane gridPane = new GridPane();
 
         StackPane stackpane = new StackPane();
@@ -122,7 +121,7 @@ public class shipSetupController extends Application {
 
 
         Button btnok = new Button("I'm Ready!");
-        btnok.setStyle("-fx-background-color: ");
+        btnok.setStyle("-fx-background-color: Grey ");
         btnok.setTranslateX(300);
         btnok.setTranslateY(650);
         btnok.setPrefSize(150, 50);
@@ -157,9 +156,6 @@ public class shipSetupController extends Application {
         l2.setWrapText(true);
 
 
-
-
-
         GridPane gridPane5 = new GridPane();
 
         for(int j=0;j<5;j++){
@@ -181,7 +177,6 @@ public class shipSetupController extends Application {
 
 
 
-
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ob,
                                 Toggle o, Toggle n) {
@@ -197,6 +192,7 @@ public class shipSetupController extends Application {
                         coordarr.clear();
                         gridPane.setDisable(false);
                         FileInputStream input = null;
+                        
                         try {
                             input = new FileInputStream("S1.png");
                         } catch (FileNotFoundException e) {
@@ -204,7 +200,7 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        final GridPane target = gridPane;
+                        GridPane target = gridPane;
                         dragDrop(source,target,image);
 
 
@@ -220,7 +216,7 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        final GridPane target = gridPane;
+                        GridPane target = gridPane;
                         dragDrop(source,target,image);
 
                     } else if (s == Constants.CRUISER) {
@@ -235,7 +231,7 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        final GridPane target = gridPane;
+                        GridPane target = gridPane;
                         dragDrop(source,target,image);
 
                     } else if (s == Constants.SUBMARINE) {
@@ -250,7 +246,7 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        final GridPane target = gridPane;
+                        GridPane target = gridPane;
                         dragDrop(source,target,image);
 
                     } else if (s == Constants.DESTROYER) {
@@ -265,21 +261,24 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        final GridPane target = gridPane;
+                        GridPane target = gridPane;
                         dragDrop(source,target,image);
                     }
                 }
 
-
             }
+            
 
+    
             private void dragDrop(ImageView source, GridPane target, Image image) {
 
                 source.setPreserveRatio(true);
                 source.setFitWidth(80);
                 vbox.getChildren().add(source);
-
-
+                
+                final Integer[] x={0};
+                final Integer[] y={0};
+                
                 source.setOnMouseClicked(event ->
                 {
                     if (event.getButton() == MouseButton.SECONDARY)
@@ -298,15 +297,20 @@ public class shipSetupController extends Application {
 
                         Dragboard db = source.startDragAndDrop(TransferMode.ANY);
 
-                        ClipboardContent content = new ClipboardContent();
-                        content.putString("detected");
-                        db.setContent(content);
+                        ClipboardContent cbContent = new ClipboardContent();
+                        cbContent.putImage(source.getImage());
+                       
+                        db.setContent(cbContent);
+                        //source.setVisible(false);
+                        
+                        //target.setStyle("-fx-background-color: Blue");
+                        
                         scene.setCursor(new ImageCursor(image));
                         event.consume();
                     }
                 });
 
-
+ 
                 hbox.setOnDragOver(new EventHandler<DragEvent>() {
 
                     @Override
@@ -314,90 +318,135 @@ public class shipSetupController extends Application {
 
                         System.out.println("Over");
                         System.out.println(event.getX()+"========="+event.getY());
-                        Node source = (Node)event.getTarget() ;
-
-                        Integer colIndex = GridPane.getColumnIndex(source);
-                        Integer rowIndex = GridPane.getRowIndex(source);
-                        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
+                       
                         event.acceptTransferModes(TransferMode.ANY);
+                        
+                        
+                        Node source=(Node)event.getTarget();
+                        
+                        x[0]= target.getColumnIndex(source);
+                        y[0]= target.getRowIndex(source);
+                       
+                                                    
+                        System.out.printf("Mouse entered cell :- "+ x[0]+"  "+y[0]);
+                        
                         scene.setCursor(new ImageCursor(image));
                         source.setVisible(true);
                         event.consume();
                     }
                 });
+                
+                
 
+                /*
                 //Drag entered changes the appearance of the receiving node to indicate to the player that they can place there
                 target.setOnDragEntered(new EventHandler<DragEvent>() {
                     public void handle(DragEvent event) {
                         //The drag-and-drop gesture entered the target
                         //show the user that it is an actual gesture target
-                        if(event.getGestureSource() != target && event.getDragboard().hasImage()){
+                        //if(event.getGestureSource() != target && event.getDragboard().hasImage()){
+                    	                     	
                             source.setVisible(true);
-                            target.setOpacity(0.7);
+                            //target.setOpacity(0.7);
+                            
+                            Node source=(Node)event.getSource();
+                            
+                            Integer colIndex = target.getColumnIndex(source);
+                            Integer rowIndex = target.getRowIndex(source);
+                            
+                            System.out.printf("Mouse entered cell :- "+ colIndex+"  "+rowIndex);
+                                                     
+                            //target.add(source,colIndex.intValue(),rowIndex.intValue());                           
+                            
+                            
+                            
+                            //target.setStyle("-fx-background-color: Blue");
+                            
                             System.out.println("Drag entered");
 
-                        }
+                        //}
 
-//                System.out.println("target over");
-//                System.out.println(event.getX()+"========="+event.getY());
-//                Node source = (Node)event.getTarget() ;
-//
-//                Integer colIndex = GridPane.getColumnIndex(source);
-//                Integer rowIndex = GridPane.getRowIndex(source);
-//                System.out.printf("Mouse entered cell ");
-//
-//                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
-
-                /*
-                *
-                *
-                System.out.println("Over");
-                System.out.println(event.getX()+"========="+event.getY());
-                Node source = (Node)event.getSource() ;
-
-                Integer colIndex = GridPane.getColumnIndex(source);
-                Integer rowIndex = GridPane.getRowIndex(source);
-                System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
-                * */
+                                               
                         event.consume();
                     }
                 });
-
+				
+                
+                /*
                 //Drag exited reverts the appearance of the receiving node when the mouse is outside of the node
                 target.setOnDragExited(new EventHandler<DragEvent>() {
                     public void handle(DragEvent event) {
                         //mouse moved away, remove graphical cues
+                    	
+                  	System.out.println("drag EXITed KAY ANDAR");
+ 
+                                             
+                        Dragboard db = event.getDragboard();
+                        boolean success = true;
+                         
+                        Node source=(Node)event.getSource();
+                        
+                        Integer colIndex = target.getColumnIndex(source);
+                        Integer rowIndex = target.getRowIndex(source);
+                                                
+                        System.out.printf("Mouse starting --------- :-"+target.getColumnIndex(source)+ " "+
+                        		target.getRowIndex(source));
+                        
+                        
+                       System.out.printf("Mouse entered cell :- "+ colIndex+"  "+rowIndex);
+                                                 
+                       //target.add(source,5,5);
+                                       
+                        System.out.println("Drag done");
+                        event.consume();                   	
+                    	              	
 
-                        System.out.println(event.getX()+"========="+event.getY());
-
-
-                        source.setVisible(true);
-                        target.add(source, 0, 0);
-                        target.setOpacity(1);
-                        scene.setCursor(Cursor.DEFAULT);
-                        System.out.println("Drag exit");
-                        event.consume();
                     }
                 });
+                 
+                 */
 
-
-
-                gridPane.setOnDragDropped(new EventHandler<DragEvent>() {
+                target.setOnDragDropped(new EventHandler<DragEvent>() {
 
                     @Override
                     public void handle(DragEvent event) {
-                        //statusLabel.setText(color.toString() + " dropped");
+                    	
+                    	System.out.println("drag dropped kay andar");
+                    	
+                    	/*
+                        Dragboard db = event.getDragboard();
+                        boolean success = true;
+                         
+                                                             
+                        //target.add(source,rowIndex.intValue(),colIndex.intValue());
+                                        
+                        event.setDropCompleted(success);
+                          */  
+                    	
+                    	scene.setCursor(Cursor.DEFAULT);
+                    	
                     }
                 });
 
-
+                
+                //source par changes hongay yaha gayab hojana chahiye
                 source.setOnDragDone(new EventHandler<DragEvent>() {
+                	
                     public void handle(DragEvent event) {
-                        //the drag and drop gesture has ended
-                        //if the data was successfully moved, clear it
+                    	
+                    	System.out.printf("drag done kay andar");
+                    	
                         if(event.getTransferMode() == TransferMode.MOVE){
                             source.setVisible(false);
                         }
+                                             
+                        Dragboard db = event.getDragboard();
+                        boolean success = true;
+                                
+                        
+                        target.add(source,x[0],y[0]);
+                       
+                                       
                         System.out.println("Drag done");
                         event.consume();
                     }
@@ -405,10 +454,9 @@ public class shipSetupController extends Application {
             }
         });
 
+        
 
        // ****  DragDROP END **********
-
-
 
 
         // Radio Button Method, Select ship to place.
