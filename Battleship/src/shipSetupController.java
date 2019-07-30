@@ -554,7 +554,7 @@ public class shipSetupController extends Application {
                         boolean success = true;
                         
                         if(x != 0 && y != 0){
-                            dropShip(x , y , len , gridPane, true, color);
+                            dropShip(x , y , len , gridPane,isvertical1 , color);
 
                         }
                         System.out.println("Drag done");
