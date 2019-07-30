@@ -630,7 +630,7 @@ public class Arena extends Application {
             gridPane.setPrefSize(500, 500);
         }
         else{
-            gridPane.setPrefSize(500, 20);
+            gridPane.setPrefSize(col*100, 20);
         }
         return gridPane;
     }
