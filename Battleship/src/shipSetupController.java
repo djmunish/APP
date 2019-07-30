@@ -500,47 +500,6 @@ public class shipSetupController extends Application {
 
        // ****  DragDROP END **********
 
-
-        // Radio Button Method, Select ship to place.
-        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            public void changed(ObservableValue<? extends Toggle> ob,
-                                Toggle o, Toggle n) {
-
-
-                RadioButton rb = (RadioButton) group.getSelectedToggle();
-
-                if (rb != null) {
-                    String s = rb.getText();
-
-                    if (s == Constants.CARRIER) {
-                        shipSetupController.shipnumname = "5c";
-                        coordarr.clear();
-                        gridPane.setDisable(false);
-
-                    } else if (s == Constants.BATTLESHIP) {
-                        shipSetupController.shipnumname = "4b";
-                        coordarr.clear();
-                        gridPane.setDisable(false);
-                    } else if (s == Constants.CRUISER) {
-                        shipSetupController.shipnumname = "3c";
-                        coordarr.clear();
-                        gridPane.setDisable(false);
-                    } else if (s == Constants.SUBMARINE) {
-                        shipSetupController.shipnumname = "3s";
-                        coordarr.clear();
-                        gridPane.setDisable(false);
-                    } else if (s == Constants.DESTROYER) {
-                        shipSetupController.shipnumname = "2d";
-                        coordarr.clear();
-                        gridPane.setDisable(false);
-                    }
-                }
-
-
-            }
-        });
-
-
         //Placement of ships on button click event in grid.
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
