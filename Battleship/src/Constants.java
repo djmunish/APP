@@ -73,13 +73,14 @@ public final class Constants {
     }
 
     public static HashMap<String, String> getColor;
-        static{
+    static{
+        getColor = new HashMap<>();
 
-            getColor.put("S1","#D7AA4B");
-            getColor.put("S2","#5A73B0");
-            getColor.put("S3","#90B8BE");
-            getColor.put("S4","#4B2314");
-            getColor.put("S5","#96BE96");
+        getColor.put("S1","#D7AA4B");
+        getColor.put("S2","#5A73B0");
+        getColor.put("S3","#90B8BE");
+        getColor.put("S4","#4B2314");
+        getColor.put("S5","#96BE96");
 
     }
 
