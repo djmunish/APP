@@ -2,9 +2,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import java.awt.Color;
 import java.util.*;
-//import java.util.ArrayList;
-//import java.util.Random;
 
+/**
+ * Ships.java deals with ship placement, ship hit and colouring of the ships.
+ * @author harshkour
+ * @since 2019-07-06
+ * @version 1.0.1
+ */
 public class Ships {
 
     public ArrayList<String> coordinates;
@@ -15,7 +19,8 @@ public class Ships {
         colorShip();
         setupShip(start, end);
     }
-
+    
+    
     public int findloc(char a) { //Function to find location in Play area grid
         int loc = 0;
         char[] arr = Constants.alphabets.toCharArray();
@@ -27,17 +32,17 @@ public class Ships {
         }//for
         return loc;
     }
-
-    public void setupShip(String start, String end) { //Function to setup a ship for Human Player
+    /**
+     * setupShip Function to setup a ship for Human Player.
+     * @param start is the starting location of the ship sent from UI.
+     * @param end is the ending location of the ship sent from UI.
+     */
+    public void setupShip(String start, String end) { 
         coordinates = new ArrayList<>();
-
         String xy10 = start.substring(0, 1);
         String xy11 = start.substring(1);
         String xy20 = end.substring(0, 1);
         String xy21 = end.substring(1);
-        
-        
-
         int var = xy10.compareTo(xy20);
 
         char[] arr = Constants.alphabets.toCharArray();
@@ -74,8 +79,13 @@ public class Ships {
     }//setupship
     
     
-
-    public static boolean checkhit(String checkcordinate, Player p) { //Function to check if it is a hit or not
+    /**
+     * Function to check if a ship gets hit or not.
+     * @param checkcordinate is the location on which there is a hit done.
+     * @param p is the player who's ship is to be checked.
+     * @return true if there is a hit on the ship else return false.
+     */
+    public static boolean checkhit(String checkcordinate, Player p) { //t
         boolean flag = false;
         for (Ships s : p.shipsArr) {
             ArrayList<String> got = s.coordinates;
@@ -129,19 +139,16 @@ public class Ships {
     }
 
 
-
-    public void colorShip() { //function to update coler of the ship
-
+    /**
+     * Function to update color of the ship.
+     */
+    public void colorShip() { 
         // create random object - reuse this as often as possible
         Random random = new Random();
-
         // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
         int nextInt = random.nextInt(0xffffff + 1);
-
         // format it as hexadecimal string (with hashtag and leading zeros)
         String colorCode = String.format("#%06x", nextInt);
-                     
-        
         if(!Constants.shipColors.contains(colorCode) || colorCode.equals("#ff0000")|| colorCode.equals("#d3d3d3")){
             Constants.shipColors.add(colorCode);
             hexColor = colorCode;
@@ -151,9 +158,16 @@ public class Ships {
         }
     }
 
-
+    /**
+     * Function to assign colours on the player grid: "RED"-if its a hit, "GREY"-if its a miss.
+     * @param G1 Playing grid of the opposite player.
+     * @param G2 Reference grid for the player who made the hit.
+     * @param S location of the grid to be checked.
+     * @param a object of class Arena.
+     * @param playerRef object of the opposite player.
+     * @return true if its hit else return false.
+     */
     public static boolean colorButton(GridPane G1, GridPane G2, String S, Arena a, Player playerRef) {
-
         String s1 = S.substring(0, 1);
         String s2 = S.substring(1);
         int x = Constants.mapInConstants.get(s1);    //c

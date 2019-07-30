@@ -2,7 +2,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
 import java.time.*;
-
+/**
+ * Class to create and initalize players of the game.
+ * @author harshkour
+ * @since 2019-07-06
+ * @version 1.0.1
+ */
 public class Player {
 
     enum playerType {
@@ -15,7 +20,8 @@ public class Player {
     public ArrayList<Ships> shipsArr;
     ArrayList<String> inputs;
     ArrayList<String> inputsfirst;
-
+    int hitscount;
+    int misscount;
     ArrayList<String> computerships = createInputs();
     String name;
 
@@ -27,33 +33,46 @@ public class Player {
         shipsArr = new ArrayList<>();
         inputsfirst = new ArrayList<>();
         inputs = createInputs();
+        hitscount = 0;
+        misscount = 0;
     }
 
 
-
-    public Ships setupShip(String start, String end) { // Create ship for player
+    /**
+     * Function to create the ship for the player
+     * @param start- starting node of the ship.
+     * @param end - ending node of the ship.
+     * @return return the object of Ship class.
+     */
+    public Ships setupShip(String start, String end) { 
         Ships shipFormed = new Ships(start, end);
         return shipFormed;
     }
-
-    public void updateShipsArr(Ships s) { // Update ships array of player
+    
+    /**
+     * Add ships to the array of player
+     * @param s is the Ship added to the object.
+     */
+    public void updateShipsArr(Ships s) { 
         shipsArr.add(s);
     }
 
-
-
-	
-	/*public String randomhitcomp(Player computer) {
-		int n = ran.nextInt(computer.inputs.size());
-		return computer.inputs.get(n);
-	}*/
-
-    public String randomhitcomp() { // random selection of location for computer
+    /**
+     * Select random location for the computer's random ship placement.
+     * @return random string from the grid like "A1" or "B10".
+     */
+    public String randomhitcomp() { 
         int n = ran.nextInt(inputs.size());
         return inputs.get(n);
     }
     
-    public String checkneighbors(String s, Player human) { // AI -- Check nearby ship location for computer
+    /**
+     * AI -- Check nearby ship location for computer's hit.
+     * @param s is the node which is already a hit.
+     * @param human player object for human class.
+     * @return a string of all the neighbours of the input node.
+     */
+    public String checkneighbors(String s, Player human) { // 
     	ArrayList<String> neighbor = new ArrayList<String>();
     	String f = "";
     	String s1 = s.substring(0, 1);
@@ -106,8 +125,7 @@ public class Player {
     			boolean flag = Ships.checkifship(t, human);
     			if(flag && inputs.contains(t)) {
     				f = f.concat(t + " ");
-    			}
-    			
+    			}	
     		}else if(s3.equals("D")){
     			int in = index2+1;
     			String t = s1 + Integer.toString(in);
@@ -137,11 +155,24 @@ public class Player {
     	return f;
     }
     
-    public String randomhitcompai(Player human) {  // Generate Priority list of random computer hits.
+    /**
+     * Generate Priority list of random computer hits.
+     * @param human - Human player's object.
+     * @return the next random hit by the computer
+     */
+    public String randomhitcompai(Player human, int salvacount, int salvaWindow) { 
+    	int upperbound = 0;
+    	if(salvaWindow == 5 || salvaWindow == 4) {
+    		upperbound = 2;
+    	}
+    	if(salvaWindow == 3 || salvaWindow == 2 || salvaWindow ==1) {
+    		upperbound = 2;
+    	}
+    	
     	System.out.println("Inputsfirst is: " + inputsfirst);
     	System.out.println("Inputs is: " + inputs);
     	String s = "";
-    	if(inputsfirst.size() == 0) {
+    	if(inputsfirst.size() == 0 || salvacount > salvaWindow - upperbound) {
     		int n = ran.nextInt(inputs.size()); 
     		s = inputs.get(n);
     		inputs.remove(s);
@@ -175,8 +206,13 @@ public class Player {
     }
     
 
-
-    public String randomshipblocks(String s, int length) { // Check the length of the ship and the valid neighbors
+    /**
+     * Check the length of the ship and the valid neighbours.
+     * @param s- random string generated to be the part of the ship.
+     * @param length- length of the ship.
+     * @return "T" if the string s is valid for ship placement else return "F".
+     */
+    public String randomshipblocks(String s, int length) { 
         ArrayList<String> temp = new ArrayList<String>();
         String start = "";
         String end = "";
@@ -224,17 +260,18 @@ public class Player {
             end = block;
         }
         if (flagf.equals("T")) {
-            //System.out.println("Computer ship is: " + temp);
             computerships.removeAll(temp);
         }
         String f = flagf.concat(" " + start + " " + end);
         return f;
     }
     
-
-
-
-    public boolean checkOverlap(ArrayList<String> newShip) { // Check overlapping of ships for player
+    /**
+     * Check overlapping of ships for player
+     * @param newShip -  check if the new ship created is a valid ship or not.
+     * @return true if it a valid ship else return false.
+     */
+    public boolean checkOverlap(ArrayList<String> newShip) { 
         for (Ships s : shipsArr) {
             for (String i : s.coordinates) {
                 for (String g : newShip) {
@@ -247,15 +284,22 @@ public class Player {
         return true;
     }
     
-    public String randomblock() { //generate random block from the Play Area grid
+    /**
+     * Function to generate random block from the play area grid.
+     * @return the random block generated in the form of String.
+     */
+    public String randomblock() { 
         int n = ran.nextInt(10) ;
         System.out.println("n is :" + n);
         Character alpha = Constants.alphabets.charAt(ran.nextInt(Constants.alphabets.length()));
         String s = Character.toString(alpha) + n;
         return s;
     }
-
-    public String randomship() { //Create Random ships for the computer for length 2/3/3/4/5.
+    
+    /**
+     * Create Random ships for the computer for length 2/3/3/4/5.
+     */
+    public void randomship() { //
         int[] len = {2, 3, 3, 4, 5};
         int length = 0;
         for (int i = 0; i < len.length; i++) {
@@ -274,12 +318,15 @@ public class Player {
                 }//if
             }//while
         }//for
-        return null;
+       // return null;
         //return s;
     }
-
-    public ArrayList<String> createInputs() { // Create whole set of input location for player
-
+    
+    /**
+     * Create whole set of input locations for player.
+     * @return the arrayList with all the available inputs for the human player.
+     */
+    public ArrayList<String> createInputs() { // 
         ArrayList<String> temp = new ArrayList<String>();
         String[] col = Constants.alphabets.split("");
         int[] rows = new int[Constants.row];
@@ -293,13 +340,21 @@ public class Player {
         }
         return temp;
     }//createInputs
-
+    
+    /**
+     * Function to initiate Salva Variation for the human player.
+     */
     public void initiateSalva(){
             salvaArr = new ArrayList<>();
             gamePlayType = true;
     }
-
-    public void updateDropdown(String s, ArrayList<String> drop) { // Update human player input drop down
+    
+    /**
+     * Update human player input drop down
+     * @param s The input which is already used by the player
+     * @param drop - Inputs of the player.
+     */
+    public void updateDropdown(String s, ArrayList<String> drop) { 
         drop.remove(s);
     }
 

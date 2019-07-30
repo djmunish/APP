@@ -37,6 +37,12 @@ import java.util.Iterator;
 import java.util.Optional;
 import javafx.scene.text.Text;
 
+/**
+ * Arena.java deals with the game arena, it records the actions on UI and performs the computation.
+ * @author harshkour
+ * @since 2019-07-06
+ * @version 1.0.0
+ */
 public class Arena extends Application {
 
     Player humanPlayer;
@@ -56,7 +62,10 @@ public class Arena extends Application {
     private int hours = 0;
     boolean timerstop = false;
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
-
+   
+    /**
+     * Function to increment the timer.
+     */
     private void incrementCount() {
     	if(!timerstop) {
     		seconds++;
@@ -99,10 +108,6 @@ public class Arena extends Application {
             split_pane1.setPrefSize(500, 500);
             GridPane playerGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
             GridPane playerRefGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
-
-
-
-
             GridPane compGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
             GridPane compRefGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
@@ -118,7 +123,6 @@ public class Arena extends Application {
             split_pane2.setPrefSize(500, 500);
             split_pane2.setOrientation(Orientation.VERTICAL);
             split_pane2.getItems().addAll(compRefGrid, compGrid, left);
-
             inputComboBox = new ComboBox();
             inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
@@ -126,8 +130,6 @@ public class Arena extends Application {
             inputComboBox.getItems().addAll(
                humanPlayer.inputs
             );
-
-
 
             hitBtn = new Button();
             hitBtn.setText("Hit");
@@ -156,12 +158,9 @@ public class Arena extends Application {
 
 
             VBox vbox = new VBox();
-            vbox.getChildren().add(inputComboBox);
+            vbox.getChildren().add(inputComboBox);    
             
-            
-            
-            
-            // longrunning operation runs on different thread
+            // long running operation runs on different thread
             Thread thread = new Thread(new Runnable() {
 
                 @Override
@@ -228,7 +227,12 @@ public class Arena extends Application {
                     			while(it.hasNext()) {
                     				String s = it.next();
                     				humanPlayer.updateDropdown(s, humanPlayer.inputs);
-                    				Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                    				boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                    				if(flag) {
+                    					humanPlayer.hitscount++;
+                    				}else {
+                    					humanPlayer.misscount++;
+                    				}
                     			} 
                                 clearSalvaAfterHit(salvaGrid);
                                 hitBtn.setText("OK");
@@ -236,19 +240,23 @@ public class Arena extends Application {
                                 boolean flag2 = checkWinner(computer, humanPlayer);
                                 if (!flag2) {
                                 	for(int i = 0;i<salvaWindow;i++) {
-                        				String s = computer.randomhitcompai(humanPlayer);
+                        				String s = computer.randomhitcompai(humanPlayer, i+1 , salvaWindow);
                             			System.out.println("computerhit is == " + s);
                             			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
                                 			timerstop = true;
-                                			Constants.showAlert(computer.name + " won the game!!!");}
+                                			finishTime = System.currentTimeMillis();
+                                    		long elapsedtime = finishTime - startTime;
+                                    		String score  = calcScore(elapsedtime, humanPlayer);
+                                			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                         			}//for
                                 }//not flag2
                                 else { //Human Player won the game!
                             		finishTime = System.currentTimeMillis();
                             		long elapsedtime = finishTime - startTime;
-                            		String score  = calcScore(elapsedtime);
+                            		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
+                            		String score  = calcScore(elapsedtime, humanPlayer);
                             		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
@@ -320,6 +328,9 @@ public class Arena extends Application {
                 				String message = "Wohoo!! Its a hit!!";
                 				if (!flag) {
                 					message = "Bohoo!! You missed it!!";
+                					humanPlayer.misscount++;
+                				}else {
+                					humanPlayer.hitscount++;
                 				}
                 				Constants.showAlert(message);
                 			 }else {
@@ -330,7 +341,7 @@ public class Arena extends Application {
 
                     	boolean flag2 = checkWinner(computer, humanPlayer);
                     	if (!flag2) {
-                    			String s = computer.randomhitcompai(humanPlayer);
+                    			String s = computer.randomhitcompai(humanPlayer, 0, 0);
                     			System.out.println("computerhit is == " + s);
                     			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                     			String messageComp;
@@ -345,11 +356,14 @@ public class Arena extends Application {
                     		flag3 = checkWinner(humanPlayer, computer);
                     		if(flag3) {
                     			timerstop = true;
-                    			Constants.showAlert(computer.name + " won the game!!!");}
+                    			finishTime = System.currentTimeMillis();
+                        		long elapsedtime = finishTime - startTime;
+                        		String score  = calcScore(elapsedtime, humanPlayer);
+                    			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                     	}else {
                     		finishTime = System.currentTimeMillis();
                     		long elapsedtime = finishTime - startTime;
-                    		String score  = calcScore(elapsedtime);
+                    		String score  = calcScore(elapsedtime, humanPlayer);
                     		timerstop = true;
                     		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                     	}
@@ -411,8 +425,15 @@ public class Arena extends Application {
             System.out.println(e.getMessage());
         }
     }
-
-    public Node getNodeFromGridPane(GridPane gridPane, int col, int row) { //Function to fetch each node from the grid
+    
+    /**
+     * Function to fetch each node from the grid.
+     * @param gridPane Grid for which node value needs to be returned.
+     * @param col column value for the grid.
+     * @param row row value on the grid.
+     * @return the node of the grid.
+     */
+    public Node getNodeFromGridPane(GridPane gridPane, int col, int row) { 
         for (Node node : gridPane.getChildren()) {
             if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
                 return node;
@@ -427,8 +448,13 @@ public class Arena extends Application {
         // launch the application
         launch(args);
     }
-
-    public void showHideComputerShip(Boolean show , GridPane cGrid) { //Function to Show/Hide Computer Ships on the Play Arena
+    
+    /**
+     * Function to Show/Hide Computer Ships on the Play Arena
+     * @param show true if ships needs to be visible on the Arena else false.
+     * @param cGrid Input grid on which ships for the computer needs to be shown.
+     */
+    public void showHideComputerShip(Boolean show , GridPane cGrid) { 
         if (show) {
             {
                 for (Ships p : computer.shipsArr) {
@@ -642,9 +668,16 @@ public class Arena extends Application {
         }
         humanPlayer.salvaArr.clear();
     }
-
-    public boolean checkWinner(Player p1, Player p2) { //Function to check the winner of the game after every hit by each player
-        System.out.print("Ships array size is " + p1.shipsArr.size());
+    
+    /**
+     * Function to check the winner of the game after every hit by player/computer.
+     * @param p1 Player who has been hit.
+     * @param p2 Player who did hit.
+     * @return true if there is a winner of the game i.e. all ships are down else return false.
+     */
+    public boolean checkWinner(Player p1, Player p2) { 
+        System.out.println("Ships array size is " + p1.shipsArr.size());
+        System.out.println("Ships array is " + p1.shipsArr);
         if (p1.shipsArr.size() == 0) {
            // Constants.showAlert(p2.name + " won the game!!!");
             return true;
@@ -653,14 +686,19 @@ public class Arena extends Application {
         }
     }//checkWinner
     
-    public String calcScore(long elapsedtime) {
+    /**
+     * Function to calculate score for each game play.
+     * @param elapsedtime - time taken by player for the entire game play
+     * @return the calculated score in the form of a String.
+     */
+    public String calcScore(long elapsedtime, Player human) {
     	System.out.println("elapsed time: " + elapsedtime);
     	double minutes = (double)elapsedtime/60000; 
-    	double scorecalc = (1/minutes)*100;
+    	System.out.println("Time taken by player is " + Double.toString(minutes)); 
+    	double scorecalc = ((1/minutes)*100) + (human.hitscount * 10) - (human.misscount * 1);
     	DecimalFormat d = new DecimalFormat("#.###");
-    	System.out.print(d.format(scorecalc));
-    	System.out.print("score is "+ scorecalc);
-    	System.out.println("Time taken by player is " + Double.toString(minutes)); 	
+    	//System.out.print(d.format(scorecalc));
+    	System.out.println("score is "+ d.format(scorecalc));
     	return d.format(scorecalc);
     }
 
