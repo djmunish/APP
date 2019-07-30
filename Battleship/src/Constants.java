@@ -22,6 +22,14 @@ public final class Constants {
     public static final String CRUISER = "Cruiser(3)";
     public static final String SUBMARINE = "Submarine(3)";
     public static final String DESTROYER = "Destroyer(2)";
+
+
+
+    public static final int LEN_CARRIER = 5;
+    public static final int LEN_BATTLESHIP = 4;
+    public static final int LEN_CRUISER = 3;
+    public static final int LEN_SUBMARINE = 3;
+    public static final int LEN_DESTROYER = 2;
     
     public static final String alphabets = "ABCDEFGHIJK";
 
