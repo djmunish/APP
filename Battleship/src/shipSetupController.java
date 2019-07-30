@@ -44,7 +44,6 @@ public class shipSetupController extends Application {
 
     Player humanPlayer;
     Player computer;
-
     public static void main(String[] args) {
         launch(args);
 
@@ -57,6 +56,20 @@ public class shipSetupController extends Application {
             }
         }
         return null;
+    }
+
+    public void dropShip(int col, int row, int len, GridPane g){
+
+
+        for(int i = 0 ; i <len ; i ++){
+
+            System.out.println(col+i);
+            System.out.println(row);
+            ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col+i, row);
+            b.setStyle("-fx-background-color: Blue");
+
+        }
+
     }
 
 
@@ -202,7 +215,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image);
+                        dragDrop(source,target,image,5);
 
 
                     } else if (s == Constants.BATTLESHIP) {
@@ -218,7 +231,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image);
+                        dragDrop(source,target,image,4);
 
                     } else if (s == Constants.CRUISER) {
                         shipSetupController.shipnumname = "3c";
@@ -233,7 +246,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image);
+                        dragDrop(source,target,image,3);
 
                     } else if (s == Constants.SUBMARINE) {
                         shipSetupController.shipnumname = "3s";
@@ -248,7 +261,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image);
+                        dragDrop(source,target,image,3);
 
                     } else if (s == Constants.DESTROYER) {
                         shipSetupController.shipnumname = "2d";
@@ -263,7 +276,7 @@ public class shipSetupController extends Application {
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
                         GridPane target = gridPane;
-                        dragDrop(source,target,image);
+                        dragDrop(source,target,image,2);
                     }
                 }
 
@@ -271,7 +284,7 @@ public class shipSetupController extends Application {
             
 
     
-            private void dragDrop(ImageView source, GridPane target, Image image) {
+            private void dragDrop(ImageView source, GridPane target, Image image, int len) {
 
                 source.setPreserveRatio(true);
                 source.setFitWidth(80);
@@ -448,10 +461,15 @@ public class shipSetupController extends Application {
                         Dragboard db = event.getDragboard();
                         boolean success = true;
                                 
-                        
-                        target.add(source,x[0],y[0]);
-                       
-                                       
+
+
+
+
+
+//                        target.add(source,x[0],y[0]);
+                        if(x[0]!=null && y[0]!=null){
+                            dropShip(y[0],x[0],len,gridPane);
+                        }
                         System.out.println("Drag done");
                         event.consume();
                     }
