@@ -2,7 +2,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
 import java.time.*;
-
+/**
+ * Class to create and initalize players of the game.
+ * @author harshkour
+ * @since 2019-07-06
+ * @version 1.0.1
+ */
 public class Player {
 
     enum playerType {
@@ -30,30 +35,41 @@ public class Player {
     }
 
 
-
+    /**
+     * Function to create the ship for the player
+     * @param start- starting node of the ship.
+     * @param end - ending node of the ship.
+     * @return return the object of Ship class.
+     */
     public Ships setupShip(String start, String end) { // Create ship for player
         Ships shipFormed = new Ships(start, end);
         return shipFormed;
     }
-
-    public void updateShipsArr(Ships s) { // Update ships array of player
+    
+    /**
+     * Add ships to the array of player
+     * @param s is the Ship added to the object.
+     */
+    public void updateShipsArr(Ships s) { 
         shipsArr.add(s);
     }
 
-
-
-	
-	/*public String randomhitcomp(Player computer) {
-		int n = ran.nextInt(computer.inputs.size());
-		return computer.inputs.get(n);
-	}*/
-
+    /**
+     * Select random location for the computer's random ship placement.
+     * @return random string from the grid like "A1" or "B10".
+     */
     public String randomhitcomp() { // random selection of location for computer
         int n = ran.nextInt(inputs.size());
         return inputs.get(n);
     }
     
-    public String checkneighbors(String s, Player human) { // AI -- Check nearby ship location for computer
+    /**
+     * AI -- Check nearby ship location for computer's hit.
+     * @param s is the node which is already a hit.
+     * @param human player object for human class.
+     * @return a string of all the neighbours of the input node.
+     */
+    public String checkneighbors(String s, Player human) { // 
     	ArrayList<String> neighbor = new ArrayList<String>();
     	String f = "";
     	String s1 = s.substring(0, 1);
@@ -137,7 +153,12 @@ public class Player {
     	return f;
     }
     
-    public String randomhitcompai(Player human) {  // Generate Priority list of random computer hits.
+    /**
+     * Generate Priority list of random computer hits.
+     * @param human - Human player's object.
+     * @return the next random hit by the computer
+     */
+    public String randomhitcompai(Player human) { 
     	System.out.println("Inputsfirst is: " + inputsfirst);
     	System.out.println("Inputs is: " + inputs);
     	String s = "";
@@ -175,8 +196,13 @@ public class Player {
     }
     
 
-
-    public String randomshipblocks(String s, int length) { // Check the length of the ship and the valid neighbors
+    /**
+     * Check the length of the ship and the valid neighbours.
+     * @param s- random string generated to be the part of the ship.
+     * @param length- length of the ship.
+     * @return "T" if the string s is valid for ship placement else return "F".
+     */
+    public String randomshipblocks(String s, int length) { 
         ArrayList<String> temp = new ArrayList<String>();
         String start = "";
         String end = "";
@@ -231,10 +257,12 @@ public class Player {
         return f;
     }
     
-
-
-
-    public boolean checkOverlap(ArrayList<String> newShip) { // Check overlapping of ships for player
+    /**
+     * Check overlapping of ships for player
+     * @param newShip -  check if the new ship created is a valid ship or not.
+     * @return true if it a valid ship else return false.
+     */
+    public boolean checkOverlap(ArrayList<String> newShip) { 
         for (Ships s : shipsArr) {
             for (String i : s.coordinates) {
                 for (String g : newShip) {
@@ -247,15 +275,22 @@ public class Player {
         return true;
     }
     
-    public String randomblock() { //generate random block from the Play Area grid
+    /**
+     * Function to generate random block from the play area grid.
+     * @return the random block generated in the form of String.
+     */
+    public String randomblock() { 
         int n = ran.nextInt(10) ;
         System.out.println("n is :" + n);
         Character alpha = Constants.alphabets.charAt(ran.nextInt(Constants.alphabets.length()));
         String s = Character.toString(alpha) + n;
         return s;
     }
-
-    public String randomship() { //Create Random ships for the computer for length 2/3/3/4/5.
+    /**
+     * Create Random ships for the computer for length 2/3/3/4/5.
+     * @return
+     */
+    public void randomship() { //
         int[] len = {2, 3, 3, 4, 5};
         int length = 0;
         for (int i = 0; i < len.length; i++) {
@@ -274,7 +309,7 @@ public class Player {
                 }//if
             }//while
         }//for
-        return null;
+       // return null;
         //return s;
     }
 
