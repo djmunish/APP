@@ -307,8 +307,6 @@ public class shipSetupController extends Application {
                 if (rb != null) {
                     String s = rb.getText();
                     
-                    boolean isvertical=false;
-
                     if (s == Constants.CARRIER) {
                         shipSetupController.shipnumname = "5c";
                         coordarr.clear();
@@ -403,6 +401,8 @@ public class shipSetupController extends Application {
                 source.setFitWidth(80);
                 vbox.getChildren().add(source);
                
+                isvertical1=false;
+                
                 source.setOnMouseClicked(event ->
                 {
                     if (event.getButton() == MouseButton.SECONDARY)
@@ -461,74 +461,6 @@ public class shipSetupController extends Application {
                     }
                 });
 
-                /*
-                //Drag entered changes the appearance of the receiving node to indicate to the player that they can place there
-                target.setOnDragEntered(new EventHandler<DragEvent>() {
-                    public void handle(DragEvent event) {
-                        //The drag-and-drop gesture entered the target
-                        //show the user that it is an actual gesture target
-                        //if(event.getGestureSource() != target && event.getDragboard().hasImage()){
-                    	                     	
-                            source.setVisible(true);
-                            //target.setOpacity(0.7);
-                            
-                            Node source=(Node)event.getSource();
-                            
-                            Integer colIndex = target.getColumnIndex(source);
-                            Integer rowIndex = target.getRowIndex(source);
-                            
-                            System.out.printf("Mouse entered cell :- "+ colIndex+"  "+rowIndex);
-                                                     
-                            //target.add(source,colIndex.intValue(),rowIndex.intValue());                           
-                            
-                            
-                            
-                            //target.setStyle("-fx-background-color: Blue");
-                            
-                            System.out.println("Drag entered");
-
-                        //}
-
-                                               
-                        event.consume();
-                    }
-                });
-				
-                
-
-                //Drag exited reverts the appearance of the receiving node when the mouse is outside of the node
-                target.setOnDragExited(new EventHandler<DragEvent>() {
-                    public void handle(DragEvent event) {
-                        //mouse moved away, remove graphical cues
-                    	
-                  	System.out.println("drag EXITed KAY ANDAR");
- 
-                                             
-                        Dragboard db = event.getDragboard();
-                        boolean success = true;
-                         
-                        Node source=(Node)event.getSource();
-                        
-                        Integer colIndex = target.getColumnIndex(source);
-                        Integer rowIndex = target.getRowIndex(source);
-                                                
-                        System.out.printf("Mouse starting --------- :-"+target.getColumnIndex(source)+ " "+
-                        		target.getRowIndex(source));
-                        
-                        
-                       System.out.printf("Mouse entered cell :- "+ colIndex+"  "+rowIndex);
-                                                 
-                       //target.add(source,5,5);
-                                       
-                        System.out.println("Drag done");
-                        event.consume();                   	
-                    	              	
-
-                    }
-                });
-                 
-                 */
-
 
                 target.setOnDragDropped(new EventHandler<DragEvent>() {
 
@@ -541,7 +473,6 @@ public class shipSetupController extends Application {
                 });
 
                 
-
                 source.setOnDragDone(new EventHandler<DragEvent>() {
                 	
                     public void handle(DragEvent event) {
