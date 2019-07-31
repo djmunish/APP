@@ -60,7 +60,7 @@ public class shipSetupController extends Application {
 		}
 	}
 
-	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor,Button btnok) {
+	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical, String shipColor,Button btnok) {
 					
 		System.out.println((checkAvailability(col, row, len, isVertical)));
 		if (checkAvailability(col, row, len, isVertical)) {
@@ -102,7 +102,7 @@ public class shipSetupController extends Application {
 						
 					}
 					
-					rb.setDisable(true);
+					
 					
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
@@ -154,8 +154,6 @@ public class shipSetupController extends Application {
 						btnok.setDisable(false);
 						
 					}
-					
-					rb.setDisable(true);
 															
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
@@ -258,7 +256,6 @@ public class shipSetupController extends Application {
 			}
 		});
 
-		
 
 		Label l1 = new Label("WELCOME " + humanPlayer.name.toUpperCase() + " ! SET UP YOUR SHIPS !");
 		l1.setTextFill(Color.FLORALWHITE);
@@ -319,7 +316,10 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						
 						String color = Constants.getColor.get("S1");
+					
 						dragDrop(source, target, image, Constants.LEN_CARRIER,rb, color);
+						
+						
 
 					} else if (s == Constants.BATTLESHIP) {
 						shipSetupController.shipnumname = "4b";
@@ -335,7 +335,12 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						
 						String color = Constants.getColor.get("S2");
+						
+					
 						dragDrop(source, target, image, Constants.LEN_BATTLESHIP,rb, color);
+						
+					
+						
 
 					} else if (s == Constants.CRUISER) {
 						shipSetupController.shipnumname = "3c";
@@ -351,7 +356,10 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						
 						String color = Constants.getColor.get("S3");
+						
 						dragDrop(source, target, image, Constants.LEN_CRUISER,rb, color);
+						
+						
 
 					} else if (s == Constants.SUBMARINE) {
 						shipSetupController.shipnumname = "3s";
@@ -367,7 +375,12 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						
 						String color = Constants.getColor.get("S4");
+						
+					
+						
 						dragDrop(source, target, image, Constants.LEN_SUBMARINE,rb, color);
+						
+						
 
 					} else if (s == Constants.DESTROYER) {
 						shipSetupController.shipnumname = "2d";
@@ -383,7 +396,10 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 					
 						String color = Constants.getColor.get("S5");
+						
+						
 						dragDrop(source, target, image, Constants.LEN_DESTROYER,rb, color);
+						
 					}
 				}
 
@@ -395,9 +411,15 @@ public class shipSetupController extends Application {
 				source.setFitWidth(source.getImage().getWidth());
                 source.setTranslateX(rb.getTranslateX() + 150 + 10);
                 
-//                source.setTranslateY(rb.getLayoutX() + 10);
+                //
+                
+                //source.setTranslateY(rb.getLayoutX() + 10);
 
                 vbox.getChildren().add(source);
+                
+                
+                //rb.setDisable(true);
+                
 							
 				isvertical1 = false;
 				c=0;
@@ -406,14 +428,16 @@ public class shipSetupController extends Application {
 					if (event.getButton() == MouseButton.SECONDARY) {
 						c++;
 						if(c%2==0){
-							source.setRotate(90 * c);
+							
+							source.setRotate(90 * c);						
 							isvertical1 = false;
 						}
-						else{
+						
+						else{	
+													
 							source.setRotate(90 * c);
 							isvertical1 = true;
-						}
-																		
+						}						
 					}
 				});
 
@@ -431,12 +455,9 @@ public class shipSetupController extends Application {
 						cbContent.putImage(source.getImage());
 						
 						db.setContent(cbContent);
-						
+								
 						scene.setCursor(new ImageCursor(source.getImage()));
-
-						Cursor shipCursor = new ImageCursor(source.getImage());
-
-
+				
 						event.consume();
 					}
 				});
@@ -491,24 +512,23 @@ public class shipSetupController extends Application {
 						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
 						
 							
-							boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color,btnok);
+							boolean value = dropShip(x, y, len, gridPane, isvertical1,color,btnok);
 
 							if(value){
+								
 								vbox.getChildren().remove(source);
 							}
 						
-
 						System.out.println("Drag done");
 						
                         scene.setCursor(Cursor.DEFAULT);
 						
-
 						event.consume();
 						
 					}
 				});
 			}
-		});
+		
 
 		// **** DragDROP END **********
 
@@ -667,7 +687,9 @@ public class shipSetupController extends Application {
 		
 		*/
 		
+			
 		// Grid Creation
+			
 		int nRows, nCols;
 
 		for (int i = 0; i < Constants.row + 1; i++) {
