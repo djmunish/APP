@@ -101,7 +101,6 @@ public class shipSetupController extends Application {
 
 					}
 
-					rb.setDisable(true);
 
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
@@ -154,7 +153,6 @@ public class shipSetupController extends Application {
 
 					}
 
-					rb.setDisable(true);
 
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
@@ -410,6 +408,8 @@ public class shipSetupController extends Application {
 				source.setTranslateX(rb.getTranslateX() + 150 + 10);
 
 				vbox.getChildren().add(source);
+
+				rb.setDisable(true);
 
 				isvertical1 = false;
 				click_count =0;
