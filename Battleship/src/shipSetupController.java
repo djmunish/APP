@@ -79,7 +79,8 @@ public class shipSetupController extends Application {
 				}//for
 				s = new Ships(start, end);
 
-				if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates))  {
+				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates))  {
+				if (humanPlayer.shipAvailable(s.coordinates))  {
 					humanPlayer.shipsArr.add(s);
 					rb.setDisable(true);
 					
@@ -115,7 +116,8 @@ public class shipSetupController extends Application {
 
 				s = new Ships(start, end);
 
-				if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates)) {
+				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates)) {
+				if (humanPlayer.shipAvailable(s.coordinates))  {
 					humanPlayer.shipsArr.add(s);
 					
 					rb.setDisable(true);
