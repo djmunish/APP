@@ -63,8 +63,11 @@ public class shipSetupController extends Application {
 			Ships s;
 			String start = null, end = null;
 			ArrayList<String> coordxy = new ArrayList<String>();
+			
 			if (isVertical) {
+				
 				for (int i = 0; i < len; i++) {
+					
 					ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col, row + i);
 					if (i == 0) {
 						start = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
@@ -451,7 +454,7 @@ public class shipSetupController extends Application {
 						}
 						System.out.println("Drag done");
 						
-//						scene.setCursor(Cursor.DEFAULT);
+                        scene.setCursor(Cursor.DEFAULT);
 						
 						event.consume();
 					}
