@@ -22,6 +22,7 @@ import javafx.scene.input.TransferMode;
 
 public class shipSetupController extends Application {
 
+
 	// Set the Custom Data Format
 	static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
 
@@ -406,6 +407,7 @@ public class shipSetupController extends Application {
 
 					@Override
 					public void handle(DragEvent event) {
+
 
 						scene.setCursor(Cursor.DEFAULT);
 
