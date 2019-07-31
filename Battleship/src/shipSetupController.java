@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -69,13 +70,18 @@ public class shipSetupController extends Application {
 				for (int i = 0; i < len; i++) {
 					
 					ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col, row + i);
+					
 					if (i == 0) {
+												
 						start = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
+						
 					} else if (i == len - 1) {
+						
 						end = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
 					}
+					
 					String xycor = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 							+ Integer.toString(b.getCoordX() + 1);
 					coordxy.add(xycor);
@@ -109,11 +115,17 @@ public class shipSetupController extends Application {
 				for (int i = 0; i < len; i++) {
 					ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col + i, row);
 					if (i == 0) {
+						
+						System.out.println("Y coordinates:-"+b.getCoordY());
+						System.out.println("X coordinates:-"+b.getCoordX());
+						
 						start = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
+						
 					} else if (i == len - 1) {
 						end = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
+						
 					}
 					String xycor = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 							+ Integer.toString(b.getCoordX() + 1);
@@ -364,8 +376,7 @@ public class shipSetupController extends Application {
 				source.setPreserveRatio(true);
 				source.setFitWidth(80);
 				vbox.getChildren().add(source);
-
-				
+							
 				isvertical1 = false;
 
 				source.setOnMouseClicked(event -> {
@@ -387,8 +398,8 @@ public class shipSetupController extends Application {
 						cbContent.putImage(source.getImage());
 
 						db.setContent(cbContent);
-
 						scene.setCursor(new ImageCursor(source.getImage()));
+						
 						event.consume();
 					}
 				});
@@ -411,12 +422,17 @@ public class shipSetupController extends Application {
 
 							x = target.getColumnIndex(source).intValue();
 							y = target.getRowIndex(source).intValue();
+							
 						} catch (Exception e) {
 
 						}
 
-						scene.setCursor(new ImageCursor(image));
-						source.setVisible(true);
+						
+						//scene.setCursor(Cursor.DEFAULT);
+						
+						//scene.setCursor(new ImageCursor(image));
+						
+						
 						event.consume();
 					}
 				});
@@ -443,6 +459,8 @@ public class shipSetupController extends Application {
 						Dragboard db = event.getDragboard();
 						boolean success = true;
 
+						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
+						
 						if (x != 0 && y != 0) {
 
 							boolean value=dropShip(x, y, len, gridPane, isvertical1,rb, color);
