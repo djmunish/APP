@@ -122,6 +122,7 @@ public class Ships {
     	}//while-end
     	String finalhits = comphit + "!" + nohit;
     	return finalhits;
+    	
     }
     
     
