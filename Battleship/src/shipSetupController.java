@@ -140,8 +140,7 @@ public class shipSetupController extends Application {
 					
 					rb.setDisable(true);
 					
-					
-					
+										
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -287,7 +286,7 @@ public class shipSetupController extends Application {
 					
 					if (s == Constants.CARRIER) {
 						shipSetupController.shipnumname = "5c";
-						coordarr.clear();
+				
 						gridPane.setDisable(false);
 						FileInputStream input = null;
 
@@ -304,7 +303,7 @@ public class shipSetupController extends Application {
 
 					} else if (s == Constants.BATTLESHIP) {
 						shipSetupController.shipnumname = "4b";
-						coordarr.clear();
+					
 						gridPane.setDisable(false);
 						FileInputStream input = null;
 						try {
@@ -320,7 +319,7 @@ public class shipSetupController extends Application {
 
 					} else if (s == Constants.CRUISER) {
 						shipSetupController.shipnumname = "3c";
-						coordarr.clear();
+					
 						gridPane.setDisable(false);
 						FileInputStream input = null;
 						try {
@@ -336,7 +335,7 @@ public class shipSetupController extends Application {
 
 					} else if (s == Constants.SUBMARINE) {
 						shipSetupController.shipnumname = "3s";
-						coordarr.clear();
+					
 						gridPane.setDisable(false);
 						FileInputStream input = null;
 						try {
@@ -352,7 +351,7 @@ public class shipSetupController extends Application {
 
 					} else if (s == Constants.DESTROYER) {
 						shipSetupController.shipnumname = "2d";
-						coordarr.clear();
+						
 						gridPane.setDisable(false);
 						FileInputStream input = null;
 						try {
@@ -385,6 +384,7 @@ public class shipSetupController extends Application {
 					}
 				});
 
+				
 				source.setOnDragDetected(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -403,6 +403,7 @@ public class shipSetupController extends Application {
 					}
 				});
 
+				
 				hbox.setOnDragOver(new EventHandler<DragEvent>() {
 
 					@Override
@@ -425,12 +426,6 @@ public class shipSetupController extends Application {
 						} catch (Exception e) {
 
 						}
-
-						
-						//scene.setCursor(Cursor.DEFAULT);
-						
-						//scene.setCursor(new ImageCursor(image));
-						
 						
 						event.consume();
 					}
