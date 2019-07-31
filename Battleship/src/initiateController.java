@@ -68,7 +68,7 @@ public class initiateController extends Application {
                 computer.name = "COMPUTER";
                 computer.type = Player.playerType.COMPUTER;
 
-                computer.randomship();
+                computer.computerRandomShip();
                 for (Ships s : computer.shipsArr) {
                     System.out.println("random ships");
                     System.out.println(s.coordinates);

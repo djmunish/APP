@@ -456,7 +456,7 @@ public class Player {
     /**
      * Create Random ships for the computer for length 2/3/3/4/5.
      */
-    public void randomship() { //
+    public void computerRandomShip() { //
         int[] len = {2, 3, 3, 4, 5};
         int length = 0;
         for (int i = 0; i < len.length; i++) {
@@ -475,8 +475,6 @@ public class Player {
                 }//if
             }//while
         }//for
-       // return null;
-        //return s;
     }
     
     /**
