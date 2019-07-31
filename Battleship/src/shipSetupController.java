@@ -413,10 +413,7 @@ public class shipSetupController extends Application {
 							source.setRotate(90 * c);
 							isvertical1 = true;
 						}
-						
-					
-						
-												
+																		
 					}
 				});
 
@@ -505,7 +502,6 @@ public class shipSetupController extends Application {
 						
                         scene.setCursor(Cursor.DEFAULT);
 						
-                        event.setDropCompleted(true);
 
 						event.consume();
 						
