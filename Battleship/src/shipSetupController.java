@@ -59,32 +59,32 @@ public class shipSetupController extends Application {
 		}
 	}
 
-	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical, String shipColor,Button btnok) {
-					
+	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor,Button btnok) {
+
 		System.out.println((checkAvailability(col, row, len, isVertical)));
 		if (checkAvailability(col, row, len, isVertical)) {
 			Ships s;
 			String start = null, end = null;
 			ArrayList<String> coordxy = new ArrayList<>();
 
-			
+
 			if (isVertical) {
-				
+
 				for (int i = 0; i < len; i++) {
-					
+
 					ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col, row + i);
-					
+
 					if (i == 0) {
-												
+
 						start = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
-						
+
 					} else if (i == len - 1) {
-						
+
 						end = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
 					}
-					
+
 					String xycor = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 							+ Integer.toString(b.getCoordX() + 1);
 					coordxy.add(xycor);
@@ -94,15 +94,15 @@ public class shipSetupController extends Application {
 				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates))  {
 				if (humanPlayer.shipAvailable(s.coordinates))  {
 					humanPlayer.shipsArr.add(s);
-					
+
 					if (humanPlayer.shipsArr.size() == 5) {
-						
+
 						btnok.setDisable(false);
-						
+
 					}
-					
-					
-					
+
+					rb.setDisable(true);
+
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -113,7 +113,7 @@ public class shipSetupController extends Application {
 						ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, ycor, xcor - 1);
 						b.setStyle("-fx-background-color:" + shipColor);
 					}//for
-					
+
 					return true;
 				}//if
 				else {
@@ -124,17 +124,17 @@ public class shipSetupController extends Application {
 				for (int i = 0; i < len; i++) {
 					ButtonClicks b = (ButtonClicks) getNodeFromGridPane(g, col + i, row);
 					if (i == 0) {
-						
+
 						System.out.println("Y coordinates:-"+b.getCoordY());
 						System.out.println("X coordinates:-"+b.getCoordX());
-						
+
 						start = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
-						
+
 					} else if (i == len - 1) {
 						end = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 								+ Integer.toString(b.getCoordX() + 1);
-						
+
 					}
 					String xycor = Constants.indexToAlpha.get(Integer.toString(b.getCoordY()))
 							+ Integer.toString(b.getCoordX() + 1);
@@ -145,15 +145,17 @@ public class shipSetupController extends Application {
 
 				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates)) {
 				if (humanPlayer.shipAvailable(s.coordinates))  {
-					
+
 					humanPlayer.shipsArr.add(s);
-					
+
 					if (humanPlayer.shipsArr.size() == 5) {
-						
+
 						btnok.setDisable(false);
-						
+
 					}
-															
+
+					rb.setDisable(true);
+
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -179,7 +181,7 @@ public class shipSetupController extends Application {
 	}//dropship
 
 
-	
+
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		primaryStage.setTitle("Set Ships for your play!");
@@ -256,6 +258,7 @@ public class shipSetupController extends Application {
 		});
 
 
+
 		Label l1 = new Label("WELCOME " + humanPlayer.name.toUpperCase() + " ! SET UP YOUR SHIPS !");
 		l1.setTextFill(Color.FLORALWHITE);
 		l1.setFont(new Font("Arial", 20));
@@ -295,14 +298,14 @@ public class shipSetupController extends Application {
 				RadioButton rb = (RadioButton) group.getSelectedToggle();
 
 				if (rb != null) {
-                    click_count = 0;
+					click_count = 0;
 					String s = rb.getText();
 
 					GridPane target = gridPane;
-					
+
 					if (s == Constants.CARRIER) {
 						shipSetupController.shipnumname = "5c";
-				
+
 						gridPane.setDisable(false);
 						FileInputStream input1 = null;
 						FileInputStream input2 = null;
@@ -316,14 +319,13 @@ public class shipSetupController extends Application {
 						Image image1 = new Image(input1);
 						ImageView source = new ImageView(image1);
 						Image image2 = new Image(input2);
-						
-						String color = Constants.getColor.get("S1");
 
+						String color = Constants.getColor.get("S1");
 						dragDrop(source, target, image1,image2, Constants.LEN_CARRIER,rb, color);
 
 					} else if (s == Constants.BATTLESHIP) {
 						shipSetupController.shipnumname = "4b";
-					
+
 						gridPane.setDisable(false);
 						FileInputStream input1 = null;
 						FileInputStream input2 = null;
@@ -336,14 +338,13 @@ public class shipSetupController extends Application {
 						Image image1 = new Image(input1);
 						ImageView source = new ImageView(image1);
 						Image image2 = new Image(input2);
-						
-						String color = Constants.getColor.get("S2");
 
+						String color = Constants.getColor.get("S2");
 						dragDrop(source, target, image1, image2, Constants.LEN_BATTLESHIP,rb, color);
 
 					} else if (s == Constants.CRUISER) {
 						shipSetupController.shipnumname = "3c";
-					
+
 						gridPane.setDisable(false);
 						FileInputStream input1 = null;
 						FileInputStream input2 = null;
@@ -356,14 +357,13 @@ public class shipSetupController extends Application {
 						Image image1 = new Image(input1);
 						ImageView source = new ImageView(image1);
 						Image image2 = new Image(input2);
-						
-						String color = Constants.getColor.get("S3");
 
+						String color = Constants.getColor.get("S3");
 						dragDrop(source, target, image1, image2, Constants.LEN_CRUISER,rb, color);
 
 					} else if (s == Constants.SUBMARINE) {
 						shipSetupController.shipnumname = "3s";
-					
+
 						gridPane.setDisable(false);
 						FileInputStream input1 = null;
 						FileInputStream input2 = null;
@@ -378,12 +378,11 @@ public class shipSetupController extends Application {
 						Image image2 = new Image(input2);
 
 						String color = Constants.getColor.get("S4");
-
 						dragDrop(source, target, image1, image2, Constants.LEN_SUBMARINE,rb, color);
 
 					} else if (s == Constants.DESTROYER) {
 						shipSetupController.shipnumname = "2d";
-						
+
 						gridPane.setDisable(false);
 						FileInputStream input1 = null;
 						FileInputStream input2 = null;
@@ -396,9 +395,8 @@ public class shipSetupController extends Application {
 						Image image1 = new Image(input1);
 						ImageView source = new ImageView(image1);
 						Image image2 = new Image(input2);
-					
-						String color = Constants.getColor.get("S5");
 
+						String color = Constants.getColor.get("S5");
 						dragDrop(source, target, image1, image2, Constants.LEN_DESTROYER,rb, color);
 					}
 				}
@@ -409,21 +407,15 @@ public class shipSetupController extends Application {
 
 				source.setPreserveRatio(true);
 				source.setFitWidth(source.getImage().getWidth());
-                source.setTranslateX(rb.getTranslateX() + 150 + 10);
+				source.setTranslateX(rb.getTranslateX() + 150 + 10);
 
+				vbox.getChildren().add(source);
 
-                vbox.getChildren().add(source);
-                
-                
-                //rb.setDisable(true);
-                
-							
 				isvertical1 = false;
 				click_count =0;
 
 				source.setOnMouseClicked(event -> {
 					if (event.getButton() == MouseButton.SECONDARY) {
-
 						click_count++;
 
 						if(click_count %2 == 0){
@@ -435,11 +427,12 @@ public class shipSetupController extends Application {
 
 							source.setRotate(90 * click_count);
 							isvertical1 = true;
-						}						
+						}
+
 					}
 				});
 
-				
+
 				source.setOnDragDetected(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -449,7 +442,6 @@ public class shipSetupController extends Application {
 						Dragboard db = source.startDragAndDrop(TransferMode.ANY);
 
 						ClipboardContent cbContent = new ClipboardContent();
-
 
 						if( ! isvertical1){
 
@@ -470,7 +462,7 @@ public class shipSetupController extends Application {
 					}
 				});
 
-				
+
 				hbox.setOnDragOver(new EventHandler<DragEvent>() {
 
 					@Override
@@ -483,11 +475,11 @@ public class shipSetupController extends Application {
 
 							x = target.getColumnIndex(source).intValue();
 							y = target.getRowIndex(source).intValue();
-							
+
 						} catch (Exception e) {
 
 						}
-						
+
 						event.consume();
 					}
 				});
@@ -512,28 +504,29 @@ public class shipSetupController extends Application {
 						}
 
 						Dragboard db = event.getDragboard();
-					
+
 
 						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
-						
-							
-							boolean value = dropShip(x, y, len, gridPane, isvertical1,color,btnok);
 
-							if(value){
-								
-								vbox.getChildren().remove(source);
-							}
-						
+
+						boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color,btnok);
+
+						if(value){
+							vbox.getChildren().remove(source);
+						}
+
+
 						System.out.println("Drag done");
-						
-                        scene.setCursor(Cursor.DEFAULT);
-						
+
+						scene.setCursor(Cursor.DEFAULT);
+
+
 						event.consume();
-						
+
 					}
 				});
 			}
-		
+		});
 
 		// **** DragDROP END **********
 
@@ -689,12 +682,10 @@ public class shipSetupController extends Application {
 			}
 		};
 
-		
+
 		*/
-		
-			
+
 		// Grid Creation
-			
 		int nRows, nCols;
 
 		for (int i = 0; i < Constants.row + 1; i++) {
