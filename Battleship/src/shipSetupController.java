@@ -29,8 +29,6 @@ public class shipSetupController extends Application {
     static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
 
     static String shipnumname = null;
-    public ImageView[] ships;
-
 
     boolean isvertical1 = false;
     Player humanPlayer;
@@ -44,6 +42,7 @@ public class shipSetupController extends Application {
     }
 
     private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
+    	
         for (Node node : gridPane.getChildren()) {
             if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
                 return node;
@@ -54,7 +53,9 @@ public class shipSetupController extends Application {
 
 
     public boolean checkAvailability(int col, int row, int len, boolean isVertical){
+    	
         if (isVertical) {
+        	
             return row+len<Constants.row;
         }
             else{
@@ -62,8 +63,9 @@ public class shipSetupController extends Application {
         }
     }
 
-    public void dropShip(int col, int row, int len, GridPane g, boolean isVertical, String shipColor){
-
+    public void dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor){
+    	
+    	
         if(checkAvailability(col, row, len, isVertical)) {
         	
         	Ships s;
@@ -93,10 +95,18 @@ public class shipSetupController extends Application {
                 
                 s = new Ships(start, end);
                 
+                
+                
+                
                 if (humanPlayer.checkOverlap(s.coordinates)) {
-
+                	
+                
                     humanPlayer.shipsArr.add(s);
                     
+                    rb.setDisable(true);
+                    
+                    
+                                    
                     for (String c1 : coordxy) {
 
                         String corsh0 = c1.substring(0, 1);
@@ -146,6 +156,7 @@ public class shipSetupController extends Application {
                 if (humanPlayer.checkOverlap(s.coordinates)) {
 
                     humanPlayer.shipsArr.add(s);
+                    rb.setDisable(true);
                     
                     for (String c1 : coordxy) {
 
@@ -307,11 +318,15 @@ public class shipSetupController extends Application {
                 if (rb != null) {
                     String s = rb.getText();
                     
+                    GridPane target = gridPane;
+                    FileInputStream input = null;
+                    String color=null;
+                    
                     if (s == Constants.CARRIER) {
+                    	
                         shipSetupController.shipnumname = "5c";
-                        coordarr.clear();
+                        //coordarr.clear();
                         gridPane.setDisable(false);
-                        FileInputStream input = null;
                         
                         try {
                             input = new FileInputStream("S1.png");
@@ -320,16 +335,18 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        GridPane target = gridPane;
-                        String color = Constants.getColor.get("S1");
-                        dragDrop(source,target,image,Constants.LEN_CARRIER, color);
+                       
+                        color = Constants.getColor.get("S1");
+                        
+                        dragDrop(source,target,image,Constants.LEN_CARRIER,rb, color);
+                      
 
 
                     } else if (s == Constants.BATTLESHIP) {
                         shipSetupController.shipnumname = "4b";
-                        coordarr.clear();
+                        //coordarr.clear();
                         gridPane.setDisable(false);
-                        FileInputStream input = null;
+                       
                         try {
                             input = new FileInputStream("S2.png");
                         } catch (FileNotFoundException e) {
@@ -337,31 +354,32 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        GridPane target = gridPane;
-                        String color = Constants.getColor.get("S2");
-                        dragDrop(source,target,image,Constants.LEN_BATTLESHIP, color);
+                      
+                        color = Constants.getColor.get("S2");
+                        dragDrop(source,target,image,Constants.LEN_BATTLESHIP,rb, color);
 
                     } else if (s == Constants.CRUISER) {
                         shipSetupController.shipnumname = "3c";
-                        coordarr.clear();
+                        //coordarr.clear();
                         gridPane.setDisable(false);
-                        FileInputStream input = null;
+                      
                         try {
                             input = new FileInputStream("S3.png");
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
+                        
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        GridPane target = gridPane;
-                        String color = Constants.getColor.get("S3");
-                        dragDrop(source,target,image,Constants.LEN_CRUISER, color);
+                    
+                        color = Constants.getColor.get("S3");
+                        dragDrop(source,target,image,Constants.LEN_CRUISER,rb, color);
 
                     } else if (s == Constants.SUBMARINE) {
                         shipSetupController.shipnumname = "3s";
-                        coordarr.clear();
+                        //coordarr.clear();
                         gridPane.setDisable(false);
-                        FileInputStream input = null;
+                      
                         try {
                             input = new FileInputStream("S4.png");
                         } catch (FileNotFoundException e) {
@@ -369,15 +387,15 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        GridPane target = gridPane;
-                        String color = Constants.getColor.get("S4");
-                        dragDrop(source,target,image,Constants.LEN_SUBMARINE, color);
+                
+                        color = Constants.getColor.get("S4");
+                        dragDrop(source,target,image,Constants.LEN_SUBMARINE,rb, color);
 
                     } else if (s == Constants.DESTROYER) {
                         shipSetupController.shipnumname = "2d";
-                        coordarr.clear();
+                        //coordarr.clear();
                         gridPane.setDisable(false);
-                        FileInputStream input = null;
+                     
                         try {
                             input = new FileInputStream("S5.png");
                         } catch (FileNotFoundException e) {
@@ -385,9 +403,9 @@ public class shipSetupController extends Application {
                         }
                         Image image = new Image(input);
                         ImageView source = new ImageView(image);
-                        GridPane target = gridPane;
-                        String color = Constants.getColor.get("S5");
-                        dragDrop(source,target,image,Constants.LEN_DESTROYER, color);
+                       
+                        color = Constants.getColor.get("S5");
+                        dragDrop(source,target,image,Constants.LEN_DESTROYER,rb, color);
                     }
                 }
 
@@ -395,7 +413,7 @@ public class shipSetupController extends Application {
             
 
     
-            private void dragDrop(ImageView source, GridPane target, Image image, int len,String color) {
+            private void dragDrop(ImageView source, GridPane target, Image image, int len,RadioButton rb,String color) {
 
                 source.setPreserveRatio(true);
                 source.setFitWidth(80);
@@ -418,6 +436,8 @@ public class shipSetupController extends Application {
                     public void handle(MouseEvent event) {
                         source.startDragAndDrop(TransferMode.ANY);
 
+                        System.out.println("Drag Detected");
+                        
                         Dragboard db = source.startDragAndDrop(TransferMode.ANY);
 
                         ClipboardContent cbContent = new ClipboardContent();
@@ -438,7 +458,7 @@ public class shipSetupController extends Application {
 
 //                        System.out.println("Over");
 //                        System.out.println(event.getX()+"========="+event.getY());
-
+                    	 System.out.println("Drag Over -->");
                         Node source = (Node)event.getTarget() ;
                         try{
                             Integer colIndex = GridPane.getColumnIndex(source);
@@ -468,6 +488,7 @@ public class shipSetupController extends Application {
                     public void handle(DragEvent event) {
                     	
                     	scene.setCursor(Cursor.DEFAULT);
+                    	 System.out.println("Drag dropped");
                     	
                     }
                 });
@@ -484,12 +505,19 @@ public class shipSetupController extends Application {
                         Dragboard db = event.getDragboard();
                         boolean success = true;
                         
+                        System.out.println("values for the coordinates are:-x:-"+x+" "+"y"+y);
+                        
                         if(x != 0 && y != 0){
-                            dropShip(x , y , len , gridPane,isvertical1 , color);
+                            dropShip(x , y , len , gridPane,isvertical1,rb,color);
 
                         }
+                        
+                        
                         System.out.println("Drag done");
-                        source.setVisible(false);
+                        
+                        //source.setVisible(false);
+                        scene.setCursor(Cursor.DEFAULT);
+                        
                         event.consume();
                     }
                 });
