@@ -32,12 +32,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="56" />
+          <entry key="java" value="59" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="56" />
+          <entry key="JAVA" value="59" />
         </counts>
       </usages-collector>
     </session>
@@ -47,14 +47,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Battleship/src/shipSetupController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="53" selection-start-line="53" selection-end-line="53" />
+            <state relative-caret-position="-1576">
+              <caret line="463" lean-forward="true" selection-start-line="463" selection-end-line="463" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1749#1757#0" expanded="true" />
-                <element signature="e#5086#5094#0" expanded="true" />
-                <element signature="e#5149#5157#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/javafx.base/com/sun/javafx/event/CompositeEventHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="85" selection-start-line="85" selection-end-line="85" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/javafx.base/com/sun/javafx/event/EventHandlerManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="237" selection-start-line="237" selection-end-line="237" />
             </state>
           </provider>
         </entry>
@@ -81,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/Battleship/src/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="110">
-              <caret line="17" column="36" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="36" />
+              <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -110,16 +125,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Battleship/src/S3.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Battleship/src/S4.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Battleship/src/S5.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
@@ -143,6 +148,7 @@
       <find>dropShip</find>
       <find>event</find>
       <find>setCursor</find>
+      <find>isvertical1</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,7 +204,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564452530840" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564544302767" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -244,7 +250,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-25" y="23" width="1280" height="723" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.26898223" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -255,8 +260,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.43740094" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39936608" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.251981" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39936608" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -362,19 +367,16 @@
     <entry file="file://$PROJECT_DIR$/Battleship/src/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
-          <caret line="17" column="36" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="36" />
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Battleship/src/shipSetupController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="-1576">
+          <caret line="463" lean-forward="true" selection-start-line="463" selection-end-line="463" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1749#1757#0" expanded="true" />
-            <element signature="e#5086#5094#0" expanded="true" />
-            <element signature="e#5149#5157#0" expanded="true" />
           </folding>
         </state>
       </provider>

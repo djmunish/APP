@@ -60,6 +60,7 @@ public class shipSetupController extends Application {
 	}
 
 	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor) {
+        System.out.println((checkAvailability(col, row, len, isVertical)));
 		if (checkAvailability(col, row, len, isVertical)) {
 			Ships s;
 			String start = null, end = null;
@@ -460,15 +461,13 @@ public class shipSetupController extends Application {
 
 						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
 						
-						if (x != 0 && y != 0) {
 
-							boolean value=dropShip(x, y, len, gridPane, isvertical1,rb, color);
+							boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color);
 
 							if(value){
 								vbox.getChildren().remove(source);
 							}
-							
-						}
+						
 						System.out.println("Drag done");
 						
                         scene.setCursor(Cursor.DEFAULT);
