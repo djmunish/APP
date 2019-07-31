@@ -36,6 +36,7 @@ public class shipSetupController extends Application {
 
 	private Integer x = 0;
 	private Integer y = 0;
+	private int c = 0;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -298,6 +299,7 @@ public class shipSetupController extends Application {
 				RadioButton rb = (RadioButton) group.getSelectedToggle();
 
 				if (rb != null) {
+                    c = 0;
 					String s = rb.getText();
 
 					GridPane target = gridPane;
@@ -398,7 +400,8 @@ public class shipSetupController extends Application {
 
 				source.setOnMouseClicked(event -> {
 					if (event.getButton() == MouseButton.SECONDARY) {
-						source.setRotate(90);
+					    c++;
+						source.setRotate(90 * c);
 						isvertical1 = true;
 					}
 				});
@@ -480,7 +483,7 @@ public class shipSetupController extends Application {
 							if(value){
 								vbox.getChildren().remove(source);
 							}
-						
+
 						System.out.println("Drag done");
 						
                         scene.setCursor(Cursor.DEFAULT);
