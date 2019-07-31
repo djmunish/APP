@@ -402,7 +402,9 @@ public class shipSetupController extends Application {
 					if (event.getButton() == MouseButton.SECONDARY) {
 					    c++;
 						source.setRotate(90 * c);
+					
 						isvertical1 = true;
+												
 					}
 				});
 
@@ -416,9 +418,16 @@ public class shipSetupController extends Application {
 						Dragboard db = source.startDragAndDrop(TransferMode.ANY);
 
 						ClipboardContent cbContent = new ClipboardContent();
+						
+						if(isvertical1){
+							
 						cbContent.putImage(source.getImage());
+						
+						}
+						
 
 						db.setContent(cbContent);
+						
 						scene.setCursor(new ImageCursor(source.getImage()));
 						
 						event.consume();
@@ -436,9 +445,6 @@ public class shipSetupController extends Application {
 
 						Node source = (Node) event.getTarget();
 						try {
-//							Integer colIndex = GridPane.getColumnIndex(source);
-//							Integer rowIndex = GridPane.getRowIndex(source);
-//                        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
 
 							event.acceptTransferModes(TransferMode.ANY);
 
@@ -473,22 +479,27 @@ public class shipSetupController extends Application {
 						}
 
 						Dragboard db = event.getDragboard();
-						boolean success = true;
+					
 
 						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
 						
-
+						if(x!=0 && y!=0){
+							
 							boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color,btnok);
 
 							if(value){
 								vbox.getChildren().remove(source);
 							}
+						}	
 
 						System.out.println("Drag done");
 						
                         scene.setCursor(Cursor.DEFAULT);
 						
+                        event.setDropCompleted(true);
+
 						event.consume();
+						
 					}
 				});
 			}
