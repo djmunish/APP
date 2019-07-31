@@ -392,9 +392,11 @@ public class shipSetupController extends Application {
 			private void dragDrop(ImageView source, GridPane target, Image image, int len,RadioButton rb, String color) {
 
 				source.setPreserveRatio(true);
-				source.setFitWidth(80);
-				
-				vbox.getChildren().add(source);
+				source.setFitWidth(source.getImage().getWidth());
+                source.setTranslateX(rb.getTranslateX() + 150 + 10);
+//                source.setTranslateY(rb.getLayoutX() + 10);
+
+                vbox.getChildren().add(source);
 							
 				isvertical1 = false;
 
@@ -429,7 +431,10 @@ public class shipSetupController extends Application {
 						db.setContent(cbContent);
 						
 						scene.setCursor(new ImageCursor(source.getImage()));
-						
+
+						Cursor shipCursor = new ImageCursor(source.getImage());
+
+
 						event.consume();
 					}
 				});
