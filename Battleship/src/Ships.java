@@ -160,7 +160,7 @@ public class Ships {
     }
 
     /**
-     * Function to assign colours on the player grid: "RED"-if its a hit, "GREY"-if its a miss.
+     * Function to assign colours on the player grid: "RED"-if its a hit, "BLACK"-if its a miss.
      * @param G1 Playing grid of the opposite player.
      * @param G2 Reference grid for the player who made the hit.
      * @param S location of the grid to be checked.
@@ -182,8 +182,8 @@ public class Ships {
             bReference.setStyle("-fx-background-color: Red");
             return true;
         } else {
-            bActual.setStyle("-fx-background-color: Grey;");
-            bReference.setStyle("-fx-background-color: Grey");
+            bActual.setStyle("-fx-background-color: Black;");
+            bReference.setStyle("-fx-background-color: Black");
             return false;
         }
     }
