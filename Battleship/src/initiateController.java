@@ -89,7 +89,7 @@ public class initiateController extends Application {
 
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Select");
-                        alert.setHeaderText("Do you wish to play in Salva Variation?");
+                        alert.setHeaderText(Constants.salva_Alert);
                         ButtonType yes = new ButtonType("Yes");
                         ButtonType no = new ButtonType("No");
 
@@ -118,7 +118,7 @@ public class initiateController extends Application {
 
 
                     } else {
-                        Constants.showAlert("Please enter player name.");
+                        Constants.showAlert(Constants.name_Alert);
                     }
                 });
             }
@@ -129,7 +129,7 @@ public class initiateController extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                Constants.showAlert("In Progress for build 2!");
+                Constants.showAlert(Constants.progress_Alert);
             }
         });
 

@@ -116,7 +116,7 @@ public class shipSetupController extends Application {
 					return true;
 				}//if
 				else {
-					Constants.showAlert("Please correct the ship coordinates!");
+					Constants.showAlert(Constants.coords_Alert);
 				}//else
 
 			} else {
@@ -168,12 +168,12 @@ public class shipSetupController extends Application {
 				}
 				else {
 
-					Constants.showAlert("Please correct the ship coordinates!");
+					Constants.showAlert(Constants.coords_Alert);
 				}
 			} //else of is vertical
 		}//if checkavailability
 		else {
-			Constants.showAlert("Please select coordinates inside the grid");
+			Constants.showAlert(Constants.grid_Alert);
 		}
 		return false;
 	}//dropship

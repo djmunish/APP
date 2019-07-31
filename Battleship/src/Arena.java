@@ -334,8 +334,7 @@ public class Arena extends Application {
                 				}
                 				Constants.showAlert(message);
                 			 }else {
-                             	String serror = "Please select a location and then click 'Hit' Button!";
-                                 	Constants.showAlert(serror);
+                                 	Constants.showAlert(Constants.hit_Alert);
                              }
                 		//}//else gamePlayType
 
@@ -414,7 +413,7 @@ public class Arena extends Application {
             Scene scene = new Scene(new Group(hbox), 1000, 800);
             scene.setFill(Color.GRAY);
             stage.setScene(scene);
-            stage.setWidth(2000);
+            stage.setWidth(1000);
             stage.setHeight(800);
 
 
