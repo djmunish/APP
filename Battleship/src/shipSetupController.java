@@ -59,13 +59,15 @@ public class shipSetupController extends Application {
 		}
 	}
 
-	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor) {
-        System.out.println((checkAvailability(col, row, len, isVertical)));
+	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor,Button btnok) {
+					
+		System.out.println((checkAvailability(col, row, len, isVertical)));
 		if (checkAvailability(col, row, len, isVertical)) {
 			Ships s;
 			String start = null, end = null;
 			ArrayList<String> coordxy = new ArrayList<>();
 
+			
 			if (isVertical) {
 				
 				for (int i = 0; i < len; i++) {
@@ -92,6 +94,12 @@ public class shipSetupController extends Application {
 				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates))  {
 				if (humanPlayer.shipAvailable(s.coordinates))  {
 					humanPlayer.shipsArr.add(s);
+					
+					if (humanPlayer.shipsArr.size() == 5) {
+						
+						btnok.setDisable(false);
+						
+					}
 					
 					rb.setDisable(true);
 					
@@ -137,11 +145,17 @@ public class shipSetupController extends Application {
 
 				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates)) {
 				if (humanPlayer.shipAvailable(s.coordinates))  {
+					
 					humanPlayer.shipsArr.add(s);
 					
-					rb.setDisable(true);
+					if (humanPlayer.shipsArr.size() == 5) {
+						
+						btnok.setDisable(false);
+						
+					}
 					
-										
+					rb.setDisable(true);
+															
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -166,6 +180,8 @@ public class shipSetupController extends Application {
 		return false;
 	}//dropship
 
+
+	
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		primaryStage.setTitle("Set Ships for your play!");
@@ -223,6 +239,7 @@ public class shipSetupController extends Application {
 		vbox.setSpacing(10);
 
 		Button btnok = new Button("I'm Ready!");
+		btnok.setDisable(true);
 		btnok.setStyle("-fx-background-color: Grey ");
 		btnok.setTranslateX(200);
 		btnok.setTranslateY(550);
@@ -240,7 +257,7 @@ public class shipSetupController extends Application {
 			}
 		});
 
-		btnok.setDisable(false);
+		
 
 		Label l1 = new Label("WELCOME " + humanPlayer.name.toUpperCase() + " ! SET UP YOUR SHIPS !");
 		l1.setTextFill(Color.FLORALWHITE);
@@ -374,6 +391,7 @@ public class shipSetupController extends Application {
 
 				source.setPreserveRatio(true);
 				source.setFitWidth(80);
+				
 				vbox.getChildren().add(source);
 							
 				isvertical1 = false;
@@ -457,7 +475,7 @@ public class shipSetupController extends Application {
 						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
 						
 
-							boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color);
+							boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color,btnok);
 
 							if(value){
 								vbox.getChildren().remove(source);
