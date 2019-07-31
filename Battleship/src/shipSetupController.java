@@ -63,8 +63,8 @@ public class shipSetupController extends Application {
 		if (checkAvailability(col, row, len, isVertical)) {
 			Ships s;
 			String start = null, end = null;
-			ArrayList<String> coordxy = new ArrayList<String>();
-			
+			ArrayList<String> coordxy = new ArrayList<>();
+
 			if (isVertical) {
 				
 				for (int i = 0; i < len; i++) {
@@ -172,11 +172,10 @@ public class shipSetupController extends Application {
 
 		GridPane gridPane = new GridPane();
 
-		StackPane stackpane = new StackPane();
 
-		ArrayList<String> coordarr = new ArrayList<String>();
+		ArrayList<String> coordarr = new ArrayList<>();
 
-		ArrayList<String> shipsprocessed = new ArrayList<String>();
+		ArrayList<String> shipsprocessed = new ArrayList<>();
 
 		final ToggleGroup group = new ToggleGroup();
 
