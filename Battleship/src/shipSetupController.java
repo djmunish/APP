@@ -58,7 +58,7 @@ public class shipSetupController extends Application {
 		}
 	}
 
-	public void dropShip(int col, int row, int len, GridPane g, boolean isVertical, String shipColor) {
+	public void dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor) {
 		if (checkAvailability(col, row, len, isVertical)) {
 			Ships s;
 			String start = null, end = null;
@@ -81,6 +81,8 @@ public class shipSetupController extends Application {
 
 				if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates))  {
 					humanPlayer.shipsArr.add(s);
+					rb.setDisable(true);
+					
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -115,6 +117,9 @@ public class shipSetupController extends Application {
 
 				if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates)) {
 					humanPlayer.shipsArr.add(s);
+					
+					rb.setDisable(true);
+					
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -270,7 +275,7 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						GridPane target = gridPane;
 						String color = Constants.getColor.get("S1");
-						dragDrop(source, target, image, Constants.LEN_CARRIER, color);
+						dragDrop(source, target, image, Constants.LEN_CARRIER,rb, color);
 
 					} else if (s == Constants.BATTLESHIP) {
 						shipSetupController.shipnumname = "4b";
@@ -286,7 +291,7 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						GridPane target = gridPane;
 						String color = Constants.getColor.get("S2");
-						dragDrop(source, target, image, Constants.LEN_BATTLESHIP, color);
+						dragDrop(source, target, image, Constants.LEN_BATTLESHIP,rb, color);
 
 					} else if (s == Constants.CRUISER) {
 						shipSetupController.shipnumname = "3c";
@@ -302,7 +307,7 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						GridPane target = gridPane;
 						String color = Constants.getColor.get("S3");
-						dragDrop(source, target, image, Constants.LEN_CRUISER, color);
+						dragDrop(source, target, image, Constants.LEN_CRUISER,rb, color);
 
 					} else if (s == Constants.SUBMARINE) {
 						shipSetupController.shipnumname = "3s";
@@ -318,7 +323,7 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						GridPane target = gridPane;
 						String color = Constants.getColor.get("S4");
-						dragDrop(source, target, image, Constants.LEN_SUBMARINE, color);
+						dragDrop(source, target, image, Constants.LEN_SUBMARINE,rb, color);
 
 					} else if (s == Constants.DESTROYER) {
 						shipSetupController.shipnumname = "2d";
@@ -334,13 +339,13 @@ public class shipSetupController extends Application {
 						ImageView source = new ImageView(image);
 						GridPane target = gridPane;
 						String color = Constants.getColor.get("S5");
-						dragDrop(source, target, image, Constants.LEN_DESTROYER, color);
+						dragDrop(source, target, image, Constants.LEN_DESTROYER,rb, color);
 					}
 				}
 
 			}
 
-			private void dragDrop(ImageView source, GridPane target, Image image, int len, String color) {
+			private void dragDrop(ImageView source, GridPane target, Image image, int len,RadioButton rb, String color) {
 
 				source.setPreserveRatio(true);
 				source.setFitWidth(80);
@@ -424,11 +429,13 @@ public class shipSetupController extends Application {
 						boolean success = true;
 
 						if (x != 0 && y != 0) {
-							dropShip(x, y, len, gridPane, isvertical1, color);
+							dropShip(x, y, len, gridPane, isvertical1,rb, color);
 
 						}
 						System.out.println("Drag done");
-						source.setVisible(false);
+						
+						scene.setCursor(Cursor.DEFAULT);
+						
 						event.consume();
 					}
 				});
