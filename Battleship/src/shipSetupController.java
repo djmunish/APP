@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -36,7 +35,7 @@ public class shipSetupController extends Application {
 
 	private Integer x = 0;
 	private Integer y = 0;
-	private int c = 0;
+	private int click_count = 0; // Mouse Click Counter for counting number of Secondary clicks
 
 	public static void main(String[] args) {
 		launch(args);
@@ -296,7 +295,7 @@ public class shipSetupController extends Application {
 				RadioButton rb = (RadioButton) group.getSelectedToggle();
 
 				if (rb != null) {
-                    c = 0;
+                    click_count = 0;
 					String s = rb.getText();
 
 					GridPane target = gridPane;
@@ -305,115 +304,113 @@ public class shipSetupController extends Application {
 						shipSetupController.shipnumname = "5c";
 				
 						gridPane.setDisable(false);
-						FileInputStream input = null;
+						FileInputStream input1 = null;
+						FileInputStream input2 = null;
 
 						try {
-							input = new FileInputStream("S1.png");
+							input1 = new FileInputStream("S1.png");
+							input2 = new FileInputStream("SH1.png");
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						Image image = new Image(input);
-						ImageView source = new ImageView(image);
+						Image image1 = new Image(input1);
+						ImageView source = new ImageView(image1);
+						Image image2 = new Image(input2);
 						
 						String color = Constants.getColor.get("S1");
-					
-						dragDrop(source, target, image, Constants.LEN_CARRIER,rb, color);
-						
-						
+
+						dragDrop(source, target, image1,image2, Constants.LEN_CARRIER,rb, color);
 
 					} else if (s == Constants.BATTLESHIP) {
 						shipSetupController.shipnumname = "4b";
 					
 						gridPane.setDisable(false);
-						FileInputStream input = null;
+						FileInputStream input1 = null;
+						FileInputStream input2 = null;
 						try {
-							input = new FileInputStream("S2.png");
+							input1 = new FileInputStream("S2.png");
+							input2 = new FileInputStream("SH2.png");
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						Image image = new Image(input);
-						ImageView source = new ImageView(image);
+						Image image1 = new Image(input1);
+						ImageView source = new ImageView(image1);
+						Image image2 = new Image(input2);
 						
 						String color = Constants.getColor.get("S2");
-						
-					
-						dragDrop(source, target, image, Constants.LEN_BATTLESHIP,rb, color);
-						
-					
-						
+
+						dragDrop(source, target, image1, image2, Constants.LEN_BATTLESHIP,rb, color);
 
 					} else if (s == Constants.CRUISER) {
 						shipSetupController.shipnumname = "3c";
 					
 						gridPane.setDisable(false);
-						FileInputStream input = null;
+						FileInputStream input1 = null;
+						FileInputStream input2 = null;
 						try {
-							input = new FileInputStream("S3.png");
+							input1 = new FileInputStream("S3.png");
+							input2 = new FileInputStream("SH3.png");
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						Image image = new Image(input);
-						ImageView source = new ImageView(image);
+						Image image1 = new Image(input1);
+						ImageView source = new ImageView(image1);
+						Image image2 = new Image(input2);
 						
 						String color = Constants.getColor.get("S3");
-						
-						dragDrop(source, target, image, Constants.LEN_CRUISER,rb, color);
-						
-						
+
+						dragDrop(source, target, image1, image2, Constants.LEN_CRUISER,rb, color);
 
 					} else if (s == Constants.SUBMARINE) {
 						shipSetupController.shipnumname = "3s";
 					
 						gridPane.setDisable(false);
-						FileInputStream input = null;
+						FileInputStream input1 = null;
+						FileInputStream input2 = null;
 						try {
-							input = new FileInputStream("S4.png");
+							input1 = new FileInputStream("S4.png");
+							input2 = new FileInputStream("SH4.png");
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						Image image = new Image(input);
-						ImageView source = new ImageView(image);
-						
+						Image image1 = new Image(input1);
+						ImageView source = new ImageView(image1);
+						Image image2 = new Image(input2);
+
 						String color = Constants.getColor.get("S4");
-						
-					
-						
-						dragDrop(source, target, image, Constants.LEN_SUBMARINE,rb, color);
-						
-						
+
+						dragDrop(source, target, image1, image2, Constants.LEN_SUBMARINE,rb, color);
 
 					} else if (s == Constants.DESTROYER) {
 						shipSetupController.shipnumname = "2d";
 						
 						gridPane.setDisable(false);
-						FileInputStream input = null;
+						FileInputStream input1 = null;
+						FileInputStream input2 = null;
 						try {
-							input = new FileInputStream("S5.png");
+							input1 = new FileInputStream("S5.png");
+							input2 = new FileInputStream("SH5.png");
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}
-						Image image = new Image(input);
-						ImageView source = new ImageView(image);
+						Image image1 = new Image(input1);
+						ImageView source = new ImageView(image1);
+						Image image2 = new Image(input2);
 					
 						String color = Constants.getColor.get("S5");
-						
-						
-						dragDrop(source, target, image, Constants.LEN_DESTROYER,rb, color);
-						
+
+						dragDrop(source, target, image1, image2, Constants.LEN_DESTROYER,rb, color);
 					}
 				}
 
 			}
 
-			private void dragDrop(ImageView source, GridPane target, Image image, int len,RadioButton rb, String color) {
+			private void dragDrop(ImageView source, GridPane target, Image image1, Image image2, int len, RadioButton rb, String color) {
 
 				source.setPreserveRatio(true);
 				source.setFitWidth(source.getImage().getWidth());
                 source.setTranslateX(rb.getTranslateX() + 150 + 10);
-                
-                //
-                
-                //source.setTranslateY(rb.getLayoutX() + 10);
+
 
                 vbox.getChildren().add(source);
                 
@@ -422,20 +419,21 @@ public class shipSetupController extends Application {
                 
 							
 				isvertical1 = false;
-				c=0;
-				
+				click_count =0;
+
 				source.setOnMouseClicked(event -> {
 					if (event.getButton() == MouseButton.SECONDARY) {
-						c++;
-						if(c%2==0){
-							
-							source.setRotate(90 * c);						
+
+						click_count++;
+
+						if(click_count %2 == 0){
+
+							source.setRotate(90 * click_count);
 							isvertical1 = false;
 						}
-						
-						else{	
-													
-							source.setRotate(90 * c);
+						else{
+
+							source.setRotate(90 * click_count);
 							isvertical1 = true;
 						}						
 					}
@@ -451,13 +449,23 @@ public class shipSetupController extends Application {
 						Dragboard db = source.startDragAndDrop(TransferMode.ANY);
 
 						ClipboardContent cbContent = new ClipboardContent();
-							
-						cbContent.putImage(source.getImage());
-						
-						db.setContent(cbContent);
-								
-						scene.setCursor(new ImageCursor(source.getImage()));
-				
+
+
+						if( ! isvertical1){
+
+							cbContent.putImage(image1);
+							db.setContent(cbContent);
+							scene.setCursor(new ImageCursor(image1));
+
+						}
+						else{
+
+							cbContent.putImage(image2);
+							db.setContent(cbContent);
+							scene.setCursor(new ImageCursor(image2));
+
+						}
+
 						event.consume();
 					}
 				});
@@ -467,9 +475,6 @@ public class shipSetupController extends Application {
 
 					@Override
 					public void handle(DragEvent event) {
-
-//                        System.out.println("Over");
-//                        System.out.println(event.getX()+"========="+event.getY());
 
 						Node source = (Node) event.getTarget();
 						try {
