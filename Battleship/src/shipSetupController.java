@@ -241,10 +241,10 @@ public class shipSetupController extends Application {
 
 		Button btnok = new Button("I'm Ready!");
 		btnok.setDisable(true);
-		btnok.setStyle("-fx-background-color: Grey ");
-		btnok.setTranslateX(200);
+		btnok.setStyle("-fx-background-color: Red ");
+		btnok.setTranslateX(300);
 		btnok.setTranslateY(550);
-		btnok.setPrefSize(150, 50);
+		btnok.setPrefSize(300, 50);
 
 		// Navigation to Arena.
 		btnok.setOnAction(new EventHandler<ActionEvent>() {
