@@ -394,18 +394,28 @@ public class shipSetupController extends Application {
 				source.setPreserveRatio(true);
 				source.setFitWidth(source.getImage().getWidth());
                 source.setTranslateX(rb.getTranslateX() + 150 + 10);
+                
 //                source.setTranslateY(rb.getLayoutX() + 10);
 
                 vbox.getChildren().add(source);
 							
 				isvertical1 = false;
-
+				c=0;
+				
 				source.setOnMouseClicked(event -> {
 					if (event.getButton() == MouseButton.SECONDARY) {
-					    c++;
-						source.setRotate(90 * c);
+						c++;
+						if(c%2==0){
+							source.setRotate(90 * c);
+							isvertical1 = false;
+						}
+						else{
+							source.setRotate(90 * c);
+							isvertical1 = true;
+						}
+						
 					
-						isvertical1 = true;
+						
 												
 					}
 				});
@@ -420,14 +430,9 @@ public class shipSetupController extends Application {
 						Dragboard db = source.startDragAndDrop(TransferMode.ANY);
 
 						ClipboardContent cbContent = new ClipboardContent();
-						
-						if(isvertical1){
 							
 						cbContent.putImage(source.getImage());
 						
-						}
-						
-
 						db.setContent(cbContent);
 						
 						scene.setCursor(new ImageCursor(source.getImage()));
@@ -488,14 +493,13 @@ public class shipSetupController extends Application {
 
 						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
 						
-						if(x!=0 && y!=0){
 							
 							boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color,btnok);
 
 							if(value){
 								vbox.getChildren().remove(source);
 							}
-						}	
+						
 
 						System.out.println("Drag done");
 						
@@ -512,6 +516,7 @@ public class shipSetupController extends Application {
 
 		// **** DragDROP END **********
 
+		/*
 		// Placement of ships on button click event in grid.
 		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -663,6 +668,9 @@ public class shipSetupController extends Application {
 			}
 		};
 
+		
+		*/
+		
 		// Grid Creation
 		int nRows, nCols;
 
