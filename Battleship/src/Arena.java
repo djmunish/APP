@@ -218,7 +218,7 @@ public class Arena extends Application {
 
                             if(humanPlayer.salvaArr.size()<salvaWindow){
                             	System.out.println("here when salvarr < window---2");
-                                updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
+                                  updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                             }
                             else{
                             	System.out.println("here when salvarr < window----else");
