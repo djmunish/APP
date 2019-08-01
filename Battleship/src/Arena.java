@@ -38,7 +38,7 @@ import javafx.scene.text.Text;
 
 /**
  * Arena.java deals with the game arena, it records the actions on UI and performs the computation.
- * @author harshkour
+ * @author iknoor
  * @since 2019-07-06
  * @version 1.0.0
  */
@@ -113,7 +113,6 @@ public class Arena extends Application {
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
             text.resize(150, 40);
             text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-            //text.setUnderline(true);
             text.setTranslateX(-130);
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
@@ -172,20 +171,16 @@ public class Arena extends Application {
                             incrementCount();
                         }
                     };
-
                     while (true) {
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException ex) {
                         }
-
-                        // UI update is run on the Application thread
                         Platform.runLater(updater);
                     }
                 }
 
             });
-            // don't let thread prevent JVM shutdown
             thread.setDaemon(true);
             thread.start();
 
@@ -703,7 +698,6 @@ public class Arena extends Application {
         System.out.println("Ships array size is " + p1.shipsArr.size());
         System.out.println("Ships array is " + p1.shipsArr);
         if (p1.shipsArr.size() == 0) {
-           // Constants.showAlert(p2.name + " won the game!!!");
             return true;
         } else {
             return false;

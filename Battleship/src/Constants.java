@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 /**
  * Class for the all the constants in the project.
- * @author harshkour
+ * @author iknoor
  * @since 2019-07-06
  * @version 1.0.1
  */
