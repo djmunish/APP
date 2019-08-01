@@ -6,7 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -65,6 +64,7 @@ public class Arena extends Application {
    
     /**
      * Function to increment the timer.
+     * @author harshkour
      */
     private void incrementCount() {
     	if(!timerstop) {
@@ -401,9 +401,6 @@ public class Arena extends Application {
                 });
             }
             vbox.setSpacing(10);
-           // vbox1.setTranslateX(-420);
-            //vbox1.setSpacing(-100);
-           // hbox.getChildren().add(vbox1);
             hbox.getChildren().add(vbox);
             hbox.getChildren().add(hitBtn);
             vbox.setPrefWidth(250);
@@ -437,6 +434,7 @@ public class Arena extends Application {
      * @param col column value for the grid.
      * @param row row value on the grid.
      * @return the node of the grid.
+     * @author mohit
      */
     public Node getNodeFromGridPane(GridPane gridPane, int col, int row) { 
         for (Node node : gridPane.getChildren()) {
@@ -458,6 +456,7 @@ public class Arena extends Application {
      * Function to Show/Hide Computer Ships on the Play Arena
      * @param show true if ships needs to be visible on the Arena else false.
      * @param cGrid Input grid on which ships for the computer needs to be shown.
+     * @author munish
      */
     public void showHideComputerShip(Boolean show , GridPane cGrid) { 
         if (show) {
@@ -479,7 +478,14 @@ public class Arena extends Application {
         }
     }
 
-    // Function to Create Grid to setup the ships by the Human Player
+    /**
+     * Function to Create Grid to setup the ships by the Human Player
+     * @param rows no. of rows of the grid
+     * @param col no. of columns for the grid
+     * @param isSalva flag to update for Salva inputs
+     * @return Gridpane
+     * @author iknoor
+     */
     public GridPane createGrid(int rows, int col, Boolean isSalva) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < rows; i++) {
@@ -641,7 +647,12 @@ public class Arena extends Application {
     }
 
 
-
+    /**
+     * Funcion to update the Salva grid to add values to the grid
+     * @author munish
+     * @param g Grid to be updated
+     * @param inp the value selected for the hit
+     */
     public void updateSalvaGRid(GridPane g, String inp){
     	System.out.println("yooo===="+inp);
         if (humanPlayer.salvaArr.size() < salvaWindow && inp != null) {
@@ -668,7 +679,11 @@ public class Arena extends Application {
         }
     }
 
-
+    /**
+     * Function to update clear the salva grid
+     * @param g Grid to be cleared
+     * @author munish
+     */
     public void clearSalvaAfterHit(GridPane g){
         for(int i = 0 ; i < salvaWindow; i++){
             Button b = (Button) getNodeFromGridPane(g, i, 0);
