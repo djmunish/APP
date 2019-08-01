@@ -6,7 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -39,7 +38,7 @@ import javafx.scene.text.Text;
 
 /**
  * Arena.java deals with the game arena, it records the actions on UI and performs the computation.
- * @author harshkour
+ * @author iknoor
  * @since 2019-07-06
  * @version 1.0.0
  */
@@ -65,6 +64,7 @@ public class Arena extends Application {
    
     /**
      * Function to increment the timer.
+     * @author harshkour
      */
     private void incrementCount() {
     	if(!timerstop) {
@@ -113,7 +113,6 @@ public class Arena extends Application {
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
             text.resize(150, 40);
             text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-            //text.setUnderline(true);
             text.setTranslateX(-130);
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
@@ -172,20 +171,16 @@ public class Arena extends Application {
                             incrementCount();
                         }
                     };
-
                     while (true) {
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException ex) {
                         }
-
-                        // UI update is run on the Application thread
                         Platform.runLater(updater);
                     }
                 }
 
             });
-            // don't let thread prevent JVM shutdown
             thread.setDaemon(true);
             thread.start();
 
@@ -198,7 +193,8 @@ public class Arena extends Application {
                 inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue ov, String t, String t1) {
-                        if(t1 == null && humanPlayer.salvaArr.size()<salvaWindow){
+                        if(t1 == null && humanPlayer.salvaArr.size() < salvaWindow){
+                        	
                             hitBtn.setDisable(true);
                         }
                         else{
@@ -209,18 +205,20 @@ public class Arena extends Application {
                 if(humanPlayer.salvaArr.size()<salvaWindow){
                 	System.out.println("here when salvarr < window---1");
                     hitBtn.setText("OK");
-                    hitBtn.setDisable(false);
+                    hitBtn.setDisable(true);
 
                     hitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
                         @Override
                         public void handle(ActionEvent event) {
 
-                            if(humanPlayer.salvaArr.size()<salvaWindow){
+                            if(humanPlayer.salvaArr.size() < salvaWindow){
                             	System.out.println("here when salvarr < window---2");
                                   updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                             }
                             else{
+                                hitBtn.setDisable(true);
+
                             	System.out.println("here when salvarr < window----else");
                             	boolean flag3 = false;
                             	Iterator<String> it = humanPlayer.salvaArr.iterator();
@@ -249,7 +247,10 @@ public class Arena extends Application {
                                 			finishTime = System.currentTimeMillis();
                                     		long elapsedtime = finishTime - startTime;
                                     		String score  = calcScore(elapsedtime, humanPlayer);
-                                			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
+                                			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);
+                                			break;
+                                			}
+                                		
                         			}//for
                                 }//not flag2
                                 else { //Human Player won the game!
@@ -334,8 +335,7 @@ public class Arena extends Application {
                 				}
                 				Constants.showAlert(message);
                 			 }else {
-                             	String serror = "Please select a location and then click 'Hit' Button!";
-                                 	Constants.showAlert(serror);
+                                 	Constants.showAlert(Constants.hit_Alert);
                              }
                 		//}//else gamePlayType
 
@@ -396,9 +396,6 @@ public class Arena extends Application {
                 });
             }
             vbox.setSpacing(10);
-           // vbox1.setTranslateX(-420);
-            //vbox1.setSpacing(-100);
-           // hbox.getChildren().add(vbox1);
             hbox.getChildren().add(vbox);
             hbox.getChildren().add(hitBtn);
             vbox.setPrefWidth(250);
@@ -414,7 +411,7 @@ public class Arena extends Application {
             Scene scene = new Scene(new Group(hbox), 1000, 800);
             scene.setFill(Color.GRAY);
             stage.setScene(scene);
-            stage.setWidth(2000);
+            stage.setWidth(1000);
             stage.setHeight(800);
 
 
@@ -432,6 +429,7 @@ public class Arena extends Application {
      * @param col column value for the grid.
      * @param row row value on the grid.
      * @return the node of the grid.
+     * @author mohit
      */
     public Node getNodeFromGridPane(GridPane gridPane, int col, int row) { 
         for (Node node : gridPane.getChildren()) {
@@ -453,6 +451,7 @@ public class Arena extends Application {
      * Function to Show/Hide Computer Ships on the Play Arena
      * @param show true if ships needs to be visible on the Arena else false.
      * @param cGrid Input grid on which ships for the computer needs to be shown.
+     * @author munish
      */
     public void showHideComputerShip(Boolean show , GridPane cGrid) { 
         if (show) {
@@ -474,7 +473,14 @@ public class Arena extends Application {
         }
     }
 
-    // Function to Create Grid to setup the ships by the Human Player
+    /**
+     * Function to Create Grid to setup the ships by the Human Player
+     * @param rows no. of rows of the grid
+     * @param col no. of columns for the grid
+     * @param isSalva flag to update for Salva inputs
+     * @return Gridpane
+     * @author iknoor
+     */
     public GridPane createGrid(int rows, int col, Boolean isSalva) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < rows; i++) {
@@ -636,8 +642,14 @@ public class Arena extends Application {
     }
 
 
-
+    /**
+     * Funcion to update the Salva grid to add values to the grid
+     * @author munish
+     * @param g Grid to be updated
+     * @param inp the value selected for the hit
+     */
     public void updateSalvaGRid(GridPane g, String inp){
+    	System.out.println("yooo===="+inp);
         if (humanPlayer.salvaArr.size() < salvaWindow && inp != null) {
 
             humanPlayer.salvaArr.add(index,inp);
@@ -657,9 +669,16 @@ public class Arena extends Application {
 
             hitBtn.setText(humanPlayer.salvaArr.size() == salvaWindow ? "Hit" : "OK");
         }
+        else {
+        	hitBtn.setDisable(true);
+        }
     }
 
-
+    /**
+     * Function to update clear the salva grid
+     * @param g Grid to be cleared
+     * @author munish
+     */
     public void clearSalvaAfterHit(GridPane g){
         for(int i = 0 ; i < salvaWindow; i++){
             Button b = (Button) getNodeFromGridPane(g, i, 0);
@@ -679,7 +698,6 @@ public class Arena extends Application {
         System.out.println("Ships array size is " + p1.shipsArr.size());
         System.out.println("Ships array is " + p1.shipsArr);
         if (p1.shipsArr.size() == 0) {
-           // Constants.showAlert(p2.name + " won the game!!!");
             return true;
         } else {
             return false;
@@ -689,6 +707,7 @@ public class Arena extends Application {
     /**
      * Function to calculate score for each game play.
      * @param elapsedtime - time taken by player for the entire game play
+     * @param human human player object
      * @return the calculated score in the form of a String.
      */
     public String calcScore(long elapsedtime, Player human) {
@@ -697,7 +716,6 @@ public class Arena extends Application {
     	System.out.println("Time taken by player is " + Double.toString(minutes)); 
     	double scorecalc = ((1/minutes)*100) + (human.hitscount * 10) - (human.misscount * 1);
     	DecimalFormat d = new DecimalFormat("#.###");
-    	//System.out.print(d.format(scorecalc));
     	System.out.println("score is "+ d.format(scorecalc));
     	return d.format(scorecalc);
     }

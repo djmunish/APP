@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * Ships.java deals with ship placement, ship hit and colouring of the ships.
- * @author harshkour
+ * @author munish
  * @since 2019-07-06
  * @version 1.0.1
  */
@@ -20,8 +20,12 @@ public class Ships {
         setupShip(start, end);
     }
     
-    
-    public int findloc(char a) { //Function to find location in Play area grid
+    /**
+     * Function to find location in Play area grid
+     * @param a column name- for eg "A".
+     * @return column value
+     */
+    public int findloc(char a) { 
         int loc = 0;
         char[] arr = Constants.alphabets.toCharArray();
         for (int i = 0; i < arr.length; i++) {
@@ -32,10 +36,12 @@ public class Ships {
         }//for
         return loc;
     }
+    
     /**
      * setupShip Function to setup a ship for Human Player.
      * @param start is the starting location of the ship sent from UI.
      * @param end is the ending location of the ship sent from UI.
+     * @author harshkour
      */
     public void setupShip(String start, String end) { 
         coordinates = new ArrayList<>();
@@ -84,6 +90,7 @@ public class Ships {
      * @param checkcordinate is the location on which there is a hit done.
      * @param p is the player who's ship is to be checked.
      * @return true if there is a hit on the ship else return false.
+     * @author harshkour
      */
     public static boolean checkhit(String checkcordinate, Player p) { //t
         boolean flag = false;
@@ -106,6 +113,13 @@ public class Ships {
         return flag;
     }
     
+    /**
+     * Return salva Hits/miss for the player
+     * @param hits String of random hits
+     * @param p Player object
+     * @return String separated by "!", with hits/miss appended by ","
+     * @author harshkour 
+     */
     public static String checkHitSalva(ArrayList<String> hits, Player p) {
     	Iterator<String> it = hits.iterator();
     	String comphit = "";
@@ -125,7 +139,12 @@ public class Ships {
     	
     }
     
-    
+    /**
+     * Check if ship can placed for drag and drop
+     * @param checkcordinate String for the ship
+     * @param p Player object for who ships are being placed
+     * @return true is co-ordinate is available for ship placement else false
+     */
     public static boolean checkifship(String checkcordinate, Player p) { //Function for computer to check if ship is positioned or not
         boolean flag = false;
         for (Ships s : p.shipsArr) {

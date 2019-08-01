@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 /**
  * Initial controller to start the game and choose game play options.
- * @author harshkour
+ * @author mohit
  * @since 2019-07-06
  * @version 1.0.1
  */
@@ -68,7 +68,7 @@ public class initiateController extends Application {
                 computer.name = "COMPUTER";
                 computer.type = Player.playerType.COMPUTER;
 
-                computer.randomship();
+                computer.computerRandomShip();
                 for (Ships s : computer.shipsArr) {
                     System.out.println("random ships");
                     System.out.println(s.coordinates);
@@ -89,7 +89,7 @@ public class initiateController extends Application {
 
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Select");
-                        alert.setHeaderText("Do you wish to play in Salva Variation?");
+                        alert.setHeaderText(Constants.salva_Alert);
                         ButtonType yes = new ButtonType("Yes");
                         ButtonType no = new ButtonType("No");
 
@@ -118,7 +118,7 @@ public class initiateController extends Application {
 
 
                     } else {
-                        Constants.showAlert("Please enter player name.");
+                        Constants.showAlert(Constants.name_Alert);
                     }
                 });
             }
@@ -129,7 +129,7 @@ public class initiateController extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                Constants.showAlert("In Progress for build 2!");
+                Constants.showAlert(Constants.progress_Alert);
             }
         });
 
