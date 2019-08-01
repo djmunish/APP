@@ -198,7 +198,8 @@ public class Arena extends Application {
                 inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue ov, String t, String t1) {
-                        if(t1 == null && humanPlayer.salvaArr.size()<salvaWindow){
+                        if(t1 == null && humanPlayer.salvaArr.size() < salvaWindow){
+                        	
                             hitBtn.setDisable(true);
                         }
                         else{
@@ -209,18 +210,20 @@ public class Arena extends Application {
                 if(humanPlayer.salvaArr.size()<salvaWindow){
                 	System.out.println("here when salvarr < window---1");
                     hitBtn.setText("OK");
-                    hitBtn.setDisable(false);
+                    hitBtn.setDisable(true);
 
                     hitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
                         @Override
                         public void handle(ActionEvent event) {
 
-                            if(humanPlayer.salvaArr.size()<salvaWindow){
+                            if(humanPlayer.salvaArr.size() < salvaWindow){
                             	System.out.println("here when salvarr < window---2");
                                   updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                             }
                             else{
+                                hitBtn.setDisable(true);
+
                             	System.out.println("here when salvarr < window----else");
                             	boolean flag3 = false;
                             	Iterator<String> it = humanPlayer.salvaArr.iterator();
@@ -640,6 +643,7 @@ public class Arena extends Application {
 
 
     public void updateSalvaGRid(GridPane g, String inp){
+    	System.out.println("yooo===="+inp);
         if (humanPlayer.salvaArr.size() < salvaWindow && inp != null) {
 
             humanPlayer.salvaArr.add(index,inp);
@@ -658,6 +662,9 @@ public class Arena extends Application {
             index ++ ;
 
             hitBtn.setText(humanPlayer.salvaArr.size() == salvaWindow ? "Hit" : "OK");
+        }
+        else {
+        	hitBtn.setDisable(true);
         }
     }
 
