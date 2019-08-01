@@ -160,6 +160,8 @@ public class Player {
     /**
      * Generate Priority list of random computer hits.
      * @param human - Human player's object.
+     * @param salvacount -  current salva window length
+     * @param salvaWindow - salva window length 
      * @return the next random hit by the computer
      * @author harshkour
      */

@@ -15,7 +15,6 @@ public class ButtonClicks extends Button {
      * @param coordY y-coordinate of the grid.
      */
     public ButtonClicks(int coordX, int coordY) {
-        // super(buttonText);
         this.coordX = coordX;
         this.coordY = coordY;
     }

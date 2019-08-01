@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 /**
  * Initial controller to start the game and choose game play options.
- * @author harshkour
+ * @author mohit
  * @since 2019-07-06
  * @version 1.0.1
  */

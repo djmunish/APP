@@ -21,18 +21,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 
 public class shipSetupController extends Application {
-
-
 	// Set the Custom Data Format
 	static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
-
 	static String shipnumname = null;
 	public ImageView[] ships;
 
 	boolean isvertical1 = false;
 	Player humanPlayer;
 	Player computer;
-
 	private Integer x = 0;
 	private Integer y = 0;
 	private int click_count = 0; // Mouse Click Counter for counting number of Secondary clicks
@@ -50,7 +46,16 @@ public class shipSetupController extends Application {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Function to check if ship locations are available or not
+	 * @param col column no. of ship start
+	 * @param row row no. of ship start
+	 * @param len length of the ship
+	 * @param isVertical true if ship is vertical, else false
+	 * @return true is ship is placed at right positions, false if ship co-ordinates are not available.
+	 * @author munish
+	 */
 	public boolean checkAvailability(int col, int row, int len, boolean isVertical) {
 		if (isVertical) {
 			return row + len <= Constants.row + 1;
@@ -58,7 +63,20 @@ public class shipSetupController extends Application {
 			return col + len <= Constants.col + 1;
 		}
 	}
-
+	
+	/**
+	 * Function to set the ship after it is dropped
+	 * @param col column of the ship start
+	 * @param row row of the ship start
+	 * @param len length of the ship 
+	 * @param g Gridpane where ship needs to be set
+	 * @param isVertical true if ship is vertical, else false
+	 * @param rb Radio button for the ship
+	 * @param shipColor colour of the ship
+	 * @param btnok I/m ready button to be enabled if shops are all placed
+	 * @return true is ship is placed at right positions, false if ship co-ordinates are not available.
+	 * @author iknoor
+	 */
 	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor,Button btnok) {
 
 		System.out.println((checkAvailability(col, row, len, isVertical)));
@@ -91,17 +109,11 @@ public class shipSetupController extends Application {
 				}//for
 				s = new Ships(start, end);
 
-				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates))  {
 				if (humanPlayer.shipAvailable(s.coordinates))  {
 					humanPlayer.shipsArr.add(s);
-
 					if (humanPlayer.shipsArr.size() == 5) {
-
 						btnok.setDisable(false);
-
 					}
-
-
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -142,15 +154,10 @@ public class shipSetupController extends Application {
 
 				s = new Ships(start, end);
 
-				//if (humanPlayer.checkOverlap(s.coordinates) && humanPlayer.shipAvailable(s.coordinates)) {
 				if (humanPlayer.shipAvailable(s.coordinates))  {
-
 					humanPlayer.shipsArr.add(s);
-
 					if (humanPlayer.shipsArr.size() == 5) {
-
 						btnok.setDisable(false);
-
 					}
 
 
@@ -183,18 +190,11 @@ public class shipSetupController extends Application {
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		primaryStage.setTitle("Set Ships for your play!");
-
 		GridPane gridPane = new GridPane();
-
-
 		ArrayList<String> coordarr = new ArrayList<>();
-
 		ArrayList<String> shipsprocessed = new ArrayList<>();
-
 		final ToggleGroup group = new ToggleGroup();
-
 		RadioButton rb1 = new RadioButton(Constants.CARRIER);
-
 		rb1.setToggleGroup(group);
 		rb1.setPrefSize(150, 50);
 		rb1.setTranslateX(60);
@@ -289,7 +289,7 @@ public class shipSetupController extends Application {
 		hbox.getChildren().add(l2);
 		hbox.getChildren().add(l1);
 		hbox.setSpacing(50);
-
+		
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ob, Toggle o, Toggle n) {
 
@@ -400,7 +400,18 @@ public class shipSetupController extends Application {
 				}
 
 			}
-
+			
+			/**
+			 * Function to updated the drag and drop of Ships
+			 * @param source source image to be dragged
+			 * @param target target Grid where image is placed
+			 * @param image1 Horizontal Image
+			 * @param image2 Vertical Image
+			 * @param len length of the ship
+			 * @param rb Radio button to be enabled/disabled for the ship
+			 * @param color color of the ship
+			 * @author iknoor
+			 */
 			private void dragDrop(ImageView source, GridPane target, Image image1, Image image2, int len, RadioButton rb, String color) {
 
 				source.setPreserveRatio(true);
@@ -434,7 +445,6 @@ public class shipSetupController extends Application {
 
 
 				source.setOnDragDetected(new EventHandler<MouseEvent>() {
-
 					@Override
 					public void handle(MouseEvent event) {
 						source.startDragAndDrop(TransferMode.ANY);
@@ -464,7 +474,6 @@ public class shipSetupController extends Application {
 
 
 				hbox.setOnDragOver(new EventHandler<DragEvent>() {
-
 					@Override
 					public void handle(DragEvent event) {
 
@@ -488,10 +497,6 @@ public class shipSetupController extends Application {
 
 					@Override
 					public void handle(DragEvent event) {
-
-
-//						scene.setCursor(Cursor.DEFAULT);
-
 					}
 				});
 
@@ -528,162 +533,6 @@ public class shipSetupController extends Application {
 			}
 		});
 
-		// **** DragDROP END **********
-
-		/*
-		// Placement of ships on button click event in grid.
-		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-
-				if (humanPlayer.shipsArr.size() < 5) {// 1
-
-//                    System.out.println("if ship size----" + humanPlayer.shipsArr.size());
-//                    System.out.println("inside action performed");
-
-					ButtonClicks buttonok = (ButtonClicks) e.getSource();
-					String xycor = null;
-
-					System.out.println(buttonok.getCoordX() + ", " + buttonok.getCoordY());
-					xycor = Constants.indexToAlpha.get(Integer.toString(buttonok.getCoordY()))
-							+ Integer.toString(buttonok.getCoordX() + 1);
-					coordarr.add(xycor);
-
-					if (coordarr.size() == 2) {// 2
-
-						if (humanPlayer.shipsArr.size() == 4) {
-							btnok.setDisable(false);
-						}
-
-						boolean flag1 = false;
-
-						System.out.println("Inside sending function");
-
-						String axisxystart0 = coordarr.get(0).substring(0, 1);
-						String axisxyend0 = coordarr.get(1).substring(0, 1);
-
-						System.out.println("colll corrrrr====== " + axisxystart0 + "    === " + axisxyend0);
-
-						String axisxystart1 = coordarr.get(0).substring(1);
-						String axisxyend1 = coordarr.get(1).substring(1);
-
-						System.out.println("row   corrrrr====== " + axisxystart1 + "    === " + axisxyend1);
-
-						int axisxystartinty = Constants.mapInConstants.get(axisxystart0) + 1;
-						int axisxystartintx = Integer.parseInt(axisxystart1);
-
-						int axisxyendinty = Constants.mapInConstants.get(axisxyend0) + 1;
-						int axisxyendintx = Integer.parseInt(axisxyend1);
-
-						System.out.println(shipsprocessed.contains(shipSetupController.shipnumname));
-
-						if (!shipsprocessed.contains(shipSetupController.shipnumname)) {// 3
-
-							System.out.println("inside shiparray doesnt contain");
-
-							shipsprocessed.add(shipSetupController.shipnumname);
-
-							String namenum[] = shipSetupController.shipnumname.split("");
-
-							if (axisxystartintx == axisxyendintx) {
-
-//                                System.out.println("x is equal");
-//
-//                                System.out.println("SHIPSLOTS--:" + shipSetupController.shipnumname);
-//
-//                                System.out.println("axisxyendinty :" + axisxyendinty);
-//                                System.out.println("axisxystartinty :" + axisxystartinty);
-
-								System.out.println("Y ka difference:--" + Math.abs(axisxyendinty - axisxystartinty));
-
-								if (Integer.parseInt(namenum[0]) == Math.abs(axisxyendinty - axisxystartinty) + 1) {
-
-									System.out.println("Make the flag true");
-									flag1 = true;
-								}
-
-							} // if x end
-
-							else if (axisxystartinty == axisxyendinty) {
-//                                System.out.println("y is equal");
-//
-//                                System.out.println("axisxyendintx :" + axisxyendintx);
-//                                System.out.println("axisxystartintx :" + axisxystartintx);
-//
-//                                System.out.println("Y ka difference:--" + Math.abs(axisxyendintx - axisxystartintx));
-
-								if (Integer.parseInt(namenum[0]) == Math.abs(axisxyendintx - axisxystartintx) + 1) {
-
-									System.out.println("Make the flag true");
-									flag1 = true;
-
-								}
-							} // else if y end
-
-							if (flag1) {
-
-								System.out.println("After making flag true");
-
-								Ships s = new Ships(coordarr.get(0), coordarr.get(1));
-
-								if (humanPlayer.checkOverlap(s.coordinates)) {
-
-									humanPlayer.shipsArr.add(s);
-									System.out.println(humanPlayer.shipsArr.size());
-
-									System.out.println("sending x and y :" + coordarr.get(0) + " " + coordarr.get(1));
-
-									ArrayList<String> colorsh = s.coordinates;
-									System.out.println("color=====" + s.hexColor);
-
-									for (String c1 : colorsh) {
-
-										String corsh0 = c1.substring(0, 1);
-										String corsh1 = c1.substring(1);
-
-										int xcor = Integer.parseInt(corsh1);
-										int ycor = Constants.mapInConstants.get(corsh0) + 1;
-
-										ButtonClicks b = (ButtonClicks) getNodeFromGridPane(gridPane, ycor, xcor - 1);
-										b.setStyle("-fx-background-color:" + s.hexColor);
-										System.out.println(s.coordinates);
-										System.out.println(s.shipColor);
-
-										coordarr.clear();
-
-									}
-								} else {
-
-									Constants.showAlert("Please correct the overlapping ship coordinates!");
-									shipsprocessed.remove(shipSetupController.shipnumname);
-									coordarr.clear();
-
-								}
-
-							} // flagif
-
-							else {
-								Constants.showAlert("Please select the correct ship coordinates!");
-
-								shipsprocessed.remove(shipSetupController.shipnumname);
-								coordarr.clear();
-							}
-
-							buttonok.setVisible(true);
-
-						} else {
-
-							Constants.showAlert("This ship is already set, please select the other ship!");
-
-							coordarr.clear();
-						}
-					}
-				}
-
-			}
-		};
-
-
-		*/
 
 		// Grid Creation
 		int nRows, nCols;
@@ -697,7 +546,6 @@ public class shipSetupController extends Application {
 						button.setDisable(true);
 						button.setPrefSize(40, 15);
 						button.setText("-");
-//                        button.setStyle("-fx-font-size: 2em; ");
 						gridPane.add(button, j, i);
 					} else {
 						Button button = new Button(Integer.toString(i + 1));

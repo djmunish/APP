@@ -707,6 +707,7 @@ public class Arena extends Application {
     /**
      * Function to calculate score for each game play.
      * @param elapsedtime - time taken by player for the entire game play
+     * @param human human player object
      * @return the calculated score in the form of a String.
      */
     public String calcScore(long elapsedtime, Player human) {
