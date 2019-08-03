@@ -242,7 +242,7 @@ public class Arena extends Application {
 //                                        }
                                     }
                                     System.out.println("send hits====" + s);
-//                                    Udp.sendMessage(humanPlayer.playerPort,s);
+                                    Udp.sendMessage(humanPlayer.playerPort,s);
                                 }else{
                     			while(it.hasNext()) {
                     				String s = it.next();
