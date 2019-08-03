@@ -59,7 +59,7 @@ public class Udp {
 					aSocket.close();
 			}
 		 
-		 sendMessage(7777,"Hello");
+
 		 
 	 }
 	 
