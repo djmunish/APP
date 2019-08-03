@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
 import java.time.*;
+import java.util.UUID;
+
 /**
  * Class to create and initalize players of the game.
  * @author harshkour
@@ -22,6 +24,7 @@ public class Player {
     ArrayList<String> inputsfirst;
     int hitscount;
     int misscount;
+    String playerID;
     ArrayList<String> computerships;
     String name;
 
@@ -36,6 +39,7 @@ public class Player {
         computerships = createInputs();
         hitscount = 0;
         misscount = 0;
+		playerID =  UUID.randomUUID().toString();
     }
 
 
@@ -498,6 +502,12 @@ public class Player {
     public void updateDropdown(String s, ArrayList<String> drop) { 
         drop.remove(s);
     }
+
+
+    public void createConnection(){
+
+	}
+
 
 
 

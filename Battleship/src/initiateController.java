@@ -46,18 +46,24 @@ public class initiateController extends Application {
         imageView.setFitHeight(540);
         imageView.setFitWidth(720);
         imageView.setPreserveRatio(true);
-        Button btn1 = new Button();
+
+
+
         Button btn2 = new Button();
-        btn1.setText("Play with Computer");
         btn2.setText("Play with Another Player");
-        btn1.setStyle("-fx-background-color: Skyblue");
         btn2.setStyle("-fx-background-color: Skyblue");
-        btn1.setTranslateX(600);
-        btn1.setTranslateY(350);
         btn2.setTranslateX(344);
         btn2.setTranslateY(450);
-        btn1.setPrefSize(250, 70);
         btn2.setPrefSize(250, 70);
+
+        Button btn1 = new Button();
+        btn1.setText("Play with Computer");
+        btn1.setStyle("-fx-background-color: Skyblue");
+        btn1.setTranslateX(600);
+        btn1.setTranslateY(350);
+        btn1.setPrefSize(250, 70);
+
+
         btn1.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -100,14 +106,14 @@ public class initiateController extends Application {
 
                         if (option.get() == yes) {
                             humanPlayer.initiateSalva();
-
                         } else if (option.get() == no) {
                             humanPlayer.gamePlayType = false;
                         }
+
+
                         shipSetupController fx2 = new shipSetupController();
                         fx2.humanPlayer = humanPlayer;
                         fx2.computer = computer;
-
 
                         try {
                             fx2.start(primaryStage);
@@ -129,7 +135,59 @@ public class initiateController extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                Constants.showAlert(Constants.progress_Alert);
+
+                humanPlayer = new Player();
+                humanPlayer.type = Player.playerType.HUMAN;
+
+
+                TextInputDialog dialog = new TextInputDialog("Enter your name");
+
+                dialog.setHeaderText("Enter your name:");
+                dialog.setContentText("Name:");
+
+                Optional<String> result = dialog.showAndWait();
+
+                result.ifPresent(name -> {
+
+                    if (name.length() > 0 && !name.equals("Enter your name")) {
+                        humanPlayer.name = name;
+
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Select");
+                        alert.setHeaderText(Constants.salva_Alert);
+                        ButtonType yes = new ButtonType("Yes");
+                        ButtonType no = new ButtonType("No");
+
+                        // Remove default ButtonTypes
+                        alert.getButtonTypes().clear();
+                        alert.getButtonTypes().addAll(yes, no);
+                        Optional<ButtonType> option = alert.showAndWait();
+
+                        if (option.get() == yes) {
+                            humanPlayer.initiateSalva();
+                        } else if (option.get() == no) {
+                            humanPlayer.gamePlayType = false;
+                        }
+
+                        humanPlayer.createConnection();
+
+                        shipSetupController fx2 = new shipSetupController();
+                        fx2.humanPlayer = humanPlayer;
+                        fx2.computer = computer;
+
+                        try {
+                            fx2.start(primaryStage);
+                        }
+                        catch (Exception e){
+                            System.out.println(e);
+                        }
+
+
+                    } else {
+                        Constants.showAlert(Constants.name_Alert);
+                    }
+                });
+
             }
         });
 
