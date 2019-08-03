@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efa51545-cdcc-4bdd-970d-d5875ecec50e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Battleship/src/Arena.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Arena.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Battleship/src/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Battleship/src/Udp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Udp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Battleship/src/initiateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/initiateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Battleship/src/shipSetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/shipSetupController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +16,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectId" id="1Ow4RF4ycBDOq0JXMRBhJDZqcJp" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564552217293" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -61,21 +64,27 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="786f31b5-8926-444e-8401-0c6a8f9eb55a" name="Default Changelist" comment="" />
+      <changelist id="efa51545-cdcc-4bdd-970d-d5875ecec50e" name="Default Changelist" comment="" />
       <created>1564864758820</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1564864758820</updated>
-      <workItem from="1564864761548" duration="6450000" />
+      <workItem from="1564864761548" duration="7419000" />
+      <workItem from="1564875336804" duration="780000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

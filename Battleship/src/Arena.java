@@ -61,7 +61,7 @@ public class Arena extends Application {
     private int hours = 0;
     boolean timerstop = false;
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
-   
+    SplitPane split_pane2;
     /**
      * Function to increment the timer.
      * @author harshkour
@@ -115,11 +115,12 @@ public class Arena extends Application {
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
 
-            // create split pane 2
-            SplitPane split_pane2 = new SplitPane();
+
+            if (!humanPlayer.playWithHuman) {
+                // create split pane 2
+            split_pane2 = new SplitPane();
             split_pane2.setPrefSize(500, 500);
             split_pane2.setOrientation(Orientation.VERTICAL);
-            if (!humanPlayer.playWithHuman) {
                 Label left = new Label(computer.name.toUpperCase());
                 left.setFont(new Font("Arial", 30));
                 left.setPrefHeight(50);
@@ -242,7 +243,7 @@ public class Arena extends Application {
 //                                        }
                                     }
                                     System.out.println("send hits====" + s);
-//                                    Udp.sendMessage(humanPlayer.playerPort,s);
+                                    Udp.sendMessage(humanPlayer.playerPort,s);
                                 }else{
                     			while(it.hasNext()) {
                     				String s = it.next();
@@ -347,18 +348,18 @@ public class Arena extends Application {
                 				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
                 				inputComboBox.getItems().remove(selectedAddress);
                 				inputComboBox.setPromptText("Select Location");
-                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+//                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
                 				String message = "Wohoo!! Its a hit!!";
-                				if (!flag) {
-                					message = "Bohoo!! You missed it!!";
-                					humanPlayer.misscount++;
-                				}else {
-                					humanPlayer.hitscount++;
-                				}
+//                				if (!flag) {
+//                					message = "Bohoo!! You missed it!!";
+//                					humanPlayer.misscount++;
+//                				}else {
+//                					humanPlayer.hitscount++;
+//                				}
 
                 				Udp.sendMessage(humanPlayer.playerPort,"H,"+ selectedAddress);
 
-                				Constants.showAlert(message);
+//                				Constants.showAlert(message);
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);
                              }
@@ -428,8 +429,9 @@ public class Arena extends Application {
 
 
             hbox.setSpacing(10);
-            hbox.getChildren().add(split_pane2);
-
+            if (!humanPlayer.playWithHuman) {
+                hbox.getChildren().add(split_pane2);
+            }
 
 
             // Creating scene
