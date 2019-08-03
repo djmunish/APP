@@ -27,6 +27,7 @@ public class Player {
     String playerID;
     ArrayList<String> computerships;
     String name;
+	int playerPort;
 
     public playerType type;
     public boolean gamePlayType;

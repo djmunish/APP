@@ -169,6 +169,7 @@ public class initiateController extends Application {
                             humanPlayer.gamePlayType = false;
                         }
 
+                        humanPlayer.playerPort = 7777; //change port
                         humanPlayer.createConnection();
 
                         shipSetupController fx2 = new shipSetupController();
