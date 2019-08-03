@@ -49,29 +49,36 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="initiateController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="initiateController" />
       <module name="Battleship" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.initiateController" />
-      </list>
-    </recent_temporary>
+    <configuration name="initiateController" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="initiateController" />
+      <module name="Battleship" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="efa51545-cdcc-4bdd-970d-d5875ecec50e" name="Default Changelist" comment="" />
-      <created>1564550355982</created>
+      <changelist id="786f31b5-8926-444e-8401-0c6a8f9eb55a" name="Default Changelist" comment="" />
+      <created>1564864758820</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1564550355982</updated>
+      <updated>1564864758820</updated>
+      <workItem from="1564864761548" duration="875000" />
     </task>
     <servers />
   </component>
