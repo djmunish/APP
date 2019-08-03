@@ -1,6 +1,7 @@
 import java.awt.Insets;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -170,7 +171,11 @@ public class initiateController extends Application {
                         }
 
                         humanPlayer.playerPort = 7777; //change port
-                        humanPlayer.createConnection();
+                        try {
+                            humanPlayer.createConnection(humanPlayer.playerPort);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                         shipSetupController fx2 = new shipSetupController();
                         fx2.humanPlayer = humanPlayer;

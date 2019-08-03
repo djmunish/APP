@@ -18,10 +18,10 @@ public class Udp {
 	
 	static String Received = null;
 
-	public static void startServer() throws SecurityException, IOException {
+	public static void startServer(int port) throws SecurityException, IOException {
 		try {
 			Runnable task = () -> {
-				receive();
+				receive(port);
 			};
 			Thread thread = new Thread(task);
 			thread.start();
@@ -30,14 +30,14 @@ public class Udp {
 		}
 	}
 	
-	 private synchronized static void receive() {
+	 private synchronized static void receive(int port) {
 		 MulticastSocket  aSocket = null;
 		 try {
 				boolean flag=false;
 				String	rep = null;
-				aSocket = new MulticastSocket (8888);
+				aSocket = new MulticastSocket (port);
 				aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
-				System.out.println("Server 8888 Started............");
+				System.out.println("Server " + port + " Started............");
 				while (true) {
 					byte[] buffer = new byte[10000];
 					DatagramPacket request = new DatagramPacket(buffer, buffer.length);
@@ -91,11 +91,7 @@ public class Udp {
 					aSocket.close();
 			}
 		}
-	
-	 public static void main(String args[]) throws InvalidName, AdapterInactive, ServantNotActive, WrongPolicy, org.omg.CosNaming.NamingContextPackage.InvalidName, NotFound, CannotProceed, SecurityException, IOException {
-		 		startServer();
-		 		
-			}
+
 	
 	
 	

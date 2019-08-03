@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
@@ -505,11 +506,15 @@ public class Player {
     }
 
 
-    public void createConnection(){
-
+    public void createConnection(int port) throws IOException {
+		Udp.startServer(port);
 	}
 
+/*
+* public static void main(String args[]) throws InvalidName, AdapterInactive, ServantNotActive, WrongPolicy, org.omg.CosNaming.NamingContextPackage.InvalidName, NotFound, CannotProceed, SecurityException, IOException {
+		Udp.startServer();
 
+		}*/
 
 
 }
