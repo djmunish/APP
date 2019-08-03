@@ -31,7 +31,7 @@ public class Player {
 	int playerPort;
 
     public playerType type;
-    public boolean gamePlayType;
+    public boolean gamePlayType , playWithHuman;
     public ArrayList<String> salvaArr;
 
     public Player() { // Constructor to create Player object

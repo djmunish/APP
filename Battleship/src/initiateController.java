@@ -152,7 +152,7 @@ public class initiateController extends Application {
 
                     if (name.length() > 0 && !name.equals("Enter your name")) {
                         humanPlayer.name = name;
-
+                        humanPlayer.playWithHuman = true;
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Select");
                         alert.setHeaderText(Constants.salva_Alert);
@@ -179,7 +179,6 @@ public class initiateController extends Application {
 
                         shipSetupController fx2 = new shipSetupController();
                         fx2.humanPlayer = humanPlayer;
-                        fx2.computer = computer;
 
                         try {
                             fx2.start(primaryStage);

@@ -248,8 +248,10 @@ public class shipSetupController extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				Arena a1 = new Arena();
+				System.out.println("arena=====" + a1);
 				a1.humanPlayer = humanPlayer;
-				a1.computer = computer;
+				if(!humanPlayer.playWithHuman)
+				{a1.computer = computer;}
 				a1.startTime = System.currentTimeMillis();
 				a1.start(primaryStage);
 			}

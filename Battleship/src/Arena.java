@@ -92,9 +92,7 @@ public class Arena extends Application {
             hbox.setTranslateY(20);
             Label right = new Label(humanPlayer.name.toUpperCase());
             right.setFont(new Font("Arial", 30));
-            Label left = new Label(computer.name.toUpperCase());
-            left.setFont(new Font("Arial", 30));
-            left.setPrefHeight(50);
+
             EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
                     System.out.println("button pressed");
@@ -106,10 +104,10 @@ public class Arena extends Application {
             SplitPane split_pane1 = new SplitPane();
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(500, 500);
-            GridPane playerGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
-            GridPane playerRefGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
-            GridPane compGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
-            GridPane compRefGrid = createGrid(Constants.row + 1,Constants.col + 1,false);
+            GridPane playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            GridPane playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            GridPane compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            GridPane compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
             text.resize(150, 40);
             text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -121,20 +119,25 @@ public class Arena extends Application {
             SplitPane split_pane2 = new SplitPane();
             split_pane2.setPrefSize(500, 500);
             split_pane2.setOrientation(Orientation.VERTICAL);
-            split_pane2.getItems().addAll(compRefGrid, compGrid, left);
+            if (!humanPlayer.playWithHuman) {
+                Label left = new Label(computer.name.toUpperCase());
+                left.setFont(new Font("Arial", 30));
+                left.setPrefHeight(50);
+                split_pane2.getItems().addAll(compRefGrid, compGrid, left);
+            }
             inputComboBox = new ComboBox();
             inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-background-color: #CD853F;");
             inputComboBox.getItems().addAll(
-               humanPlayer.inputs
+                    humanPlayer.inputs
             );
 
             hitBtn = new Button();
             hitBtn.setText("Hit");
             hitBtn.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             hitBtn.setStyle("-fx-border-color: #000000; -fx-background-color: #CD853F");
-            if(humanPlayer.gamePlayType){
+            if (humanPlayer.gamePlayType) {
                 hitBtn.setDisable(true);
             }
 
@@ -143,18 +146,20 @@ public class Arena extends Application {
             for (Ships p : humanPlayer.shipsArr) {
                 ArrayList<String> got = p.coordinates;
                 for (int i = 0; i < got.size(); i++) {
-                	String s0 = got.get(i).substring(0,1);
-                	String s1 = got.get(i).substring(1);
-                	
+                    String s0 = got.get(i).substring(0, 1);
+                    String s1 = got.get(i).substring(1);
+
                     int x = Constants.mapInConstants.get(s0);    //c
                     int y = Integer.parseInt(s1) - 1;    //r
-                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1 , y); 
+                    Button b = (Button) getNodeFromGridPane(playerGrid, x + 1, y);
                     b.setStyle("-fx-background-color:" + p.hexColor);
                 }
             }
 
-            showHideComputerShip(true, compGrid); // show hide Computer ships
 
+            if (!humanPlayer.playWithHuman){
+                showHideComputerShip(true, compGrid); // show hide Computer ships
+        }
 
             VBox vbox = new VBox();
             vbox.getChildren().add(inputComboBox);    
@@ -223,6 +228,22 @@ public class Arena extends Application {
                             	System.out.println("here when salvarr < window----else");
                             	boolean flag3 = false;
                             	Iterator<String> it = humanPlayer.salvaArr.iterator();
+
+                            	if(humanPlayer.playWithHuman){
+                                    String s = "";
+                                    while(it.hasNext()) {
+                                        s += it.next() + " ";
+//                                        humanPlayer.updateDropdown(s, humanPlayer.inputs);
+//                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+//                                        if(flag) {
+//                                            humanPlayer.hitscount++;
+//                                        }else {
+//                                            humanPlayer.misscount++;
+//                                        }
+                                    }
+                                    System.out.println("send hits====" + s);
+//                                    Udp.sendMessage(humanPlayer.playerPort,s);
+                                }else{
                     			while(it.hasNext()) {
                     				String s = it.next();
                     				humanPlayer.updateDropdown(s, humanPlayer.inputs);
@@ -232,7 +253,7 @@ public class Arena extends Application {
                     				}else {
                     					humanPlayer.misscount++;
                     				}
-                    			} 
+                    			} }
                                 clearSalvaAfterHit(salvaGrid);
                                 hitBtn.setText("OK");
                                 index=0;
