@@ -202,6 +202,7 @@ public class Arena extends Application {
                         }
                     }
                 });
+
                 if(humanPlayer.salvaArr.size()<salvaWindow){
                 	System.out.println("here when salvarr < window---1");
                     hitBtn.setText("OK");
@@ -333,6 +334,9 @@ public class Arena extends Application {
                 				}else {
                 					humanPlayer.hitscount++;
                 				}
+
+                				Udp.sendMessage(humanPlayer.playerPort,selectedAddress);
+
                 				Constants.showAlert(message);
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);

@@ -63,7 +63,7 @@ public class Udp {
 		 
 	 }
 	 
-	   private static void sendMessage(int serverPort, String Sem) {
+	   public static void sendMessage(int serverPort, String Sem) {
 			DatagramSocket aSocket = null;
 			try {
 				aSocket = new DatagramSocket();
