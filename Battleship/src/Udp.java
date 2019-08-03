@@ -44,6 +44,14 @@ public class Udp {
 					aSocket.receive(request);
 					Received = new String(request.getData());
 					System.out.println("Output received is : " + Received);
+					String Receive = Received.substring(0, 1);
+					if(Receive.equals("H")) {
+						System.out.println("Hit received is " + Receive.substring(1));
+					}else if(Receive.equals("S")) {
+						System.out.println("Salva Hit received is " + Receive.substring(1));
+					}else if(Receive.equals("R")) {
+						System.out.println("Response received is " + Receive.substring(1));
+					}
 					rep = "Hello 2";
 					buffer = rep.getBytes();
 					DatagramPacket reply = new DatagramPacket(buffer, buffer.length, request.getAddress(),

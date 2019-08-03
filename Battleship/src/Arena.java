@@ -232,7 +232,7 @@ public class Arena extends Application {
                             	if(humanPlayer.playWithHuman){
                                     String s = "";
                                     while(it.hasNext()) {
-                                        s += it.next() + " ";
+                                        s += it.next() + ",";
 //                                        humanPlayer.updateDropdown(s, humanPlayer.inputs);
 //                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
 //                                        if(flag) {
@@ -356,7 +356,7 @@ public class Arena extends Application {
                 					humanPlayer.hitscount++;
                 				}
 
-                				Udp.sendMessage(humanPlayer.playerPort,selectedAddress);
+                				Udp.sendMessage(humanPlayer.playerPort,"H,"+ selectedAddress);
 
                 				Constants.showAlert(message);
                 			 }else {

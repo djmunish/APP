@@ -170,7 +170,7 @@ public class initiateController extends Application {
                             humanPlayer.gamePlayType = false;
                         }
 
-                        humanPlayer.playerPort = 7777; //change port
+                        humanPlayer.playerPort = 8888; //change port
                         try {
                             humanPlayer.createConnection(humanPlayer.playerPort);
                         } catch (IOException e) {
