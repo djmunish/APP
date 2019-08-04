@@ -25,7 +25,7 @@ public final class Constants {
 
 
 
-    public static final String separator = "$@$@$@$@";
+    public static final String separator = "        ";
 
 
     public static final int LEN_CARRIER = 5;

@@ -3,6 +3,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -86,7 +87,8 @@ public class initiateController extends Application {
                 System.out.println("Current relative path is: " + s);
 
 
-                File f = new File(s+"/gameData"); //Change Path
+                String filePath = s+"/gameData";
+                File f = new File(filePath); //Change Path
 
                 if (f.exists()) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -101,7 +103,7 @@ public class initiateController extends Application {
                     Optional<ButtonType> option = alert.showAndWait();
 
                     if (option.get() == yes) {
-                        loadGame(primaryStage, f);
+                        loadGame(primaryStage, filePath);
                     } else if (option.get() == no) {
                         startNewGame(primaryStage);
                     }
@@ -194,64 +196,105 @@ public class initiateController extends Application {
 
     }
 
-        public void loadGame(Stage primaryStage, File f) {
+        public void loadGame(Stage primaryStage, String path) {
 
-        //player ships
+            //player ships
 
-        // The name of the file to open.
+            // The name of the file to open.
 
             // This will reference one line at a time
             String line = null;
 
-            try {
-                // FileReader reads text files in the default encoding.
-                FileReader fileReader =
-                        new FileReader(f);
+            File f_human = new File(path + "/human.txt"); //Change Path
+            File f_Computer = new File(path + "/computer.txt"); //Change Path
+            String humanData[] = {};
+            String compData[] = {};
+            {
 
-                // Always wrap FileReader in BufferedReader.
-                BufferedReader bufferedReader =
-                        new BufferedReader(fileReader);
+                try {
+                    // FileReader reads text files in the default encoding.
+                    FileReader fileReaderHuman =
+                            new FileReader(f_human);
 
-                while((line = bufferedReader.readLine()) != null) {
-                    System.out.println(line);
+                    // Always wrap FileReader in BufferedReader.
+                    BufferedReader bufferedReader =
+                            new BufferedReader(fileReaderHuman);
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        humanData = line.split(Constants.separator);
+                    }
+                    FileReader fileReaderComputer = new FileReader(f_Computer);
+                    BufferedReader bufferedReaderComputer =
+                            new BufferedReader(fileReaderComputer);
+                    while ((line = bufferedReaderComputer.readLine()) != null) {
+                        compData = line.split(Constants.separator);
+                    }
+
+                    // Always close files.
+                    bufferedReader.close();
+                } catch (FileNotFoundException ex) {
+                    System.out.println(
+                            "Unable to open file '");
+                } catch (IOException ex) {
+                    System.out.println(
+                            "Error reading file ");
+                    // Or we could just do this:
+                    // ex.printStackTrace();
                 }
 
-                // Always close files.
-                bufferedReader.close();
+                for (String d : humanData) {
+                    System.out.println(d);
+                }
+
+                humanPlayer.name = humanData[0];
+                computer.name = compData[0];
+                String[] ships = humanData[1].split("-");
+                for (String d : ships) {
+                    if(!d.equals("")) {
+                        String ships_Val = d.substring(1, d.length() - 1);
+                        Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                        humanPlayer.shipsArr.add(loadShip);
+                    }
+                }
+
+                for (Ships s:humanPlayer.shipsArr){
+                    System.out.println(s.coordinates);
+                }
+
+                String h_inputs = humanData[2].substring(1,humanData[2].length()-1);
+
+                humanPlayer.inputs.clear();
+                for (String d : h_inputs.split(",")) {
+                    humanPlayer.inputs.add(d.trim());
+                }
+
+
+
+                String[] cships = compData[1].split("-");
+                for (String d : cships) {
+                    if(!d.equals("")) {
+                        String ships_Val = d.substring(1, d.length() - 1);
+                        Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                        computer.shipsArr.add(loadShip);
+                    }
+                }
+
+                for (Ships s:computer.shipsArr){
+                    System.out.println(s.coordinates);
+                }
+
+
+                Arena fx2 = new Arena();
+                fx2.humanPlayer = humanPlayer;
+                fx2.computer = computer;
+
+                try {
+                    fx2.start(primaryStage);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
             }
-            catch(FileNotFoundException ex) {
-                System.out.println(
-                        "Unable to open file '");
-            }
-            catch(IOException ex) {
-                System.out.println(
-                        "Error reading file ");
-                // Or we could just do this:
-                // ex.printStackTrace();
-            }
-
-
-
-
-
-
-            humanPlayer.name = "";
-
-
-
-
-
-            Arena fx2 = new Arena();
-            fx2.humanPlayer = humanPlayer;
-            fx2.computer = computer;
-
-            try {
-                fx2.start(primaryStage);
-            }
-            catch (Exception e){
-                System.out.println(e);
-            }
-
         }
         public void startNewGame(Stage primaryStage){
         computer.computerRandomShip();
