@@ -527,14 +527,17 @@ public class Arena extends Application {
     
     
     public static String postHit(String received) {
-    	String check = received.substring(0, 1);
+    	
+    	System.out.println("received----"+received);
+    	String check = received.trim().substring(0, 1);
 		String msg = received.substring(2);
 		System.out.println("msg is:" + msg);
 		 for (Ships s : humanPlayer.shipsArr) {
 			 System.out.println(s.coordinates);
 		 }
     	if(check.equals("H")) {
-    		boolean flag = Ships.checkhit(msg, humanPlayer);
+    		
+    		boolean flag = Ships.checkhit(msg.trim(), humanPlayer);
     		System.out.println("FLAG is:" + flag);
     		String s1 = msg.substring(0, 1);
             String s2 = msg.substring(1);
