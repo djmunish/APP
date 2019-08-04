@@ -65,10 +65,10 @@ public class Arena extends Application {
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     Saving save1 = new Saving();
     long elapsedtime = 0;
-    ArrayList<String> hitsHuman = new ArrayList<String>();
-    ArrayList<String> missHuman = new ArrayList<String>();
-    ArrayList<String> hitsComputer = new ArrayList<String>();
-    ArrayList<String> missComputer = new ArrayList<String>();
+    static ArrayList<String> hitsHuman = new ArrayList<String>();
+    static ArrayList<String> missHuman = new ArrayList<String>();
+    static ArrayList<String> hitsComputer = new ArrayList<String>();
+    static ArrayList<String> missComputer = new ArrayList<String>();
 
 
     SplitPane split_pane2;
@@ -282,12 +282,19 @@ public class Arena extends Application {
                                 if (!flag2) {
                                 	for(int i = 0;i<salvaWindow;i++) {
                         				String s = computer.randomhitcompai(humanPlayer, i+1 , salvaWindow);
+                                        boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                             			System.out.println("computerhit is == " + s);
-                            			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+
+                                        if (flag1) {
+//                                            messageComp = "It was a hit by Computer at " + s;
+                                            hitsComputer.add(s);
+                                        } else {
+//                                            messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+                                            missComputer.add(s);
+                                        }
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
 
-//                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
                                             finishTime = System.currentTimeMillis();
                                             elapsedtime = finishTime - startTime;
@@ -303,7 +310,6 @@ public class Arena extends Application {
                             		elapsedtime = finishTime - startTime;
                             		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
                             		String score  = calcScore(elapsedtime, humanPlayer);
-//                                    save1.humanPlayer = humanPlayer;
                             		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
@@ -368,8 +374,10 @@ public class Arena extends Application {
                                     String message = "Wohoo!! Its a hit!!";
                                     if (!flag) {
                                     	message = "Bohoo!! You missed it!!";
+                                    	missHuman.add(selectedAddress);
                                     	humanPlayer.misscount++;
                                     }else {
+                                        hitsHuman.add(selectedAddress);
                                     	humanPlayer.hitscount++;
                 					}
                                     Constants.showAlert(message);
@@ -399,7 +407,6 @@ public class Arena extends Application {
 
                     		flag3 = checkWinner(humanPlayer, computer);
                     		if(flag3) {
-//                                save1.humanPlayer = humanPlayer;
                     			timerstop = true;
                     			finishTime = System.currentTimeMillis();
                         		elapsedtime = finishTime - startTime;
@@ -409,7 +416,6 @@ public class Arena extends Application {
                     		finishTime = System.currentTimeMillis();
                     		elapsedtime = finishTime - startTime;
                     		String score  = calcScore(elapsedtime, humanPlayer);
-//                            save1.humanPlayer = humanPlayer;
                     		timerstop = true;
                     		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                     	}
@@ -509,8 +515,11 @@ public class Arena extends Application {
     			String messageComp;
     			if (flag1) {
     				messageComp = "It was a hit by Computer at " + s;
+//    				hitsComputer.add(s);
+
     			} else {
     				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+//    				missComputer.add(s);
     			}
     			Constants.showAlert(messageComp);
     		//}//else
