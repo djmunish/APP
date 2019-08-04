@@ -385,7 +385,7 @@ public class Arena extends Application {
                                     inputComboBox.getItems().remove(selectedAddress);
                                     inputComboBox.setPromptText("Select Location");
                 				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
-                                    String message = "Wohoo!! Its a hit!!";
+                				   message = "Wohoo!! Its a hit!!";
                 				if (!flag) {
                 					message = "Bohoo!! You missed it!!";
                 					humanPlayer.misscount++;
@@ -451,7 +451,7 @@ public class Arena extends Application {
                     	if (flag2 || flag3) { 		
                     		Alert alert = new Alert(AlertType.CONFIRMATION);
                     		alert.setTitle("Select");
-                    		alert.setHeaderText("Do you wish to continue?");
+                    		alert.setHeaderText(Constants.continue_Alert);
                     		ButtonType yes = new ButtonType("Yes");
                     		ButtonType no = new ButtonType("No");
 
@@ -495,7 +495,24 @@ public class Arena extends Application {
             stage.setWidth(1000);
             stage.setHeight(800);
 
+            stage.setOnCloseRequest(e2 -> {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Select");
+                alert.setHeaderText(Constants.save_Alert);
+                ButtonType yes = new ButtonType("Yes");
+                ButtonType no = new ButtonType("No");
 
+                // Remove default ButtonTypes
+                alert.getButtonTypes().clear();
+                alert.getButtonTypes().addAll(yes, no);
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get() == yes) {
+                //call saving
+                } else if (option.get() == no) {
+                    Platform.exit();
+                }
+            });
             stage.show();
 
         } catch (Exception e) {

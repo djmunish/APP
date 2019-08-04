@@ -209,6 +209,9 @@ public class initiateController extends Application {
         primaryStage.setMaximized(true);
         primaryStage.show();
 
+
+
+
     }
 
 

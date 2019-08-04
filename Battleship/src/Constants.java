@@ -39,6 +39,8 @@ public final class Constants {
     public static final String coords_Alert = "Please correct the ship coordinates!";
     public static final String grid_Alert = "Please select coordinates inside the grid";
     public static final String hit_Alert = "Please select a location and then click 'Hit' Button!";
+    public static final String save_Alert = "Do you wish to save your game before quiting?";
+    public static final String continue_Alert = "Do you wish to continue?";
 
 
     public static final String alphabets = "ABCDEFGHIJK";
