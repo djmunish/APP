@@ -153,10 +153,10 @@ public class initiateController extends Application {
                             humanPlayer.gamePlayType = false;
                         }
 
-                        humanPlayer.playerPort = 7777; //change port
+                        humanPlayer.playerPort = 8888; //change port
                         try {
                            // humanPlayer.createConnection(7777);
-                        	u1.startServer(8888);
+                        	u1.startServer(7777);
                         	
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -289,6 +289,7 @@ public class initiateController extends Application {
                         if(d.length()>0) {
                             fx2.loadhitsHuman.add(d.trim());
                         }
+
                     }
 
                     String miss = humanData[4].substring(1,humanData[4].length()-1);
@@ -296,6 +297,7 @@ public class initiateController extends Application {
                         if(d.length()>0) {
                             fx2.loadmissHuman.add(d.trim());
                         }
+
                     }
 
 
@@ -305,6 +307,7 @@ public class initiateController extends Application {
                         if(d.length()>0) {
                             fx2.loadhitsComputer.add(d.trim());
                         }
+
                     }
 
                     String Cmiss = compData[4].substring(1,compData[4].length()-1);
@@ -312,6 +315,7 @@ public class initiateController extends Application {
                         if(d.length()>0) {
                             fx2.loadmissComputer.add(d.trim());
                         }
+
                     }
 
 
