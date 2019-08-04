@@ -532,7 +532,45 @@ public class Arena extends Application {
     }
     
     
-    public static void postHit() {	
+    public static void postHit(String received) {
+    	String check = received.substring(0, 1);
+		String msg = received.substring(2);
+    	if(check.equals("H")) {
+    		boolean flag = Ships.checkhit(msg, humanPlayer);
+    		String s1 = msg.substring(0, 1);
+            String s2 = msg.substring(1);
+            int x = Constants.mapInConstants.get(s1);    //c
+            int y = Integer.parseInt(s2);    //r
+            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+            Button bActual = (Button) a1.getNodeFromGridPane(playerGrid, x + 1, y - 1);
+    		if(flag) {
+    				bActual.setStyle("-fx-background-color: Red");
+        			u1.sendMessage(humanPlayer.playerPort, "R,Y");
+                } else {
+                	bActual.setStyle("-fx-background-color: Black;");
+                	u1.sendMessage(humanPlayer.playerPort, "R,N");
+                }
+    	}//H
+    	
+       	if(check.equals("R")) {
+    		String s1 = msg.substring(0, 1);
+            String s2 = msg.substring(1);
+            int x = Constants.mapInConstants.get(s1);    //c
+            int y = Integer.parseInt(s2);    //r
+            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+            Button bActual = (Button) a1.getNodeFromGridPane(playerRefGrid, x + 1, y - 1);
+        	if(msg.equals("Y")) {
+        		//Ships.colorButton(playerGrid, compRefGrid, msg, a1, humanPlayer);
+        			String messageComp = "It is a hit";
+        			Constants.showAlert(messageComp);
+    				bActual.setStyle("-fx-background-color: Red");
+                } else {
+                	String messageComp = "It is a miss";
+                	bActual.setStyle("-fx-background-color: Black;");
+                }
+    	}//R
+    	
+    	/*
     	boolean flag3 = false;
     	boolean flag2 = checkWinner(computer, humanPlayer);
     	if (!flag2) {
@@ -586,7 +624,7 @@ public class Arena extends Application {
     			Platform.exit();
     		}
 
-    	}
+    	}*/
     }
     	
     
