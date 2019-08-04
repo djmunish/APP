@@ -251,6 +251,7 @@ public class shipSetupController extends Application {
 				Arena a1 = new Arena();
 				System.out.println("arena=====" + a1);
 				a1.humanPlayer = humanPlayer;
+				System.out.print("Human Ships"+a1.humanPlayer.shipsArr);
 				if(!humanPlayer.playWithHuman)
 				{a1.computer = computer;}else {
 					a1.u1 = u1;

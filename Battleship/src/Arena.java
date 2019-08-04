@@ -99,6 +99,7 @@ public class Arena extends Application {
     	a1 = Arena.this;
     	u1.arena = a1;
     	u1.human = humanPlayer;
+    	System.out.print("Human Ships in Arena"+u1.human.shipsArr);
     	
         try {
 

@@ -32,31 +32,41 @@ public class Udp {
 	 private synchronized static void receive(int port) {
 		 MulticastSocket  aSocket = null;
 		 try {
-				boolean flag=false;
-				String	rep = null;
+								
 				aSocket = new MulticastSocket (port);
 				aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
 				System.out.println("Server " + port + " Started............");
 				while (true) {
+					String	rep = null;
 					byte[] buffer = new byte[10000];
 					DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 					aSocket.receive(request);
 					Received = new String(request.getData());
+					
 					System.out.println("Output received is : " + Received);
-					String Receive = Received.substring(0, 1);
-					if(Receive.equals("H")) {
-						System.out.println("Hit received is " + Receive.substring(1));
-						flag = Ships.checkhit(Receive.substring(1), human);
-						if(flag) {
-							rep = "R,Y";
+					
+					String check = Received.substring(0, 1);
+					String msg = Received.substring(2);
+					if(check.equals("H")) {
+						System.out.println("Hit received is " + msg);
+						System.out.println("Human ships in Udp" + human.shipsArr);
+						System.out.println("Ships are:........");
+						 for (Ships s : human.shipsArr) {
+							 System.out.println(s.coordinates);
+						 }
+						boolean flag1 = Ships.checkhit(msg, human);
+						System.out.println("FALG :-"+flag1);
+						if(flag1) {
+							 rep = "R,Y";
 						}else {
-							rep = "R,N";
+							 rep = "R,N";
 						}
 						//arena.postHit();
-					}else if(Receive.equals("S")) {
-						System.out.println("Salva Hit received is " + Receive.substring(1));
-					}else if(Receive.equals("R")) {
-						System.out.println("Response received is " + Receive.substring(1));
+						System.out.println("REP :-"+ rep);
+					}else if(check.equals("S")) {
+						System.out.println("Salva Hit received is " + msg);
+					}else if(check.equals("R")) {
+						System.out.println("Response received is " + msg);
 					}
 					buffer = rep.getBytes();
 					DatagramPacket reply = new DatagramPacket(buffer, buffer.length, request.getAddress(),
