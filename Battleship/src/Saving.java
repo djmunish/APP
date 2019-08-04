@@ -58,10 +58,12 @@ public class Saving {
         writer.append(humanPlayer.name);
         writer.write(Constants.separator);
 
-      /*  for(Ships s : humanPlayer.shipsArr){
+        for(Ships s : humanPlayer.shipsArr){
+            writer.write("-");
             writer.append(String.valueOf(s.coordinates));
-            writer.write(Constants.separator);
-        } */
+        }
+
+        writer.write(Constants.separator);
 
         writer.append(String.valueOf(humanPlayer.inputs));
         writer.write(Constants.separator);
