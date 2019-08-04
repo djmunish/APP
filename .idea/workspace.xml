@@ -11,8 +11,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1OwZBeIfMettyw1IVE0ohNJnwQj" />
-  <component name="PropertiesComponent">
+  <component name="ProjectId" id="1OwZBeIfMettyw1IVE0ohNJnwQj" />  <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -69,6 +68,5 @@
           </value>
         </entry>
       </map>
-    </option>
-  </component>
+    </option>  </component>
 </project>

@@ -93,7 +93,8 @@ public class Arena extends Application {
     	}
         text.setText((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     }
-
+    
+    
     public void start(Stage stage) { 
     	stage1 = stage;
     	a1 = Arena.this;
@@ -123,7 +124,7 @@ public class Arena extends Application {
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(500, 500);
             playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
-            GridPane playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             GridPane compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             GridPane compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
@@ -148,6 +149,7 @@ public class Arena extends Application {
             inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-background-color: #CD853F;");
+            System.out.println(humanPlayer.inputs);
             inputComboBox.getItems().addAll(
                     humanPlayer.inputs
             );
@@ -505,7 +507,64 @@ public class Arena extends Application {
     }
     
     
-    public static void postHit() {	
+    public static String postHit(String received) {
+    	String check = received.substring(0, 1);
+		String msg = received.substring(2);
+		System.out.println("msg is:" + msg);
+    	if(check.equals("H")) {
+    		boolean flag = Ships.checkhit(msg, humanPlayer);
+    		String s1 = msg.substring(0, 1);
+            String s2 = msg.substring(1);
+            System.out.println("s1 is:" + s1);
+            System.out.println("s2 is:" + s2);
+            int x = Constants.mapInConstants.get(s1.trim());    //c
+            System.out.println("x is:" + x);
+            int y = Integer.parseInt(s2.trim());    //r
+            System.out.println("y is:" + y);
+            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
+    		if(flag) {
+    				bActual.setStyle("-fx-background-color: Red");
+        			//u1.sendMessage(humanPlayer.playerPort, "R,Y,"+msg.trim());
+    				String m = "R,Y,"+msg.trim();
+    				return m;
+                } else {
+                	bActual.setStyle("-fx-background-color: Black;");
+                	//u1.sendMessage(humanPlayer.playerPort, "R,N,"+msg.trim());
+                	String m = "R,N,"+msg.trim();
+    				return m;
+                }
+    	}//H
+    	
+    	else if(check.equals("R")) {
+       		msg = received.substring(2,3).trim();
+       		String msg1 = received.substring(4).trim();
+    		String s1 = msg1.substring(0, 1);
+            String s2 = msg1.substring(1);
+            int x = Constants.mapInConstants.get(s1.trim());    //c
+            int y = Integer.parseInt(s2.trim());    //r
+            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
+        	if(msg.equals("Y")) {
+        		//Ships.colorButton(playerGrid, compRefGrid, msg, a1, humanPlayer);
+        			String messageComp = "It is a hit";
+        		//	Constants.showAlert(messageComp);
+    				bActual.setStyle("-fx-background-color: Red");
+    				
+                } else {
+                	String messageComp = "It is a miss";
+                	bActual.setStyle("-fx-background-color: Black;");
+                }
+        		String m = "P";
+        		return m;
+    	}//R
+    	else {
+    		String m = "P";
+    		return m;
+    	}
+    	
+       	//return null;
+    	/*
     	boolean flag3 = false;
     	boolean flag2 = checkWinner(computer, humanPlayer);
     	if (!flag2) {
@@ -562,7 +621,7 @@ public class Arena extends Application {
     			Platform.exit();
     		}
 
-    	}
+    	}*/
     }
     	
     
