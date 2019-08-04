@@ -1,7 +1,10 @@
 import java.awt.Insets;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -69,6 +72,7 @@ public class initiateController extends Application {
 
             @Override
             public void handle(ActionEvent event) {
+
                 humanPlayer = new Player();
                 computer = new Player();
                 humanPlayer.type = Player.playerType.HUMAN;
@@ -76,59 +80,29 @@ public class initiateController extends Application {
                 computer.type = Player.playerType.COMPUTER;
                 humanPlayer.playWithHuman = false;
 
-                computer.computerRandomShip();
-                for (Ships s : computer.shipsArr) {
-                    System.out.println("random ships");
-                    System.out.println(s.coordinates);
-                    System.out.println(s.hexColor);
-                }
+                File f = new File("/Path/To/File/or/Directory"); //Change Path
 
-                TextInputDialog dialog = new TextInputDialog("Enter your name");
+                if (f.exists() && f.isDirectory()) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Select");
+                    alert.setHeaderText(Constants.load_Alert);
+                    ButtonType yes = new ButtonType("Yes");
+                    ButtonType no = new ButtonType("No");
 
-                dialog.setHeaderText("Enter your name:");
-                dialog.setContentText("Name:");
+                    // Remove default ButtonTypes
+                    alert.getButtonTypes().clear();
+                    alert.getButtonTypes().addAll(yes, no);
+                    Optional<ButtonType> option = alert.showAndWait();
 
-                Optional<String> result = dialog.showAndWait();
-
-                result.ifPresent(name -> {
-
-                    if (name.length() > 0 && !name.equals("Enter your name")) {
-                        humanPlayer.name = name;
-
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Select");
-                        alert.setHeaderText(Constants.salva_Alert);
-                        ButtonType yes = new ButtonType("Yes");
-                        ButtonType no = new ButtonType("No");
-
-                        // Remove default ButtonTypes
-                        alert.getButtonTypes().clear();
-                        alert.getButtonTypes().addAll(yes, no);
-                        Optional<ButtonType> option = alert.showAndWait();
-
-                        if (option.get() == yes) {
-                            humanPlayer.initiateSalva();
-                        } else if (option.get() == no) {
-                            humanPlayer.gamePlayType = false;
-                        }
-
-
-                        shipSetupController fx2 = new shipSetupController();
-                        fx2.humanPlayer = humanPlayer;
-                        fx2.computer = computer;
-
-                        try {
-                            fx2.start(primaryStage);
-                        }
-                        catch (Exception e){
-                            System.out.println(e);
-                        }
-
-
-                    } else {
-                        Constants.showAlert(Constants.name_Alert);
+                    if (option.get() == yes) {
+                        loadGame(primaryStage);
+                    } else if (option.get() == no) {
+                        startNewGame(primaryStage);
                     }
-                });
+                }
+                else{
+                    startNewGame(primaryStage);
+                }
             }
         });
 
@@ -209,10 +183,68 @@ public class initiateController extends Application {
         primaryStage.setMaximized(true);
         primaryStage.show();
 
-
-
-
     }
 
+         public void loadGame(Stage primaryStage) {
+
+        //player ships
+
+
+        }
+        public void startNewGame(Stage primaryStage){
+        computer.computerRandomShip();
+//                for (Ships s : computer.shipsArr) {
+//                    System.out.println("random ships");
+//                    System.out.println(s.coordinates);
+//                    System.out.println(s.hexColor);
+//                }
+
+        TextInputDialog dialog = new TextInputDialog("Enter your name");
+
+        dialog.setHeaderText("Enter your name:");
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(name -> {
+
+            if (name.length() > 0 && !name.equals("Enter your name")) {
+                humanPlayer.name = name;
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Select");
+                alert.setHeaderText(Constants.salva_Alert);
+                ButtonType yes = new ButtonType("Yes");
+                ButtonType no = new ButtonType("No");
+
+                // Remove default ButtonTypes
+                alert.getButtonTypes().clear();
+                alert.getButtonTypes().addAll(yes, no);
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get() == yes) {
+                    humanPlayer.initiateSalva();
+                } else if (option.get() == no) {
+                    humanPlayer.gamePlayType = false;
+                }
+
+
+                shipSetupController fx2 = new shipSetupController();
+                fx2.humanPlayer = humanPlayer;
+                fx2.computer = computer;
+
+                try {
+                    fx2.start(primaryStage);
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+
+
+            } else {
+                Constants.showAlert(Constants.name_Alert);
+            }
+        });
+    }
 
 }
