@@ -532,9 +532,7 @@ public class Arena extends Application {
     
     
     public static String postHit(String received) {
-    	
-    	System.out.println("received----"+received);
-    	String check = received.trim().substring(0, 1);
+    	String check = received.substring(0, 1);
 		String msg = received.substring(2);
 		System.out.println("msg is:" + msg);
 		 for (Ships s : humanPlayer.shipsArr) {
@@ -580,33 +578,40 @@ public class Arena extends Application {
             int y = Integer.parseInt(s2.trim());    //r
             System.out.println("y is:" + y);
             System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
-            Button bActual = (Button) a1.getNodeFromGridPane(a1.compRefGrid, x + 1, y - 1);
+            
             System.out.println("here");
            // Button bActual1 = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
-            Button bActual2 = (Button) a1.getNodeFromGridPane(a1.compGrid, x + 1, y - 1);
+            
             System.out.println("here1");
-            Button bActual3 = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
+            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
             System.out.println("here2");
         	if(msg.equals("Y")) {
-        		//Ships.colorButton(playerGrid, compRefGrid, msg, a1, humanPlayer);
         			String messageComp = "It is a hit";
-        		//	Constants.showAlert(messageComp);
+        			Constants.showAlert(messageComp);
         			System.out.println(messageComp);
     				bActual.setStyle("-fx-background-color: Red");
-    				bActual2.setStyle("-fx-background-color: Red");
-    				bActual3.setStyle("-fx-background-color: Red");
+    				
+    				if (humanPlayer.shipsArr.size() == 0) {
+    					Constants.showAlert(humanPlayer.name+"won the game");
+    						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
+    	        			System.out.println(messageComp);
+    				}
     				
                 } else {
                 	
                 	String messageComp = "It is a miss";
+                	Constants.showAlert(messageComp);
                 	System.out.println(messageComp);
                 	bActual.setStyle("-fx-background-color: Black;");
-                	bActual2.setStyle("-fx-background-color: Black;");
-                	bActual3.setStyle("-fx-background-color: Black;");
                 }
         		String m = "P";
         		return m;
     	}//R
+    	else if(check.equals("W")) {
+    		Constants.showAlert(humanPlayer.name+"won the game");
+    		String m = "P";
+    		return m;
+    	}
     	else {
     		String m = "P";
     		return m;
