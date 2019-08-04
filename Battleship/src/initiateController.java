@@ -243,7 +243,11 @@ public class initiateController extends Application {
                     for (String d : ships) {
                         if(!d.equals("")) {
                             String ships_Val = d.substring(1, d.length() - 1);
-                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 3).trim());
+                            String endCoor = ships_Val.substring(ships_Val.length() - 2);
+                            if(ships_Val.length()>2){
+                                endCoor= ships_Val.substring(ships_Val.length() - 3).trim();
+                            }
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), endCoor);
                             humanPlayer.shipsArr.add(loadShip);
                         }
                     }
@@ -262,10 +266,11 @@ public class initiateController extends Application {
                     for (String d : cships) {
                         if(!d.equals("")) {
                             String ships_Val = d.substring(1, d.length() - 1);
-                            System.out.println("comp1===="+ships_Val.substring(0, 2));
-                            System.out.println("comp2===="+ships_Val.substring(ships_Val.length() - 3));
-
-                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 3).trim());
+                                                       String endCoor = ships_Val.substring(ships_Val.length() - 2);
+                            if(ships_Val.length()>2){
+                                endCoor= ships_Val.substring(ships_Val.length() - 3).trim();
+                            }
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), endCoor);
                             computer.shipsArr.add(loadShip);
                         }
                     }
