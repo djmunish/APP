@@ -71,6 +71,10 @@ public class Arena extends Application {
     ArrayList<String> missComputer = new ArrayList<String>();
 
 
+    ArrayList<String> loadhitsHuman = new ArrayList<String>();
+    ArrayList<String> loadmissHuman = new ArrayList<String>();
+    ArrayList<String> loadhitsComputer = new ArrayList<String>();
+    ArrayList<String> loadmissComputer = new ArrayList<String>();
     SplitPane split_pane2;
     
     
@@ -100,8 +104,16 @@ public class Arena extends Application {
     	a1 = Arena.this;
     	u1.arena = a1;
     	u1.human = humanPlayer;
-    	System.out.print("Human Ships in Arena"+u1.human.shipsArr);
-    	
+
+    	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
+
+
+        System.out.println(loadhitsHuman);
+        System.out.println(loadmissHuman);
+        System.out.println(loadhitsComputer);
+        System.out.println(loadmissComputer);
+
+
         try {
 
             // set title for the stage
@@ -125,6 +137,9 @@ public class Arena extends Application {
             split_pane1.setPrefSize(500, 500);
             playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            updateGridFromLoad(playerGrid,hitsHuman,true);
+            updateGridFromLoad(playerGrid,missHuman,false);
+
             GridPane compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             GridPane compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
@@ -924,6 +939,39 @@ public class Arena extends Application {
     	DecimalFormat d = new DecimalFormat("#.###");
     	System.out.println("score is "+ d.format(scorecalc));
     	return d.format(scorecalc);
+    }
+    public static void colorAgain(ArrayList<String> hit, ArrayList<String> miss){
+
+
+
+
+
+    }
+
+    public boolean updateGridFromLoad(GridPane grid, ArrayList<String> data, Boolean isHit) {
+
+        for(String d:data){
+            String s1 = d.substring(0, 1);
+            String s2 = d.substring(1);
+            int x = Constants.mapInConstants.get(s1);    //c
+            int y = Integer.parseInt(s2);    //r
+            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+            Button bActual = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
+            Button bReference = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
+
+            if (isHit) {
+                bActual.setStyle("-fx-background-color: Red");
+                bReference.setStyle("-fx-background-color: Red");
+                return true;
+            } else {
+                bActual.setStyle("-fx-background-color: Black;");
+                bReference.setStyle("-fx-background-color: Black");
+                return false;
+            }
+        }
+
+
+
     }
 
 }//Arena
