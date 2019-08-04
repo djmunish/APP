@@ -309,6 +309,11 @@ public class Arena extends Application {
                         				String s = computer.randomhitcompai(humanPlayer, i+1 , salvaWindow);
                             			System.out.println("computerhit is == " + s);
                             			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                                        if (flag1) {
+                                            hitsComputer.add(s);
+                                        } else {
+                                            missComputer.add(s);
+                                        }
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
 
