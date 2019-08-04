@@ -24,6 +24,11 @@ public class Saving {
         System.out.println("Player miss:"+miss);
         System.out.println("Player time:"+elapsedtime);
 
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        System.out.println("Current relative path is: " + s);
+//      new File(s+"/gameData").mkdirs();
+
         File file = new File("G:\\SOEN 6441\\APP\\testFile1.txt");
 
 
