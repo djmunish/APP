@@ -502,28 +502,35 @@ public class Arena extends Application {
     public static void postHit(String received) {
     	String check = received.substring(0, 1);
 		String msg = received.substring(2);
+		System.out.println("msg is:" + msg);
     	if(check.equals("H")) {
     		boolean flag = Ships.checkhit(msg, humanPlayer);
     		String s1 = msg.substring(0, 1);
             String s2 = msg.substring(1);
-            int x = Constants.mapInConstants.get(s1);    //c
-            int y = Integer.parseInt(s2);    //r
+            System.out.println("s1 is:" + s1);
+            System.out.println("s2 is:" + s2);
+            int x = Constants.mapInConstants.get(s1.trim());    //c
+            System.out.println("x is:" + x);
+            int y = Integer.parseInt(s2.trim());    //r
+            System.out.println("y is:" + y);
             System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
             Button bActual = (Button) a1.getNodeFromGridPane(playerGrid, x + 1, y - 1);
     		if(flag) {
     				bActual.setStyle("-fx-background-color: Red");
-        			u1.sendMessage(humanPlayer.playerPort, "R,Y");
+        			u1.sendMessage(humanPlayer.playerPort, "R,Y,"+msg.trim());
                 } else {
                 	bActual.setStyle("-fx-background-color: Black;");
-                	u1.sendMessage(humanPlayer.playerPort, "R,N");
+                	u1.sendMessage(humanPlayer.playerPort, "R,N,"+msg.trim());
                 }
     	}//H
     	
        	if(check.equals("R")) {
-    		String s1 = msg.substring(0, 1);
-            String s2 = msg.substring(1);
-            int x = Constants.mapInConstants.get(s1);    //c
-            int y = Integer.parseInt(s2);    //r
+       		msg = received.substring(2,3).trim();
+       		String msg1 = received.substring(4).trim();
+    		String s1 = msg1.substring(0, 1);
+            String s2 = msg1.substring(1);
+            int x = Constants.mapInConstants.get(s1.trim());    //c
+            int y = Integer.parseInt(s2.trim());    //r
             System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
             Button bActual = (Button) a1.getNodeFromGridPane(playerRefGrid, x + 1, y - 1);
         	if(msg.equals("Y")) {
