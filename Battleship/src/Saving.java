@@ -59,6 +59,7 @@ public class Saving {
         writer.write(Constants.separator);
 
         for(Ships s : humanPlayer.shipsArr){
+
             writer.write("-");
             writer.append(String.valueOf(s.coordinates));
         }

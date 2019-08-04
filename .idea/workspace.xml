@@ -207,9 +207,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564887154076" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -242,11 +243,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f7e8baa3-7add-48c9-9308-c8afd551de04" name="Default Changelist" comment="" />
-      <created>1564887112674</created>
+      <changelist id="4ff2c60f-fd2c-4601-96c1-59b38961876a" name="Default Changelist" comment="" />
+      <created>1564890484076</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1564887112674</updated>
+      <updated>1564890484076</updated>
     </task>
     <servers />
   </component>
@@ -393,4 +394,5 @@
       </state>
     </states>
   </component>
+
 </project>

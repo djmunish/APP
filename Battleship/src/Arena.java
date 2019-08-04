@@ -65,10 +65,10 @@ public class Arena extends Application {
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     Saving save1 = new Saving();
     long elapsedtime = 0;
-    ArrayList<String> hitsHuman = new ArrayList<String>();
-    ArrayList<String> missHuman = new ArrayList<String>();
-    ArrayList<String> hitsComputer = new ArrayList<String>();
-    ArrayList<String> missComputer = new ArrayList<String>();
+    static ArrayList<String> hitsHuman = new ArrayList<String>();
+    static ArrayList<String> missHuman = new ArrayList<String>();
+    static ArrayList<String> hitsComputer = new ArrayList<String>();
+    static ArrayList<String> missComputer = new ArrayList<String>();
 
 
     SplitPane split_pane2;
@@ -283,12 +283,19 @@ public class Arena extends Application {
                                 if (!flag2) {
                                 	for(int i = 0;i<salvaWindow;i++) {
                         				String s = computer.randomhitcompai(humanPlayer, i+1 , salvaWindow);
+                                        boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                             			System.out.println("computerhit is == " + s);
-                            			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+
+                                        if (flag1) {
+//                                            messageComp = "It was a hit by Computer at " + s;
+                                            hitsComputer.add(s);
+                                        } else {
+//                                            messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+                                            missComputer.add(s);
+                                        }
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
 
-//                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
                                             finishTime = System.currentTimeMillis();
                                             elapsedtime = finishTime - startTime;
@@ -304,7 +311,6 @@ public class Arena extends Application {
                             		elapsedtime = finishTime - startTime;
                             		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
                             		String score  = calcScore(elapsedtime, humanPlayer);
-//                                    save1.humanPlayer = humanPlayer;
                             		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
@@ -369,8 +375,10 @@ public class Arena extends Application {
                                     String message = "Wohoo!! Its a hit!!";
                                     if (!flag) {
                                     	message = "Bohoo!! You missed it!!";
+                                    	missHuman.add(selectedAddress);
                                     	humanPlayer.misscount++;
                                     }else {
+                                        hitsHuman.add(selectedAddress);
                                     	humanPlayer.hitscount++;
                 					}
                                     Constants.showAlert(message);
@@ -443,9 +451,62 @@ public class Arena extends Application {
                              }
                 			
                 			
-                    
+                    	boolean flag2 = checkWinner(computer, humanPlayer);
+                    	if (!flag2) {
+                    			String s = computer.randomhitcompai(humanPlayer, 0, 0);
+                    			System.out.println("computerhit is == " + s);
+                    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                    			String messageComp;
+                    			if (flag1) {
+                    				messageComp = "It was a hit by Computer at " + s;
+                    				hitsComputer.add(s);
+                    			} else {
+                    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+                    				missComputer.add(s);
+                    			}
+                    			Constants.showAlert(messageComp);
+                    		//}//else
 
-                 
+                    		flag3 = checkWinner(humanPlayer, computer);
+                    		if(flag3) {
+                    			timerstop = true;
+                    			finishTime = System.currentTimeMillis();
+                        		elapsedtime = finishTime - startTime;
+                        		String score  = calcScore(elapsedtime, humanPlayer);
+                    			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
+                    	}else {
+                    		finishTime = System.currentTimeMillis();
+                    		elapsedtime = finishTime - startTime;
+                    		String score  = calcScore(elapsedtime, humanPlayer);
+                    		timerstop = true;
+                    		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                    	}
+
+                    	if (flag2 || flag3) { 		
+                    		Alert alert = new Alert(AlertType.CONFIRMATION);
+                    		alert.setTitle("Select");
+                    		alert.setHeaderText(Constants.continue_Alert);
+                    		ButtonType yes = new ButtonType("Yes");
+                    		ButtonType no = new ButtonType("No");
+
+                        // Remove default ButtonTypes
+                    		alert.getButtonTypes().clear();
+                    		alert.getButtonTypes().addAll(yes, no);
+                    		Optional<ButtonType> option = alert.showAndWait();
+
+                    		if (option.get() == yes) {
+                    			initiateController fx2 = new initiateController();
+                    			try {
+                    				fx2.start(stage);
+                    			} catch (FileNotFoundException e) {
+                    				e.printStackTrace();
+                    			}
+                    		} else if (option.get() == no) {
+                    			Platform.exit();
+                    		}
+
+                    	}
+
                     }
                 });
             }
@@ -574,8 +635,11 @@ public class Arena extends Application {
     			String messageComp;
     			if (flag1) {
     				messageComp = "It was a hit by Computer at " + s;
+//    				hitsComputer.add(s);
+
     			} else {
     				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+//    				missComputer.add(s);
     			}
     			Constants.showAlert(messageComp);
     		//}//else
