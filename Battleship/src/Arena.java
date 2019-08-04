@@ -143,15 +143,19 @@ public class Arena extends Application {
             updateGridFromLoad(playerRefGrid,loadhitsHuman,true);
             updateGridFromLoad(playerRefGrid,loadmissHuman,false);
 
-            GridPane compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
-            GridPane compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
             text.resize(150, 40);
             text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
             text.setTranslateX(-130);
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
+            updateGridFromLoad(compGrid,loadhitsHuman,true);
+            updateGridFromLoad(compGrid,loadmissHuman,false);
 
+            updateGridFromLoad(compRefGrid,loadhitsComputer,true);
+            updateGridFromLoad(compRefGrid,loadmissComputer,false);
 
             if (!humanPlayer.playWithHuman) {
                 // create split pane 2
@@ -536,7 +540,6 @@ public class Arena extends Application {
 			 System.out.println(s.coordinates);
 		 }
     	if(check.equals("H")) {
-    		
     		boolean flag = Ships.checkhit(msg.trim(), humanPlayer);
     		System.out.println("FLAG is:" + flag);
     		String s1 = msg.substring(0, 1);
@@ -956,24 +959,25 @@ public class Arena extends Application {
 
     public void updateGridFromLoad(GridPane grid, ArrayList<String> data, Boolean isHit) {
 
-        for(String d:data){
-            String s1 = d.substring(0, 1);
-            String s2 = d.substring(1);
-            int x = Constants.mapInConstants.get(s1);    //c
-            int y = Integer.parseInt(s2);    //r
-            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
-            Button bActual = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
-            Button bReference = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
+        if(!data.isEmpty()) {
+            for (String d : data) {
+                String s1 = d.substring(0, 1);
+                String s2 = d.substring(1);
+                int x = Constants.mapInConstants.get(s1);    //c
+                int y = Integer.parseInt(s2);    //r
+                System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+                Button bActual = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
+                Button bReference = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
 
-            if (isHit) {
-                bActual.setStyle("-fx-background-color: Red");
-                bReference.setStyle("-fx-background-color: Red");
-            } else {
-                bActual.setStyle("-fx-background-color: Black;");
-                bReference.setStyle("-fx-background-color: Black");
+                if (isHit) {
+                    bActual.setStyle("-fx-background-color: Red");
+                    bReference.setStyle("-fx-background-color: Red");
+                } else {
+                    bActual.setStyle("-fx-background-color: Black;");
+                    bReference.setStyle("-fx-background-color: Black");
+                }
             }
         }
-
 
 
     }
