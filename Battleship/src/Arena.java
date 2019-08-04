@@ -65,8 +65,10 @@ public class Arena extends Application {
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     Saving save1 = new Saving();
     long elapsedtime = 0;
-    ArrayList<String> hits = new ArrayList<String>();
-    ArrayList<String> miss = new ArrayList<String>();
+    ArrayList<String> hitsHuman = new ArrayList<String>();
+    ArrayList<String> missHuman = new ArrayList<String>();
+    ArrayList<String> hitsComputer = new ArrayList<String>();
+    ArrayList<String> missComputer = new ArrayList<String>();
 
 
     SplitPane split_pane2;
@@ -266,10 +268,10 @@ public class Arena extends Application {
                     				humanPlayer.updateDropdown(s, humanPlayer.inputs);
                     				boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
                     				if(flag) {
-                    				    hits.add(s);
+                    				    hitsHuman.add(s);
                     					humanPlayer.hitscount++;
                     				}else {
-                    				    miss.add(s);
+                    				    missHuman.add(s);
                     					humanPlayer.misscount++;
                     				}
                     			} }
@@ -287,11 +289,6 @@ public class Arena extends Application {
 
 //                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
-                                            try {
-                                                Saving.printfc(humanPlayer,elapsedtime,hits,miss);
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
                                             finishTime = System.currentTimeMillis();
                                             elapsedtime = finishTime - startTime;
                                     		String score  = calcScore(elapsedtime, humanPlayer);
@@ -308,11 +305,6 @@ public class Arena extends Application {
                             		String score  = calcScore(elapsedtime, humanPlayer);
 //                                    save1.humanPlayer = humanPlayer;
                             		timerstop = true;
-                                    try {
-                                        Saving.printfc(humanPlayer, elapsedtime, hits, miss);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
                                 
@@ -430,8 +422,10 @@ public class Arena extends Application {
                     			String messageComp;
                     			if (flag1) {
                     				messageComp = "It was a hit by Computer at " + s;
+                    				hitsComputer.add(s);
                     			} else {
                     				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+                    				missComputer.add(s);
                     			}
                     			Constants.showAlert(messageComp);
                     		//}//else
@@ -440,11 +434,6 @@ public class Arena extends Application {
                     		if(flag3) {
 //                                save1.humanPlayer = humanPlayer;
                     			timerstop = true;
-                                try {
-                                    Saving.printfc(humanPlayer, elapsedtime, hits, miss);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
                     			finishTime = System.currentTimeMillis();
                         		elapsedtime = finishTime - startTime;
                         		String score  = calcScore(elapsedtime, humanPlayer);
@@ -455,11 +444,6 @@ public class Arena extends Application {
                     		String score  = calcScore(elapsedtime, humanPlayer);
 //                            save1.humanPlayer = humanPlayer;
                     		timerstop = true;
-                            try {
-                                Saving.printfc(humanPlayer, elapsedtime, hits, miss);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                     		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                     	}
 
@@ -529,6 +513,12 @@ public class Arena extends Application {
 
                 if (option.get() == yes) {
                 //call saving
+                    try {
+                        Saving.saveHuman(humanPlayer, elapsedtime, hitsHuman, missHuman);
+                        Saving.saveHuman(computer, 0, hitsComputer, missComputer);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else if (option.get() == no) {
                     Platform.exit();
                 }

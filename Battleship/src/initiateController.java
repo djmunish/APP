@@ -1,10 +1,8 @@
 import java.awt.Insets;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -81,9 +79,16 @@ public class initiateController extends Application {
                 computer.type = Player.playerType.COMPUTER;
                 humanPlayer.playWithHuman = false;
 
-                File f = new File("/Path/To/File/or/Directory"); //Change Path
 
-                if (f.exists() && f.isDirectory()) {
+
+                Path currentRelativePath = Paths.get("");
+                String s = currentRelativePath.toAbsolutePath().toString();
+                System.out.println("Current relative path is: " + s);
+
+
+                File f = new File(s+"/gameData"); //Change Path
+
+                if (f.exists()) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Select");
                     alert.setHeaderText(Constants.load_Alert);
@@ -96,7 +101,7 @@ public class initiateController extends Application {
                     Optional<ButtonType> option = alert.showAndWait();
 
                     if (option.get() == yes) {
-                        loadGame(primaryStage);
+                        loadGame(primaryStage, f);
                     } else if (option.get() == no) {
                         startNewGame(primaryStage);
                     }
@@ -189,10 +194,63 @@ public class initiateController extends Application {
 
     }
 
-         public void loadGame(Stage primaryStage) {
+        public void loadGame(Stage primaryStage, File f) {
 
         //player ships
 
+        // The name of the file to open.
+
+            // This will reference one line at a time
+            String line = null;
+
+            try {
+                // FileReader reads text files in the default encoding.
+                FileReader fileReader =
+                        new FileReader(f);
+
+                // Always wrap FileReader in BufferedReader.
+                BufferedReader bufferedReader =
+                        new BufferedReader(fileReader);
+
+                while((line = bufferedReader.readLine()) != null) {
+                    System.out.println(line);
+                }
+
+                // Always close files.
+                bufferedReader.close();
+            }
+            catch(FileNotFoundException ex) {
+                System.out.println(
+                        "Unable to open file '");
+            }
+            catch(IOException ex) {
+                System.out.println(
+                        "Error reading file ");
+                // Or we could just do this:
+                // ex.printStackTrace();
+            }
+
+
+
+
+
+
+            humanPlayer.name = "";
+
+
+
+
+
+            Arena fx2 = new Arena();
+            fx2.humanPlayer = humanPlayer;
+            fx2.computer = computer;
+
+            try {
+                fx2.start(primaryStage);
+            }
+            catch (Exception e){
+                System.out.println(e);
+            }
 
         }
         public void startNewGame(Stage primaryStage){
