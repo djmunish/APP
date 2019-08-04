@@ -71,6 +71,10 @@ public class Arena extends Application {
     static ArrayList<String> missComputer = new ArrayList<String>();
 
 
+    ArrayList<String> loadhitsHuman = new ArrayList<String>();
+    ArrayList<String> loadmissHuman = new ArrayList<String>();
+    ArrayList<String> loadhitsComputer = new ArrayList<String>();
+    ArrayList<String> loadmissComputer = new ArrayList<String>();
     SplitPane split_pane2;
     
     
@@ -100,8 +104,14 @@ public class Arena extends Application {
     	a1 = Arena.this;
     	u1.arena = a1;
     	u1.human = humanPlayer;
-    	System.out.print("Human Ships in Arena"+u1.human.shipsArr);
-    	
+    	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
+
+
+        System.out.println(loadhitsHuman);
+        System.out.println(loadmissHuman);
+        System.out.println(loadhitsComputer);
+        System.out.println(loadmissComputer);
+
         try {
 
             // set title for the stage
