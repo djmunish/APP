@@ -64,6 +64,7 @@ public class Arena extends Application {
     ArrayList<String> miss = new ArrayList<String>();
 
 
+    SplitPane split_pane2;
     /**
      * Function to increment the timer.
      * @author harshkour
@@ -117,11 +118,12 @@ public class Arena extends Application {
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
 
-            // create split pane 2
-            SplitPane split_pane2 = new SplitPane();
+
+            if (!humanPlayer.playWithHuman) {
+                // create split pane 2
+            split_pane2 = new SplitPane();
             split_pane2.setPrefSize(500, 500);
             split_pane2.setOrientation(Orientation.VERTICAL);
-            if (!humanPlayer.playWithHuman) {
                 Label left = new Label(computer.name.toUpperCase());
                 left.setFont(new Font("Arial", 30));
                 left.setPrefHeight(50);
@@ -234,7 +236,7 @@ public class Arena extends Application {
                             	if(humanPlayer.playWithHuman){
                                     String s = "";
                                     while(it.hasNext()) {
-                                        s += it.next() + " ";
+                                        s += it.next() + ",";
 //                                        humanPlayer.updateDropdown(s, humanPlayer.inputs);
 //                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
 //                                        if(flag) {
@@ -244,7 +246,7 @@ public class Arena extends Application {
 //                                        }
                                     }
                                     System.out.println("send hits====" + s);
-//                                    Udp.sendMessage(humanPlayer.playerPort,s);
+                                    Udp.sendMessage(humanPlayer.playerPort,s);
                                 }else{
                     			while(it.hasNext()) {
                     				String s = it.next();
@@ -360,22 +362,46 @@ public class Arena extends Application {
                 				System.out.print("");
                 			} 
                 			if(selectedAddress!= null){
+
                 				System.out.println("Human Player hit is == " + selectedAddress);
                 				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
                 				inputComboBox.getItems().remove(selectedAddress);
                 				inputComboBox.setPromptText("Select Location");
-                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+//                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
                 				String message = "Wohoo!! Its a hit!!";
+//                				if (!flag) {
+//                					message = "Bohoo!! You missed it!!";
+//                					humanPlayer.misscount++;
+//                				}else {
+//                					humanPlayer.hitscount++;
+//                				}
+
+                				Udp.sendMessage(humanPlayer.playerPort,"H,"+ selectedAddress);
+
+                                if(!humanPlayer.playWithHuman) {
+
+                                    System.out.println("Human Player hit is == " + selectedAddress);
+                                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                                    inputComboBox.getItems().remove(selectedAddress);
+                                    inputComboBox.setPromptText("Select Location");
+                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                                    String message = "Wohoo!! Its a hit!!";
                 				if (!flag) {
                 					message = "Bohoo!! You missed it!!";
                 					humanPlayer.misscount++;
                 				}else {
                 					humanPlayer.hitscount++;
                 				}
+                                }
+                                else {
 
-                				Udp.sendMessage(humanPlayer.playerPort,selectedAddress);
-
-                				Constants.showAlert(message);
+                                    System.out.println("Human Player hit is == " + selectedAddress);
+                                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                                    inputComboBox.getItems().remove(selectedAddress);
+                                    inputComboBox.setPromptText("Select Location");
+                                    Udp.sendMessage(humanPlayer.playerPort, selectedAddress);
+                                }
+//                				Constants.showAlert(message);
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);
                              }
@@ -457,8 +483,9 @@ public class Arena extends Application {
 
 
             hbox.setSpacing(10);
-            hbox.getChildren().add(split_pane2);
-
+            if (!humanPlayer.playWithHuman) {
+                hbox.getChildren().add(split_pane2);
+            }
 
 
             // Creating scene

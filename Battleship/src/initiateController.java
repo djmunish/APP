@@ -74,6 +74,7 @@ public class initiateController extends Application {
                 humanPlayer.type = Player.playerType.HUMAN;
                 computer.name = "COMPUTER";
                 computer.type = Player.playerType.COMPUTER;
+                humanPlayer.playWithHuman = false;
 
                 computer.computerRandomShip();
                 for (Ships s : computer.shipsArr) {
@@ -170,9 +171,9 @@ public class initiateController extends Application {
                             humanPlayer.gamePlayType = false;
                         }
 
-                        humanPlayer.playerPort = 7777; //change port
+                        humanPlayer.playerPort = 8888; //change port
                         try {
-                            humanPlayer.createConnection(humanPlayer.playerPort);
+                            humanPlayer.createConnection(7777);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
