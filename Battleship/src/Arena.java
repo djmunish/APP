@@ -167,6 +167,7 @@ public class Arena extends Application {
                 left.setPrefHeight(50);
                 split_pane2.getItems().addAll(compRefGrid, compGrid, left);
             }
+            
             inputComboBox = new ComboBox();
             inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
@@ -550,6 +551,7 @@ public class Arena extends Application {
             System.out.println("y is:" + y);
             System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
             Button bActual = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
+            
     		if(flag) {
     				bActual.setStyle("-fx-background-color: Red");
         			//u1.sendMessage(humanPlayer.playerPort, "R,Y,"+msg.trim());
@@ -565,22 +567,40 @@ public class Arena extends Application {
     	
     	else if(check.equals("R")) {
        		msg = received.substring(2,3).trim();
+       		System.out.println(msg);
        		String msg1 = received.substring(4).trim();
     		String s1 = msg1.substring(0, 1);
             String s2 = msg1.substring(1);
+            System.out.println("s1 is:" + s1);
+            System.out.println("s2 is:" + s2);
             int x = Constants.mapInConstants.get(s1.trim());    //c
+            System.out.println("x is:" + x);
             int y = Integer.parseInt(s2.trim());    //r
+            System.out.println("y is:" + y);
             System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
             Button bActual = (Button) a1.getNodeFromGridPane(a1.compRefGrid, x + 1, y - 1);
+            System.out.println("here");
+           // Button bActual1 = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
+            Button bActual2 = (Button) a1.getNodeFromGridPane(a1.compGrid, x + 1, y - 1);
+            System.out.println("here1");
+            Button bActual3 = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
+            System.out.println("here2");
         	if(msg.equals("Y")) {
         		//Ships.colorButton(playerGrid, compRefGrid, msg, a1, humanPlayer);
         			String messageComp = "It is a hit";
         		//	Constants.showAlert(messageComp);
+        			System.out.println(messageComp);
     				bActual.setStyle("-fx-background-color: Red");
+    				bActual2.setStyle("-fx-background-color: Red");
+    				bActual3.setStyle("-fx-background-color: Red");
     				
                 } else {
+                	
                 	String messageComp = "It is a miss";
+                	System.out.println(messageComp);
                 	bActual.setStyle("-fx-background-color: Black;");
+                	bActual2.setStyle("-fx-background-color: Black;");
+                	bActual3.setStyle("-fx-background-color: Black;");
                 }
         		String m = "P";
         		return m;

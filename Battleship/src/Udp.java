@@ -76,8 +76,10 @@ public class Udp {
 						buffer = rep.getBytes();
 						DatagramPacket reply = new DatagramPacket(buffer, buffer.length, request.getAddress(),
 							request.getPort());
-						aSocket.send(reply);}
-				}
+						aSocket.send(reply);
+							
+						}
+				}//P
 			} catch (SocketException e) {
 				System.out.println("Socket: " + e.getMessage());
 			} catch (IOException e) {
@@ -106,6 +108,7 @@ public class Udp {
 				Received = new String(reply.getData()).trim();
 					System.out.println("Reply received from the server with port number " + serverPort + " to COMP server is: "
 								+ Received);
+					String rep = arena.postHit(Received);
 			} catch (SocketException e) {
 				System.out.println("Socket: " + e.getMessage());
 			} catch (IOException e) {
