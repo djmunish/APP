@@ -41,22 +41,27 @@ import javafx.scene.text.Text;
  */
 public class Arena extends Application {
 
-    Player humanPlayer;
-    Player computer;
-    long startTime;
-    long finishTime;
-    String selectedAddress;
+	static Player humanPlayer;
+    static Player computer;
+    static long startTime;
+    static long finishTime;
+    static String selectedAddress;
+    static GridPane playerRefGrid;
     public Button hitBtn;
     public ComboBox inputComboBox;  
-
-    int index = 0;
-    GridPane salvaGrid;
-    int salvaWindow = 5;
-    
-    private int seconds = 0;
-    private int minutes = 0;
-    private int hours = 0;
-    boolean timerstop = false;
+    static int index = 0;
+    static GridPane salvaGrid;
+    static GridPane compRefGrid;
+    static GridPane playerGrid;
+    static GridPane compGrid;
+    static int salvaWindow = 5;
+    static private int seconds = 0;
+    static private int minutes = 0;
+    static private int hours = 0;
+    static boolean timerstop = false;
+    static Arena a1;
+    static Stage stage1;
+    static Udp u1;
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     Saving save1 = new Saving();
     long elapsedtime = 0;
@@ -65,6 +70,9 @@ public class Arena extends Application {
 
 
     SplitPane split_pane2;
+    
+    
+    
     /**
      * Function to increment the timer.
      * @author harshkour
@@ -85,7 +93,11 @@ public class Arena extends Application {
     }
 
     public void start(Stage stage) { 
-
+    	stage1 = stage;
+    	a1 = Arena.this;
+    	u1.arena = a1;
+    	u1.human = humanPlayer;
+    	
         try {
 
             // set title for the stage
@@ -107,7 +119,7 @@ public class Arena extends Application {
             SplitPane split_pane1 = new SplitPane();
             split_pane1.setOrientation(Orientation.VERTICAL);
             split_pane1.setPrefSize(500, 500);
-            GridPane playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             GridPane playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             GridPane compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             GridPane compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
@@ -246,7 +258,7 @@ public class Arena extends Application {
 //                                        }
                                     }
                                     System.out.println("send hits====" + s);
-                                    Udp.sendMessage(humanPlayer.playerPort,s);
+                                    u1.sendMessage(humanPlayer.playerPort,s);
                                 }else{
                     			while(it.hasNext()) {
                     				String s = it.next();
@@ -325,25 +337,18 @@ public class Arena extends Application {
                             		} else if (option.get() == no) {
                             			Platform.exit();
                             		}
-
                             	}// if any player has won the game
                                  //No player won the game after the hits
                                 int shipcount  = computer.shipsArr.size(); //check if any ship of computer is down
                                 System.out.println("\n \n computer ship count is " + shipcount);
                                 if(shipcount < salvaWindow) {
                                 	salvaWindow = shipcount;
-                                	System.out.println("\n \n Window size updated to " + salvaWindow);
-                                	
+                                	System.out.println("\n \n Window size updated to " + salvaWindow);                   	
                                 	//update UI
-//
                                     salvaGrid = createGrid(1, salvaWindow, true);
-
                                     vbox.getChildren().remove(1);
                                     vbox.getChildren().add(1,salvaGrid);
-
-                                }
-                                
-                                
+                                }         
                             }//else
                         }
                     });
@@ -351,7 +356,6 @@ public class Arena extends Application {
             }
             else {
             	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
-
                 	@Override
                 	public void handle(ActionEvent event) {
                 		boolean flag3 = false;
@@ -362,36 +366,47 @@ public class Arena extends Application {
                 				System.out.print("");
                 			} 
                 			if(selectedAddress!= null){
-
                 				System.out.println("Human Player hit is == " + selectedAddress);
                 				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
                 				inputComboBox.getItems().remove(selectedAddress);
                 				inputComboBox.setPromptText("Select Location");
+                                if(!humanPlayer.playWithHuman) {        
+                                    boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                                    String message = "Wohoo!! Its a hit!!";
+                                    if (!flag) {
+                                    	message = "Bohoo!! You missed it!!";
+                                    	humanPlayer.misscount++;
+                                    }else {
+                                    	humanPlayer.hitscount++;
+                					}
+                                }else {                                 
+                                    u1.sendMessage(humanPlayer.playerPort, "H,"+ selectedAddress);
+
 //                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
-                				String message = "Wohoo!! Its a hit!!";
+ //               				String message = "Wohoo!! Its a hit!!";
 //                				if (!flag) {
 //                					message = "Bohoo!! You missed it!!";
 //                					humanPlayer.misscount++;
 //                				}else {
 //                					humanPlayer.hitscount++;
-//                				}
+                				}
 
-                				Udp.sendMessage(humanPlayer.playerPort,"H,"+ selectedAddress);
+                				//Udp.sendMessage(humanPlayer.playerPort,"H,"+ selectedAddress);
 
                                 if(!humanPlayer.playWithHuman) {
-
+                                	String message =null;
                                     System.out.println("Human Player hit is == " + selectedAddress);
                                     humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
                                     inputComboBox.getItems().remove(selectedAddress);
                                     inputComboBox.setPromptText("Select Location");
-                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
-                				   message = "Wohoo!! Its a hit!!";
-                				if (!flag) {
-                					message = "Bohoo!! You missed it!!";
+                                    boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                				    message = "Wohoo!! Its a hit!!";
+                				    if (!flag) {
+                					   message = "Bohoo!! You missed it!!";
                 					humanPlayer.misscount++;
-                				}else {
-                					humanPlayer.hitscount++;
-                				}
+                				    }else {
+                				    	humanPlayer.hitscount++;
+                				    }
                                 }
                                 else {
 
@@ -401,12 +416,11 @@ public class Arena extends Application {
                                     inputComboBox.setPromptText("Select Location");
                                     Udp.sendMessage(humanPlayer.playerPort, selectedAddress);
                                 }
-//                				Constants.showAlert(message);
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);
                              }
-                		//}//else gamePlayType
-
+                			
+                			
                     	boolean flag2 = checkWinner(computer, humanPlayer);
                     	if (!flag2) {
                     			String s = computer.randomhitcompai(humanPlayer, 0, 0);
@@ -475,6 +489,12 @@ public class Arena extends Application {
                     }
                 });
             }
+            
+            
+            
+            
+            
+            
             vbox.setSpacing(10);
             hbox.getChildren().add(vbox);
             hbox.getChildren().add(hitBtn);
@@ -486,7 +506,6 @@ public class Arena extends Application {
             if (!humanPlayer.playWithHuman) {
                 hbox.getChildren().add(split_pane2);
             }
-
 
             // Creating scene
             Scene scene = new Scene(new Group(hbox), 1000, 800);
@@ -520,6 +539,67 @@ public class Arena extends Application {
             System.out.println(e.getMessage());
         }
     }
+    
+    
+    public static void postHit() {	
+    	boolean flag3 = false;
+    	boolean flag2 = checkWinner(computer, humanPlayer);
+    	if (!flag2) {
+    			String s = computer.randomhitcompai(humanPlayer, 0, 0);
+    			System.out.println("computerhit is == " + s);
+    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, a1, humanPlayer);
+    			String messageComp;
+    			if (flag1) {
+    				messageComp = "It was a hit by Computer at " + s;
+    			} else {
+    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+    			}
+    			Constants.showAlert(messageComp);
+    		//}//else
+
+    		flag3 = checkWinner(humanPlayer, computer);
+    		if(flag3) {
+    			timerstop = true;
+    			finishTime = System.currentTimeMillis();
+        		long elapsedtime = finishTime - startTime;
+        		String score  = calcScore(elapsedtime, humanPlayer);
+    			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
+    	}else {
+    		finishTime = System.currentTimeMillis();
+    		long elapsedtime = finishTime - startTime;
+    		String score  = calcScore(elapsedtime, humanPlayer);
+    		timerstop = true;
+    		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+    	}
+
+    	if (flag2 || flag3) { 		
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+    		alert.setTitle("Select");
+    		alert.setHeaderText("Do you wish to continue?");
+    		ButtonType yes = new ButtonType("Yes");
+    		ButtonType no = new ButtonType("No");
+
+        // Remove default ButtonTypes
+    		alert.getButtonTypes().clear();
+    		alert.getButtonTypes().addAll(yes, no);
+    		Optional<ButtonType> option = alert.showAndWait();
+
+    		if (option.get() == yes) {
+    			initiateController fx2 = new initiateController();
+    			try {
+    				fx2.start(stage1);
+    			} catch (FileNotFoundException e) {
+    				e.printStackTrace();
+    			}
+    		} else if (option.get() == no) {
+    			Platform.exit();
+    		}
+
+    	}
+    }
+    	
+    
+    
     
     /**
      * Function to fetch each node from the grid.
@@ -792,7 +872,7 @@ public class Arena extends Application {
      * @param p2 Player who did hit.
      * @return true if there is a winner of the game i.e. all ships are down else return false.
      */
-    public boolean checkWinner(Player p1, Player p2) { 
+    public static boolean checkWinner(Player p1, Player p2) { 
         System.out.println("Ships array size is " + p1.shipsArr.size());
         System.out.println("Ships array is " + p1.shipsArr);
         if (p1.shipsArr.size() == 0) {
@@ -808,7 +888,7 @@ public class Arena extends Application {
      * @param human human player object
      * @return the calculated score in the form of a String.
      */
-    public String calcScore(long elapsedtime, Player human) {
+    public static String calcScore(long elapsedtime, Player human) {
     	System.out.println("elapsed time: " + elapsedtime);
     	double minutes = (double)elapsedtime/60000; 
     	System.out.println("Time taken by player is " + Double.toString(minutes)); 

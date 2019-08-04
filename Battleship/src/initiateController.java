@@ -32,6 +32,7 @@ public class initiateController extends Application {
 
     Player humanPlayer;
     Player computer;
+    Udp u1 = new Udp();
 
     public static void main(String[] args) {
         launch(args);
@@ -152,13 +153,16 @@ public class initiateController extends Application {
 
                         humanPlayer.playerPort = 8888; //change port
                         try {
-                            humanPlayer.createConnection(7777);
+                           // humanPlayer.createConnection(7777);
+                        	u1.startServer(7777);
+                        	
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
                         shipSetupController fx2 = new shipSetupController();
                         fx2.humanPlayer = humanPlayer;
+                        fx2.u1 = u1;
 
                         try {
                             fx2.start(primaryStage);
