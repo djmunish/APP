@@ -4,8 +4,6 @@
     <list default="true" id="efa51545-cdcc-4bdd-970d-d5875ecec50e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Battleship/src/Arena.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Arena.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Battleship/src/Udp.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/Udp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Battleship/src/initiateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Battleship/src/initiateController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1564864758820</updated>
       <workItem from="1564864761548" duration="7419000" />
-      <workItem from="1564875336804" duration="780000" />
+      <workItem from="1564875336804" duration="2526000" />
     </task>
     <servers />
   </component>
@@ -89,6 +87,22 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Battleship/src/Arena.java</url>
+          <line>368</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Battleship/src/Arena.java</url>
+          <line>345</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>

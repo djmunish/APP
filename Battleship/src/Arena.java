@@ -344,21 +344,30 @@ public class Arena extends Application {
                 				System.out.print("");
                 			} 
                 			if(selectedAddress!= null){
-                				System.out.println("Human Player hit is == " + selectedAddress);
-                				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
-                				inputComboBox.getItems().remove(selectedAddress);
-                				inputComboBox.setPromptText("Select Location");
-//                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
-                				String message = "Wohoo!! Its a hit!!";
-//                				if (!flag) {
-//                					message = "Bohoo!! You missed it!!";
-//                					humanPlayer.misscount++;
-//                				}else {
-//                					humanPlayer.hitscount++;
-//                				}
 
-                				Udp.sendMessage(humanPlayer.playerPort,selectedAddress);
+                                if(!humanPlayer.playWithHuman) {
 
+                                    System.out.println("Human Player hit is == " + selectedAddress);
+                                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                                    inputComboBox.getItems().remove(selectedAddress);
+                                    inputComboBox.setPromptText("Select Location");
+                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                                    String message = "Wohoo!! Its a hit!!";
+                				if (!flag) {
+                					message = "Bohoo!! You missed it!!";
+                					humanPlayer.misscount++;
+                				}else {
+                					humanPlayer.hitscount++;
+                				}
+                                }
+                                else {
+
+                                    System.out.println("Human Player hit is == " + selectedAddress);
+                                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                                    inputComboBox.getItems().remove(selectedAddress);
+                                    inputComboBox.setPromptText("Select Location");
+                                    Udp.sendMessage(humanPlayer.playerPort, selectedAddress);
+                                }
 //                				Constants.showAlert(message);
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);
