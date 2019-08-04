@@ -29,16 +29,16 @@ public class Saving {
         System.out.println("Player time:"+elapsedtime);
         File file;
         Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-        System.out.println("Current relative path is: " + s);
+        String sPath = currentRelativePath.toAbsolutePath().toString();
+        System.out.println("Current relative path is: " + sPath);
 
         if(humanPlayer.type == Player.playerType.HUMAN){
-            new File(s+"/gameData").mkdirs();
-            file = new File(s+"/gameData/human.txt");
+            new File(sPath+"/gameData").mkdirs();
+            file = new File(sPath+"/gameData/human.txt");
         }
         else {
-            new File(s+"/gameData").mkdirs();
-            file = new File(s+"/gameData/computer.txt");
+            new File(sPath+"/gameData").mkdirs();
+            file = new File(sPath+"/gameData/computer.txt");
         }
 
 
