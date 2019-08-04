@@ -137,8 +137,11 @@ public class Arena extends Application {
             split_pane1.setPrefSize(500, 500);
             playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
-            updateGridFromLoad(playerGrid,hitsHuman,true);
-            updateGridFromLoad(playerGrid,missHuman,false);
+            updateGridFromLoad(playerGrid,loadhitsComputer,true);
+            updateGridFromLoad(playerGrid,loadmissComputer,false);
+
+            updateGridFromLoad(playerRefGrid,loadhitsHuman,true);
+            updateGridFromLoad(playerRefGrid,loadmissHuman,false);
 
             GridPane compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             GridPane compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
@@ -1010,7 +1013,7 @@ public class Arena extends Application {
 
     }
 
-    public boolean updateGridFromLoad(GridPane grid, ArrayList<String> data, Boolean isHit) {
+    public void updateGridFromLoad(GridPane grid, ArrayList<String> data, Boolean isHit) {
 
         for(String d:data){
             String s1 = d.substring(0, 1);
@@ -1024,11 +1027,9 @@ public class Arena extends Application {
             if (isHit) {
                 bActual.setStyle("-fx-background-color: Red");
                 bReference.setStyle("-fx-background-color: Red");
-                return true;
             } else {
                 bActual.setStyle("-fx-background-color: Black;");
                 bReference.setStyle("-fx-background-color: Black");
-                return false;
             }
         }
 
