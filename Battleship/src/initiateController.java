@@ -80,9 +80,9 @@ public class initiateController extends Application {
                 computer.type = Player.playerType.COMPUTER;
                 humanPlayer.playWithHuman = false;
 
-                File f = new File("/Path/To/File/or/Directory"); //Change Path
+                File f = new File("G:\\SOEN 6441\\APP\\Battleship\\SavedFile.txt");
 
-                if (f.exists() && f.isDirectory()) {
+                if (f.exists()) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Select");
                     alert.setHeaderText(Constants.load_Alert);
