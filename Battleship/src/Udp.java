@@ -11,6 +11,11 @@ import java.net.SocketException;
 public class Udp {
 	
 	static String Received = null;
+	public static Arena arena;
+	public static Player human;
+	
+	
+	
 
 	public static void startServer(int port) throws SecurityException, IOException {
 		try {
@@ -41,12 +46,18 @@ public class Udp {
 					String Receive = Received.substring(0, 1);
 					if(Receive.equals("H")) {
 						System.out.println("Hit received is " + Receive.substring(1));
+						flag = Ships.checkhit(Receive.substring(1), human);
+						if(flag) {
+							rep = "R,Y";
+						}else {
+							rep = "R,N";
+						}
+						//arena.postHit();
 					}else if(Receive.equals("S")) {
 						System.out.println("Salva Hit received is " + Receive.substring(1));
 					}else if(Receive.equals("R")) {
 						System.out.println("Response received is " + Receive.substring(1));
 					}
-					rep = "Hello 2";
 					buffer = rep.getBytes();
 					DatagramPacket reply = new DatagramPacket(buffer, buffer.length, request.getAddress(),
 							request.getPort());
@@ -59,11 +70,8 @@ public class Udp {
 			} finally {
 				if (aSocket != null)
 					aSocket.close();
-			}
-		 
-
-		 
-	 }
+			} 
+	 	}
 	 
 	   public static void sendMessage(int serverPort, String Sem) {
 			DatagramSocket aSocket = null;

@@ -25,6 +25,7 @@ public class shipSetupController extends Application {
 	static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
 	static String shipnumname = null;
 	public ImageView[] ships;
+	public Udp u1;
 
 	boolean isvertical1 = false;
 	Player humanPlayer;
@@ -251,7 +252,9 @@ public class shipSetupController extends Application {
 				System.out.println("arena=====" + a1);
 				a1.humanPlayer = humanPlayer;
 				if(!humanPlayer.playWithHuman)
-				{a1.computer = computer;}
+				{a1.computer = computer;}else {
+					a1.u1 = u1;
+				}
 				a1.startTime = System.currentTimeMillis();
 				a1.start(primaryStage);
 			}

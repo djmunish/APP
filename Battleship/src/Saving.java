@@ -28,13 +28,19 @@ public class Saving {
         System.out.println("Player miss:"+miss);
         System.out.println("Player time:"+elapsedtime);
         File file;
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        System.out.println("Current relative path is: " + s);
 
         if(humanPlayer.type == Player.playerType.HUMAN){
-            file = new File("G:\\SOEN 6441\\APP\\Battleship\\Saved_Human.txt");
+            new File(s+"/gameData").mkdirs();
+            file = new File(s+"/gameData/human.txt");
         }
         else {
-            file = new File("G:\\SOEN 6441\\APP\\Battleship\\Saved_Computer.txt");
+            new File(s+"/gameData").mkdirs();
+            file = new File(s+"/gameData/computer.txt");
         }
+
 
 
         if (file.exists())
