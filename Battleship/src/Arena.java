@@ -137,11 +137,7 @@ public class Arena extends Application {
             split_pane1.setPrefSize(500, 500);
             playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
-            updateGridFromLoad(playerGrid,hitsComputer,true);
-            updateGridFromLoad(playerGrid,missComputer,false);
 
-            updateGridFromLoad(playerRefGrid,hitsHuman,true);
-            updateGridFromLoad(playerRefGrid,missHuman,false);
 
             compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
@@ -151,11 +147,7 @@ public class Arena extends Application {
             text.setTranslateX(-130);
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
-            updateGridFromLoad(compGrid,hitsHuman,true);
-            updateGridFromLoad(compGrid,missHuman,false);
 
-            updateGridFromLoad(compRefGrid,hitsComputer,true);
-            updateGridFromLoad(compRefGrid,missComputer,false);
 
             if (!humanPlayer.playWithHuman) {
                 // create split pane 2
@@ -530,6 +522,19 @@ public class Arena extends Application {
                     Platform.exit();
                 }
             });
+
+
+
+            updateGridFromLoad(playerGrid,hitsComputer,true);
+            updateGridFromLoad(playerGrid,missComputer,false);
+
+            updateGridFromLoad(playerRefGrid,hitsHuman,true);
+            updateGridFromLoad(playerRefGrid,missHuman,false);
+            updateGridFromLoad(compGrid,hitsHuman,true);
+            updateGridFromLoad(compGrid,missHuman,false);
+
+            updateGridFromLoad(compRefGrid,hitsComputer,true);
+            updateGridFromLoad(compRefGrid,missComputer,false);
             stage.show();
 
         } catch (Exception e) {
@@ -1000,14 +1005,14 @@ public class Arena extends Application {
                 int y = Integer.parseInt(s2);    //r
                 Button bActual = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
                 Button bReference = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
+            if (isHit) {
+                bActual.setStyle("-fx-background-color: Red");
+                bReference.setStyle("-fx-background-color: Red");
+            } else {
+                bActual.setStyle("-fx-background-color: Black;");
+                bReference.setStyle("-fx-background-color: Black");
+            }
 
-                if (isHit) {
-                    bActual.setStyle("-fx-background-color: Red");
-                    bReference.setStyle("-fx-background-color: Red");
-                } else {
-                    bActual.setStyle("-fx-background-color: Black;");
-                    bReference.setStyle("-fx-background-color: Black");
-                }
             }
         }
 
