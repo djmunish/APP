@@ -153,10 +153,10 @@ public class initiateController extends Application {
                             humanPlayer.gamePlayType = false;
                         }
 
-                        humanPlayer.playerPort = 7777; //change port
+                        humanPlayer.playerPort = 8888; //change port
                         try {
                            // humanPlayer.createConnection(7777);
-                        	u1.startServer(8888);
+                        	u1.startServer(7777);
                         	
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -286,24 +286,24 @@ public class initiateController extends Application {
                     String hits = humanData[3].substring(1,humanData[3].length()-1);
 
                     for (String d : hits.split(",")) {
-                        fx2.loadhitsHuman.add(d.trim());
+                        //fx2.loadhitsHuman.add(d.trim());
                     }
 
                     String miss = humanData[4].substring(1,humanData[4].length()-1);
                     for (String d : miss.split(",")) {
-                        fx2.loadmissHuman.add(d.trim());
+                        //fx2.loadmissHuman.add(d.trim());
                     }
 
 
                     String Chits = compData[3].substring(1,compData[3].length()-1);
 
                     for (String d : Chits.split(",")) {
-                        fx2.loadhitsComputer.add(d.trim());
+                        //fx2.loadhitsComputer.add(d.trim());
                     }
 
                     String Cmiss = compData[4].substring(1,compData[4].length()-1);
                     for (String d : Cmiss.split(",")) {
-                        fx2.loadmissComputer.add(d.trim());
+                       // fx2.loadmissComputer.add(d.trim());
                     }
 
 

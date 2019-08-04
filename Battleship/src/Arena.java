@@ -527,11 +527,11 @@ public class Arena extends Application {
     	String check = received.substring(0, 1);
 		String msg = received.substring(2);
 		System.out.println("msg is:" + msg);
-		 for (Ships s : a1.humanPlayer.shipsArr) {
+		 for (Ships s : humanPlayer.shipsArr) {
 			 System.out.println(s.coordinates);
 		 }
     	if(check.equals("H")) {
-    		boolean flag = Ships.checkhit(msg, a1.humanPlayer);
+    		boolean flag = Ships.checkhit(msg, humanPlayer);
     		System.out.println("FLAG is:" + flag);
     		String s1 = msg.substring(0, 1);
             String s2 = msg.substring(1);
