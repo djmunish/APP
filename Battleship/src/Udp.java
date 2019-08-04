@@ -32,12 +32,13 @@ public class Udp {
 	 private synchronized static void receive(int port) {
 		 MulticastSocket  aSocket = null;
 		 try {
-								
+			 	String	rep = null;	
+			 	boolean flag1 = false;
 				aSocket = new MulticastSocket (port);
 				aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
 				System.out.println("Server " + port + " Started............");
 				while (true) {
-					String	rep = null;
+					
 					byte[] buffer = new byte[10000];
 					DatagramPacket request = new DatagramPacket(buffer, buffer.length);
 					aSocket.receive(request);
@@ -54,7 +55,7 @@ public class Udp {
 						 for (Ships s : human.shipsArr) {
 							 System.out.println(s.coordinates);
 						 }
-						boolean flag1 = Ships.checkhit(msg, human);
+						flag1 = Ships.checkhit(msg, human);
 						System.out.println("FALG :-"+flag1);
 						if(flag1) {
 							 rep = "R,Y";
