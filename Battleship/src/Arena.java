@@ -143,8 +143,8 @@ public class Arena extends Application {
             updateGridFromLoad(playerRefGrid,loadhitsHuman,true);
             updateGridFromLoad(playerRefGrid,loadmissHuman,false);
 
-            GridPane compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
-            GridPane compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
+            compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             split_pane1.getItems().addAll(playerRefGrid, playerGrid, right);
             text.resize(150, 40);
             text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -534,7 +534,7 @@ public class Arena extends Application {
 			 System.out.println(s.coordinates);
 		 }
     	if(check.equals("H")) {
-    		boolean flag = Ships.checkhit(msg, humanPlayer);
+    		boolean flag = Ships.checkhit(msg.trim(), humanPlayer);
     		System.out.println("FLAG is:" + flag);
     		String s1 = msg.substring(0, 1);
             String s2 = msg.substring(1);
