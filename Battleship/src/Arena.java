@@ -399,8 +399,11 @@ public class Arena extends Application {
                                     if (!flag) {
                                     	message = "Bohoo!! You missed it!!";
                                     	humanPlayer.misscount++;
+                                    	missHuman.add(selectedAddress);
+
                                     }else {
                                     	humanPlayer.hitscount++;
+                                    	hitsHuman.add(selectedAddress);
                 					}
                                     Constants.showAlert(message);
                                     
