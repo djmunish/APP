@@ -48,7 +48,7 @@ public class Udp {
 					
 					//String check = Received.substring(0, 1);
 					//String msg = Received.substring(2);
-					arena.postHit(Received);
+					rep = arena.postHit(Received);
 					/*if(check.equals("H")) {
 						System.out.println("Hit received is " + msg);
 						System.out.println("Human ships in Udp" + human.shipsArr);
@@ -70,10 +70,13 @@ public class Udp {
 					}else if(check.equals("R")) {
 						System.out.println("Response received is " + msg);
 					}*/
-					//buffer = rep.getBytes();
-					//DatagramPacket reply = new DatagramPacket(buffer, buffer.length, request.getAddress(),
-						//	request.getPort());
-					//aSocket.send(reply);
+					if(rep.equals("P")) {
+						
+					}else {
+						buffer = rep.getBytes();
+						DatagramPacket reply = new DatagramPacket(buffer, buffer.length, request.getAddress(),
+							request.getPort());
+						aSocket.send(reply);}
 				}
 			} catch (SocketException e) {
 				System.out.println("Socket: " + e.getMessage());
