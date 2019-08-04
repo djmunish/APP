@@ -582,8 +582,11 @@ public class Arena extends Application {
     	String check = received.substring(0, 1);
 		String msg = received.substring(2);
 		System.out.println("msg is:" + msg);
+		 for (Ships s : a1.humanPlayer.shipsArr) {
+			 System.out.println(s.coordinates);
+		 }
     	if(check.equals("H")) {
-    		boolean flag = Ships.checkhit(msg, humanPlayer);
+    		boolean flag = Ships.checkhit(msg, a1.humanPlayer);
     		String s1 = msg.substring(0, 1);
             String s2 = msg.substring(1);
             System.out.println("s1 is:" + s1);
@@ -615,7 +618,7 @@ public class Arena extends Application {
             int x = Constants.mapInConstants.get(s1.trim());    //c
             int y = Integer.parseInt(s2.trim());    //r
             System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
-            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
+            Button bActual = (Button) a1.getNodeFromGridPane(Arena.playerRefGrid, x + 1, y - 1);
         	if(msg.equals("Y")) {
         		//Ships.colorButton(playerGrid, compRefGrid, msg, a1, humanPlayer);
         			String messageComp = "It is a hit";
