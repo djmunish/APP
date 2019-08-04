@@ -257,9 +257,7 @@ public class initiateController extends Application {
                     }
                 }
 
-                for (Ships s:humanPlayer.shipsArr){
-                    System.out.println(s.coordinates);
-                }
+
 
                 String h_inputs = humanData[2].substring(1,humanData[2].length()-1);
 
@@ -279,8 +277,10 @@ public class initiateController extends Application {
                     }
                 }
 
-                for (Ships s:computer.shipsArr){
-                    System.out.println(s.coordinates);
+                String c_inputs = compData[2].substring(1,compData[2].length()-1);
+                computer.inputs.clear();
+                for (String d : c_inputs.split(",")) {
+                    computer.inputs.add(d.trim());
                 }
 
 

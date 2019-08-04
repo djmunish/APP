@@ -149,7 +149,6 @@ public class Arena extends Application {
             inputComboBox.setPromptText("Select Location");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             inputComboBox.setStyle("-fx-border-color: #000000 ; -fx-background-color: #CD853F;");
-            System.out.println(humanPlayer.inputs);
             inputComboBox.getItems().addAll(
                     humanPlayer.inputs
             );
