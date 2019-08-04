@@ -153,10 +153,10 @@ public class initiateController extends Application {
                             humanPlayer.gamePlayType = false;
                         }
 
-                        humanPlayer.playerPort = 8888; //change port
+                        humanPlayer.playerPort = 7777; //change port
                         try {
                            // humanPlayer.createConnection(7777);
-                        	u1.startServer(7777);
+                        	u1.startServer(8888);
                         	
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -232,6 +232,91 @@ public class initiateController extends Application {
 
                     // Always close files.
                     bufferedReader.close();
+
+                    for (String d : humanData) {
+                        System.out.println(d);
+                    }
+
+                    humanPlayer.name = humanData[0];
+                    computer.name = compData[0];
+                    String[] ships = humanData[1].split("-");
+                    for (String d : ships) {
+                        if(!d.equals("")) {
+                            String ships_Val = d.substring(1, d.length() - 1);
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                            humanPlayer.shipsArr.add(loadShip);
+                        }
+                    }
+
+
+
+                    String h_inputs = humanData[2].substring(1,humanData[2].length()-1);
+
+                    humanPlayer.inputs.clear();
+                    for (String d : h_inputs.split(",")) {
+                        humanPlayer.inputs.add(d.trim());
+                    }
+
+
+
+
+
+
+                    String[] cships = compData[1].split("-");
+                    for (String d : cships) {
+                        if(!d.equals("")) {
+                            String ships_Val = d.substring(1, d.length() - 1);
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                            computer.shipsArr.add(loadShip);
+                        }
+                    }
+
+                    String c_inputs = compData[2].substring(1,compData[2].length()-1);
+                    computer.inputs.clear();
+                    for (String d : c_inputs.split(",")) {
+                        computer.inputs.add(d.trim());
+                    }
+
+
+                    Arena fx2 = new Arena();
+                    fx2.humanPlayer = humanPlayer;
+                    fx2.computer = computer;
+
+
+                    String hits = humanData[3].substring(1,humanData[3].length()-1);
+
+                    for (String d : hits.split(",")) {
+                        fx2.loadhitsHuman.add(d.trim());
+                    }
+
+                    String miss = humanData[4].substring(1,humanData[4].length()-1);
+                    for (String d : miss.split(",")) {
+                        fx2.loadmissHuman.add(d.trim());
+                    }
+
+
+                    String Chits = compData[3].substring(1,compData[3].length()-1);
+
+                    for (String d : Chits.split(",")) {
+                        fx2.loadhitsComputer.add(d.trim());
+                    }
+
+                    String Cmiss = compData[4].substring(1,compData[4].length()-1);
+                    for (String d : Cmiss.split(",")) {
+                        fx2.loadmissComputer.add(d.trim());
+                    }
+
+
+
+                    try {
+                        fx2.start(primaryStage);
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
+
+
+
                 } catch (FileNotFoundException ex) {
                     System.out.println(
                             "Unable to open file '");
@@ -242,60 +327,11 @@ public class initiateController extends Application {
                     // ex.printStackTrace();
                 }
 
-                for (String d : humanData) {
-                    System.out.println(d);
-                }
 
-                humanPlayer.name = humanData[0];
-                computer.name = compData[0];
-                String[] ships = humanData[1].split("-");
-                for (String d : ships) {
-                    if(!d.equals("")) {
-                        String ships_Val = d.substring(1, d.length() - 1);
-                        Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
-                        humanPlayer.shipsArr.add(loadShip);
-                    }
-                }
-
-                for (Ships s:humanPlayer.shipsArr){
-                    System.out.println(s.coordinates);
-                }
-
-                String h_inputs = humanData[2].substring(1,humanData[2].length()-1);
-
-                humanPlayer.inputs.clear();
-                for (String d : h_inputs.split(",")) {
-                    humanPlayer.inputs.add(d.trim());
-                }
-
-
-
-                String[] cships = compData[1].split("-");
-                for (String d : cships) {
-                    if(!d.equals("")) {
-                        String ships_Val = d.substring(1, d.length() - 1);
-                        Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
-                        computer.shipsArr.add(loadShip);
-                    }
-                }
-
-                for (Ships s:computer.shipsArr){
-                    System.out.println(s.coordinates);
-                }
-
-
-                Arena fx2 = new Arena();
-                fx2.humanPlayer = humanPlayer;
-                fx2.computer = computer;
-
-                try {
-                    fx2.start(primaryStage);
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
 
             }
         }
+
         public void startNewGame(Stage primaryStage){
         computer.computerRandomShip();
 //                for (Ships s : computer.shipsArr) {
