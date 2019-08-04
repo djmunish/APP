@@ -96,6 +96,7 @@ public class Ships {
         boolean flag = false;
         for (Ships s : p.shipsArr) {
             ArrayList<String> got = s.coordinates;
+            System.out.println("iN HIT" + s.coordinates);
             for (int i = 0; i < got.size(); i++) {
                 flag = got.get(i).contains(checkcordinate);
                 if (flag) {
