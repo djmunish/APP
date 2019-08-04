@@ -6,7 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -26,11 +25,9 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
-import java.time.Duration;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
@@ -66,6 +63,12 @@ public class Arena extends Application {
     static Stage stage1;
     static Udp u1;
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
+    Saving save1 = new Saving();
+    long elapsedtime = 0;
+    ArrayList<String> hits = new ArrayList<String>();
+    ArrayList<String> miss = new ArrayList<String>();
+
+
     SplitPane split_pane2;
     
     
@@ -262,8 +265,10 @@ public class Arena extends Application {
                     				humanPlayer.updateDropdown(s, humanPlayer.inputs);
                     				boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
                     				if(flag) {
+                    				    hits.add(s);
                     					humanPlayer.hitscount++;
                     				}else {
+                    				    miss.add(s);
                     					humanPlayer.misscount++;
                     				}
                     			} }
@@ -278,9 +283,16 @@ public class Arena extends Application {
                             			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
+
+//                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
-                                			finishTime = System.currentTimeMillis();
-                                    		long elapsedtime = finishTime - startTime;
+                                            try {
+                                                Saving.printfc(humanPlayer,elapsedtime,hits,miss);
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                            finishTime = System.currentTimeMillis();
+                                            elapsedtime = finishTime - startTime;
                                     		String score  = calcScore(elapsedtime, humanPlayer);
                                 			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);
                                 			break;
@@ -290,10 +302,16 @@ public class Arena extends Application {
                                 }//not flag2
                                 else { //Human Player won the game!
                             		finishTime = System.currentTimeMillis();
-                            		long elapsedtime = finishTime - startTime;
+                            		elapsedtime = finishTime - startTime;
                             		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
                             		String score  = calcScore(elapsedtime, humanPlayer);
+//                                    save1.humanPlayer = humanPlayer;
                             		timerstop = true;
+                                    try {
+                                        Saving.printfc(humanPlayer, elapsedtime, hits, miss);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
                                 
@@ -362,7 +380,41 @@ public class Arena extends Application {
                                     	humanPlayer.hitscount++;
                 					}
                                 }else {                                 
-                                    u1.sendMessage(humanPlayer.playerPort, selectedAddress);
+                                    u1.sendMessage(humanPlayer.playerPort, "H,"+ selectedAddress);
+
+//                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+ //               				String message = "Wohoo!! Its a hit!!";
+//                				if (!flag) {
+//                					message = "Bohoo!! You missed it!!";
+//                					humanPlayer.misscount++;
+//                				}else {
+//                					humanPlayer.hitscount++;
+                				}
+
+                				//Udp.sendMessage(humanPlayer.playerPort,"H,"+ selectedAddress);
+
+                                if(!humanPlayer.playWithHuman) {
+                                	String message =null;
+                                    System.out.println("Human Player hit is == " + selectedAddress);
+                                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                                    inputComboBox.getItems().remove(selectedAddress);
+                                    inputComboBox.setPromptText("Select Location");
+                                    boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                				    message = "Wohoo!! Its a hit!!";
+                				    if (!flag) {
+                					   message = "Bohoo!! You missed it!!";
+                					humanPlayer.misscount++;
+                				    }else {
+                				    	humanPlayer.hitscount++;
+                				    }
+                                }
+                                else {
+
+                                    System.out.println("Human Player hit is == " + selectedAddress);
+                                    humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                                    inputComboBox.getItems().remove(selectedAddress);
+                                    inputComboBox.setPromptText("Select Location");
+                                    Udp.sendMessage(humanPlayer.playerPort, selectedAddress);
                                 }
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);
@@ -385,23 +437,35 @@ public class Arena extends Application {
 
                     		flag3 = checkWinner(humanPlayer, computer);
                     		if(flag3) {
+//                                save1.humanPlayer = humanPlayer;
                     			timerstop = true;
+                                try {
+                                    Saving.printfc(humanPlayer, elapsedtime, hits, miss);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                     			finishTime = System.currentTimeMillis();
-                        		long elapsedtime = finishTime - startTime;
+                        		elapsedtime = finishTime - startTime;
                         		String score  = calcScore(elapsedtime, humanPlayer);
                     			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                     	}else {
                     		finishTime = System.currentTimeMillis();
-                    		long elapsedtime = finishTime - startTime;
+                    		elapsedtime = finishTime - startTime;
                     		String score  = calcScore(elapsedtime, humanPlayer);
+//                            save1.humanPlayer = humanPlayer;
                     		timerstop = true;
+                            try {
+                                Saving.printfc(humanPlayer, elapsedtime, hits, miss);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                     		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                     	}
 
                     	if (flag2 || flag3) { 		
                     		Alert alert = new Alert(AlertType.CONFIRMATION);
                     		alert.setTitle("Select");
-                    		alert.setHeaderText("Do you wish to continue?");
+                    		alert.setHeaderText(Constants.continue_Alert);
                     		ButtonType yes = new ButtonType("Yes");
                     		ButtonType no = new ButtonType("No");
 
@@ -450,7 +514,24 @@ public class Arena extends Application {
             stage.setWidth(1000);
             stage.setHeight(800);
 
+            stage.setOnCloseRequest(e2 -> {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Select");
+                alert.setHeaderText(Constants.save_Alert);
+                ButtonType yes = new ButtonType("Yes");
+                ButtonType no = new ButtonType("No");
 
+                // Remove default ButtonTypes
+                alert.getButtonTypes().clear();
+                alert.getButtonTypes().addAll(yes, no);
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get() == yes) {
+                //call saving
+                } else if (option.get() == no) {
+                    Platform.exit();
+                }
+            });
             stage.show();
 
         } catch (Exception e) {
