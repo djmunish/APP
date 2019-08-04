@@ -233,7 +233,7 @@ public class Arena extends Application {
                             	if(humanPlayer.playWithHuman){
                                     String s = "";
                                     while(it.hasNext()) {
-                                        s += it.next() + " ";
+                                        s += it.next() + ",";
 //                                        humanPlayer.updateDropdown(s, humanPlayer.inputs);
 //                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
 //                                        if(flag) {
@@ -344,6 +344,21 @@ public class Arena extends Application {
                 				System.out.print("");
                 			} 
                 			if(selectedAddress!= null){
+
+                				System.out.println("Human Player hit is == " + selectedAddress);
+                				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
+                				inputComboBox.getItems().remove(selectedAddress);
+                				inputComboBox.setPromptText("Select Location");
+//                				boolean flag = Ships.colorButton(playerRefGrid, compGrid, selectedAddress, Arena.this, computer);
+                				String message = "Wohoo!! Its a hit!!";
+//                				if (!flag) {
+//                					message = "Bohoo!! You missed it!!";
+//                					humanPlayer.misscount++;
+//                				}else {
+//                					humanPlayer.hitscount++;
+//                				}
+
+                				Udp.sendMessage(humanPlayer.playerPort,"H,"+ selectedAddress);
 
                                 if(!humanPlayer.playWithHuman) {
 
