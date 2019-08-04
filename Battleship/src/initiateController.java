@@ -243,11 +243,10 @@ public class initiateController extends Application {
                     for (String d : ships) {
                         if(!d.equals("")) {
                             String ships_Val = d.substring(1, d.length() - 1);
-                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 3).trim());
                             humanPlayer.shipsArr.add(loadShip);
                         }
                     }
-
 
 
                     String h_inputs = humanData[2].substring(1,humanData[2].length()-1);
@@ -259,14 +258,14 @@ public class initiateController extends Application {
 
 
 
-
-
-
                     String[] cships = compData[1].split("-");
                     for (String d : cships) {
                         if(!d.equals("")) {
                             String ships_Val = d.substring(1, d.length() - 1);
-                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                            System.out.println("comp1===="+ships_Val.substring(0, 2));
+                            System.out.println("comp2===="+ships_Val.substring(ships_Val.length() - 3));
+
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 3).trim());
                             computer.shipsArr.add(loadShip);
                         }
                     }
@@ -287,7 +286,7 @@ public class initiateController extends Application {
 
                     for (String d : hits.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadhitsHuman.add(d.trim());
+                            fx2.hitsHuman.add(d.trim());
                         }
 
                     }
@@ -295,9 +294,8 @@ public class initiateController extends Application {
                     String miss = humanData[4].substring(1,humanData[4].length()-1);
                     for (String d : miss.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadmissHuman.add(d.trim());
+                            fx2.missHuman.add(d.trim());
                         }
-
                     }
 
 
@@ -305,20 +303,17 @@ public class initiateController extends Application {
 
                     for (String d : Chits.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadhitsComputer.add(d.trim());
+                            fx2.hitsComputer.add(d.trim());
                         }
-
                     }
 
                     String Cmiss = compData[4].substring(1,compData[4].length()-1);
                     for (String d : Cmiss.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadmissComputer.add(d.trim());
+                            fx2.missComputer.add(d.trim());
                         }
 
                     }
-
-
 
                     try {
                         fx2.start(primaryStage);

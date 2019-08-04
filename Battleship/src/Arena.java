@@ -71,10 +71,10 @@ public class Arena extends Application {
     ArrayList<String> missComputer = new ArrayList<String>();
 
 
-    ArrayList<String> loadhitsHuman = new ArrayList<String>();
-    ArrayList<String> loadmissHuman = new ArrayList<String>();
-    ArrayList<String> loadhitsComputer = new ArrayList<String>();
-    ArrayList<String> loadmissComputer = new ArrayList<String>();
+//    ArrayList<String> loadhitsHuman = new ArrayList<String>();
+//    ArrayList<String> loadmissHuman = new ArrayList<String>();
+//    ArrayList<String> loadhitsComputer = new ArrayList<String>();
+//    ArrayList<String> loadmissComputer = new ArrayList<String>();
     SplitPane split_pane2;
     
     
@@ -108,10 +108,10 @@ public class Arena extends Application {
     	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
 
 
-        System.out.println(loadhitsHuman);
-        System.out.println(loadmissHuman);
-        System.out.println(loadhitsComputer);
-        System.out.println(loadmissComputer);
+        System.out.println(hitsHuman);
+        System.out.println(missHuman);
+        System.out.println(hitsComputer);
+        System.out.println(missComputer);
 
 
         try {
@@ -137,11 +137,11 @@ public class Arena extends Application {
             split_pane1.setPrefSize(500, 500);
             playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
-            updateGridFromLoad(playerGrid,loadhitsComputer,true);
-            updateGridFromLoad(playerGrid,loadmissComputer,false);
+            updateGridFromLoad(playerGrid,hitsComputer,true);
+            updateGridFromLoad(playerGrid,missComputer,false);
 
-            updateGridFromLoad(playerRefGrid,loadhitsHuman,true);
-            updateGridFromLoad(playerRefGrid,loadmissHuman,false);
+            updateGridFromLoad(playerRefGrid,hitsHuman,true);
+            updateGridFromLoad(playerRefGrid,missHuman,false);
 
             compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
@@ -151,11 +151,11 @@ public class Arena extends Application {
             text.setTranslateX(-130);
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
-            updateGridFromLoad(compGrid,loadhitsHuman,true);
-            updateGridFromLoad(compGrid,loadmissHuman,false);
+            updateGridFromLoad(compGrid,hitsHuman,true);
+            updateGridFromLoad(compGrid,missHuman,false);
 
-            updateGridFromLoad(compRefGrid,loadhitsComputer,true);
-            updateGridFromLoad(compRefGrid,loadmissComputer,false);
+            updateGridFromLoad(compRefGrid,hitsComputer,true);
+            updateGridFromLoad(compRefGrid,missComputer,false);
 
             if (!humanPlayer.playWithHuman) {
                 // create split pane 2
@@ -995,7 +995,6 @@ public class Arena extends Application {
                 String s2 = d.substring(1);
                 int x = Constants.mapInConstants.get(s1);    //c
                 int y = Integer.parseInt(s2);    //r
-                System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
                 Button bActual = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
                 Button bReference = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
 
