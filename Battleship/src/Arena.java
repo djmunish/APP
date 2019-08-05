@@ -277,8 +277,8 @@ public class Arena extends Application {
                             	if(humanPlayer.playWithHuman){
                                     String s = "";
                                     while(it.hasNext()) {
-                                        s += it.next() + ",";
-//                                        humanPlayer.updateDropdown(absolutePath, humanPlayer.inputs);
+                                        s += ","+it.next().trim();
+ //                                       humanPlayer.updateDropdown(absolutePath, humanPlayer.inputs);
 //                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, absolutePath, Arena.this, computer);
 //                                        if(flag) {
 //                                            humanPlayer.hitscount++;
@@ -287,7 +287,7 @@ public class Arena extends Application {
 //                                        }
                                     }
                                     System.out.println("send hits====" + s);
-                                    u1.sendMessage(humanPlayer.playerPort,s);
+                                    u1.sendMessage(humanPlayer.playerPort,"S"+s);
                                 }else{
                     			while(it.hasNext()) {
                     				String s = it.next();
@@ -481,13 +481,8 @@ public class Arena extends Application {
                  
                     }
                 });
-            }
-            
-            
-            
-            
-            
-            
+            }                                 
+                
             vbox.setSpacing(10);
             hbox.getChildren().add(vbox);
             hbox.getChildren().add(hitBtn);
@@ -556,13 +551,13 @@ public class Arena extends Application {
     
     
     public static String postHit(String received) {
-    	String check = received.substring(0, 1);
-		String msg = received.substring(2);
+    	String check = received.substring(0, 1).trim();
+		String msg = received.substring(2).trim();
 		System.out.println("msg is:" + msg);
 		 for (Ships s : humanPlayer.shipsArr) {
 			 System.out.println(s.coordinates);
 		 }
-    	if(check.equals("H")) {
+    	if(check.equals("H")) { //for Single Hit
     		boolean flag = Ships.checkhit(msg.trim(), humanPlayer);
     		System.out.println("FLAG is:" + flag);
     		String s1 = msg.substring(0, 1);
@@ -589,7 +584,7 @@ public class Arena extends Application {
                 }
     	}//H
     	
-    	else if(check.equals("R")) {
+    	else if(check.equals("R")) { //for Single response
        		msg = received.substring(2,3).trim();
        		System.out.println(msg);
        		String msg1 = received.substring(4).trim();
@@ -601,11 +596,8 @@ public class Arena extends Application {
             System.out.println("x is:" + x);
             int y = Integer.parseInt(s2.trim());    //r
             System.out.println("y is:" + y);
-            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
-            
+            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));     
             System.out.println("here");
-           // Button bActual1 = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
-            
             System.out.println("here1");
             Button bActual = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
             System.out.println("here2");
@@ -614,7 +606,6 @@ public class Arena extends Application {
         			Constants.showAlert(messageComp);
         			System.out.println(messageComp);
     				bActual.setStyle("-fx-background-color: Red");
-    				
     				if (humanPlayer.shipsArr.size() == 0) {
     					Constants.showAlert(humanPlayer.name+"won the game");
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
@@ -633,6 +624,31 @@ public class Arena extends Application {
     	}//R
     	else if(check.equals("W")) {
     		Constants.showAlert(humanPlayer.name+"won the game");
+    		String m = "P";
+    		return m;
+    	}else if(check.equals("S")) { //for Salva Hits
+    		String[] arr = msg.split(",");
+    		String s = "T";
+    		for(int i = 0; i<arr.length; i++) {
+    			boolean flag = Ships.colorButtonHuman(playerGrid, arr[i].trim(), a1, humanPlayer);
+    			if(flag) {
+    				s+=",Y-"+arr[i].trim();
+    			}else {
+    				s+=",N-"+arr[i].trim();
+    			}
+    		}//for	
+    		return s;
+    	}else if(check.equals("T")){ //for Salva Response
+    		String[] arr = msg.split(",");
+    		for(int i = 0; i<arr.length; i++) {
+    			String resp = arr[i].trim().substring(0,1);
+    			String hit = arr[i].trim().substring(2);
+    			if(resp.equals("Y")) {
+    				Ships.colorRefHuman(playerRefGrid, hit,  a1, humanPlayer, true) ;
+                } else {   	
+                	Ships.colorRefHuman(playerRefGrid, hit,  a1, humanPlayer, false) ;
+                }
+    		}
     		String m = "P";
     		return m;
     	}

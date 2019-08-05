@@ -207,4 +207,36 @@ public class Ships {
             return false;
         }
     }
+    
+    public static boolean colorButtonHuman(GridPane G1, String S, Arena a, Player playerRef) {
+        String s1 = S.substring(0, 1);
+        String s2 = S.substring(1);
+        int x = Constants.mapInConstants.get(s1);    //c
+        int y = Integer.parseInt(s2);    //r
+        System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+        Button bActual = (Button) a.getNodeFromGridPane(G1, x + 1, y - 1);
+        if (checkhit(S, playerRef)) {
+            bActual.setStyle("-fx-background-color: Red");
+            return true;
+        } else {
+            bActual.setStyle("-fx-background-color: Black;");
+            return false;
+        }
+    }
+    
+    public static boolean colorRefHuman(GridPane G1, String S, Arena a, Player playerRef, boolean flag) {
+        String s1 = S.substring(0, 1);
+        String s2 = S.substring(1);
+        int x = Constants.mapInConstants.get(s1);    //c
+        int y = Integer.parseInt(s2);    //r
+        System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
+        Button bActual = (Button) a.getNodeFromGridPane(G1, x + 1, y - 1);
+        if (flag) {
+            bActual.setStyle("-fx-background-color: Red");
+            return true;
+        } else {
+            bActual.setStyle("-fx-background-color: Black;");
+            return false;
+        }
+    }
 }
