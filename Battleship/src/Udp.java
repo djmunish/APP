@@ -14,9 +14,6 @@ public class Udp {
 	public static Arena arena;
 	public static Player human;
 	
-	
-	
-
 	public static void startServer(int port) throws SecurityException, IOException {
 		try {
 			Runnable task = () -> {
@@ -49,6 +46,7 @@ public class Udp {
 					//String check = Received.substring(0, 1);
 					//String msg = Received.substring(2);
 					rep = arena.postHit(Received);
+					
 					/*if(check.equals("H")) {
 						System.out.println("Hit received is " + msg);
 						System.out.println("Human ships in Udp" + human.shipsArr);
@@ -109,6 +107,7 @@ public class Udp {
 					System.out.println("Reply received from the server with port number " + serverPort + " to COMP server is: "
 								+ Received);
 					String rep = arena.postHit(Received);
+					
 			} catch (SocketException e) {
 				System.out.println("Socket: " + e.getMessage());
 			} catch (IOException e) {

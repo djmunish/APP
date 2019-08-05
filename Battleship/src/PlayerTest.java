@@ -53,16 +53,16 @@ class PlayerTest extends Player{
         assertNotNull(randomblock());
     }
 
-    @Test public void aiValidation() {                       //failing
+    @Test public void aiValidation() {                       
         assertNotNull(randomhitcompai(p,5,4));
     }
 
-    @Test public void aiValidation2() {                       //failing
+    @Test public void aiValidation2() {                       
 
         assertNotNull(randomhitcompai(p,1,1));
     }
 
-    @Test public void aiValidation3() {                       //failing
+    @Test public void aiValidation3() {                       
 
         assertNotNull(randomhitcompai(p,3,1));
     }
@@ -79,4 +79,19 @@ class PlayerTest extends Player{
         computer1.computerRandomShip();
 
     }
+    
+    @Test public void checkNeighborsForComputer()
+    {
+    	p.shipsArr.add(s);
+    	String expected = "A2 A4 ";
+    	assertEquals(expected,checkneighbors("A3",p));
+    }
+    
+    @Test public void checkNeighborsForComputer2()
+    {
+    	 p.shipsArr.add(f);
+    	String expected = "A5 A7 ";
+    	assertEquals(expected,checkneighbors("A6",p));
+    }
+    
 }
