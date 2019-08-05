@@ -96,11 +96,12 @@ public class initiateController extends Application {
                                 startNewGame(primaryStage);
                             }
                         }
+                        else{
+                            startNewGame(primaryStage);
+                        }
                     }
                 }
-                else{
-                    startNewGame(primaryStage);
-                }
+
             }
         });
 
