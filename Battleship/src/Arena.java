@@ -56,7 +56,8 @@ public class Arena extends Application {
     static GridPane playerGrid;
     static GridPane compGrid;
     static int salvaWindow = 5;
-    long elapsedtime = 0;
+    static long elapsedtime = 0;
+    static int oppShipsLeft = 5;
     static ArrayList<ArrayList<String>> oppShips = new ArrayList<ArrayList<String>>();
 
     static private int seconds = 0;
@@ -577,28 +578,39 @@ public class Arena extends Application {
         			System.out.println(messageComp);
         			Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, true) ;
         			humanPlayer.hitscount++;
-        			 
-        			
-    				if(humanPlayer.shipsArr.size() == 0) {
-    						Constants.showAlert("You won the game!!");
+        			removeOppShip(msg1); 
+    				if(oppShips.size() == 0) {
+    						finishTime = System.currentTimeMillis();
+    						elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+    						String score  = calcScore(elapsedtime, humanPlayer);
+                            timerstop = true;
+                            Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     	        			System.out.println(messageComp);
-    				}else {
-    					u1.sendMessage(humanPlayer.playerPort, "D,"+ humanPlayer.shipsArr.size());
     				}
-                } else {	
+    				else if(oppShips.size() < 5){
+    					if(oppShips.size() < 5) {
+    						Constants.showAlert("");
+    					}
+    				}
+                }
+                 else {	
                 	String messageComp = "It is a miss";
                 	Constants.showAlert(messageComp);
                 	System.out.println(messageComp);
                 	Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, false) ;
                 	humanPlayer.misscount++;
-                }
+                } 
         		String m = "P";
         		
         		return m;
     	}//R
     	else if(check.equals("W")) { //for Winner
-    		Constants.showAlert(humanPlayer.name+"won the game");
+    		finishTime = System.currentTimeMillis();
+			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+			String score  = calcScore(elapsedtime, humanPlayer);
+            timerstop = true;
+    		Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
     		String m = "P";
     		return m;
     	}else if(check.equals("S")) { //for Salva Hits
@@ -709,7 +721,20 @@ public class Arena extends Application {
     	}*/
     }
     	
-    
+    public static void removeOppShip(String s) {
+    	Iterator<ArrayList<String>> it1 = oppShips.iterator();
+    	while(it1.hasNext()) {
+    		ArrayList<String> Ship = it1.next();
+    		Iterator<String> it2 = Ship.iterator();
+    		if(Ship.contains(s)) {
+    			Ship.remove(s);
+    			if(Ship.size() == 0) {
+    				oppShips.remove(Ship);
+    				oppShipsLeft = oppShipsLeft - 1;
+    			}// if- removeOppShips
+    		}//if-Ship contains
+    	}//while
+    }
     
     
     /**
