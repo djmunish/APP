@@ -88,7 +88,7 @@ public class Ships {
     /**
      * Function to check if a ship gets hit or not.
      * @param checkcordinate is the location on which there is a hit done.
-     * @param p is the player who's ship is to be checked.
+     * @param p is the player who'absolutePath ship is to be checked.
      * @return true if there is a hit on the ship else return false.
      * @author harshkour
      */

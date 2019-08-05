@@ -24,6 +24,8 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -76,7 +78,7 @@ public class Arena extends Application {
 //    ArrayList<String> loadhitsComputer = new ArrayList<String>();
 //    ArrayList<String> loadmissComputer = new ArrayList<String>();
     SplitPane split_pane2;
-    
+
     
     
     /**
@@ -269,8 +271,8 @@ public class Arena extends Application {
                                     String s = "";
                                     while(it.hasNext()) {
                                         s += it.next() + ",";
-//                                        humanPlayer.updateDropdown(s, humanPlayer.inputs);
-//                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+//                                        humanPlayer.updateDropdown(absolutePath, humanPlayer.inputs);
+//                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, absolutePath, Arena.this, computer);
 //                                        if(flag) {
 //                                            humanPlayer.hitscount++;
 //                                        }else {
@@ -635,14 +637,14 @@ public class Arena extends Application {
     	boolean flag3 = false;
     	boolean flag2 = checkWinner(computer, humanPlayer);
     	if (!flag2) {
-    			String s = computer.randomhitcompai(humanPlayer, 0, 0);
-    			System.out.println("computerhit is == " + s);
-    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, a1, humanPlayer);
+    			String absolutePath = computer.randomhitcompai(humanPlayer, 0, 0);
+    			System.out.println("computerhit is == " + absolutePath);
+    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, absolutePath, a1, humanPlayer);
     			String messageComp;
     			if (flag1) {
-    				messageComp = "It was a hit by Computer at " + s;
+    				messageComp = "It was a hit by Computer at " + absolutePath;
     			} else {
-    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + absolutePath;
     			}
     			Constants.showAlert(messageComp);
     		//}//else
@@ -966,6 +968,9 @@ public class Arena extends Application {
         System.out.println("Ships array size is " + p1.shipsArr.size());
         System.out.println("Ships array is " + p1.shipsArr);
         if (p1.shipsArr.size() == 0) {
+
+            Constants.f_human.delete();
+            Constants.f_Computer.delete();
             return true;
         } else {
             return false;

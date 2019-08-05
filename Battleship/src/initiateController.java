@@ -1,12 +1,6 @@
-import java.awt.Insets;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Optional;
 
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
@@ -15,12 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -81,7 +72,7 @@ public class initiateController extends Application {
                 humanPlayer.playWithHuman = false;
 
 
-                String filePath = Constants.getPath()+"/gameData";
+                String filePath = Constants.absolutePath +"/gameData";
                 File f = new File(filePath); //Change Path
 
                 if (f.exists()) {
@@ -199,8 +190,7 @@ public class initiateController extends Application {
             // This will reference one line at a time
             String line = null;
 
-            File f_human = new File(path + "/human.txt"); //Change Path
-            File f_Computer = new File(path + "/computer.txt"); //Change Path
+
             String humanData[] = {};
             String compData[] = {};
             {
@@ -208,7 +198,7 @@ public class initiateController extends Application {
                 try {
                     // FileReader reads text files in the default encoding.
                     FileReader fileReaderHuman =
-                            new FileReader(f_human);
+                            new FileReader(Constants.f_human);
 
                     // Always wrap FileReader in BufferedReader.
                     BufferedReader bufferedReader =
@@ -217,7 +207,7 @@ public class initiateController extends Application {
                     while ((line = bufferedReader.readLine()) != null) {
                         humanData = line.split(Constants.separator);
                     }
-                    FileReader fileReaderComputer = new FileReader(f_Computer);
+                    FileReader fileReaderComputer = new FileReader(Constants.f_Computer);
                     BufferedReader bufferedReaderComputer =
                             new BufferedReader(fileReaderComputer);
                     while ((line = bufferedReaderComputer.readLine()) != null) {
@@ -338,10 +328,10 @@ public class initiateController extends Application {
 
         public void startNewGame(Stage primaryStage){
         computer.computerRandomShip();
-//                for (Ships s : computer.shipsArr) {
+//                for (Ships absolutePath : computer.shipsArr) {
 //                    System.out.println("random ships");
-//                    System.out.println(s.coordinates);
-//                    System.out.println(s.hexColor);
+//                    System.out.println(absolutePath.coordinates);
+//                    System.out.println(absolutePath.hexColor);
 //                }
 
         TextInputDialog dialog = new TextInputDialog("Enter your name");

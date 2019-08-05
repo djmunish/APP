@@ -65,7 +65,7 @@ public class Player {
     }
 
     /**
-     * Select random location for the computer's random ship placement.
+     * Select random location for the computer'absolutePath random ship placement.
      * @return random string from the grid like "A1" or "B10".
      */
     public String randomhitcomp() { 
@@ -74,7 +74,7 @@ public class Player {
     }
     
     /**
-     * AI -- Check nearby ship location for computer's hit.
+     * AI -- Check nearby ship location for computer'absolutePath hit.
      * @param s is the node which is already a hit.
      * @param human player object for human class.
      * @return a string of all the neighbours of the input node.
@@ -165,7 +165,7 @@ public class Player {
     
     /**
      * Generate Priority list of random computer hits.
-     * @param human - Human player's object.
+     * @param human - Human player'absolutePath object.
      * @param salvacount -  current salva window length
      * @param salvaWindow - salva window length 
      * @return the next random hit by the computer
@@ -219,7 +219,7 @@ public class Player {
      * Check the length of the ship and the valid neighbours.
      * @param s- random string generated to be the part of the ship.
      * @param length- length of the ship.
-     * @return "T" if the string s is valid for ship placement else return "F".
+     * @return "T" if the string absolutePath is valid for ship placement else return "F".
      * @author harshkour
      */
     public String randomshipblocks(String s, int length) { 
@@ -227,7 +227,7 @@ public class Player {
         String start = "";
         String end = "";
         String flagf = "T";
-       // String[] sarr = s.split("");
+       // String[] sarr = absolutePath.split("");
         String sarr0 = s.substring(0,1);
         String sarr1 = s.substring(1);
         int row = Integer.parseInt(sarr1);
@@ -345,7 +345,7 @@ public class Player {
         			Boundary.add(removelu);
         			}
         	}       	
-        	while(it.hasNext()) { //remove ship's top and bottom row
+        	while(it.hasNext()) { //remove ship'absolutePath top and bottom row
         		String blockship = it.next();
         		String blockship0 = blockship.substring(0,1);
         		String blockship1 = blockship.substring(1);

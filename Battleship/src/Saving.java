@@ -1,10 +1,6 @@
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Saving {
@@ -29,7 +25,7 @@ public class Saving {
         System.out.println("Player time:"+elapsedtime);
         File file;
 
-        String sPath = Constants.getPath();
+        String sPath = Constants.absolutePath;
         if(humanPlayer.type == Player.playerType.HUMAN){
             new File(sPath+"/gameData").mkdirs();
             file = new File(sPath+"/gameData/human.txt");
