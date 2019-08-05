@@ -297,8 +297,9 @@ public class Arena extends Application {
                                     clearSalvaAfterHit(salvaGrid);
                                     hitBtn.setText("OK");
                                     index=0;
-                                    int shipcount  = oppShipsLeft; //check if any ship of opposite player is down
-                                    System.out.println("\n \n computer ship count is " + shipcount);
+                                    
+                                    int shipcount  = oppShipsLeft; //check if any ship of opp human player is down
+                                    System.out.println("\n \n opp human player ship count is " + shipcount);
                                     if(shipcount < salvaWindow) {
                                     	salvaWindow = shipcount;
                                     	System.out.println("\n \n Window size updated to " + salvaWindow);                   	
@@ -306,6 +307,7 @@ public class Arena extends Application {
                                         salvaGrid = createGrid(1, salvaWindow, true);
                                         vbox.getChildren().remove(1);
                                         vbox.getChildren().add(1,salvaGrid);
+                                    } 
                                     
                                 }else{
                                 	while(it.hasNext()) {
