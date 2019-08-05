@@ -297,6 +297,16 @@ public class Arena extends Application {
                                     clearSalvaAfterHit(salvaGrid);
                                     hitBtn.setText("OK");
                                     index=0;
+                                    int shipcount  = oppShipsLeft; //check if any ship of opposite player is down
+                                    System.out.println("\n \n computer ship count is " + shipcount);
+                                    if(shipcount < salvaWindow) {
+                                    	salvaWindow = shipcount;
+                                    	System.out.println("\n \n Window size updated to " + salvaWindow);                   	
+                                    	//update UI
+                                        salvaGrid = createGrid(1, salvaWindow, true);
+                                        vbox.getChildren().remove(1);
+                                        vbox.getChildren().add(1,salvaGrid);
+                                    
                                 }else{
                                 	while(it.hasNext()) {
                                 		String s = it.next();
@@ -589,9 +599,7 @@ public class Arena extends Application {
     	        			System.out.println(messageComp);
     				}
     				else if(oppShips.size() < 5){
-    					if(oppShips.size() < 5) {
-    						Constants.showAlert("");
-    					}
+    						Constants.showAlert(oppShipsLeft + " ship(s) left!");
     				}
                 }
                  else {	
@@ -638,14 +646,16 @@ public class Arena extends Application {
     		}
     		String m = "P";
     		return m;
-    	}else if(check.equals("D")) { //ship is down
+    	}
+    	/*else if(check.equals("D")) { //ship is down
     		int n  = Integer.parseInt(msg.trim());
     		salvaWindow = n;
     		salvaGrid = createGrid(1, salvaWindow, true);
            // stage.vbox.getChildren().add(salvaGrid);
     		String m = "P";
     		return m;
-    	}else if(check.equals("Z")) {
+    	}*/
+    	else if(check.equals("Z")) {
     		String[] arr = msg.split(",");
     		for(int i=0; i<arr.length;i++) {
     			String[] arr1 = arr[i].split("+");
@@ -731,6 +741,7 @@ public class Arena extends Application {
     			if(Ship.size() == 0) {
     				oppShips.remove(Ship);
     				oppShipsLeft = oppShipsLeft - 1;
+    				System.out.println("oppShipsLeft ---" + oppShipsLeft);
     			}// if- removeOppShips
     		}//if-Ship contains
     	}//while
