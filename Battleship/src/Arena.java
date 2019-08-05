@@ -65,6 +65,7 @@ public class Arena extends Application {
     static Arena a1;
     static Stage stage1;
     static Udp u1;
+    
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     Saving save1 = new Saving();
     ArrayList<String> hitsHuman = new ArrayList<String>();
@@ -381,6 +382,7 @@ public class Arena extends Application {
                 }
             }
             else {
+            	
             	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
                 	@Override
                 	public void handle(ActionEvent event) {
@@ -472,17 +474,14 @@ public class Arena extends Application {
                                     
                                 }else {
                                 	
-                                	hitBtn.setDisable(true);
+                                	hitBtn.setDisable(true);                                	
                                     u1.sendMessage(humanPlayer.playerPort, "H," + selectedAddress);
+                                    
                                 }
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);
                              }
-                			
-                			
-                    
-
-                 
+                			                
                     }
                 });
             }                                 
@@ -507,6 +506,7 @@ public class Arena extends Application {
             stage.setHeight(800);
 
             stage.setOnCloseRequest(e2 -> {
+            	if(!humanPlayer.playWithHuman) {
                 Alert alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Select");
                 alert.setHeaderText(Constants.save_Alert);
@@ -531,6 +531,10 @@ public class Arena extends Application {
                 } else if (option.get() == no) {
                     Platform.exit();
                 }
+            	}
+            	else {
+                    Platform.exit();
+            	}
             });
             updateGridFromLoad(playerGrid,hitsComputer,true);
             updateGridFromLoad(playerGrid,missComputer,false);
@@ -559,6 +563,9 @@ public class Arena extends Application {
 			 System.out.println(s.coordinates);
 		 }
     	if(check.equals("H")) { //for Single Hit
+    		
+    		hitBtn.setDisable(false);
+    		  		
     		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
     		String s = "R,";
     		if(flag) {
@@ -570,6 +577,7 @@ public class Arena extends Application {
     	}//H
     	
     	else if(check.equals("R")) { //for Single response
+    		
        		msg = received.substring(2,3).trim();
        		System.out.println(msg);
        		String msg1 = received.substring(4).trim();	
@@ -592,7 +600,7 @@ public class Arena extends Application {
                 	humanPlayer.misscount++;
                 }
         		String m = "P";
-        		hitBtn.setDisable(false);
+        		
         		return m;
     	}//R
     	else if(check.equals("W")) { //for Winner
