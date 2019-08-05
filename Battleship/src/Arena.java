@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -318,10 +317,9 @@ public class Arena extends Application {
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
 
-//                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
                                             finishTime = System.currentTimeMillis();
-                                            elapsedtime = finishTime - startTime;
+                                            elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                                     		String score  = calcScore(elapsedtime, humanPlayer);
                                 			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);
                                 			break;
@@ -331,10 +329,9 @@ public class Arena extends Application {
                                 }//not flag2
                                 else { //Human Player won the game!
                             		finishTime = System.currentTimeMillis();
-                            		elapsedtime = finishTime - startTime;
+                                    elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                             		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
                             		String score  = calcScore(elapsedtime, humanPlayer);
-//                                    save1.humanPlayer = humanPlayer;
                             		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
@@ -429,12 +426,12 @@ public class Arena extends Application {
 //                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
                                 			finishTime = System.currentTimeMillis();
-                                    		elapsedtime = finishTime - startTime;
+                                            elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                                     		String score  = calcScore(elapsedtime, humanPlayer);
                                 			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                                 	}else {
                                 		finishTime = System.currentTimeMillis();
-                                		elapsedtime = finishTime - startTime;
+                                        elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                                 		String score  = calcScore(elapsedtime, humanPlayer);
 //                                        save1.humanPlayer = humanPlayer;
                                 		timerstop = true;
@@ -524,8 +521,8 @@ public class Arena extends Application {
                     try {
                         System.out.println(System.currentTimeMillis() - startTime);
 
-                        Saving.saveHuman(humanPlayer, System.currentTimeMillis() - startTime, hitsHuman, missHuman);
-                        Saving.saveHuman(computer, 0, hitsComputer, missComputer);
+                        Saving.saveGame(humanPlayer, elapsedtime*1000+ (System.currentTimeMillis() - startTime), hitsHuman, missHuman);
+                        Saving.saveGame(computer, 0, hitsComputer, missComputer);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
