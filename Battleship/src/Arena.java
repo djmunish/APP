@@ -48,7 +48,7 @@ public class Arena extends Application {
     static long finishTime;
     static String selectedAddress;
     static GridPane playerRefGrid;
-    public Button hitBtn;
+    public static  Button hitBtn;
     public ComboBox inputComboBox;  
     static int index = 0;
     static GridPane salvaGrid;
@@ -184,7 +184,10 @@ public class Arena extends Application {
             if (humanPlayer.gamePlayType) {
                 hitBtn.setDisable(true);
             }
-
+            
+            
+            
+            
 
             // To check if it is a HIT / MISS by any player
             for (Ships p : humanPlayer.shipsArr) {
@@ -466,6 +469,8 @@ public class Arena extends Application {
                                     
                                     
                                 }else {
+                                	
+                                	hitBtn.setDisable(true);
                                     u1.sendMessage(humanPlayer.playerPort, "H," + selectedAddress);
                                 }
                 			 }else {
@@ -547,7 +552,8 @@ public class Arena extends Application {
     }
     
     
-    public static String postHit(String received) {
+    public static String postHit(String received) 
+    {
     	String check = received.substring(0, 1).trim();
 		String msg = received.substring(2).trim();
 		System.out.println("msg is:" + msg);
@@ -617,6 +623,7 @@ public class Arena extends Application {
                 	bActual.setStyle("-fx-background-color: Black;");
                 }
         		String m = "P";
+        		hitBtn.setDisable(false);
         		return m;
     	}//R
     	else if(check.equals("W")) {
