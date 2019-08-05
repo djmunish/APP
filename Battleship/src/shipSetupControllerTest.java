@@ -46,5 +46,19 @@ class shipSetupControllerTest {
 
         assertNotEquals(false,test.checkAvailability(6,5,2,false));
     }
+    
+    @Test public void checkNeighborsForComputer()
+    {
+    	p.shipsArr.add(s);
+    	String expected = "A2 A4 ";
+    	assertEquals(expected,checkneighbors("A3",p));
+    }
+    
+    @Test public void checkNeighborsForComputer2()
+    {
+    	 p.shipsArr.add(f);
+    	String expected = "A5 A7 ";
+    	assertEquals(expected,checkneighbors("A6",p));
+    }
 
 }
