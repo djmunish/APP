@@ -386,8 +386,7 @@ public class Arena extends Application {
                     });
                 }
             }
-            else {
-            	
+            else {            	
             	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
                 	@Override
                 	public void handle(ActionEvent event) {
@@ -415,8 +414,7 @@ public class Arena extends Application {
                                     	humanPlayer.hitscount++;
                                     	hitsHuman.add(selectedAddress);
                 					}
-                                    Constants.showAlert(message);
-                                    
+                                    Constants.showAlert(message);                                    
                                 	boolean flag2 = checkWinner(computer, humanPlayer);
                                 	if (!flag2) {
                                 			String s = computer.randomhitcompai(humanPlayer, 0, 0);
@@ -430,9 +428,7 @@ public class Arena extends Application {
                                 				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
                                 				missComputer.add(s);
                                 			}
-                                			Constants.showAlert(messageComp);
-                                		
-
+                                			Constants.showAlert(messageComp);                               		
                                 		flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
 //                                            save1.humanPlayer = humanPlayer;
@@ -448,9 +444,7 @@ public class Arena extends Application {
 //                                        save1.humanPlayer = humanPlayer;
                                 		timerstop = true;
                                 		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
-                                	}
-                                    
-                                	
+                                	}                                                                 	
                                    	if (flag2 || flag3) { 		
                                 		Alert alert = new Alert(AlertType.CONFIRMATION);
                                 		alert.setTitle("Select");
@@ -473,10 +467,7 @@ public class Arena extends Application {
                                 		} else if (option.get() == no) {
                                 			Platform.exit();
                                 		}
-
                                 	}
-                                    
-                                    
                                 }else {
                                 	
                                 	hitBtn.setDisable(true);                                	
@@ -553,12 +544,9 @@ public class Arena extends Application {
             stage.show();
 
         } catch (Exception e) {
-
             System.out.println(e.getMessage());
         }
-    }
-    
-    
+    }        
     public static String postHit(String received) 
     {
     	String check = received.substring(0, 1).trim();
@@ -567,10 +555,8 @@ public class Arena extends Application {
 		 for (Ships s : humanPlayer.shipsArr) {
 			 System.out.println(s.coordinates);
 		 }
-    	if(check.equals("H")) { //for Single Hit
-    		
-    		hitBtn.setDisable(false);
-    		  		
+    	if(check.equals("H")) { //for Single Hit    		
+    		hitBtn.setDisable(false);    		  		
     		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
     		String s = "R,";
     		if(flag) {
@@ -580,8 +566,7 @@ public class Arena extends Application {
                 }
     		return s;
     	}//H
-    	else if(check.equals("R")) { //for Single response
-    		
+    	else if(check.equals("R")) { //for Single response	
        		msg = received.substring(2,3).trim();
        		System.out.println(msg);
        		String msg1 = received.substring(4).trim();	

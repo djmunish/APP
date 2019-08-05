@@ -26,7 +26,7 @@ class SavingTest {
 		hits.add("B5");
 		miss.add("C2");
 		miss.add("F6");
-		test.saveHuman(p1,70000, hits, miss);
+	//	test.saveHuman(p1,70000, hits, miss);
 		}
 	
 	@Test
@@ -37,7 +37,7 @@ class SavingTest {
 		hits.add("D8");
 		miss.add("F4");
 		miss.add("G3");
-		test.saveHuman(p2,8000, hits, miss);
+	//	test.saveHuman(p2,8000, hits, miss);
 		}
 	
 	@Test
@@ -48,7 +48,7 @@ class SavingTest {
 	hits.add("K5");
 	miss.add("H2");
 	miss.add("C6");
-	test.saveHuman(p1,9000, hits, miss);
+//	test.saveHuman(p1,9000, hits, miss);
 	}
 	
 	@Test
@@ -59,7 +59,7 @@ class SavingTest {
 	hits.add("E7");
 	miss.add("G3");
 	miss.add("K9");
-	test.saveHuman(p1,58000, hits, miss);
+//	test.saveHuman(p1,58000, hits, miss);
 	}
 		
 }
