@@ -1,12 +1,6 @@
-import java.awt.Insets;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Optional;
 
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
@@ -15,12 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -81,36 +72,36 @@ public class initiateController extends Application {
                 humanPlayer.playWithHuman = false;
 
 
-
-                Path currentRelativePath = Paths.get("");
-                String s = currentRelativePath.toAbsolutePath().toString();
-                System.out.println("Current relative path is: " + s);
-
-
-                String filePath = s+"/gameData";
+                String filePath = Constants.absolutePath +"/gameData";
                 File f = new File(filePath); //Change Path
 
                 if (f.exists()) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Select");
-                    alert.setHeaderText(Constants.load_Alert);
-                    ButtonType yes = new ButtonType("Yes");
-                    ButtonType no = new ButtonType("No");
+                    if(f.isDirectory()){
 
-                    // Remove default ButtonTypes
-                    alert.getButtonTypes().clear();
-                    alert.getButtonTypes().addAll(yes, no);
-                    Optional<ButtonType> option = alert.showAndWait();
+                        if(f.list().length>0) {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Select");
+                            alert.setHeaderText(Constants.load_Alert);
+                            ButtonType yes = new ButtonType("Yes");
+                            ButtonType no = new ButtonType("No");
 
-                    if (option.get() == yes) {
-                        loadGame(primaryStage, filePath);
-                    } else if (option.get() == no) {
-                        startNewGame(primaryStage);
+                            // Remove default ButtonTypes
+                            alert.getButtonTypes().clear();
+                            alert.getButtonTypes().addAll(yes, no);
+                            Optional<ButtonType> option = alert.showAndWait();
+
+                            if (option.get() == yes) {
+                                loadGame(primaryStage, filePath);
+                            } else if (option.get() == no) {
+                                startNewGame(primaryStage);
+                            }
+                        }
+                        else{
+                            startNewGame(primaryStage);
+                        }
                     }
                 }
-                else{
-                    startNewGame(primaryStage);
-                }
+
             }
         });
 
@@ -153,10 +144,10 @@ public class initiateController extends Application {
                             humanPlayer.gamePlayType = false;
                         }
 
-                        humanPlayer.playerPort = 8888; //change port
+                        humanPlayer.playerPort = 7777; //change port
                         try {
                            // humanPlayer.createConnection(7777);
-                        	u1.startServer(7777);
+                        	u1.startServer(8888);
                         	
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -205,8 +196,7 @@ public class initiateController extends Application {
             // This will reference one line at a time
             String line = null;
 
-            File f_human = new File(path + "/human.txt"); //Change Path
-            File f_Computer = new File(path + "/computer.txt"); //Change Path
+
             String humanData[] = {};
             String compData[] = {};
             {
@@ -214,7 +204,7 @@ public class initiateController extends Application {
                 try {
                     // FileReader reads text files in the default encoding.
                     FileReader fileReaderHuman =
-                            new FileReader(f_human);
+                            new FileReader(Constants.f_human);
 
                     // Always wrap FileReader in BufferedReader.
                     BufferedReader bufferedReader =
@@ -223,7 +213,7 @@ public class initiateController extends Application {
                     while ((line = bufferedReader.readLine()) != null) {
                         humanData = line.split(Constants.separator);
                     }
-                    FileReader fileReaderComputer = new FileReader(f_Computer);
+                    FileReader fileReaderComputer = new FileReader(Constants.f_Computer);
                     BufferedReader bufferedReaderComputer =
                             new BufferedReader(fileReaderComputer);
                     while ((line = bufferedReaderComputer.readLine()) != null) {
@@ -243,11 +233,14 @@ public class initiateController extends Application {
                     for (String d : ships) {
                         if(!d.equals("")) {
                             String ships_Val = d.substring(1, d.length() - 1);
-                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                            String endCoor = ships_Val.substring(ships_Val.length() - 2);
+                            if(ships_Val.length()>2){
+                                endCoor= ships_Val.substring(ships_Val.length() - 3).trim();
+                            }
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), endCoor);
                             humanPlayer.shipsArr.add(loadShip);
                         }
                     }
-
 
 
                     String h_inputs = humanData[2].substring(1,humanData[2].length()-1);
@@ -259,14 +252,15 @@ public class initiateController extends Application {
 
 
 
-
-
-
                     String[] cships = compData[1].split("-");
                     for (String d : cships) {
                         if(!d.equals("")) {
                             String ships_Val = d.substring(1, d.length() - 1);
-                            Ships loadShip = new Ships(ships_Val.substring(0, 2), ships_Val.substring(ships_Val.length() - 2));
+                                                       String endCoor = ships_Val.substring(ships_Val.length() - 2);
+                            if(ships_Val.length()>2){
+                                endCoor= ships_Val.substring(ships_Val.length() - 3).trim();
+                            }
+                            Ships loadShip = new Ships(ships_Val.substring(0, 2), endCoor);
                             computer.shipsArr.add(loadShip);
                         }
                     }
@@ -287,17 +281,15 @@ public class initiateController extends Application {
 
                     for (String d : hits.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadhitsHuman.add(d.trim());
+                            fx2.hitsHuman.add(d.trim());
                         }
-
                     }
 
                     String miss = humanData[4].substring(1,humanData[4].length()-1);
                     for (String d : miss.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadmissHuman.add(d.trim());
+                            fx2.missHuman.add(d.trim());
                         }
-
                     }
 
 
@@ -305,21 +297,18 @@ public class initiateController extends Application {
 
                     for (String d : Chits.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadhitsComputer.add(d.trim());
+                            fx2.hitsComputer.add(d.trim());
                         }
-
                     }
 
                     String Cmiss = compData[4].substring(1,compData[4].length()-1);
                     for (String d : Cmiss.split(",")) {
                         if(d.length()>0) {
-                            fx2.loadmissComputer.add(d.trim());
+                            fx2.missComputer.add(d.trim());
                         }
-
                     }
 
-
-
+                    fx2.elapsedtime = Long.parseLong(humanData[5])/1000;
                     try {
                         fx2.start(primaryStage);
                     } catch (Exception e) {
@@ -346,10 +335,10 @@ public class initiateController extends Application {
 
         public void startNewGame(Stage primaryStage){
         computer.computerRandomShip();
-//                for (Ships s : computer.shipsArr) {
+//                for (Ships absolutePath : computer.shipsArr) {
 //                    System.out.println("random ships");
-//                    System.out.println(s.coordinates);
-//                    System.out.println(s.hexColor);
+//                    System.out.println(absolutePath.coordinates);
+//                    System.out.println(absolutePath.hexColor);
 //                }
 
         TextInputDialog dialog = new TextInputDialog("Enter your name");

@@ -1,10 +1,6 @@
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Saving {
@@ -14,7 +10,7 @@ public class Saving {
         humanPlayer = new Player();
     }
 
-    public static void saveHuman(Player humanPlayer, long elapsedtime, ArrayList<String> hits, ArrayList<String> miss) throws IOException {
+    public static void saveGame(Player humanPlayer, long elapsedtime, ArrayList<String> hits, ArrayList<String> miss) throws IOException {
 
 
 
@@ -28,10 +24,8 @@ public class Saving {
         System.out.println("Player miss:"+miss);
         System.out.println("Player time:"+elapsedtime);
         File file;
-        Path currentRelativePath = Paths.get("");
-        String sPath = currentRelativePath.toAbsolutePath().toString();
-        System.out.println("Current relative path is: " + sPath);
 
+        String sPath = Constants.absolutePath;
         if(humanPlayer.type == Player.playerType.HUMAN){
             new File(sPath+"/gameData").mkdirs();
             file = new File(sPath+"/gameData/human.txt");

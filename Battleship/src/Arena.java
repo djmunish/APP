@@ -24,6 +24,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -47,7 +48,7 @@ public class Arena extends Application {
     static long finishTime;
     static String selectedAddress;
     static GridPane playerRefGrid;
-    public Button hitBtn;
+    public static  Button hitBtn;
     public ComboBox inputComboBox;  
     static int index = 0;
     static GridPane salvaGrid;
@@ -55,6 +56,8 @@ public class Arena extends Application {
     static GridPane playerGrid;
     static GridPane compGrid;
     static int salvaWindow = 5;
+    long elapsedtime = 0;
+
     static private int seconds = 0;
     static private int minutes = 0;
     static private int hours = 0;
@@ -64,19 +67,18 @@ public class Arena extends Application {
     static Udp u1;
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     Saving save1 = new Saving();
-    long elapsedtime = 0;
     ArrayList<String> hitsHuman = new ArrayList<String>();
     ArrayList<String> missHuman = new ArrayList<String>();
     ArrayList<String> hitsComputer = new ArrayList<String>();
     ArrayList<String> missComputer = new ArrayList<String>();
 
 
-    ArrayList<String> loadhitsHuman = new ArrayList<String>();
-    ArrayList<String> loadmissHuman = new ArrayList<String>();
-    ArrayList<String> loadhitsComputer = new ArrayList<String>();
-    ArrayList<String> loadmissComputer = new ArrayList<String>();
+//    ArrayList<String> loadhitsHuman = new ArrayList<String>();
+//    ArrayList<String> loadmissHuman = new ArrayList<String>();
+//    ArrayList<String> loadhitsComputer = new ArrayList<String>();
+//    ArrayList<String> loadmissComputer = new ArrayList<String>();
     SplitPane split_pane2;
-    
+
     
     
     /**
@@ -106,12 +108,18 @@ public class Arena extends Application {
     	u1.human = humanPlayer;
 
     	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
+        startTime = System.currentTimeMillis();
+
+        System.out.println(elapsedtime);
+        hours = (int)elapsedtime/3600;
+        minutes = (int)(elapsedtime - hours * 3600) / 60;
+        seconds = (int)(elapsedtime - hours * 3600) - minutes * 60;
 
 
-        System.out.println(loadhitsHuman);
-        System.out.println(loadmissHuman);
-        System.out.println(loadhitsComputer);
-        System.out.println(loadmissComputer);
+        System.out.println(hitsHuman);
+        System.out.println(missHuman);
+        System.out.println(hitsComputer);
+        System.out.println(missComputer);
 
 
         try {
@@ -137,11 +145,7 @@ public class Arena extends Application {
             split_pane1.setPrefSize(500, 500);
             playerGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             playerRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
-            updateGridFromLoad(playerGrid,loadhitsComputer,true);
-            updateGridFromLoad(playerGrid,loadmissComputer,false);
 
-            updateGridFromLoad(playerRefGrid,loadhitsHuman,true);
-            updateGridFromLoad(playerRefGrid,loadmissHuman,false);
 
             compGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
             compRefGrid = createGrid(Constants.row + 1, Constants.col + 1, false);
@@ -151,11 +155,7 @@ public class Arena extends Application {
             text.setTranslateX(-130);
             hbox.getChildren().add(text);
             hbox.getChildren().add(split_pane1);
-            updateGridFromLoad(compGrid,loadhitsHuman,true);
-            updateGridFromLoad(compGrid,loadmissHuman,false);
 
-            updateGridFromLoad(compRefGrid,loadhitsComputer,true);
-            updateGridFromLoad(compRefGrid,loadmissComputer,false);
 
             if (!humanPlayer.playWithHuman) {
                 // create split pane 2
@@ -184,7 +184,10 @@ public class Arena extends Application {
             if (humanPlayer.gamePlayType) {
                 hitBtn.setDisable(true);
             }
-
+            
+            
+            
+            
 
             // To check if it is a HIT / MISS by any player
             for (Ships p : humanPlayer.shipsArr) {
@@ -276,9 +279,10 @@ public class Arena extends Application {
                             	if(humanPlayer.playWithHuman){
                                     String s = "";
                                     while(it.hasNext()) {
-                                        s += it.next() + ",";
-//                                        humanPlayer.updateDropdown(s, humanPlayer.inputs);
-//                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                                    	String m = it.next().trim();
+                                        s += ","+m;
+                                        humanPlayer.updateDropdown(m, humanPlayer.inputs);
+//                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, absolutePath, Arena.this, computer);
 //                                        if(flag) {
 //                                            humanPlayer.hitscount++;
 //                                        }else {
@@ -286,20 +290,21 @@ public class Arena extends Application {
 //                                        }
                                     }
                                     System.out.println("send hits====" + s);
-                                    u1.sendMessage(humanPlayer.playerPort,s);
+                                    u1.sendMessage(humanPlayer.playerPort,"S"+s);
                                 }else{
-                    			while(it.hasNext()) {
-                    				String s = it.next();
-                    				humanPlayer.updateDropdown(s, humanPlayer.inputs);
-                    				boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
-                    				if(flag) {
-                    				    hitsHuman.add(s);
-                    					humanPlayer.hitscount++;
-                    				}else {
-                    				    missHuman.add(s);
-                    					humanPlayer.misscount++;
-                    				}
-                    			} }
+                                	while(it.hasNext()) {
+                                		String s = it.next();
+                                		humanPlayer.updateDropdown(s, humanPlayer.inputs);
+                                		boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                                		if(flag) {
+                                			hitsHuman.add(s);
+                                			humanPlayer.hitscount++;
+                                		}else {
+                                			missHuman.add(s);
+                                			humanPlayer.misscount++;
+                                		}
+                                	} 
+                    			}
                                 clearSalvaAfterHit(salvaGrid);
                                 hitBtn.setText("OK");
                                 index=0;
@@ -317,10 +322,9 @@ public class Arena extends Application {
                             			flag3 = checkWinner(humanPlayer, computer);
                                 		if(flag3) {
 
-//                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
                                             finishTime = System.currentTimeMillis();
-                                            elapsedtime = finishTime - startTime;
+                                            elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                                     		String score  = calcScore(elapsedtime, humanPlayer);
                                 			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);
                                 			break;
@@ -330,10 +334,9 @@ public class Arena extends Application {
                                 }//not flag2
                                 else { //Human Player won the game!
                             		finishTime = System.currentTimeMillis();
-                            		elapsedtime = finishTime - startTime;
+                                    elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                             		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
                             		String score  = calcScore(elapsedtime, humanPlayer);
-//                                    save1.humanPlayer = humanPlayer;
                             		timerstop = true;
                             		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                             	}
@@ -399,8 +402,11 @@ public class Arena extends Application {
                                     if (!flag) {
                                     	message = "Bohoo!! You missed it!!";
                                     	humanPlayer.misscount++;
+                                    	missHuman.add(selectedAddress);
+
                                     }else {
                                     	humanPlayer.hitscount++;
+                                    	hitsHuman.add(selectedAddress);
                 					}
                                     Constants.showAlert(message);
                                     
@@ -425,12 +431,12 @@ public class Arena extends Application {
 //                                            save1.humanPlayer = humanPlayer;
                                 			timerstop = true;
                                 			finishTime = System.currentTimeMillis();
-                                    		elapsedtime = finishTime - startTime;
+                                            elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                                     		String score  = calcScore(elapsedtime, humanPlayer);
                                 			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                                 	}else {
                                 		finishTime = System.currentTimeMillis();
-                                		elapsedtime = finishTime - startTime;
+                                        elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                                 		String score  = calcScore(elapsedtime, humanPlayer);
 //                                        save1.humanPlayer = humanPlayer;
                                 		timerstop = true;
@@ -465,6 +471,8 @@ public class Arena extends Application {
                                     
                                     
                                 }else {
+                                	
+                                	hitBtn.setDisable(true);
                                     u1.sendMessage(humanPlayer.playerPort, "H," + selectedAddress);
                                 }
                 			 }else {
@@ -477,13 +485,8 @@ public class Arena extends Application {
                  
                     }
                 });
-            }
-            
-            
-            
-            
-            
-            
+            }                                 
+                
             vbox.setSpacing(10);
             hbox.getChildren().add(vbox);
             hbox.getChildren().add(hitBtn);
@@ -518,8 +521,10 @@ public class Arena extends Application {
                 if (option.get() == yes) {
                 //call saving
                     try {
-                        Saving.saveHuman(humanPlayer, elapsedtime, hitsHuman, missHuman);
-                        Saving.saveHuman(computer, 0, hitsComputer, missComputer);
+                        System.out.println(System.currentTimeMillis() - startTime);
+
+                        Saving.saveGame(humanPlayer, elapsedtime*1000+ (System.currentTimeMillis() - startTime), hitsHuman, missHuman);
+                        Saving.saveGame(computer, 0, hitsComputer, missComputer);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -527,6 +532,15 @@ public class Arena extends Application {
                     Platform.exit();
                 }
             });
+            updateGridFromLoad(playerGrid,hitsComputer,true);
+            updateGridFromLoad(playerGrid,missComputer,false);
+            updateGridFromLoad(playerRefGrid,hitsHuman,true);
+            updateGridFromLoad(playerRefGrid,missHuman,false);
+            updateGridFromLoad(compGrid,hitsHuman,true);
+            updateGridFromLoad(compGrid,missHuman,false);
+
+            updateGridFromLoad(compRefGrid,hitsComputer,true);
+            updateGridFromLoad(compRefGrid,missComputer,false);
             stage.show();
 
         } catch (Exception e) {
@@ -536,84 +550,78 @@ public class Arena extends Application {
     }
     
     
-    public static String postHit(String received) {
-    	String check = received.substring(0, 1);
-		String msg = received.substring(2);
+    public static String postHit(String received) 
+    {
+    	String check = received.substring(0, 1).trim();
+		String msg = received.substring(2).trim();
 		System.out.println("msg is:" + msg);
 		 for (Ships s : humanPlayer.shipsArr) {
 			 System.out.println(s.coordinates);
 		 }
-    	if(check.equals("H")) {
-    		boolean flag = Ships.checkhit(msg.trim(), humanPlayer);
-    		System.out.println("FLAG is:" + flag);
-    		String s1 = msg.substring(0, 1);
-            String s2 = msg.substring(1);
-            System.out.println("s1 is:" + s1);
-            System.out.println("s2 is:" + s2);
-            int x = Constants.mapInConstants.get(s1.trim());    //c
-            System.out.println("x is:" + x);
-            int y = Integer.parseInt(s2.trim());    //r
-            System.out.println("y is:" + y);
-            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
-            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
-            
+    	if(check.equals("H")) { //for Single Hit
+    		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
+    		String s = "R,";
     		if(flag) {
-    				bActual.setStyle("-fx-background-color: Red");
-        			//u1.sendMessage(humanPlayer.playerPort, "R,Y,"+msg.trim());
-    				String m = "R,Y,"+msg.trim();
-    				return m;
+    				s += "Y,"+msg.trim();		
                 } else {
-                	bActual.setStyle("-fx-background-color: Black;");
-                	//u1.sendMessage(humanPlayer.playerPort, "R,N,"+msg.trim());
-                	String m = "R,N,"+msg.trim();
-    				return m;
+                	s += "N,"+msg.trim();
                 }
+    		return s;
     	}//H
     	
-    	else if(check.equals("R")) {
+    	else if(check.equals("R")) { //for Single response
        		msg = received.substring(2,3).trim();
        		System.out.println(msg);
-       		String msg1 = received.substring(4).trim();
-    		String s1 = msg1.substring(0, 1);
-            String s2 = msg1.substring(1);
-            System.out.println("s1 is:" + s1);
-            System.out.println("s2 is:" + s2);
-            int x = Constants.mapInConstants.get(s1.trim());    //c
-            System.out.println("x is:" + x);
-            int y = Integer.parseInt(s2.trim());    //r
-            System.out.println("y is:" + y);
-            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
-            
-            System.out.println("here");
-           // Button bActual1 = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
-            
-            System.out.println("here1");
-            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
-            System.out.println("here2");
+       		String msg1 = received.substring(4).trim();	
         	if(msg.equals("Y")) {
         			String messageComp = "It is a hit";
         			Constants.showAlert(messageComp);
         			System.out.println(messageComp);
-    				bActual.setStyle("-fx-background-color: Red");
-    				
+        			Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, true) ;
+        			humanPlayer.hitscount++;
     				if (humanPlayer.shipsArr.size() == 0) {
     					Constants.showAlert(humanPlayer.name+"won the game");
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     	        			System.out.println(messageComp);
     				}
-    				
-                } else {
-                	
+                } else {	
                 	String messageComp = "It is a miss";
                 	Constants.showAlert(messageComp);
                 	System.out.println(messageComp);
-                	bActual.setStyle("-fx-background-color: Black;");
+                	Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, false) ;
+                	humanPlayer.misscount++;
                 }
         		String m = "P";
+        		hitBtn.setDisable(false);
         		return m;
     	}//R
-    	else if(check.equals("W")) {
+    	else if(check.equals("W")) { //for Winner
     		Constants.showAlert(humanPlayer.name+"won the game");
+    		String m = "P";
+    		return m;
+    	}else if(check.equals("S")) { //for Salva Hits
+    		String[] arr = msg.split(",");
+    		String s = "T";
+    		for(int i = 0; i<arr.length; i++) {
+    			boolean flag = Ships.colorButtonHuman(playerGrid, arr[i].trim(), a1, humanPlayer);
+    			if(flag) {
+    				s+=",Y-"+arr[i].trim();
+    			}else {
+    				s+=",N-"+arr[i].trim();
+    			}
+    		}//for	
+    		return s;
+    	}else if(check.equals("T")){ //for Salva Response
+    		String[] arr = msg.split(",");
+    		for(int i = 0; i<arr.length; i++) {
+    			String resp = arr[i].trim().substring(0,1);
+    			String hit = arr[i].trim().substring(2);
+    			if(resp.equals("Y")) {
+    				Ships.colorRefHuman(playerRefGrid, hit,  a1, humanPlayer, true) ;
+                } else {   	
+                	Ships.colorRefHuman(playerRefGrid, hit,  a1, humanPlayer, false) ;
+                }
+    		}
     		String m = "P";
     		return m;
     	}
@@ -627,14 +635,14 @@ public class Arena extends Application {
     	boolean flag3 = false;
     	boolean flag2 = checkWinner(computer, humanPlayer);
     	if (!flag2) {
-    			String s = computer.randomhitcompai(humanPlayer, 0, 0);
-    			System.out.println("computerhit is == " + s);
-    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, a1, humanPlayer);
+    			String absolutePath = computer.randomhitcompai(humanPlayer, 0, 0);
+    			System.out.println("computerhit is == " + absolutePath);
+    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, absolutePath, a1, humanPlayer);
     			String messageComp;
     			if (flag1) {
-    				messageComp = "It was a hit by Computer at " + s;
+    				messageComp = "It was a hit by Computer at " + absolutePath;
     			} else {
-    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
+    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + absolutePath;
     			}
     			Constants.showAlert(messageComp);
     		//}//else
@@ -958,6 +966,9 @@ public class Arena extends Application {
         System.out.println("Ships array size is " + p1.shipsArr.size());
         System.out.println("Ships array is " + p1.shipsArr);
         if (p1.shipsArr.size() == 0) {
+
+            Constants.f_human.delete();
+            Constants.f_Computer.delete();
             return true;
         } else {
             return false;
@@ -979,33 +990,24 @@ public class Arena extends Application {
     	System.out.println("score is "+ d.format(scorecalc));
     	return d.format(scorecalc);
     }
-    public static void colorAgain(ArrayList<String> hit, ArrayList<String> miss){
 
-
-
-
-
-    }
 
     public void updateGridFromLoad(GridPane grid, ArrayList<String> data, Boolean isHit) {
-
         if(!data.isEmpty()) {
             for (String d : data) {
                 String s1 = d.substring(0, 1);
                 String s2 = d.substring(1);
                 int x = Constants.mapInConstants.get(s1);    //c
                 int y = Integer.parseInt(s2);    //r
-                System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
                 Button bActual = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
                 Button bReference = (Button) getNodeFromGridPane(grid, x + 1, y - 1);
-
-                if (isHit) {
-                    bActual.setStyle("-fx-background-color: Red");
-                    bReference.setStyle("-fx-background-color: Red");
-                } else {
-                    bActual.setStyle("-fx-background-color: Black;");
-                    bReference.setStyle("-fx-background-color: Black");
-                }
+            if (isHit) {
+                bActual.setStyle("-fx-background-color: Red");
+                bReference.setStyle("-fx-background-color: Red");
+            } else {
+                bActual.setStyle("-fx-background-color: Black;");
+                bReference.setStyle("-fx-background-color: Black");
+            }
             }
         }
 
