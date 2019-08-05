@@ -291,6 +291,9 @@ public class Arena extends Application {
                                     }
                                     System.out.println("send hits====" + s);
                                     u1.sendMessage(humanPlayer.playerPort,"S"+s);
+                                    clearSalvaAfterHit(salvaGrid);
+                                    hitBtn.setText("OK");
+                                    index=0;
                                 }else{
                                 	while(it.hasNext()) {
                                 		String s = it.next();
@@ -304,77 +307,79 @@ public class Arena extends Application {
                                 			humanPlayer.misscount++;
                                 		}
                                 	} 
-                    			}
-                                clearSalvaAfterHit(salvaGrid);
-                                hitBtn.setText("OK");
-                                index=0;
-                                boolean flag2 = checkWinner(computer, humanPlayer);
-                                if (!flag2) {
-                                	for(int i = 0;i<salvaWindow;i++) {
-                        				String s = computer.randomhitcompai(humanPlayer, i+1 , salvaWindow);
-                            			System.out.println("computerhit is == " + s);
-                            			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
-                                        if (flag1) {
-                                            hitsComputer.add(s);
-                                        } else {
-                                            missComputer.add(s);
-                                        }
-                            			flag3 = checkWinner(humanPlayer, computer);
-                                		if(flag3) {
+                                	
+                                	clearSalvaAfterHit(salvaGrid);
+                                    hitBtn.setText("OK");
+                                    index=0;
+                                    boolean flag2 = checkWinner(computer, humanPlayer);
+                                    if (!flag2) {
+                                    	for(int i = 0;i<salvaWindow;i++) {
+                            				String s = computer.randomhitcompai(humanPlayer, i+1 , salvaWindow);
+                                			System.out.println("computerhit is == " + s);
+                                			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
+                                            if (flag1) {
+                                                hitsComputer.add(s);
+                                            } else {
+                                                missComputer.add(s);
+                                            }
+                                			flag3 = checkWinner(humanPlayer, computer);
+                                    		if(flag3) {
 
-                                			timerstop = true;
-                                            finishTime = System.currentTimeMillis();
-                                            elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                                    		String score  = calcScore(elapsedtime, humanPlayer);
-                                			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);
-                                			break;
+                                    			timerstop = true;
+                                                finishTime = System.currentTimeMillis();
+                                                elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+                                        		String score  = calcScore(elapsedtime, humanPlayer);
+                                    			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);
+                                    			break;
+                                    			}
+                                    		
+                            			}//for
+                                    }//not flag2
+                                    else { //Human Player won the game!
+                                		finishTime = System.currentTimeMillis();
+                                        elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+                                		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
+                                		String score  = calcScore(elapsedtime, humanPlayer);
+                                		timerstop = true;
+                                		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                                	}
+                                    
+                                    if (flag2 || flag3) { 		
+                                		Alert alert = new Alert(AlertType.CONFIRMATION);
+                                		alert.setTitle("Select");
+                                		alert.setHeaderText("Do you wish to continue?");
+                                		ButtonType yes = new ButtonType("Yes");
+                                		ButtonType no = new ButtonType("No");
+
+                                    // Remove default ButtonTypes
+                                		alert.getButtonTypes().clear();
+                                		alert.getButtonTypes().addAll(yes, no);
+                                		Optional<ButtonType> option = alert.showAndWait();
+
+                                		if (option.get() == yes) {
+                                			initiateController fx2 = new initiateController();
+                                			try {
+                                				fx2.start(stage);
+                                			} catch (FileNotFoundException e) {
+                                				e.printStackTrace();
                                 			}
-                                		
-                        			}//for
-                                }//not flag2
-                                else { //Human Player won the game!
-                            		finishTime = System.currentTimeMillis();
-                                    elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                            		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
-                            		String score  = calcScore(elapsedtime, humanPlayer);
-                            		timerstop = true;
-                            		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
-                            	}
-                                
-                                if (flag2 || flag3) { 		
-                            		Alert alert = new Alert(AlertType.CONFIRMATION);
-                            		alert.setTitle("Select");
-                            		alert.setHeaderText("Do you wish to continue?");
-                            		ButtonType yes = new ButtonType("Yes");
-                            		ButtonType no = new ButtonType("No");
-
-                                // Remove default ButtonTypes
-                            		alert.getButtonTypes().clear();
-                            		alert.getButtonTypes().addAll(yes, no);
-                            		Optional<ButtonType> option = alert.showAndWait();
-
-                            		if (option.get() == yes) {
-                            			initiateController fx2 = new initiateController();
-                            			try {
-                            				fx2.start(stage);
-                            			} catch (FileNotFoundException e) {
-                            				e.printStackTrace();
-                            			}
-                            		} else if (option.get() == no) {
-                            			Platform.exit();
-                            		}
-                            	}// if any player has won the game
-                                 //No player won the game after the hits
-                                int shipcount  = computer.shipsArr.size(); //check if any ship of computer is down
-                                System.out.println("\n \n computer ship count is " + shipcount);
-                                if(shipcount < salvaWindow) {
-                                	salvaWindow = shipcount;
-                                	System.out.println("\n \n Window size updated to " + salvaWindow);                   	
-                                	//update UI
-                                    salvaGrid = createGrid(1, salvaWindow, true);
-                                    vbox.getChildren().remove(1);
-                                    vbox.getChildren().add(1,salvaGrid);
-                                }         
+                                		} else if (option.get() == no) {
+                                			Platform.exit();
+                                		}
+                                	}// if any player has won the game
+                                    
+                                    //No player won the game after the hits
+                                    int shipcount  = computer.shipsArr.size(); //check if any ship of computer is down
+                                    System.out.println("\n \n computer ship count is " + shipcount);
+                                    if(shipcount < salvaWindow) {
+                                    	salvaWindow = shipcount;
+                                    	System.out.println("\n \n Window size updated to " + salvaWindow);                   	
+                                    	//update UI
+                                        salvaGrid = createGrid(1, salvaWindow, true);
+                                        vbox.getChildren().remove(1);
+                                        vbox.getChildren().add(1,salvaGrid);
+                                    } 
+                    			}                   
                             }//else
                         }
                     });
@@ -568,7 +573,6 @@ public class Arena extends Application {
                 }
     		return s;
     	}//H
-    	
     	else if(check.equals("R")) { //for Single response
        		msg = received.substring(2,3).trim();
        		System.out.println(msg);
@@ -579,8 +583,8 @@ public class Arena extends Application {
         			System.out.println(messageComp);
         			Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, true) ;
         			humanPlayer.hitscount++;
-    				if (humanPlayer.shipsArr.size() == 0) {
-    					Constants.showAlert(humanPlayer.name+"won the game");
+    				if(humanPlayer.shipsArr.size() == 0) {
+    						Constants.showAlert("You lost the game!!");
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     	        			System.out.println(messageComp);
     				}
