@@ -2,6 +2,7 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -34,7 +35,7 @@ public class shipSetupController extends Application {
 	private Integer y = 0;
 	private int click_count = 0; // Mouse Click Counter for counting number of Secondary clicks
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		launch(args);
 
 	}
@@ -114,6 +115,8 @@ public class shipSetupController extends Application {
 					humanPlayer.shipsArr.add(s);
 					if (humanPlayer.shipsArr.size() == 5) {
 						btnok.setDisable(false);
+						if(humanPlayer.playWithHuman) {
+							sendShips();}
 					}
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
@@ -159,9 +162,9 @@ public class shipSetupController extends Application {
 					humanPlayer.shipsArr.add(s);
 					if (humanPlayer.shipsArr.size() == 5) {
 						btnok.setDisable(false);
+						if(humanPlayer.playWithHuman) {
+							sendShips();}
 					}
-
-
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
 					for (String c1 : coordxy) {
@@ -186,7 +189,20 @@ public class shipSetupController extends Application {
 		return false;
 	}//dropship
 
-
+	public void sendShips() {
+		String sendships = "Z";
+		
+		for(Ships ship : humanPlayer.shipsArr) {
+			String s = ",";
+			Iterator<String> it = ship.coordinates.iterator();
+			while(it.hasNext()) {
+				s += it.next().trim()+"+";
+			}
+			sendships = sendships+s.substring(0,s.length()-1);
+		}
+		System.out.println("\n\nSending Ships-----  " + sendships);
+		//Udp.sendMessage(humanPlayer.playerPort, sendships);
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {

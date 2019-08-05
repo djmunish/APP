@@ -49,7 +49,7 @@ public class Arena extends Application {
     static String selectedAddress;
     static GridPane playerRefGrid;
     public static  Button hitBtn;
-    public ComboBox inputComboBox;  
+    public static ComboBox inputComboBox;  
     static int index = 0;
     static GridPane salvaGrid;
     static GridPane compRefGrid;
@@ -57,6 +57,7 @@ public class Arena extends Application {
     static GridPane compGrid;
     static int salvaWindow = 5;
     long elapsedtime = 0;
+    static ArrayList<ArrayList<String>> oppShips = new ArrayList<ArrayList<String>>();
 
     static private int seconds = 0;
     static private int minutes = 0;
@@ -576,10 +577,14 @@ public class Arena extends Application {
         			System.out.println(messageComp);
         			Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, true) ;
         			humanPlayer.hitscount++;
+        			 
+        			
     				if(humanPlayer.shipsArr.size() == 0) {
-    						Constants.showAlert("You lost the game!!");
+    						Constants.showAlert("You won the game!!");
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     	        			System.out.println(messageComp);
+    				}else {
+    					u1.sendMessage(humanPlayer.playerPort, "D,"+ humanPlayer.shipsArr.size());
     				}
                 } else {	
                 	String messageComp = "It is a miss";
@@ -618,6 +623,25 @@ public class Arena extends Application {
                 } else {   	
                 	Ships.colorRefHuman(playerRefGrid, hit,  a1, humanPlayer, false) ;
                 }
+    		}
+    		String m = "P";
+    		return m;
+    	}else if(check.equals("D")) { //ship is down
+    		int n  = Integer.parseInt(msg.trim());
+    		salvaWindow = n;
+    		salvaGrid = createGrid(1, salvaWindow, true);
+           // stage.vbox.getChildren().add(salvaGrid);
+    		String m = "P";
+    		return m;
+    	}else if(check.equals("Z")) {
+    		String[] arr = msg.split(",");
+    		for(int i=0; i<arr.length;i++) {
+    			String[] arr1 = arr[i].split("+");
+    			ArrayList<String> ship = new ArrayList<String>();
+    			for(int j=0; j<arr1.length; j++) {
+    				ship.add(arr1[j]);
+    			}
+    			oppShips.add(ship);
     		}
     		String m = "P";
     		return m;
@@ -746,7 +770,7 @@ public class Arena extends Application {
      * @return Gridpane
      * @author iknoor
      */
-    public GridPane createGrid(int rows, int col, Boolean isSalva) {
+    public static GridPane createGrid(int rows, int col, Boolean isSalva) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j <  col; j++) {
