@@ -312,6 +312,7 @@ public class initiateController extends Application {
                         }
                     }
 
+                    fx2.elapsedtime = Long.parseLong(humanData[5])/60000;
                     try {
                         fx2.start(primaryStage);
                     } catch (Exception e) {
