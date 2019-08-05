@@ -276,8 +276,9 @@ public class Arena extends Application {
                             	if(humanPlayer.playWithHuman){
                                     String s = "";
                                     while(it.hasNext()) {
-                                        s += ","+it.next().trim();
- //                                       humanPlayer.updateDropdown(absolutePath, humanPlayer.inputs);
+                                    	String m = it.next().trim();
+                                        s += ","+m;
+                                        humanPlayer.updateDropdown(m, humanPlayer.inputs);
 //                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, absolutePath, Arena.this, computer);
 //                                        if(flag) {
 //                                            humanPlayer.hitscount++;
@@ -288,18 +289,19 @@ public class Arena extends Application {
                                     System.out.println("send hits====" + s);
                                     u1.sendMessage(humanPlayer.playerPort,"S"+s);
                                 }else{
-                    			while(it.hasNext()) {
-                    				String s = it.next();
-                    				humanPlayer.updateDropdown(s, humanPlayer.inputs);
-                    				boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
-                    				if(flag) {
-                    				    hitsHuman.add(s);
-                    					humanPlayer.hitscount++;
-                    				}else {
-                    				    missHuman.add(s);
-                    					humanPlayer.misscount++;
-                    				}
-                    			} }
+                                	while(it.hasNext()) {
+                                		String s = it.next();
+                                		humanPlayer.updateDropdown(s, humanPlayer.inputs);
+                                		boolean flag = Ships.colorButton(playerRefGrid, compGrid, s, Arena.this, computer);
+                                		if(flag) {
+                                			hitsHuman.add(s);
+                                			humanPlayer.hitscount++;
+                                		}else {
+                                			missHuman.add(s);
+                                			humanPlayer.misscount++;
+                                		}
+                                	} 
+                    			}
                                 clearSalvaAfterHit(salvaGrid);
                                 hitBtn.setText("OK");
                                 index=0;
@@ -525,12 +527,8 @@ public class Arena extends Application {
                     Platform.exit();
                 }
             });
-
-
-
             updateGridFromLoad(playerGrid,hitsComputer,true);
             updateGridFromLoad(playerGrid,missComputer,false);
-
             updateGridFromLoad(playerRefGrid,hitsHuman,true);
             updateGridFromLoad(playerRefGrid,missHuman,false);
             updateGridFromLoad(compGrid,hitsHuman,true);
@@ -555,71 +553,42 @@ public class Arena extends Application {
 			 System.out.println(s.coordinates);
 		 }
     	if(check.equals("H")) { //for Single Hit
-    		boolean flag = Ships.checkhit(msg.trim(), humanPlayer);
-    		System.out.println("FLAG is:" + flag);
-    		String s1 = msg.substring(0, 1);
-            String s2 = msg.substring(1);
-            System.out.println("s1 is:" + s1);
-            System.out.println("s2 is:" + s2);
-            int x = Constants.mapInConstants.get(s1.trim());    //c
-            System.out.println("x is:" + x);
-            int y = Integer.parseInt(s2.trim());    //r
-            System.out.println("y is:" + y);
-            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
-            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerGrid, x + 1, y - 1);
-            
+    		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
+    		String s = "R,";
     		if(flag) {
-    				bActual.setStyle("-fx-background-color: Red");
-        			//u1.sendMessage(humanPlayer.playerPort, "R,Y,"+msg.trim());
-    				String m = "R,Y,"+msg.trim();
-    				return m;
+    				s += "Y,"+msg.trim();		
                 } else {
-                	bActual.setStyle("-fx-background-color: Black;");
-                	//u1.sendMessage(humanPlayer.playerPort, "R,N,"+msg.trim());
-                	String m = "R,N,"+msg.trim();
-    				return m;
+                	s += "N,"+msg.trim();
                 }
+    		return s;
     	}//H
     	
     	else if(check.equals("R")) { //for Single response
        		msg = received.substring(2,3).trim();
        		System.out.println(msg);
-       		String msg1 = received.substring(4).trim();
-    		String s1 = msg1.substring(0, 1);
-            String s2 = msg1.substring(1);
-            System.out.println("s1 is:" + s1);
-            System.out.println("s2 is:" + s2);
-            int x = Constants.mapInConstants.get(s1.trim());    //c
-            System.out.println("x is:" + x);
-            int y = Integer.parseInt(s2.trim());    //r
-            System.out.println("y is:" + y);
-            System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));     
-            System.out.println("here");
-            System.out.println("here1");
-            Button bActual = (Button) a1.getNodeFromGridPane(a1.playerRefGrid, x + 1, y - 1);
-            System.out.println("here2");
+       		String msg1 = received.substring(4).trim();	
         	if(msg.equals("Y")) {
         			String messageComp = "It is a hit";
         			Constants.showAlert(messageComp);
         			System.out.println(messageComp);
-    				bActual.setStyle("-fx-background-color: Red");
+        			Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, true) ;
+        			humanPlayer.hitscount++;
     				if (humanPlayer.shipsArr.size() == 0) {
     					Constants.showAlert(humanPlayer.name+"won the game");
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     	        			System.out.println(messageComp);
     				}
-    				
-                } else {
-                	
+                } else {	
                 	String messageComp = "It is a miss";
                 	Constants.showAlert(messageComp);
                 	System.out.println(messageComp);
-                	bActual.setStyle("-fx-background-color: Black;");
+                	Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, false) ;
+                	humanPlayer.misscount++;
                 }
         		String m = "P";
         		return m;
     	}//R
-    	else if(check.equals("W")) {
+    	else if(check.equals("W")) { //for Winner
     		Constants.showAlert(humanPlayer.name+"won the game");
     		String m = "P";
     		return m;
