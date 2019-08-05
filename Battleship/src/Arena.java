@@ -57,6 +57,8 @@ public class Arena extends Application {
     static GridPane playerGrid;
     static GridPane compGrid;
     static int salvaWindow = 5;
+    long elapsedtime = 0;
+
     static private int seconds = 0;
     static private int minutes = 0;
     static private int hours = 0;
@@ -66,7 +68,6 @@ public class Arena extends Application {
     static Udp u1;
     private final Text text = new Text((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     Saving save1 = new Saving();
-    long elapsedtime = 0;
     ArrayList<String> hitsHuman = new ArrayList<String>();
     ArrayList<String> missHuman = new ArrayList<String>();
     ArrayList<String> hitsComputer = new ArrayList<String>();
@@ -108,6 +109,12 @@ public class Arena extends Application {
     	u1.human = humanPlayer;
 
     	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
+        startTime = System.currentTimeMillis();
+
+        System.out.println(elapsedtime);
+        hours = (int)elapsedtime/3600;
+        minutes = (int)(elapsedtime - hours * 3600) / 60;
+        seconds = (int)(elapsedtime - hours * 3600) - minutes * 60;
 
 
         System.out.println(hitsHuman);
@@ -515,7 +522,9 @@ public class Arena extends Application {
                 if (option.get() == yes) {
                 //call saving
                     try {
-                        Saving.saveHuman(humanPlayer, elapsedtime, hitsHuman, missHuman);
+                        System.out.println(System.currentTimeMillis() - startTime);
+
+                        Saving.saveHuman(humanPlayer, System.currentTimeMillis() - startTime, hitsHuman, missHuman);
                         Saving.saveHuman(computer, 0, hitsComputer, missComputer);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -992,16 +1001,9 @@ public class Arena extends Application {
     	System.out.println("score is "+ d.format(scorecalc));
     	return d.format(scorecalc);
     }
-    public static void colorAgain(ArrayList<String> hit, ArrayList<String> miss){
 
-
-
-
-
-    }
 
     public void updateGridFromLoad(GridPane grid, ArrayList<String> data, Boolean isHit) {
-
         if(!data.isEmpty()) {
             for (String d : data) {
                 String s1 = d.substring(0, 1);
@@ -1017,7 +1019,6 @@ public class Arena extends Application {
                 bActual.setStyle("-fx-background-color: Black;");
                 bReference.setStyle("-fx-background-color: Black");
             }
-
             }
         }
 

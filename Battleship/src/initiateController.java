@@ -76,21 +76,26 @@ public class initiateController extends Application {
                 File f = new File(filePath); //Change Path
 
                 if (f.exists()) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Select");
-                    alert.setHeaderText(Constants.load_Alert);
-                    ButtonType yes = new ButtonType("Yes");
-                    ButtonType no = new ButtonType("No");
+                    if(f.isDirectory()){
 
-                    // Remove default ButtonTypes
-                    alert.getButtonTypes().clear();
-                    alert.getButtonTypes().addAll(yes, no);
-                    Optional<ButtonType> option = alert.showAndWait();
+                        if(f.list().length>0) {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Select");
+                            alert.setHeaderText(Constants.load_Alert);
+                            ButtonType yes = new ButtonType("Yes");
+                            ButtonType no = new ButtonType("No");
 
-                    if (option.get() == yes) {
-                        loadGame(primaryStage, filePath);
-                    } else if (option.get() == no) {
-                        startNewGame(primaryStage);
+                            // Remove default ButtonTypes
+                            alert.getButtonTypes().clear();
+                            alert.getButtonTypes().addAll(yes, no);
+                            Optional<ButtonType> option = alert.showAndWait();
+
+                            if (option.get() == yes) {
+                                loadGame(primaryStage, filePath);
+                            } else if (option.get() == no) {
+                                startNewGame(primaryStage);
+                            }
+                        }
                     }
                 }
                 else{
@@ -302,6 +307,7 @@ public class initiateController extends Application {
                         }
                     }
 
+                    fx2.elapsedtime = Long.parseLong(humanData[5])/60000;
                     try {
                         fx2.start(primaryStage);
                     } catch (Exception e) {
