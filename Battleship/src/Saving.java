@@ -10,7 +10,7 @@ public class Saving {
         humanPlayer = new Player();
     }
 
-    public static void saveHuman(Player humanPlayer, long elapsedtime, ArrayList<String> hits, ArrayList<String> miss) throws IOException {
+    public static void saveGame(Player humanPlayer, long elapsedtime, ArrayList<String> hits, ArrayList<String> miss) throws IOException {
 
 
 
