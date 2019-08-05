@@ -1,5 +1,7 @@
 import javafx.scene.control.Alert;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -109,7 +111,11 @@ public final class Constants {
 
     public static final ArrayList<String> shipColors = new ArrayList<>();
     
-    
+    public static String getPath(){
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        return s;
+    }
 
 
 }

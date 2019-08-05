@@ -81,13 +81,7 @@ public class initiateController extends Application {
                 humanPlayer.playWithHuman = false;
 
 
-
-                Path currentRelativePath = Paths.get("");
-                String s = currentRelativePath.toAbsolutePath().toString();
-                System.out.println("Current relative path is: " + s);
-
-
-                String filePath = s+"/gameData";
+                String filePath = Constants.getPath()+"/gameData";
                 File f = new File(filePath); //Change Path
 
                 if (f.exists()) {
@@ -293,7 +287,6 @@ public class initiateController extends Application {
                         if(d.length()>0) {
                             fx2.hitsHuman.add(d.trim());
                         }
-
                     }
 
                     String miss = humanData[4].substring(1,humanData[4].length()-1);
@@ -317,7 +310,6 @@ public class initiateController extends Application {
                         if(d.length()>0) {
                             fx2.missComputer.add(d.trim());
                         }
-
                     }
 
                     try {
