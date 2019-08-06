@@ -315,12 +315,12 @@ public class Arena extends Application {
                         			
                         		}else { //1
                         			if(humanPlayer.salvaArr.size() < salvaWindow){
-                                    	System.out.println("here when salvarr < window---2");
+                                    	System.out.println("human play - here when salvarr < window---2");
                                           updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                                     } else{ //2
                                         hitBtn.setDisable(true);
 
-                                    	System.out.println("here when salvarr < window----else");
+                                    	System.out.println("human play - here when salvarr < window----else");
                                     	boolean flag3 = false;
                                     	Iterator<String> it = humanPlayer.salvaArr.iterator();
                                     	String s = "";
@@ -684,8 +684,7 @@ public class Arena extends Application {
                 	Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, false) ;
                 	humanPlayer.misscount++;
                 } 
-        		String m = "P";
-        		
+        		String m = "P";	
         		return m;
     	}//R
     	else if(check.equals("W")) { //for Winner
@@ -703,6 +702,7 @@ public class Arena extends Application {
     		String m = "L,--";
     		return m;
     	}else if(check.equals("S")) { //for Salva Hits
+    		hitBtn.setDisable(false); 
     		String[] arr = msg.split(",");
     		String s = "T";
     		for(int i = 0; i<arr.length; i++) {
@@ -716,15 +716,33 @@ public class Arena extends Application {
     		return s;
     	}else if(check.equals("T")){ //for Salva Response
     		String[] arr = msg.split(",");
+    		int Oppshipcount = oppShips.size();
     		for(int i = 0; i<arr.length; i++) {
     			String resp = arr[i].trim().substring(0,1);
     			String hit = arr[i].trim().substring(2);
     			if(resp.equals("Y")) {
     				Ships.colorRefHuman(playerRefGrid, hit,  a1, humanPlayer, true) ;
-                } else {   	
+    				humanPlayer.hitscount++;
+        			removeOppShip(hit);
+        			System.out.println("\n\n Opposite Ships size is -- "+ oppShips.size());
+                }else {   	
                 	Ships.colorRefHuman(playerRefGrid, hit,  a1, humanPlayer, false) ;
+                	humanPlayer.misscount++;
                 }
     		}
+			if(oppShips.size() == 0) {
+				finishTime = System.currentTimeMillis();
+				elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+				String score  = calcScore(elapsedtime, humanPlayer);
+                timerstop = true;
+                Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                hitBtn.setDisable(true);
+				u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
+			}
+			else if(oppShips.size() < 5){
+				if(oppShipsLeft < Oppshipcount) {
+				Constants.showAlert(oppShipsLeft + " ship(s) left!");}
+			}		
     		String m = "P";
     		return m;
     	}
