@@ -650,8 +650,11 @@ public class Arena extends Application {
     		finishTime = System.currentTimeMillis();
 			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
 			String score  = calcScore(elapsedtime, humanPlayer);
+			System.out.println("\n\nYou lost the game!");
             timerstop = true;
+            System.out.println("\n\nYou lost the game!2");
     		Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
+    		System.out.println("\n\nYou lost the game!3");
     		String m = "L,--";
     		return m;
     	}else if(check.equals("S")) { //for Salva Hits
