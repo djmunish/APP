@@ -650,7 +650,7 @@ public class Arena extends Application {
 			String score  = calcScore(elapsedtime, humanPlayer);
             timerstop = true;
     		Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
-    		String m = "P";
+    		String m = "L,--";
     		return m;
     	}else if(check.equals("S")) { //for Salva Hits
     		String[] arr = msg.split(",");
@@ -704,6 +704,10 @@ public class Arena extends Application {
     		return m;
     	}else if(check.equals("X")) {
     		System.out.println("\n\nShips received!!!");
+    		String m = "P";
+    		return m;
+    	}else if(check.equals("L")) {
+    		System.out.println("\n\nWinner received!!!");
     		String m = "P";
     		return m;
     	}
