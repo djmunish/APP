@@ -103,6 +103,21 @@ public class Arena extends Application {
         text.setText((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     }
     
+	public void sendShips() {
+		String sendships = "Z";
+		
+		for(Ships ship : humanPlayer.shipsArr) {
+			String s = ",";
+			Iterator<String> it = ship.coordinates.iterator();
+			while(it.hasNext()) {
+				s += it.next().trim()+"+";
+			}
+			sendships = sendships+s.substring(0,s.length()-1);
+		}
+		System.out.println("\n\nSending Ships-----  " + sendships);
+		Udp.sendMessage(humanPlayer.playerPort, sendships);
+	}
+    
     
     public void start(Stage stage) { 
     	stage1 = stage;
@@ -112,6 +127,8 @@ public class Arena extends Application {
 
     	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
         startTime = System.currentTimeMillis();
+        if(humanPlayer.playWithHuman) {
+			sendShips();}
 
         System.out.println(elapsedtime);
         hours = (int)elapsedtime/3600;
@@ -658,6 +675,7 @@ public class Arena extends Application {
     		return m;
     	}*/
     	else if(check.equals("Z")) {
+    		System.out.println("Inside z");
     		String[] arr = msg.split(",");
     		for(int i=0; i<arr.length;i++) {
     			String[] arr1 = arr[i].split("+");

@@ -115,8 +115,6 @@ public class shipSetupController extends Application {
 					humanPlayer.shipsArr.add(s);
 					if (humanPlayer.shipsArr.size() == 5) {
 						btnok.setDisable(false);
-						if(humanPlayer.playWithHuman) {
-							sendShips();}
 					}
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
@@ -162,8 +160,7 @@ public class shipSetupController extends Application {
 					humanPlayer.shipsArr.add(s);
 					if (humanPlayer.shipsArr.size() == 5) {
 						btnok.setDisable(false);
-						if(humanPlayer.playWithHuman) {
-							sendShips();}
+						
 					}
 					humanPlayer.computerships.removeAll(s.coordinates);
 					humanPlayer.computerships.removeAll(humanPlayer.clearBoundary(s.coordinates, start, end, isVertical));
@@ -201,7 +198,7 @@ public class shipSetupController extends Application {
 			sendships = sendships+s.substring(0,s.length()-1);
 		}
 		System.out.println("\n\nSending Ships-----  " + sendships);
-		//Udp.sendMessage(humanPlayer.playerPort, sendships);
+		Udp.sendMessage(humanPlayer.playerPort, sendships);
 	}
 
 	@Override
@@ -264,6 +261,8 @@ public class shipSetupController extends Application {
 		btnok.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				/*if(humanPlayer.playWithHuman) {
+					sendShips();}*/
 				Arena a1 = new Arena();
 				System.out.println("arena=====" + a1);
 				a1.humanPlayer = humanPlayer;
