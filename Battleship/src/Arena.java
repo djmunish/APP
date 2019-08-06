@@ -110,7 +110,7 @@ public class Arena extends Application {
 			String s = ",";
 			Iterator<String> it = ship.coordinates.iterator();
 			while(it.hasNext()) {
-				s += it.next().trim()+"+";
+				s += it.next().trim()+":";
 			}
 			sendships = sendships+s.substring(0,s.length()-1);
 		}
@@ -583,9 +583,9 @@ public class Arena extends Application {
     	String check = received.substring(0, 1).trim();
 		String msg = received.substring(2).trim();
 		System.out.println("msg is:" + msg);
-		 for (Ships s : humanPlayer.shipsArr) {
+		/* for (Ships s : humanPlayer.shipsArr) {
 			 System.out.println(s.coordinates);
-		 }
+		 }*/
     	if(check.equals("H")) { //for Single Hit    		
     		hitBtn.setDisable(false);    		  		
     		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
@@ -678,9 +678,11 @@ public class Arena extends Application {
     		System.out.println("Inside z");
     		String[] arr = msg.split(",");
     		for(int i=0; i<arr.length;i++) {
-    			String[] arr1 = arr[i].split("+");
+    			System.out.println(arr[i]);
+    			String[] arr1 = arr[i].split(":");
     			ArrayList<String> ship = new ArrayList<String>();
     			for(int j=0; j<arr1.length; j++) {
+    				System.out.println(arr1[j]);
     				ship.add(arr1[j]);
     			}
     			oppShips.add(ship);
