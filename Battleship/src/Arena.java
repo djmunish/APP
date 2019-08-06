@@ -675,6 +675,7 @@ public class Arena extends Application {
             timerstop = true;
             System.out.println("\n\nYou lost the game!2"); */
             winner = true;
+            hitBtn.setDisable(false);
     		//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
     		System.out.println("\n\nYou lost the game!3");
     		String m = "L,--";
