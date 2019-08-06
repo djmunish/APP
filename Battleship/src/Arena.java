@@ -50,6 +50,7 @@ public class Arena extends Application {
     static GridPane playerRefGrid;
     public static  Button hitBtn;
     public static ComboBox inputComboBox;  
+    static int call = 1;
     static int index = 0;
     static GridPane salvaGrid;
     static GridPane compRefGrid;
@@ -226,9 +227,10 @@ public class Arena extends Application {
 
             if (!humanPlayer.playWithHuman){
                 showHideComputerShip(true, compGrid); // show hide Computer ships
-        }else {
-        	sendShips();
         }
+            /*else {
+        	sendShips();
+        }*/
 
             VBox vbox = new VBox();
             vbox.getChildren().add(inputComboBox);    
@@ -299,7 +301,10 @@ public class Arena extends Application {
                             	Iterator<String> it = humanPlayer.salvaArr.iterator();
 
                             	if(humanPlayer.playWithHuman){
-                            	//	sendShips();
+                            		if(call == 1) {
+                            		sendShips();
+                            		call =0;
+                            		}
                                     String s = "";
                                     while(it.hasNext()) {
                                     	String m = it.next().trim();
@@ -503,7 +508,10 @@ public class Arena extends Application {
                                 		}
                                 	}
                                 }else {
-                                	
+                                	if(call == 1) {
+                                		sendShips();
+                                		call =0;
+                                		}
                                 	hitBtn.setDisable(true);                                	
                                     u1.sendMessage(humanPlayer.playerPort, "H," + selectedAddress);
                                     
@@ -611,6 +619,7 @@ public class Arena extends Application {
         			Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, true) ;
         			humanPlayer.hitscount++;
         			removeOppShip(msg1); 
+        			System.out.println("\n\n Opposite Ships size is -- "+ oppShips.size());
     				if(oppShips.size() == 0) {
     						finishTime = System.currentTimeMillis();
     						elapsedtime = elapsedtime*1000 + (finishTime - startTime);
@@ -690,6 +699,7 @@ public class Arena extends Application {
     			}
     			oppShips.add(ship);
     		}
+    		System.out.println("\n\nOpposite Ships are --- " + oppShips );
     		String m = "X,--";
     		return m;
     	}else if(check.equals("X")) {
@@ -761,6 +771,7 @@ public class Arena extends Application {
     }
     	
     public static void removeOppShip(String s) {
+    	System.out.println("\n\n1. Opposite Ships are --- " + oppShips );
     	Iterator<ArrayList<String>> it1 = oppShips.iterator();
     	while(it1.hasNext()) {
     		ArrayList<String> Ship = it1.next();
@@ -774,6 +785,7 @@ public class Arena extends Application {
     			}// if- removeOppShips
     		}//if-Ship contains
     	}//while
+    	System.out.println("\n\n2. Opposite Ships are --- " + oppShips );
     }
     
     
