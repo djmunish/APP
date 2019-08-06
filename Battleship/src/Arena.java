@@ -268,74 +268,72 @@ public class Arena extends Application {
             if(humanPlayer.gamePlayType) {
                 salvaGrid = createGrid(1, salvaWindow, true);
                 vbox.getChildren().add(salvaGrid);
-               
-                inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
-                    @Override
-                    public void changed(ObservableValue ov, String t, String t1) {
-                        if(t1 == null && humanPlayer.salvaArr.size() < salvaWindow){
+                if(humanPlayer.playWithHuman && call == 1){
+                	hitBtn.setText("Start");
+                	inputComboBox.setDisable(true);
+                	hitBtn.setDisable(false);
+                }else{
+                	inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                		@Override
+                		public void changed(ObservableValue ov, String t, String t1) {
+                			if(t1 == null && humanPlayer.salvaArr.size() < salvaWindow){
                         	
-                            hitBtn.setDisable(true);
-                        }
-                        else{
-                            hitBtn.setDisable(false);
-                        }
-                    }
-                });
+                				hitBtn.setDisable(true);
+                			}
+                			else{
+                				hitBtn.setDisable(false);
+                			}
+                		}
+                	});
+                }
 
                 if(humanPlayer.salvaArr.size()<salvaWindow){
                 	System.out.println("here when salvarr < window---1");
+                	if(call != 1) {
                     hitBtn.setText("OK");
-                    hitBtn.setDisable(true);
+                    hitBtn.setDisable(true);}
 
                     hitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
                         @Override
                         public void handle(ActionEvent event) {
+                        	if(humanPlayer.playWithHuman){
+                        		if(call == 1) {
+                        			hitBtn.setText("OK");
+                        			inputComboBox.setDisable(false);
+                        			hitBtn.setDisable(false);
+                        			call =0;
+                        			sendShips();                			
+                        		}else if(winner) {
+                        			hitBtn.setDisable(true);
+                        			finishTime = System.currentTimeMillis();
+                        			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+                        			String score  = calcScore(elapsedtime, humanPlayer);
+                        			System.out.println("\n\nYou lost the game!");
+                                    timerstop = true;
+                        			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
+                        			
+                        		}else { //1
+                        			if(humanPlayer.salvaArr.size() < salvaWindow){
+                                    	System.out.println("here when salvarr < window---2");
+                                          updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
+                                    } else{ //2
+                                        hitBtn.setDisable(true);
 
-                            if(humanPlayer.salvaArr.size() < salvaWindow){
-                            	System.out.println("here when salvarr < window---2");
-                                  updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
-                            }
-                            else{
-                                hitBtn.setDisable(true);
-
-                            	System.out.println("here when salvarr < window----else");
-                            	boolean flag3 = false;
-                            	Iterator<String> it = humanPlayer.salvaArr.iterator();
-
-                            	if(humanPlayer.playWithHuman){
-                            		if(call == 1) {
-                            		sendShips();
-                            		call =0;
-                            		}else if(winner) {
-                            			hitBtn.setDisable(true);
-                            			finishTime = System.currentTimeMillis();
-                            			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                            			String score  = calcScore(elapsedtime, humanPlayer);
-                            			System.out.println("\n\nYou lost the game!");
-                                        timerstop = true;
-                            			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
-                            			
-                            		}
-                            		else {
-                            			String s = "";
+                                    	System.out.println("here when salvarr < window----else");
+                                    	boolean flag3 = false;
+                                    	Iterator<String> it = humanPlayer.salvaArr.iterator();
+                                    	String s = "";
                             			while(it.hasNext()) {
                             				String m = it.next().trim();
                             				s += ","+m;
                             				humanPlayer.updateDropdown(m, humanPlayer.inputs);
-//                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, absolutePath, Arena.this, computer);
-//                                        if(flag) {
-//                                            humanPlayer.hitscount++;
-//                                        }else {
-//                                            humanPlayer.misscount++;
-//                                        }
-                            			}
+                            				}
                             			System.out.println("send hits====" + s);
                             			u1.sendMessage(humanPlayer.playerPort,"S"+s);
                             			clearSalvaAfterHit(salvaGrid);
                             			hitBtn.setText("OK");
                             			index=0;
-                                    
                             			int shipcount  = oppShipsLeft; //check if any ship of opp human player is down
                             			System.out.println("\n \n opp human player ship count is " + shipcount);
                             			if(shipcount < salvaWindow) {
@@ -345,10 +343,23 @@ public class Arena extends Application {
                             				salvaGrid = createGrid(1, salvaWindow, true);
                             				vbox.getChildren().remove(1);
                             				vbox.getChildren().add(1,salvaGrid);
-                            			}
-                            		}
-                                    
-                                }else{
+                            			}                                   	                                   	
+                                    }//else2                       			       				
+                        		}//else1
+                        	}//playwithHuman
+                        	else {
+                        		if(humanPlayer.salvaArr.size() < salvaWindow){
+                        			System.out.println("here when salvarr < window---2");
+                        			updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
+                        		}
+                        		else{
+                        			hitBtn.setDisable(true);
+
+                        			System.out.println("here when salvarr < window----else");
+                        			boolean flag3 = false;
+                        			Iterator<String> it = humanPlayer.salvaArr.iterator();
+
+                            	//if(!humanPlayer.playWithHuman){                           				
                                 	while(it.hasNext()) {
                                 		String s = it.next();
                                 		humanPlayer.updateDropdown(s, humanPlayer.inputs);
@@ -360,7 +371,7 @@ public class Arena extends Application {
                                 			missHuman.add(s);
                                 			humanPlayer.misscount++;
                                 		}
-                                	} 
+                                	}//while 
                                 	
                                 	clearSalvaAfterHit(salvaGrid);
                                     hitBtn.setText("OK");
