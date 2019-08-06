@@ -307,35 +307,46 @@ public class Arena extends Application {
                             		if(call == 1) {
                             		sendShips();
                             		call =0;
+                            		}else if(winner) {
+                            			hitBtn.setDisable(true);
+                            			finishTime = System.currentTimeMillis();
+                            			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+                            			String score  = calcScore(elapsedtime, humanPlayer);
+                            			System.out.println("\n\nYou lost the game!");
+                                        timerstop = true;
+                            			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
+                            			
                             		}
-                                    String s = "";
-                                    while(it.hasNext()) {
-                                    	String m = it.next().trim();
-                                        s += ","+m;
-                                        humanPlayer.updateDropdown(m, humanPlayer.inputs);
+                            		else {
+                            			String s = "";
+                            			while(it.hasNext()) {
+                            				String m = it.next().trim();
+                            				s += ","+m;
+                            				humanPlayer.updateDropdown(m, humanPlayer.inputs);
 //                                        boolean flag = Ships.colorButton(playerRefGrid, compGrid, absolutePath, Arena.this, computer);
 //                                        if(flag) {
 //                                            humanPlayer.hitscount++;
 //                                        }else {
 //                                            humanPlayer.misscount++;
 //                                        }
-                                    }
-                                    System.out.println("send hits====" + s);
-                                    u1.sendMessage(humanPlayer.playerPort,"S"+s);
-                                    clearSalvaAfterHit(salvaGrid);
-                                    hitBtn.setText("OK");
-                                    index=0;
+                            			}
+                            			System.out.println("send hits====" + s);
+                            			u1.sendMessage(humanPlayer.playerPort,"S"+s);
+                            			clearSalvaAfterHit(salvaGrid);
+                            			hitBtn.setText("OK");
+                            			index=0;
                                     
-                                    int shipcount  = oppShipsLeft; //check if any ship of opp human player is down
-                                    System.out.println("\n \n opp human player ship count is " + shipcount);
-                                    if(shipcount < salvaWindow) {
-                                    	salvaWindow = shipcount;
-                                    	System.out.println("\n \n Window size updated to " + salvaWindow);                   	
-                                    	//update UI
-                                        salvaGrid = createGrid(1, salvaWindow, true);
-                                        vbox.getChildren().remove(1);
-                                        vbox.getChildren().add(1,salvaGrid);
-                                    } 
+                            			int shipcount  = oppShipsLeft; //check if any ship of opp human player is down
+                            			System.out.println("\n \n opp human player ship count is " + shipcount);
+                            			if(shipcount < salvaWindow) {
+                            				salvaWindow = shipcount;
+                            				System.out.println("\n \n Window size updated to " + salvaWindow);                   	
+                            				//update UI
+                            				salvaGrid = createGrid(1, salvaWindow, true);
+                            				vbox.getChildren().remove(1);
+                            				vbox.getChildren().add(1,salvaGrid);
+                            			}
+                            		}
                                     
                                 }else{
                                 	while(it.hasNext()) {
