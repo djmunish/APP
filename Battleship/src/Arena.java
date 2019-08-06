@@ -437,8 +437,14 @@ public class Arena extends Application {
                     		call =0;
                     		hitBtn.setText("Hit");
                 		}else if(winner) {
-                			int score = 0;
+                			hitBtn.setDisable(true);
+                			finishTime = System.currentTimeMillis();
+                			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
+                			String score  = calcScore(elapsedtime, humanPlayer);
+                			System.out.println("\n\nYou lost the game!");
+                            timerstop = true;
                 			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
+                			
                 		}
                 		else {
                 		boolean flag3 = false;
@@ -662,12 +668,12 @@ public class Arena extends Application {
     	}//R
     	else if(check.equals("W")) { //for Winner
     		//hitBtn.setDisable(true);
-    		finishTime = System.currentTimeMillis();
+    	/*	finishTime = System.currentTimeMillis();
 			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
 			String score  = calcScore(elapsedtime, humanPlayer);
 			System.out.println("\n\nYou lost the game!");
             timerstop = true;
-            System.out.println("\n\nYou lost the game!2");
+            System.out.println("\n\nYou lost the game!2"); */
             winner = true;
     		//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
     		System.out.println("\n\nYou lost the game!3");
