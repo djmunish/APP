@@ -773,7 +773,8 @@ public class Arena extends Application {
     public static void removeOppShip(String s) {
     	System.out.println("\n\n1. Opposite Ships are --- " + oppShips );
     	Iterator<ArrayList<String>> it1 = oppShips.iterator();
-    	while(it1.hasNext()) {
+    	boolean flag = true;
+    	while(it1.hasNext() && flag) {
     		ArrayList<String> Ship = it1.next();
     		Iterator<String> it2 = Ship.iterator();
     		if(Ship.contains(s)) {
@@ -782,6 +783,8 @@ public class Arena extends Application {
     				oppShips.remove(Ship);
     				oppShipsLeft = oppShipsLeft - 1;
     				System.out.println("oppShipsLeft ---" + oppShipsLeft);
+    				flag = false;
+    				break;
     			}// if- removeOppShips
     		}//if-Ship contains
     	}//while
