@@ -203,9 +203,12 @@ public class Arena extends Application {
             hitBtn.setStyle("-fx-border-color: #000000 ; -fx-border-width: 3px;");
             hitBtn.setStyle("-fx-border-color: #000000; -fx-background-color: #CD853F");
             if (humanPlayer.gamePlayType) {
-                hitBtn.setDisable(true);
+                hitBtn.setDisable(true);   
             }
             
+            if(humanPlayer.playWithHuman) {
+            	hitBtn.setText("Start");
+            }
             
             
             
@@ -429,6 +432,11 @@ public class Arena extends Application {
             	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
                 	@Override
                 	public void handle(ActionEvent event) {
+                		if(call == 1) {
+                			sendShips();
+                    		call =0;
+                    		hitBtn.setText("Hit");
+                		}else {
                 		boolean flag3 = false;
                 			try {
                 				selectedAddress = (String) inputComboBox.getValue();
@@ -508,10 +516,10 @@ public class Arena extends Application {
                                 		}
                                 	}
                                 }else {
-                                	if(call == 1) {
+                                	/*if(call == 1) {
                                 		sendShips();
                                 		call =0;
-                                		}
+                                		}*/
                                 	hitBtn.setDisable(true);                                	
                                     u1.sendMessage(humanPlayer.playerPort, "H," + selectedAddress);
                                     
@@ -519,6 +527,7 @@ public class Arena extends Application {
                 			 }else {
                                  	Constants.showAlert(Constants.hit_Alert);
                              }
+                		}//call= 1
                 			                
                     }
                 });
