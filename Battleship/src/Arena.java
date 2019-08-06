@@ -128,6 +128,9 @@ public class Arena extends Application {
 
     	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
         startTime = System.currentTimeMillis();
+        if(humanPlayer.playWithHuman) {
+        	timerstop = true;
+        }
         
 
         System.out.println(elapsedtime);
@@ -299,6 +302,7 @@ public class Arena extends Application {
                         public void handle(ActionEvent event) {
                         	if(humanPlayer.playWithHuman){
                         		if(call == 1) {
+                        			timerstop = false;
                         			hitBtn.setText("OK");
                         			inputComboBox.setDisable(false);
                         			hitBtn.setDisable(false);
@@ -319,7 +323,7 @@ public class Arena extends Application {
                                           updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                                     } else{ //2
                                         hitBtn.setDisable(true);
-
+                                        timerstop = true;	
                                     	System.out.println("human play - here when salvarr < window----else");
                                     	boolean flag3 = false;
                                     	Iterator<String> it = humanPlayer.salvaArr.iterator();
@@ -455,6 +459,7 @@ public class Arena extends Application {
                 	@Override
                 	public void handle(ActionEvent event) {
                 		if(call == 1) {
+                			timerstop = false;
                 			sendShips();
                     		call =0;
                     		hitBtn.setText("Hit");
@@ -705,7 +710,8 @@ public class Arena extends Application {
     		String m = "L,--";
     		return m;
     	}else if(check.equals("S")) { //for Salva Hits
-    		hitBtn.setDisable(false); 
+    		hitBtn.setDisable(false);
+    		timerstop = false;
     		String[] arr = msg.split(",");
     		String s = "T";
     		for(int i = 0; i<arr.length; i++) {
