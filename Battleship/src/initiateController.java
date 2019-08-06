@@ -350,8 +350,8 @@ public class initiateController extends Application {
 
         result.ifPresent(name -> {
 
-            if (name.length() > 0 && !name.equals("Enter your name")) {
-                humanPlayer.name = name;
+            if (name.trim().length() > 0 && !name.equals("Enter your name")) {
+                humanPlayer.name = name.trim();
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Select");
