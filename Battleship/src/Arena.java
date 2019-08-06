@@ -127,8 +127,7 @@ public class Arena extends Application {
 
     	System.out.println("Human Ships in Arena"+u1.human.shipsArr);
         startTime = System.currentTimeMillis();
-        if(humanPlayer.playWithHuman) {
-			sendShips();}
+        
 
         System.out.println(elapsedtime);
         hours = (int)elapsedtime/3600;
@@ -179,6 +178,7 @@ public class Arena extends Application {
 
             if (!humanPlayer.playWithHuman) {
                 // create split pane 2
+            	
             split_pane2 = new SplitPane();
             split_pane2.setPrefSize(500, 500);
             split_pane2.setOrientation(Orientation.VERTICAL);
@@ -226,6 +226,8 @@ public class Arena extends Application {
 
             if (!humanPlayer.playWithHuman){
                 showHideComputerShip(true, compGrid); // show hide Computer ships
+        }else {
+        	sendShips();
         }
 
             VBox vbox = new VBox();
@@ -297,6 +299,7 @@ public class Arena extends Application {
                             	Iterator<String> it = humanPlayer.salvaArr.iterator();
 
                             	if(humanPlayer.playWithHuman){
+                            	//	sendShips();
                                     String s = "";
                                     while(it.hasNext()) {
                                     	String m = it.next().trim();
@@ -687,6 +690,10 @@ public class Arena extends Application {
     			}
     			oppShips.add(ship);
     		}
+    		String m = "X,--";
+    		return m;
+    	}else if(check.equals("X")) {
+    		System.out.println("\n\nShips received!!!");
     		String m = "P";
     		return m;
     	}
