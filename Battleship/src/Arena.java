@@ -60,7 +60,7 @@ public class Arena extends Application {
     static long elapsedtime = 0;
     static int oppShipsLeft = 5;
     static ArrayList<ArrayList<String>> oppShips = new ArrayList<ArrayList<String>>();
-
+    static boolean winner = false;
     static private int seconds = 0;
     static private int minutes = 0;
     static private int hours = 0;
@@ -436,7 +436,11 @@ public class Arena extends Application {
                 			sendShips();
                     		call =0;
                     		hitBtn.setText("Hit");
-                		}else {
+                		}else if(winner) {
+                			int score = 0;
+                			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
+                		}
+                		else {
                 		boolean flag3 = false;
                 			try {
                 				selectedAddress = (String) inputComboBox.getValue();
@@ -636,6 +640,7 @@ public class Arena extends Application {
     						String score  = calcScore(elapsedtime, humanPlayer);
                             timerstop = true;
                             Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                            hitBtn.setDisable(true);
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     	        			System.out.println(messageComp);
     				}
@@ -656,13 +661,15 @@ public class Arena extends Application {
         		return m;
     	}//R
     	else if(check.equals("W")) { //for Winner
+    		//hitBtn.setDisable(true);
     		finishTime = System.currentTimeMillis();
 			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
 			String score  = calcScore(elapsedtime, humanPlayer);
 			System.out.println("\n\nYou lost the game!");
             timerstop = true;
             System.out.println("\n\nYou lost the game!2");
-    		Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
+            winner = true;
+    		//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
     		System.out.println("\n\nYou lost the game!3");
     		String m = "L,--";
     		return m;
