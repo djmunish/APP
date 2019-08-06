@@ -477,6 +477,7 @@ public class Arena extends Application {
                 				System.out.print("");
                 			} 
                 			if(selectedAddress!= null){
+                				timerstop = true;
                 				System.out.println("Human Player hit is == " + selectedAddress);
                 				humanPlayer.updateDropdown(selectedAddress, humanPlayer.inputs);
                 				inputComboBox.getItems().remove(selectedAddress);
@@ -639,7 +640,8 @@ public class Arena extends Application {
 			 System.out.println(s.coordinates);
 		 }*/
     	if(check.equals("H")) { //for Single Hit    		
-    		hitBtn.setDisable(false);    		  		
+    		hitBtn.setDisable(false);
+    		timerstop = false;
     		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
     		String s = "R,";
     		if(flag) {
@@ -695,6 +697,7 @@ public class Arena extends Application {
 			System.out.println("\n\nYou lost the game!");
             timerstop = true;
             System.out.println("\n\nYou lost the game!2"); */
+    		
             winner = true;
             hitBtn.setDisable(false);
     		//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
