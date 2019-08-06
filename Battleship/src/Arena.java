@@ -618,6 +618,7 @@ public class Arena extends Application {
         			System.out.println(messageComp);
         			Ships.colorRefHuman(playerRefGrid, msg1,  a1, humanPlayer, true) ;
         			humanPlayer.hitscount++;
+        			int Oppshipcount = oppShips.size();
         			removeOppShip(msg1); 
         			System.out.println("\n\n Opposite Ships size is -- "+ oppShips.size());
     				if(oppShips.size() == 0) {
@@ -630,7 +631,8 @@ public class Arena extends Application {
     	        			System.out.println(messageComp);
     				}
     				else if(oppShips.size() < 5){
-    						Constants.showAlert(oppShipsLeft + " ship(s) left!");
+    						if(oppShipsLeft < Oppshipcount) {
+    						Constants.showAlert(oppShipsLeft + " ship(s) left!");}
     				}
                 }
                  else {	
