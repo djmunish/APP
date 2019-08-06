@@ -511,7 +511,7 @@ public class shipSetupController extends Application {
 						} catch (Exception e) {
 
 						}
-
+						
 						event.consume();
 					}
 				});
@@ -531,23 +531,22 @@ public class shipSetupController extends Application {
 							source.setVisible(false);
 						}
 
-						Dragboard db = event.getDragboard();
-
-
 						System.out.println("drag done :-x:-"+x+" "+"y:-"+y);
 
-
+						if(x!=0 || y!=0) {
+							
 						boolean value = dropShip(x, y, len, gridPane, isvertical1,rb, color,btnok);
-
+	
 						if(value){
+							
 							vbox.getChildren().remove(source);
+						}			
+						
 						}
-
-
+						
 						System.out.println("Drag done");
 
 						scene.setCursor(Cursor.DEFAULT);
-
 
 						event.consume();
 
