@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 import org.junit.*;
@@ -19,6 +20,8 @@ class PlayerTest extends Player{
     Ships s = new Ships("A1", "A5");
     Ships d = new Ships("A2","A5");
     Ships f = new Ships("A5","A9");
+    ArrayList<String> ship = new ArrayList<>();
+//    ArrayList<String>  = new ArrayList<>();
 
 //    @Before public void clearTT() {
 //        System.out.println("here");
@@ -93,5 +96,23 @@ class PlayerTest extends Player{
     	String expected = "A5 A7 ";
     	assertEquals(expected,checkneighbors("A6",p));
     }
+    
+    @Test public void checkForShipAvailable()
+    {
+    	ship.add("A6");
+    	ship.add("B8");
+    	ship.add("C3");
+    	computerships.add("A6");
+    	assertTrue(shipAvailable(ship));
+    }
+    @Test public void checkForShipAvailable2()
+    {
+    	ship.add("F5");
+    	ship.add("A6");
+    	ship.add("A7");
+    	computerships.add("F5");
+    	assertTrue(shipAvailable(ship));
+    }
+    
     
 }
