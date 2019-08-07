@@ -324,8 +324,8 @@ public class Arena extends Application {
                         			String score  = calcScore(newtime, humanPlayer);
                         			System.out.println("\n\nYou lost the game!");
                                     timerstop = true;
-                        			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
-                        			
+                        			Constants.showAlert("Sorry You lost the game!"+ "\n Miss = "+ humanPlayer.misscount +
+                        					"\t Hit = "+ humanPlayer.hitscount + "\nYour score is " + score );                        					                        					                        			
                         		}else { //1
                         			if(humanPlayer.salvaArr.size() < salvaWindow){
                                     	System.out.println("human play - here when salvarr < window---2");
@@ -486,8 +486,9 @@ public class Arena extends Application {
                 			String score  = calcScore(newtime, humanPlayer);
                 			System.out.println("\n\nYou lost the game!");
                             timerstop = true;
-                			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
-                			
+                			//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
+                			Constants.showAlert("Sorry You lost the game!"+ "\n Miss = "+ humanPlayer.misscount +
+                					"\t Hit = "+ humanPlayer.hitscount + "\nYour score is " + score );
                 		}
                 		else {
                 		boolean flag3 = false;
@@ -690,7 +691,9 @@ public class Arena extends Application {
     						elapsedtime = elapsedtime*1000 + (finishTime - startTime);
     						String score  = calcScore(elapsedtime, humanPlayer);
                             timerstop = true;
-                            Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                            Constants.showAlert(humanPlayer.name + " won the game!!!" + 
+                            		"\n Miss = "+ humanPlayer.misscount + "\t Hit = "+ humanPlayer.hitscount +
+                            		"\nYour score is " + score);                            
                             hitBtn.setDisable(true);
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     	        			System.out.println(messageComp);
