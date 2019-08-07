@@ -467,7 +467,7 @@ public class Arena extends Application {
             	hitBtn.setOnAction(new EventHandler<ActionEvent>() {
                 	@Override
                 	public void handle(ActionEvent event) {
-                		if(call == 1) {
+                		if(call == 1 && humanPlayer.playWithHuman) {
                 			System.out.println("In call == 1");
                 			timerstop = false;
                 			inputComboBox.setDisable(false);
@@ -477,7 +477,7 @@ public class Arena extends Application {
                 			sendShips();
                 			System.out.println("\n\ncall is-------" + call);
                     		
-                		}else if(winner) {
+                		}else if(winner && humanPlayer.playWithHuman) {
                 			System.out.println("In call winner");
                 			hitBtn.setDisable(true);
                 			finishTime = System.currentTimeMillis();
@@ -704,6 +704,7 @@ public class Arena extends Application {
     						int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
     						System.out.println("newtime: " + newtime);
     						String score  = calcScore(newtime, humanPlayer);
+    						score = Integer.toString(Integer.parseInt(score) + 100);
                             timerstop = true;
                             hitBtn.setDisable(true);  
                             inputComboBox.setDisable(true);
@@ -777,6 +778,7 @@ public class Arena extends Application {
 				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
 				System.out.println("newtime: " + newtime);
 				String score  = calcScore(newtime, humanPlayer);
+				score = Integer.toString(Integer.parseInt(score) + 100);
                 timerstop = true;                            
                 hitBtn.setDisable(true);
                 inputComboBox.setDisable(true);
