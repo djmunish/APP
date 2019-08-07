@@ -1,10 +1,11 @@
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class SavingTest {
+public class SavingTest {
 	Saving test = new Saving();
 	Player humanPlayer = new Player();
 	Player computerPlayer = new Player();
@@ -58,5 +59,15 @@ class SavingTest {
 		miss.add("K9");
 		test.saveGame(p1,58000, hits, miss);
 		}
-		
+	
+	@Test
+	public void savingTestforhumanPlayer() throws IOException {
+		p1.name = "fun";
+		p1.shipsArr.add(m);
+		hits.add("F9");
+		hits.add("E7");
+		miss.add("G3");
+		miss.add("K4");
+		test.saveGame(p2,4000, hits, miss);
+		}
 }

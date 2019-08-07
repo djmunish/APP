@@ -1,27 +1,25 @@
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
-import java.util.stream.StreamSupport;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
-class ShipsTest {
+public class ShipsTest {
 
-    Player p1 = new Player();
+	Player p1 = new Player();
     Ships s = new Ships("A1", "A5");
     char[] arr = {'a', 'b', 'c'};
     ArrayList<String> hits = new ArrayList<>();
-
-    //method to check if it is a hit or not
-    //if it is true
-    @Test
-    public void checkForHit() {
+	@Test
+	public void checkForHit() {
         p1.shipsArr.add(s);
 
         assertEquals(true, Ships.checkhit("A2", p1));
     }
 
-    //if it is false
+	//if it is false
     @Test
     public void checkForHit2() {
         p1.shipsArr.add(s);
@@ -88,6 +86,4 @@ class ShipsTest {
     	hits.add("E8");
     	assertEquals("!E8,",Ships.checkHitSalva(hits, p1));
     }
-    
-
 }

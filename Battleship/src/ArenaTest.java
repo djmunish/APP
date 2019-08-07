@@ -1,16 +1,17 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
 import javafx.scene.Node;
 
-class ArenaTest extends Arena{
+public class ArenaTest extends Arena {
 
-    Arena test = new Arena();;
-    Player p1 = new Player();;
-    Player p2 = new Player();;
-    Ships s = new Ships("A1","A5");;
-    Ships s1= new Ships("B2","B4");;
+	Arena test = new Arena();
+    Player p1 = new Player();
+    Player p2 = new Player();
+    Ships s = new Ships("A1","A5");
+    Ships s1= new Ships("B2","B4");
     Node node;
 
 //	@Before public void testbefore() {
@@ -29,7 +30,7 @@ class ArenaTest extends Arena{
         System.out.println("hii");
         System.out.print("ship is " + s.coordinates);
         p1.shipsArr.add(s);
-        assertEquals(false,checkWinner(p1,p2));
+        assertEquals(false,test.checkWinner(p1,p2));
     }
 
 
@@ -37,7 +38,7 @@ class ArenaTest extends Arena{
     //checks when array is empty and player 1 is winner
     @Test public void WinnerChecktest2() {
         p1.shipsArr.clear();
-        assertEquals(true,checkWinner(p1,p2));
+        assertEquals(true,test.checkWinner(p1,p2));
     }
 
     //check if game is over once all the ships of a player is sinked
@@ -74,8 +75,19 @@ class ArenaTest extends Arena{
         p1.misscount = 0;
         String score= "270";
 
-        assertEquals(score,calcScore(60000,p1));
+        assertEquals(score,test.calcScore(60000,p1));
     }
+    
+    @Test public void calculateScore2(){
+
+//      double minutes = 1;
+      p1.hitscount = 13;
+      p1.misscount = 0;
+      String score= "250";
+
+      assertEquals(score,test.calcScore(50000,p1));
+  }
+
 
     @Test public void calculateScore1(){
 
@@ -84,7 +96,7 @@ class ArenaTest extends Arena{
         p1.misscount = 30;
         String score= "340";
 
-        assertEquals(score,calcScore(30000,p1));
+        assertEquals(score,test.calcScore(30000,p1));
     }
 
     @Test public void calculateScoreAgain(){
@@ -94,11 +106,7 @@ class ArenaTest extends Arena{
         p1.misscount = 10;
         String score= "260";
 
-        assertEquals(score,calcScore(60000,p1));
+        assertEquals(score,test.calcScore(60000,p1));
     }
 
 }
-
-
-
-
