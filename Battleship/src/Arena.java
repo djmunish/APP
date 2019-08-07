@@ -335,6 +335,7 @@ public class Arena extends Application {
                                           updateSalvaGRid(salvaGrid,inputComboBox.getValue().toString());
                                     } else{ //2
                                         hitBtn.setDisable(true);
+                                        inputComboBox.setDisable(true);
                                         timerstop = true;	
                                     	System.out.println("human play - here when salvarr < window----else");
                                     	boolean flag3 = false;
@@ -589,7 +590,8 @@ public class Arena extends Application {
                                 		sendShips();
                                 		call =0;
                                 		}*/
-                                	hitBtn.setDisable(true);                                	
+                                	hitBtn.setDisable(true); 
+                                	inputComboBox.setDisable(true);
                                     u1.sendMessage(humanPlayer.playerPort, "H," + selectedAddress);
                                     
                                 }
@@ -677,6 +679,7 @@ public class Arena extends Application {
 		 }*/
     	if(check.equals("H")) { //for Single Hit    		
     		hitBtn.setDisable(false);
+    		inputComboBox.setDisable(false);
     		timerstop = false;
     		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
     		String s = "R,";
@@ -752,6 +755,7 @@ public class Arena extends Application {
     		return m;
     	}else if(check.equals("S")) { //for Salva Hits
     		hitBtn.setDisable(false);
+    		inputComboBox.setDisable(false);
     		timerstop = false;
     		String[] arr = msg.split(",");
     		String s = "T";
