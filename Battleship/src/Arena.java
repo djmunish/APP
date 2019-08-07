@@ -310,7 +310,7 @@ public class Arena extends Application {
                         			hitBtn.setText("OK");
                         			inputComboBox.setDisable(false);
                         			hitBtn.setDisable(true);
-                        			call =0;
+                        			call=0;
                         			sendShips();                			
                         		}else if(winner) {
                         			hitBtn.setDisable(true);
@@ -468,13 +468,17 @@ public class Arena extends Application {
                 	@Override
                 	public void handle(ActionEvent event) {
                 		if(call == 1) {
+                			System.out.println("In call == 1");
                 			timerstop = false;
                 			inputComboBox.setDisable(false);
-                			sendShips();
-                    		call =0;
+                			call=0;
                     		hitBtn.setText("Hit");
                     		hitBtn.setDisable(true);
+                			sendShips();
+                			System.out.println("\n\ncall is-------" + call);
+                    		
                 		}else if(winner) {
+                			System.out.println("In call winner");
                 			hitBtn.setDisable(true);
                 			finishTime = System.currentTimeMillis();
                 			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
@@ -491,7 +495,8 @@ public class Arena extends Application {
                 					"\t Hit = "+ humanPlayer.hitscount + "\nYour score is " + score );
                 		}
                 		else {
-                		boolean flag3 = false;
+                			System.out.println("In call else");
+                			boolean flag3 = false;
                 			try {
                 				selectedAddress = (String) inputComboBox.getValue();
                 			}
@@ -668,10 +673,13 @@ public class Arena extends Application {
     		String s = "R,";
     		System.out.println(flag);
     		if(flag) {
+    				System.out.println("y-h");
     				s += "Y,"+msg.trim();		
                 } else {
+                	System.out.println("n-h");
                 	s += "N,"+msg.trim();
                 }
+    		System.out.println("s is ---- " + s);
     		return s;
     	}//H
     	else if(check.equals("R")) { //for Single response	
@@ -810,7 +818,7 @@ public class Arena extends Application {
     		String m = "X,--";
     		return m;
     	}else if(check.equals("X")) {
-    		System.out.println("\n\nShips received!!!");	 
+    		System.out.println("\n\nShips sent!!!");	 
     		String m = "P";
     		return m;
     	}else if(check.equals("L")) {    		

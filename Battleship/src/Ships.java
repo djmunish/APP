@@ -98,18 +98,24 @@ public class Ships {
             ArrayList<String> got = s.coordinates;
             System.out.println("iN HIT" + s.coordinates);
             for (int i = 0; i < got.size(); i++) {
+            	System.out.println("1");
                 flag = got.get(i).contains(checkcordinate);
+                System.out.println("2");
                 if (flag) {
                     s.coordinates.remove(checkcordinate);
                     if (s.coordinates.size() == 0) {
                         p.shipsArr.remove(s);
                     }
+                    System.out.println("3");
                     break;
                 }
+                System.out.println("4");
             }
             if (flag) {
+            	System.out.println("5");
                 break;
             }
+            System.out.println("6");
         }
         System.out.println("checkhit flag is--" + flag);
         return flag;

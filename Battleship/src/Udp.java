@@ -46,7 +46,7 @@ public class Udp {
 					//String check = Received.substring(0, 1);
 					//String msg = Received.substring(2);
 					rep = arena.postHit(Received);
-					
+					System.out.println("rep is--" + rep);
 					/*if(check.equals("H")) {
 						System.out.println("Hit received is " + msg);
 						System.out.println("Human ships in Udp" + human.shipsArr);
