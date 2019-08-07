@@ -747,7 +747,7 @@ public class Arena extends Application {
             winner = true;
             timerstop = true;
             hitBtn.setDisable(false);
-            hitBtn.setText("Score");
+            //hitBtn.setText("Score");
             inputComboBox.setDisable(true);
     		//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
     		System.out.println("\n\nYou lost the game!3");
