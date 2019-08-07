@@ -75,7 +75,7 @@ public class ArenaTest extends Arena {
         p1.misscount = 0;
         String score= "270";
 
-        assertEquals(score,test.calcScore(60000,p1));
+        assertEquals(score,test.calcScore(60000,p1, false));
     }
     
     @Test public void calculateScore2(){
@@ -85,7 +85,7 @@ public class ArenaTest extends Arena {
       p1.misscount = 0;
       String score= "250";
 
-      assertEquals(score,test.calcScore(50000,p1));
+      assertEquals(score,test.calcScore(50000,p1, false));
   }
 
 
@@ -96,7 +96,7 @@ public class ArenaTest extends Arena {
         p1.misscount = 30;
         String score= "340";
 
-        assertEquals(score,test.calcScore(30000,p1));
+        assertEquals(score,test.calcScore(30000,p1, false));
     }
 
     @Test public void calculateScoreAgain(){
@@ -106,7 +106,7 @@ public class ArenaTest extends Arena {
         p1.misscount = 10;
         String score= "260";
 
-        assertEquals(score,test.calcScore(60000,p1));
+        assertEquals(score,test.calcScore(60000,p1, false));
     }
 
 }

@@ -324,7 +324,7 @@ public class Arena extends Application {
                     				System.out.println("seconds: " + seconds);
                     				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
                     				System.out.println("newtime: " + newtime);
-                        			String score  = calcScore(newtime, humanPlayer);
+                        			String score  = calcScore(newtime, humanPlayer, false);
                         			System.out.println("\n\nYou lost the game!");
                                     timerstop = true;
                         			Constants.showAlert("Sorry You lost the game!"+ "\n Miss = "+ humanPlayer.misscount +
@@ -413,7 +413,7 @@ public class Arena extends Application {
                                     			timerstop = true;
                                                 finishTime = System.currentTimeMillis();
                                                 elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                                        		String score  = calcScore(elapsedtime, humanPlayer);
+                                        		String score  = calcScore(elapsedtime, humanPlayer,false);
                                     			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);
                                     			break;
                                     			}
@@ -424,7 +424,7 @@ public class Arena extends Application {
                                 		finishTime = System.currentTimeMillis();
                                         elapsedtime = elapsedtime*1000 + (finishTime - startTime);
                                 		System.out.println("elspsed time is : " + elapsedtime + " finishtime is :"+ finishTime + " start time is: "+startTime);
-                                		String score  = calcScore(elapsedtime, humanPlayer);
+                                		String score  = calcScore(elapsedtime, humanPlayer, false);
                                 		timerstop = true;
                                 		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                                 	}
@@ -494,7 +494,7 @@ public class Arena extends Application {
             				System.out.println("seconds: " + seconds);
             				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
             				System.out.println("newtime: " + newtime);
-                			String score  = calcScore(newtime, humanPlayer);
+                			String score  = calcScore(newtime, humanPlayer, false);
                 			System.out.println("\n\nYou lost the game!");
                             timerstop = true;
                 			//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
@@ -551,12 +551,12 @@ public class Arena extends Application {
                                 			timerstop = true;
                                 			finishTime = System.currentTimeMillis();
                                             elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                                    		String score  = calcScore(elapsedtime, humanPlayer);
+                                    		String score  = calcScore(elapsedtime, humanPlayer, false);
                                 			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
                                 	}else {
                                 		finishTime = System.currentTimeMillis();
                                         elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                                		String score  = calcScore(elapsedtime, humanPlayer);
+                                		String score  = calcScore(elapsedtime, humanPlayer, false);
 //                                        save1.humanPlayer = humanPlayer;
                                 		timerstop = true;
                                 		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
@@ -713,8 +713,9 @@ public class Arena extends Application {
     						System.out.println("seconds: " + seconds);
     						int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
     						System.out.println("newtime: " + newtime);
-    						String score  = calcScore(newtime, humanPlayer);
-    						score = Integer.toString(Integer.parseInt(score) + 100);
+    						String score  = calcScore(newtime, humanPlayer, true);
+    						//int scorewin = Integer.parseInt(score) + 100;
+    						//score = Integer.toString(Integer.parseInt(score) + 100);
                             timerstop = true;
                             hitBtn.setDisable(true);  
                             inputComboBox.setDisable(true);
@@ -789,8 +790,8 @@ public class Arena extends Application {
 				System.out.println("seconds: " + seconds);
 				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
 				System.out.println("newtime: " + newtime);
-				String score  = calcScore(newtime, humanPlayer);
-				score = Integer.toString(Integer.parseInt(score) + 100);
+				String score  = calcScore(newtime, humanPlayer, true);
+				//score = Integer.toString(Integer.parseInt(score) + 100);
                 timerstop = true;                            
                 hitBtn.setDisable(true);
                 inputComboBox.setDisable(true);
@@ -1215,7 +1216,7 @@ public class Arena extends Application {
      * @param human human player object
      * @return the calculated score in the form of a String.
      */
-    public static String calcScore(long elapsedtime, Player human) {
+    public static String calcScore(long elapsedtime, Player human, boolean flag) {
 
 
 		// EXCEPTION: For checking the final time of the game
@@ -1232,7 +1233,9 @@ public class Arena extends Application {
     	double minutes = (double)elapsedtime/60000; 
     	System.out.println("Time taken by player is " + Double.toString(minutes)); 
     	double scorecalc = ((1/minutes)*100) + (human.hitscount * 10) - (human.misscount * 1);
-
+    	if(flag) {
+    		scorecalc += 100;
+    	}
 		// EXCEPTION: For checking the final score of the game
 		double score =scorecalc;
 		Arena.CheckGameScore obj1 = new Arena.CheckGameScore();

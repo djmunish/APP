@@ -93,7 +93,7 @@ public class Udp {
 			try {
 				aSocket = new DatagramSocket();
 				byte[] message = Sem.getBytes();
-				InetAddress aHost = InetAddress.getByName("132.205.4.63");
+				InetAddress aHost = InetAddress.getByName("132.205.4.25");
 				System.out.println("sem length is:" + Sem.length());
 				DatagramPacket request = new DatagramPacket(message, Sem.length(), aHost, serverPort);
 				aSocket.send(request);
