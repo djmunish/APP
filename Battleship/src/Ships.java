@@ -111,6 +111,7 @@ public class Ships {
                 break;
             }
         }
+        System.out.println("checkhit flag is--" + flag);
         return flag;
     }
     
@@ -215,7 +216,7 @@ public class Ships {
         int y = Integer.parseInt(s2);    //r
         System.out.println("Cordinates are: " + (x + 1) + " " + (y - 1));
         Button bActual = (Button) a.getNodeFromGridPane(G1, x + 1, y - 1);
-        if (checkhit(S, playerRef)) {
+        if (checkhit(S.trim(), playerRef)) {
             bActual.setStyle("-fx-background-color: Red");
             return true;
         } else {

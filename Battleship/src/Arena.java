@@ -666,6 +666,7 @@ public class Arena extends Application {
     		timerstop = false;
     		boolean flag = Ships.colorButtonHuman(playerGrid, msg.trim(), a1, humanPlayer);
     		String s = "R,";
+    		System.out.println(flag);
     		if(flag) {
     				s += "Y,"+msg.trim();		
                 } else {
