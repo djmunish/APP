@@ -1,5 +1,7 @@
 
 import javafx.application.Application;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -380,6 +383,8 @@ public class Arena extends Application {
                                 		if(flag) {
                                 			hitsHuman.add(s);
                                 			humanPlayer.hitscount++;
+                            				playSound();
+
                                 		}else {
                                 			missHuman.add(s);
                                 			humanPlayer.misscount++;
@@ -397,6 +402,8 @@ public class Arena extends Application {
                                 			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, s, Arena.this, humanPlayer);
                                             if (flag1) {
                                                 hitsComputer.add(s);
+                                				playSound();
+
                                             } else {
                                                 missComputer.add(s);
                                             }
@@ -519,6 +526,7 @@ public class Arena extends Application {
 
                                     }else {
                                     	humanPlayer.hitscount++;
+                                    	playSound();
                                     	hitsHuman.add(selectedAddress);
                 					}
                                     Constants.showAlert(message);                                    
@@ -530,6 +538,7 @@ public class Arena extends Application {
                                 			String messageComp;
                                 			if (flag1) {
                                 				messageComp = "It was a hit by Computer at " + s;
+                                				playSound();
                                 				hitsComputer.add(s);
                                 			} else {
                                 				messageComp = "Wohoo!! Computer missed the shot and hit you at " + s;
@@ -674,7 +683,8 @@ public class Arena extends Application {
     		System.out.println(flag);
     		if(flag) {
     				System.out.println("y-h");
-    				s += "Y,"+msg.trim();		
+    				s += "Y,"+msg.trim();	
+    				playSound();
                 } else {
                 	System.out.println("n-h");
                 	s += "N,"+msg.trim();
@@ -748,6 +758,8 @@ public class Arena extends Application {
     			boolean flag = Ships.colorButtonHuman(playerGrid, arr[i].trim(), a1, humanPlayer);
     			if(flag) {
     				s+=",Y-"+arr[i].trim();
+    				playSound();
+
     			}else {
     				s+=",N-"+arr[i].trim();
     			}
@@ -1276,6 +1288,13 @@ public class Arena extends Application {
 			}
 		}
 
+	}
+	
+	public static void playSound() {
+		String bip = "hit.mp3";
+		Media hit = new Media(new File(bip).toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		mediaPlayer.play();
 	}
 
 
