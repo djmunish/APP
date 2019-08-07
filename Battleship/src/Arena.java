@@ -316,7 +316,12 @@ public class Arena extends Application {
                         			hitBtn.setDisable(true);
                         			finishTime = System.currentTimeMillis();
                         			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                        			String score  = calcScore(elapsedtime, humanPlayer);
+                        			System.out.println("hours: " + hours);
+                    				System.out.println("minutes: " + minutes);
+                    				System.out.println("seconds: " + seconds);
+                    				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
+                    				System.out.println("newtime: " + newtime);
+                        			String score  = calcScore(newtime, humanPlayer);
                         			System.out.println("\n\nYou lost the game!");
                                     timerstop = true;
                         			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
@@ -473,7 +478,12 @@ public class Arena extends Application {
                 			hitBtn.setDisable(true);
                 			finishTime = System.currentTimeMillis();
                 			elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-                			String score  = calcScore(elapsedtime, humanPlayer);
+                			System.out.println("hours: " + hours);
+            				System.out.println("minutes: " + minutes);
+            				System.out.println("seconds: " + seconds);
+            				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
+            				System.out.println("newtime: " + newtime);
+                			String score  = calcScore(newtime, humanPlayer);
                 			System.out.println("\n\nYou lost the game!");
                             timerstop = true;
                 			Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
@@ -748,7 +758,12 @@ public class Arena extends Application {
 			if(oppShips.size() == 0) {
 				finishTime = System.currentTimeMillis();
 				elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-				String score  = calcScore(elapsedtime, humanPlayer);
+				System.out.println("hours: " + hours);
+				System.out.println("minutes: " + minutes);
+				System.out.println("seconds: " + seconds);
+				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
+				System.out.println("newtime: " + newtime);
+				String score  = calcScore(newtime, humanPlayer);
                 timerstop = true;
                 Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
                 hitBtn.setDisable(true);
