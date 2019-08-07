@@ -689,9 +689,15 @@ public class Arena extends Application {
     				if(oppShips.size() == 0) {
     						finishTime = System.currentTimeMillis();
     						elapsedtime = elapsedtime*1000 + (finishTime - startTime);
-    						String score  = calcScore(elapsedtime, humanPlayer);
+    						System.out.println("hours: " + hours);
+    						System.out.println("minutes: " + minutes);
+    						System.out.println("seconds: " + seconds);
+    						int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
+    						System.out.println("newtime: " + newtime);
+    						String score  = calcScore(newtime, humanPlayer);
                             timerstop = true;
-                            hitBtn.setDisable(true);                         
+                            hitBtn.setDisable(true);  
+                            inputComboBox.setDisable(true);
     						u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
     						Constants.showAlert(humanPlayer.name + " won the game!!!" + 
                             		"\n Miss = "+ humanPlayer.misscount + "\t Hit = "+ humanPlayer.hitscount +
@@ -713,10 +719,12 @@ public class Arena extends Application {
         		String m = "P";	
         		return m;
     	}//R
-    	else if(check.equals("W")) { //for Winner      		
+    	else if(check.equals("W")) { //for Winner 
             winner = true;
             timerstop = true;
             hitBtn.setDisable(false);
+            hitBtn.setText("Score");
+            inputComboBox.setDisable(true);
     		//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
     		System.out.println("\n\nYou lost the game!3");
     		String m = "L,--";
@@ -760,12 +768,12 @@ public class Arena extends Application {
 				int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
 				System.out.println("newtime: " + newtime);
 				String score  = calcScore(newtime, humanPlayer);
-                timerstop = true;
-              //  Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
+                timerstop = true;                            
+                hitBtn.setDisable(true);
+                inputComboBox.setDisable(true);
                 Constants.showAlert(humanPlayer.name + " won the game!!!" + 
                 		"\n Miss = "+ humanPlayer.misscount + "\t Hit = "+ humanPlayer.hitscount +
                 		"\nYour score is " + score);
-                hitBtn.setDisable(true);
 				u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
 			}
 			else if(oppShips.size() < 5){
@@ -804,7 +812,7 @@ public class Arena extends Application {
     		System.out.println("\n\nShips received!!!");	 
     		String m = "P";
     		return m;
-    	}else if(check.equals("L")) {
+    	}else if(check.equals("L")) {    		
     		System.out.println("\n\nWinner received!!!");
     		String m = "P";
     		return m;
