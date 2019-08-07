@@ -266,16 +266,20 @@ public class Arena extends Application {
             thread.setDaemon(true);
             thread.start();
 
-
+            if(humanPlayer.playWithHuman && call == 1){
+            	hitBtn.setText("Start");
+            	inputComboBox.setDisable(true);
+            	hitBtn.setDisable(false);}
+            
 
             if(humanPlayer.gamePlayType) {
                 salvaGrid = createGrid(1, salvaWindow, true);
                 vbox.getChildren().add(salvaGrid);
-                if(humanPlayer.playWithHuman && call == 1){
+             /*   if(humanPlayer.playWithHuman && call == 1){
                 	hitBtn.setText("Start");
                 	inputComboBox.setDisable(true);
                 	hitBtn.setDisable(false);
-                }else{
+                }else{ */
                 	inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                 		@Override
                 		public void changed(ObservableValue ov, String t, String t1) {
@@ -288,7 +292,7 @@ public class Arena extends Application {
                 			}
                 		}
                 	});
-                }
+              //  }
 
                 if(humanPlayer.salvaArr.size()<salvaWindow){
                 	System.out.println("here when salvarr < window---1");
@@ -305,7 +309,7 @@ public class Arena extends Application {
                         			timerstop = false;
                         			hitBtn.setText("OK");
                         			inputComboBox.setDisable(false);
-                        			hitBtn.setDisable(false);
+                        			hitBtn.setDisable(true);
                         			call =0;
                         			sendShips();                			
                         		}else if(winner) {
@@ -460,9 +464,11 @@ public class Arena extends Application {
                 	public void handle(ActionEvent event) {
                 		if(call == 1) {
                 			timerstop = false;
+                			inputComboBox.setDisable(false);
                 			sendShips();
                     		call =0;
                     		hitBtn.setText("Hit");
+                    		hitBtn.setDisable(true);
                 		}else if(winner) {
                 			hitBtn.setDisable(true);
                 			finishTime = System.currentTimeMillis();
@@ -777,10 +783,11 @@ public class Arena extends Application {
     			oppShips.add(ship);
     		}
     		System.out.println("\n\nOpposite Ships are --- " + oppShips );
+    		hitBtn.setDisable(false);
     		String m = "X,--";
     		return m;
     	}else if(check.equals("X")) {
-    		System.out.println("\n\nShips received!!!");
+    		System.out.println("\n\nShips received!!!");	 
     		String m = "P";
     		return m;
     	}else if(check.equals("L")) {
