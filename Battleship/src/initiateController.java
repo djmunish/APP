@@ -33,6 +33,7 @@ public class initiateController extends Application {
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Window to Choose Players");
+        
         FileInputStream input = new FileInputStream("battleship.jpg");
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
@@ -42,21 +43,8 @@ public class initiateController extends Application {
         imageView.setFitWidth(720);
         imageView.setPreserveRatio(true);
 
-
-
-        Button btn2 = new Button();
-        btn2.setText("Play with Another Player");
-        btn2.setStyle("-fx-background-color: Skyblue");
-        btn2.setTranslateX(344);
-        btn2.setTranslateY(450);
-        btn2.setPrefSize(250, 70);
-
-        Button btn1 = new Button();
-        btn1.setText("Play with Computer");
-        btn1.setStyle("-fx-background-color: Skyblue");
-        btn1.setTranslateX(600);
-        btn1.setTranslateY(350);
-        btn1.setPrefSize(250, 70);
+        Button btn2 = Constants.createButton(344,450,250,70, "Play with Another Player");
+        Button btn1 = Constants.createButton(600,350,250,70, "Play with Computer");
 
 
         btn1.setOnAction(new EventHandler<ActionEvent>() {
@@ -77,7 +65,6 @@ public class initiateController extends Application {
 
                 if (f.exists()) {
                     if(f.isDirectory()){
-
                         if(f.list().length>0) {
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Select");
