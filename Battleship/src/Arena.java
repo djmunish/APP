@@ -1193,11 +1193,33 @@ public class Arena extends Application {
      * @return the calculated score in the form of a String.
      */
     public static String calcScore(long elapsedtime, Player human) {
+
+
+		// EXCEPTION: For checking the final time of the game
+		long time = elapsedtime;
+		Arena.CheckGameTime obj = new Arena.CheckGameTime();
+
+		try {
+			obj.findByTime(time);
+		} catch (TimeException e) {
+			e.printStackTrace();
+		}
+
     	System.out.println("elapsed time: " + elapsedtime);
     	double minutes = (double)elapsedtime/60000; 
     	System.out.println("Time taken by player is " + Double.toString(minutes)); 
     	double scorecalc = ((1/minutes)*100) + (human.hitscount * 10) - (human.misscount * 1);
-    	DecimalFormat d = new DecimalFormat("#.###");
+
+		// EXCEPTION: For checking the final score of the game
+		double score =scorecalc;
+		Arena.CheckGameScore obj1 = new Arena.CheckGameScore();
+		try {
+			obj1.findByScore(score);
+		} catch (RunTimeException e) {
+			e.printStackTrace();
+		}
+
+		DecimalFormat d = new DecimalFormat("#.###");
     	System.out.println("score is "+ d.format(scorecalc));
     	return d.format(scorecalc);
     }
@@ -1224,5 +1246,26 @@ public class Arena extends Application {
 
 
     }
+	public static class CheckGameTime {
+		public void findByTime(long time) throws TimeException {
+
+			if (time <= 0) {
+				throw new TimeException("Invalid Game Time");
+			}
+		}
+
+	}
+
+	public static class CheckGameScore{
+
+		public void findByScore(double score) throws RunTimeException {
+
+			if (score < 0) {
+				throw new RunTimeException("Invalid Game Score");
+			}
+		}
+
+	}
+
 
 }//Arena
