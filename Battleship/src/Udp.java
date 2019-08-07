@@ -27,12 +27,12 @@ public class Udp {
 	}
 	
 	 private synchronized static void receive(int port) {
-		 MulticastSocket  aSocket = null;
+		 DatagramSocket  aSocket = null;
 		 try {
 			 	String	rep = null;	
 			 	boolean flag1 = false;
-				aSocket = new MulticastSocket (port);
-				aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
+				aSocket = new DatagramSocket (port);
+				//aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
 				System.out.println("Server " + port + " Started............");
 				while (true) {
 					
@@ -93,7 +93,7 @@ public class Udp {
 			try {
 				aSocket = new DatagramSocket();
 				byte[] message = Sem.getBytes();
-				InetAddress aHost = InetAddress.getByName("230.1.1.5");
+				InetAddress aHost = InetAddress.getByName("132.205.4.63");
 				System.out.println("sem length is:" + Sem.length());
 				DatagramPacket request = new DatagramPacket(message, Sem.length(), aHost, serverPort);
 				aSocket.send(request);
