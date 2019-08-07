@@ -124,8 +124,19 @@ public class initiateController extends Application {
 
                 result.ifPresent(name -> {
 
-                    if (name.length() > 0 && !name.equals("Enter your name")) {
-                        humanPlayer.name = name;
+                    if (name.trim().length() > 0 && !name.equals("Enter your name")) {
+                        humanPlayer.name = name.trim();
+
+
+                        // EXCEPTION: For checking the name of the player
+
+                        PlayerNameCheck obj = new PlayerNameCheck();
+
+                        try {
+                            obj.findByName(name);
+                        } catch (NameNotFoundException e) {
+                            e.printStackTrace();
+                        }
                         humanPlayer.playWithHuman = true;
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Select");
@@ -350,8 +361,18 @@ public class initiateController extends Application {
 
         result.ifPresent(name -> {
 
-            if (name.length() > 0 && !name.equals("Enter your name")) {
-                humanPlayer.name = name;
+            if (name.trim().length() > 0 && !name.equals("Enter your name")) {
+                humanPlayer.name = name.trim();
+
+                // EXCEPTION: For checking the name of the players
+
+                PlayerNameCheck obj = new PlayerNameCheck();
+
+                try {
+                    obj.findByName(name);
+                } catch (NameNotFoundException e) {
+                    e.printStackTrace();
+                }
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Select");
@@ -389,4 +410,20 @@ public class initiateController extends Application {
         });
     }
 
+    public class PlayerNameCheck {
+        public void findByName(String name) throws NameNotFoundException {
+
+
+            if (!isStringOnlyAlphabet(name)) {
+                throw new NameNotFoundException("Please Enter a Valid Name");
+            }
+        }
+
+        public boolean isStringOnlyAlphabet(String str)
+        {
+            return ((str != null)
+                    && (!str.equals(""))
+                    && (str.chars().allMatch(Character::isLetter)));
+        }
+    }
 }
