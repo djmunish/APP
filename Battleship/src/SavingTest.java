@@ -1,10 +1,11 @@
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class SavingTest {
+public class SavingTest {
 	Saving test = new Saving();
 	Player humanPlayer = new Player();
 	Player computerPlayer = new Player();
@@ -23,7 +24,7 @@ class SavingTest {
 		hits.add("B5");
 		miss.add("C2");
 		miss.add("F6");
-	//	test.saveHuman(p1,70000, hits, miss);
+		test.saveGame(p1,70000, hits, miss);
 		}
 	
 	@Test
@@ -34,29 +35,39 @@ class SavingTest {
 		hits.add("D8");
 		miss.add("F4");
 		miss.add("G3");
-	//	test.saveHuman(p2,8000, hits, miss);
+		test.saveGame(p2,8000, hits, miss);
 		}
 	
 	@Test
 	public void savingTestforPlayer1() throws IOException {
-	p1.name = "joy";
-	p1.shipsArr.add(s);
-	hits.add("F1");
-	hits.add("K5");
-	miss.add("H2");
-	miss.add("C6");
-//	test.saveHuman(p1,9000, hits, miss);
-	}
+		p1.name = "joy";
+		p1.shipsArr.add(s);
+		hits.add("F1");
+		hits.add("K5");
+		miss.add("H2");
+		miss.add("C6");
+		test.saveGame(p1,9000, hits, miss);
+		}
 	
 	@Test
 	public void savingTestforPlayer2() throws IOException {
-	p1.name = "fun";
-	p1.shipsArr.add(m);
-	hits.add("C2");
-	hits.add("E7");
-	miss.add("G3");
-	miss.add("K9");
-//	test.saveHuman(p1,58000, hits, miss);
-	}
-		
+		p1.name = "fun";
+		p1.shipsArr.add(m);
+		hits.add("C2");
+		hits.add("E7");
+		miss.add("G3");
+		miss.add("K9");
+		test.saveGame(p1,58000, hits, miss);
+		}
+	
+	@Test
+	public void savingTestforhumanPlayer() throws IOException {
+		p1.name = "fun";
+		p1.shipsArr.add(m);
+		hits.add("F9");
+		hits.add("E7");
+		miss.add("G3");
+		miss.add("K4");
+		test.saveGame(p2,4000, hits, miss);
+		}
 }
