@@ -1,5 +1,4 @@
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -122,17 +121,5 @@ public final class Constants {
 //        return absolutePath;
 //    }
 
-
-
-    public static Button createButton(int x,int y, int w, int h, String title){
-
-        Button btn = new Button();
-        btn.setText(title);
-        btn.setStyle("-fx-background-color: Skyblue");
-        btn.setTranslateX(x);
-        btn.setTranslateY(y);
-        btn.setPrefSize(w, h);
-        return btn;
-    }
 
 }
