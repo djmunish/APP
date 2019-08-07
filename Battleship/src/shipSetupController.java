@@ -1,8 +1,11 @@
 
+import java.awt.Dimension;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import com.sun.javafx.tk.Toolkit;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -16,6 +19,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.input.MouseEvent;
@@ -66,6 +70,7 @@ public class shipSetupController extends Application {
 		}
 	}
 	
+	
 	/**
 	 * Function to set the ship after it is dropped
 	 * @param col column of the ship start
@@ -79,6 +84,7 @@ public class shipSetupController extends Application {
 	 * @return true is ship is placed at right positions, false if ship co-ordinates are not available.
 	 * @author iknoor
 	 */
+	
 	public boolean dropShip(int col, int row, int len, GridPane g, boolean isVertical,RadioButton rb, String shipColor,Button btnok) {
 
 		System.out.println((checkAvailability(col, row, len, isVertical)));
@@ -253,7 +259,7 @@ public class shipSetupController extends Application {
 		Button btnok = new Button("I'm Ready!");
 		btnok.setDisable(true);
 		btnok.setStyle("-fx-background-color: Red ");
-		btnok.setTranslateX(300);
+		btnok.setTranslateX(200);
 		btnok.setTranslateY(550);
 		btnok.setPrefSize(300, 50);
 
@@ -292,7 +298,7 @@ public class shipSetupController extends Application {
 		l1.setTranslateY(50);
 		l1.setWrapText(true);
 
-		l2.setTranslateX(-900);
+		l2.setTranslateX(-920);
 		l2.setTranslateY(50);
 		l2.setWrapText(true);
 
@@ -511,7 +517,7 @@ public class shipSetupController extends Application {
 						} catch (Exception e) {
 
 						}
-						
+												
 						event.consume();
 					}
 				});
@@ -540,7 +546,7 @@ public class shipSetupController extends Application {
 						if(value){
 							
 							vbox.getChildren().remove(source);
-						}			
+						}
 						
 						}
 						
@@ -654,15 +660,17 @@ public class shipSetupController extends Application {
 		} // outer for
 
 		gridPane.setPrefSize(500, 500);
-
+		
 		hbox.setStyle("-fx-background-color: Grey");
 		primaryStage.setScene(scene);
 		primaryStage.setWidth(1000);
 		primaryStage.setHeight(800);
 		gridPane.setTranslateX(600);
-		gridPane.setTranslateY(200);
-		primaryStage.show();
+		gridPane.setTranslateY(200);	
+		
 		primaryStage.setMaximized(true);
+		primaryStage.show();
+		
 
 	}
 }
