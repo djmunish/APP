@@ -1,4 +1,5 @@
 import java.io.*;
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
 import javafx.scene.control.Alert;
@@ -31,7 +32,7 @@ public class initiateController extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) throws FileNotFoundException, FileNotFoundException {
         primaryStage.setTitle("Window to Choose Players");
         FileInputStream input = new FileInputStream("battleship.jpg");
         Image image = new Image(input);
@@ -63,6 +64,16 @@ public class initiateController extends Application {
 
                 String filePath = Constants.absolutePath +"/gameData";
                 File f = new File(filePath); //Change Path
+
+                // EXCEPTION: For checking if the File Exist
+
+                PlayerFile obj2 = new PlayerFile();
+
+                try {
+                    obj2.findByFile(f);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
 
                 if (f.exists()) {
                     if(f.isDirectory()){
@@ -415,5 +426,15 @@ public class initiateController extends Application {
                     && (!str.equals(""))
                     && (str.chars().allMatch(Character::isLetter)));
         }
+    }
+    public static class PlayerFile{
+
+        public void findByFile(File file) throws FileNotFoundException {
+
+            if (!file.exists()) {
+                throw new FileNotFoundException("File does not exist");
+            }
+        }
+
     }
 }
