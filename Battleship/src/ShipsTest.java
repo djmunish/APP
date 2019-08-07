@@ -63,6 +63,31 @@ class ShipsTest {
         }
         assertNotEquals(true, Ships.checkifship("B4", p1));
     }
-
+    
+    @Test
+    public void checkForSalvaHits()
+    {
+    	hits.add("A4");
+    	hits.add("F8");
+    	assertEquals("!F8,",Ships.checkHitSalva(hits, p1));
+    }
+    
+    //if there are zero hits
+    @Test
+    public void checkForSalvaHits1()
+    {
+    	assertEquals("!",Ships.checkHitSalva(hits, p1));
+    }
+    
+    @Test
+    public void checkForSalvaHits2()
+    {
+    	hits.add("G4");
+    	hits.add("K7");
+    	hits.add("D5");
+    	hits.add("E8");
+    	assertEquals("!E8,",Ships.checkHitSalva(hits, p1));
+    }
+    
 
 }
