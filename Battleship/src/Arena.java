@@ -1189,6 +1189,18 @@ public class Arena extends Application {
      * @return the calculated score in the form of a String.
      */
     public static String calcScore(long elapsedtime, Player human) {
+
+
+		// EXCEPTION: For checking the final time of the game
+		long time = elapsedtime;
+		Arena.CheckGameTime obj = new Arena.CheckGameTime();
+
+		try {
+			obj.findByTime(time);
+		} catch (TimeException e) {
+			e.printStackTrace();
+		}
+
     	System.out.println("elapsed time: " + elapsedtime);
     	double minutes = (double)elapsedtime/60000; 
     	System.out.println("Time taken by player is " + Double.toString(minutes)); 
@@ -1220,5 +1232,15 @@ public class Arena extends Application {
 
 
     }
+	public static class CheckGameTime {
+		public void findByTime(long time) throws TimeException {
+
+			if (time == 0) {
+				throw new TimeException("Invalid Game Time");
+			}
+		}
+
+	}
+
 
 }//Arena

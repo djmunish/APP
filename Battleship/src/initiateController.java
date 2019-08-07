@@ -44,20 +44,9 @@ public class initiateController extends Application {
 
 
 
-        Button btn2 = new Button();
-        btn2.setText("Play with Another Player");
-        btn2.setStyle("-fx-background-color: Skyblue");
-        btn2.setTranslateX(344);
-        btn2.setTranslateY(450);
-        btn2.setPrefSize(250, 70);
-
-        Button btn1 = new Button();
-        btn1.setText("Play with Computer");
-        btn1.setStyle("-fx-background-color: Skyblue");
-        btn1.setTranslateX(600);
-        btn1.setTranslateY(350);
-        btn1.setPrefSize(250, 70);
-
+        
+        Button btn2 = Constants.createButton(344,450,250,70, "Play with Another Player");
+        Button btn1 = Constants.createButton(600,350,250,70, "Play with Computer");
 
         btn1.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -137,6 +126,7 @@ public class initiateController extends Application {
                         } catch (NameNotFoundException e) {
                             e.printStackTrace();
                         }
+
                         humanPlayer.playWithHuman = true;
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Select");

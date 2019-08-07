@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.sun.javafx.tk.Toolkit;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;

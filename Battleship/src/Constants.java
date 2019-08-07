@@ -1,5 +1,5 @@
 import javafx.scene.control.Alert;
-
+import javafx.scene.control.Button;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -120,6 +120,18 @@ public final class Constants {
         public static File f_Computer = new File(filePath + "/computer.txt"); //Change Path
 //        return absolutePath;
 //    }
+
+
+    public static Button createButton(int x,int y, int w, int h, String title){
+
+        Button btn = new Button();
+        btn.setText(title);
+        btn.setStyle("-fx-background-color: Skyblue");
+        btn.setTranslateX(x);
+        btn.setTranslateY(y);
+        btn.setPrefSize(w, h);
+        return btn;
+    }
 
 
 }
