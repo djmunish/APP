@@ -746,9 +746,10 @@ public class Arena extends Application {
     	else if(check.equals("W")) { //for Winner 
             winner = true;
             timerstop = true;
-            hitBtn.setDisable(false);
-            //hitBtn.setText("Score");
             inputComboBox.setDisable(true);
+            hitBtn.setDisable(false);
+          //  hitBtn.setText("Score")
+            
     		//Constants.showAlert("Sorry You lost the game! \n"+ "Your score is " + score);
     		System.out.println("\n\nYou lost the game!3");
     		String m = "L,--";
