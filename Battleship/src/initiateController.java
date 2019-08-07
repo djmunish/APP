@@ -2,6 +2,8 @@ import java.io.*;
 import java.io.FileNotFoundException;
 import java.util.Optional;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
@@ -77,7 +79,6 @@ public class initiateController extends Application {
 
                 if (f.exists()) {
                     if(f.isDirectory()){
-
                         if(f.list().length>0) {
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Select");
@@ -211,6 +212,10 @@ public class initiateController extends Application {
 
             String humanData[] = {};
             String compData[] = {};
+            
+            System.out.println(Constants.filePath);
+            System.out.println(Constants.f_human);
+            System.out.println(Constants.f_Computer);
             {
 
                 try {
