@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +36,17 @@ public class Saving {
             file = new File(sPath+"/gameData/computer.txt");
         }
 
+        // EXCEPTION: For checking if the File Exist
+
+        PlayerFile obj = new PlayerFile();
+
+        try {
+            obj.findByFile(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
 
 
         if (file.exists())
@@ -70,6 +82,17 @@ public class Saving {
         writer.append(String.valueOf(elapsedtime));
 
         writer.close();
+
+    }
+
+    public static class PlayerFile{
+
+        public void findByFile(File file) throws FileNotFoundException {
+
+            if (!file.exists()) {
+                throw new FileNotFoundException("File does not exist");
+            }
+        }
 
     }
 }
