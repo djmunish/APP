@@ -796,12 +796,12 @@ public class Arena extends Application {
 				System.out.println("newtime: " + newtime);
 				String score  = calcScore(newtime, humanPlayer, true);
 				//score = Integer.toString(Integer.parseInt(score) + 100);
-                timerstop = true;                            
-                hitBtn.setDisable(true);
-                inputComboBox.setDisable(true);
-                Constants.showAlert(humanPlayer.name + " won the game!!!" + 
+				Constants.showAlert(humanPlayer.name + " won the game!!!" + 
                 		"\n Miss = "+ humanPlayer.misscount + "\t Hit = "+ humanPlayer.hitscount +
                 		"\nYour score is " + score);
+                timerstop = true;                            
+                hitBtn.setDisable(true);
+                inputComboBox.setDisable(true);   
 				u1.sendMessage(humanPlayer.playerPort, "W,"+humanPlayer.name);
 			}
 			else if(oppShips.size() < 5){
@@ -842,6 +842,9 @@ public class Arena extends Application {
     		return m;
     	}else if(check.equals("L")) {    		
     		System.out.println("\n\nWinner received!!!");
+    		 timerstop = true;                            
+             hitBtn.setDisable(true);
+             inputComboBox.setDisable(true);
     		String m = "P";
     		return m;
     	}
