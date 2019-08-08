@@ -258,7 +258,7 @@ public class shipSetupController extends Application {
 		Button btnok = new Button("I'm Ready!");
 		btnok.setDisable(true);
 		btnok.setStyle("-fx-background-color: Red ");
-		btnok.setTranslateX(200);
+		btnok.setTranslateX(155);
 		btnok.setTranslateY(550);
 		btnok.setPrefSize(300, 50);
 
@@ -293,11 +293,11 @@ public class shipSetupController extends Application {
 		l2.setTextFill(Color.FLORALWHITE);
 		l2.setFont(new Font("Arial", 20));
 
-		l1.setTranslateX(-550);
+		l1.setTranslateX(-650);
 		l1.setTranslateY(50);
 		l1.setWrapText(true);
 
-		l2.setTranslateX(-920);
+		l2.setTranslateX(-1000);
 		l2.setTranslateY(50);
 		l2.setWrapText(true);
 
