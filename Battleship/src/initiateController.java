@@ -102,6 +102,9 @@ public class initiateController extends Application {
                         }
                     }
                 }
+                else{
+                    startNewGame(primaryStage);
+                }
 
             }
         });

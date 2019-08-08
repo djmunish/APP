@@ -18,7 +18,7 @@ public class ShipsTest {
 
         assertEquals(true, Ships.checkhit("A2", p1));
     }
-
+ 
 	//if it is false
     @Test
     public void checkForHit2() {
