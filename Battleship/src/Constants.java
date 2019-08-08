@@ -112,14 +112,11 @@ public final class Constants {
 
     public static final ArrayList<String> shipColors = new ArrayList<>();
     
-//    public static String getPath(){
         public static Path currentRelativePath = Paths.get("");
         public static String absolutePath = currentRelativePath.toAbsolutePath().toString();
         public static String filePath = absolutePath +"/gameData";
         public static File f_human = new File(filePath + "/human.txt"); //Change Path
         public static File f_Computer = new File(filePath + "/computer.txt"); //Change Path
-//        return absolutePath;
-//    }
 
 
     public static Button createButton(int x,int y, int w, int h, String title){
