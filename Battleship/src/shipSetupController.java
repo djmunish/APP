@@ -28,7 +28,7 @@ public class shipSetupController extends Application {
 	// Set the Custom Data Format
 	static final DataFormat SHIPS_LIST = new DataFormat("ShipList");
 	static String shipnumname = null;
-	public ImageView[] ships;
+	public ImageView[] ships; 
 	public Udp u1;
 
 	boolean isvertical1 = false;
@@ -135,7 +135,7 @@ public class shipSetupController extends Application {
 					return true;
 				}//if
 				else {
-					Constants.showAlert(Constants.coords_Alert);
+					Constants.showAlert(Constants.COORDS_ALERT);
 				}//else
 
 			} else {
@@ -181,12 +181,12 @@ public class shipSetupController extends Application {
 				}
 				else {
 
-					Constants.showAlert(Constants.coords_Alert);
+					Constants.showAlert(Constants.COORDS_ALERT);
 				}
 			} //else of is vertical
 		}//if checkavailability
 		else {
-			Constants.showAlert(Constants.grid_Alert);
+			Constants.showAlert(Constants.GRID_ALERT);
 		}
 		return false;
 	}//dropship
