@@ -8,12 +8,24 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 
+/**
+ * Class to send and receive UDP messages for Human Play.
+ * @author harshkour
+ * @since 01-08-2019
+ * @version 1.0.0
+ */
 public class Udp {
 	
 	static String Received = null;
 	public static Arena arena;
 	public static Player human;
 	
+	/**
+	 * Function to start the server
+	 * @param port Port at which the server will start
+	 * @throws SecurityException Data Leakage
+	 * @throws IOException throws exception when there is wrong input
+	 */
 	public static void startServer(int port) throws SecurityException, IOException {
 		try {
 			Runnable task = () -> {
@@ -26,13 +38,16 @@ public class Udp {
 		}
 	}
 	
+	/**
+	 * Receive message for the server on the port
+	 * @param port the port number on which message is received
+	 */
 	 private synchronized static void receive(int port) {
 		 DatagramSocket  aSocket = null;
 		 try {
 			 	String	rep = null;	
 			 	boolean flag1 = false;
 				aSocket = new DatagramSocket (port);
-				//aSocket.joinGroup(InetAddress.getByName("230.1.1.5"));
 				System.out.println("Server " + port + " Started............");
 				while (true) {
 					
@@ -43,31 +58,8 @@ public class Udp {
 					
 					System.out.println("Output received is : " + Received);
 					
-					//String check = Received.substring(0, 1);
-					//String msg = Received.substring(2);
 					rep = arena.postHit(Received);
 					System.out.println("rep is--" + rep);
-					/*if(check.equals("H")) {
-						System.out.println("Hit received is " + msg);
-						System.out.println("Human ships in Udp" + human.shipsArr);
-						System.out.println("Ships are:........");
-						 for (Ships s : human.shipsArr) {
-							 System.out.println(s.coordinates);
-						 }
-						flag1 = Ships.checkhit(msg, human);
-						System.out.println("FALG :-"+flag1);
-						if(flag1) {
-							 rep = "R,Y";
-						}else {
-							 rep = "R,N";
-						}
-						arena.postHit("H", flag1);
-						System.out.println("REP :-"+ rep);
-					}else if(check.equals("S")) {
-						System.out.println("Salva Hit received is " + msg);
-					}else if(check.equals("R")) {
-						System.out.println("Response received is " + msg);
-					}*/
 					if(rep.equals("P")) {
 						
 					}else {
@@ -87,7 +79,12 @@ public class Udp {
 					aSocket.close();
 			} 
 	 	}
-	 
+	 	
+	 	/**
+	 	 * Function to send message over network
+	 	 * @param serverPort the port on which message needs to be sent
+	 	 * @param Sem The message to be sent 
+	 	 */
 	   public static void sendMessage(int serverPort, String Sem) {
 			DatagramSocket aSocket = null;
 			try {
@@ -117,11 +114,5 @@ public class Udp {
 				if (aSocket != null)
 					aSocket.close();
 			}
-		}
-
-	
-	
-	
-	
-	
+		}	
 }

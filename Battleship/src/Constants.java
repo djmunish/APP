@@ -39,14 +39,14 @@ public final class Constants {
 
 
 
-    public static final String salva_Alert = "Do you wish to play in Salva Variation?";
-    public static final String name_Alert = "Please enter player name.";
-    public static final String coords_Alert = "Please correct the ship coordinates!";
-    public static final String grid_Alert = "Please select coordinates inside the grid";
-    public static final String hit_Alert = "Please select a location and then click 'Hit' Button!";
-    public static final String save_Alert = "Do you wish to save your game before quiting?";
-    public static final String load_Alert = "Do you wish to load your previous game?";
-    public static final String continue_Alert = "Do you wish to continue?";
+    public static final String SALVA_ALERT = "Do you wish to play in Salva Variation?";
+    public static final String NAME_ALERT = "Please enter player name.";
+    public static final String COORDS_ALERT = "Please correct the ship coordinates!";
+    public static final String GRID_ALERT = "Please select coordinates inside the grid";
+    public static final String HIT_ALERT = "Please select a location and then click 'Hit' Button!";
+    public static final String SAVE_ALERT = "Do you wish to save your game before quiting?";
+    public static final String LOAD_ALERT = "Do you wish to load your previous game?";
+    public static final String CONTINUE_ALERT = "Do you wish to continue?";
 
 
     public static final String alphabets = "ABCDEFGHIJK";

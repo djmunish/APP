@@ -39,7 +39,7 @@ public class initiateController extends Application {
         FileInputStream input = new FileInputStream("battleship.jpg");
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(-150);
+        imageView.setTranslateX(-150); 
         imageView.setTranslateY(10);
         imageView.setFitHeight(540);
         imageView.setFitWidth(720);
@@ -82,7 +82,7 @@ public class initiateController extends Application {
                         if(f.list().length>0) {
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Select");
-                            alert.setHeaderText(Constants.load_Alert);
+                            alert.setHeaderText(Constants.LOAD_ALERT);
                             ButtonType yes = new ButtonType("Yes");
                             ButtonType no = new ButtonType("No");
 
@@ -142,7 +142,7 @@ public class initiateController extends Application {
                         humanPlayer.playWithHuman = true;
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Select");
-                        alert.setHeaderText(Constants.salva_Alert);
+                        alert.setHeaderText(Constants.SALVA_ALERT);
                         ButtonType yes = new ButtonType("Yes");
                         ButtonType no = new ButtonType("No");
 
@@ -159,7 +159,6 @@ public class initiateController extends Application {
 
                         humanPlayer.playerPort = 5555; //change port
                         try {
-                           // humanPlayer.createConnection(7777);
                         	u1.startServer(6666);
                         	
                         } catch (IOException e) {
@@ -179,7 +178,7 @@ public class initiateController extends Application {
 
 
                     } else {
-                        Constants.showAlert(Constants.name_Alert);
+                        Constants.showAlert(Constants.NAME_ALERT);
                     }
                 });
 
@@ -352,11 +351,6 @@ public class initiateController extends Application {
 
         public void startNewGame(Stage primaryStage){
         computer.computerRandomShip();
-//                for (Ships absolutePath : computer.shipsArr) {
-//                    System.out.println("random ships");
-//                    System.out.println(absolutePath.coordinates);
-//                    System.out.println(absolutePath.hexColor);
-//                }
 
         TextInputDialog dialog = new TextInputDialog("Enter your name");
 
@@ -382,7 +376,7 @@ public class initiateController extends Application {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Select");
-                alert.setHeaderText(Constants.salva_Alert);
+                alert.setHeaderText(Constants.SALVA_ALERT);
                 ButtonType yes = new ButtonType("Yes");
                 ButtonType no = new ButtonType("No");
 
@@ -411,7 +405,7 @@ public class initiateController extends Application {
 
 
             } else {
-                Constants.showAlert(Constants.name_Alert);
+                Constants.showAlert(Constants.NAME_ALERT);
             }
         });
     }
@@ -432,6 +426,7 @@ public class initiateController extends Application {
                     && (str.chars().allMatch(Character::isLetter)));
         }
     }
+    
     public static class PlayerFile{
 
         public void findByFile(File file) throws FileNotFoundException {

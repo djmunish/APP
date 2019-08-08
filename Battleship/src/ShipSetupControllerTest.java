@@ -23,7 +23,7 @@ public class ShipSetupControllerTest {
 	        assertEquals(false,test.checkAvailability(3,7,5,true));
 	    }
 
-	    //check for availability
+	    //check for availability 
 	    @Test public void checkForAvailability1()
 	    {
 

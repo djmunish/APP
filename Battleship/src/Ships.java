@@ -13,7 +13,7 @@ public class Ships {
 
     public ArrayList<String> coordinates;
     public Color shipColor;
-    public String hexColor;
+    public String hexColor; 
 
     public Ships(String start, String end) {
         colorShip();

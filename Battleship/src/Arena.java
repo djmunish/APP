@@ -41,7 +41,7 @@ import javafx.scene.text.Text;
  * Arena.java deals with the game arena, it records the actions on UI and performs the computation.
  * @author iknoor
  * @since 2019-07-06
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class Arena extends Application {
 
@@ -78,12 +78,6 @@ public class Arena extends Application {
     ArrayList<String> missHuman = new ArrayList<String>();
     ArrayList<String> hitsComputer = new ArrayList<String>();
     ArrayList<String> missComputer = new ArrayList<String>();
-
-
-//    ArrayList<String> loadhitsHuman = new ArrayList<String>();
-//    ArrayList<String> loadmissHuman = new ArrayList<String>();
-//    ArrayList<String> loadhitsComputer = new ArrayList<String>();
-//    ArrayList<String> loadmissComputer = new ArrayList<String>();
     SplitPane split_pane2;
 
     
@@ -107,6 +101,9 @@ public class Arena extends Application {
         text.setText((hours < 10 ? "0" : "")+Integer.toString(hours)+":"+ (minutes < 10 ? "0" : "")+Integer.toString(minutes)+":"+(seconds < 10 ? "0" : "")+Integer.toString(seconds));
     }
     
+    /**
+     * Function to send the Ships
+     */
 	public void sendShips() {
 		String sendships = "Z";
 		
@@ -216,9 +213,6 @@ public class Arena extends Application {
             	hitBtn.setText("Start");
             }
             
-            
-            
-
             // To check if it is a HIT / MISS by any player
             for (Ships p : humanPlayer.shipsArr) {
                 ArrayList<String> got = p.coordinates;
@@ -237,9 +231,7 @@ public class Arena extends Application {
             if (!humanPlayer.playWithHuman){
                 showHideComputerShip(true, compGrid); // show hide Computer ships
         }
-            /*else {
-        	sendShips();
-        }*/
+             
 
             VBox vbox = new VBox();
             vbox.getChildren().add(inputComboBox);    
@@ -278,11 +270,6 @@ public class Arena extends Application {
             if(humanPlayer.gamePlayType) {
                 salvaGrid = createGrid(1, salvaWindow, true);
                 vbox.getChildren().add(salvaGrid);
-             /*   if(humanPlayer.playWithHuman && call == 1){
-                	hitBtn.setText("Start");
-                	inputComboBox.setDisable(true);
-                	hitBtn.setDisable(false);
-                }else{ */
                 	inputComboBox.valueProperty().addListener(new ChangeListener<String>() {
                 		@Override
                 		public void changed(ObservableValue ov, String t, String t1) {
@@ -565,7 +552,7 @@ public class Arena extends Application {
                                    	if (flag2 || flag3) { 		
                                 		Alert alert = new Alert(AlertType.CONFIRMATION);
                                 		alert.setTitle("Select");
-                                		alert.setHeaderText(Constants.continue_Alert);
+                                		alert.setHeaderText(Constants.CONTINUE_ALERT);
                                 		ButtonType yes = new ButtonType("Yes");
                                 		ButtonType no = new ButtonType("No");
 
@@ -596,7 +583,7 @@ public class Arena extends Application {
                                     
                                 }
                 			 }else {
-                                 	Constants.showAlert(Constants.hit_Alert);
+                                 	Constants.showAlert(Constants.HIT_ALERT);
                              }
                 		}//call= 1
                 			                
@@ -627,7 +614,7 @@ public class Arena extends Application {
             	if(!humanPlayer.playWithHuman) {
                 Alert alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Select");
-                alert.setHeaderText(Constants.save_Alert);
+                alert.setHeaderText(Constants.SAVE_ALERT);
                 ButtonType yes = new ButtonType("Yes");
                 ButtonType no = new ButtonType("No");
 
@@ -668,15 +655,18 @@ public class Arena extends Application {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }        
+    } 
+    
+    /**
+     * Function to perform actions based on the UDP message received
+     * @param received message received from the UDP
+     * @return a String reply to be sent through UDP sockets
+     */
     public static String postHit(String received) 
     {
     	String check = received.substring(0, 1).trim();
 		String msg = received.substring(2).trim();
 		System.out.println("msg is:" + msg);
-		/* for (Ships s : humanPlayer.shipsArr) {
-			 System.out.println(s.coordinates);
-		 }*/
     	if(check.equals("H")) { //for Single Hit    		
     		hitBtn.setDisable(false);
     		inputComboBox.setDisable(false);
@@ -717,8 +707,6 @@ public class Arena extends Application {
     						int newtime = (seconds*1000)+ (minutes*60000) + (hours*60*60000);
     						System.out.println("newtime: " + newtime);
     						String score  = calcScore(newtime, humanPlayer, true);
-    						//int scorewin = Integer.parseInt(score) + 100;
-    						//score = Integer.toString(Integer.parseInt(score) + 100);
                             timerstop = true;
                             hitBtn.setDisable(true);  
                             inputComboBox.setDisable(true);
@@ -812,14 +800,6 @@ public class Arena extends Application {
     		String m = "P";
     		return m;
     	}
-    	/*else if(check.equals("D")) { //ship is down
-    		int n  = Integer.parseInt(msg.trim());
-    		salvaWindow = n;
-    		salvaGrid = createGrid(1, salvaWindow, true);
-           // stage.vbox.getChildren().add(salvaGrid);
-    		String m = "P";
-    		return m;
-    	}*/
     	else if(check.equals("Z")) {
     		System.out.println("Inside z");
     		String[] arr = msg.split(",");
@@ -853,65 +833,12 @@ public class Arena extends Application {
     		String m = "P";
     		return m;
     	}
-    	
-       	//return null;
-    	/*
-    	boolean flag3 = false;
-    	boolean flag2 = checkWinner(computer, humanPlayer);
-    	if (!flag2) {
-    			String absolutePath = computer.randomhitcompai(humanPlayer, 0, 0);
-    			System.out.println("computerhit is == " + absolutePath);
-    			boolean flag1 = Ships.colorButton(playerGrid, compRefGrid, absolutePath, a1, humanPlayer);
-    			String messageComp;
-    			if (flag1) {
-    				messageComp = "It was a hit by Computer at " + absolutePath;
-    			} else {
-    				messageComp = "Wohoo!! Computer missed the shot and hit you at " + absolutePath;
-    			}
-    			Constants.showAlert(messageComp);
-    		//}//else
-
-    		flag3 = checkWinner(humanPlayer, computer);
-    		if(flag3) {
-    			timerstop = true;
-    			finishTime = System.currentTimeMillis();
-        		long elapsedtime = finishTime - startTime;
-        		String score  = calcScore(elapsedtime, humanPlayer);
-    			Constants.showAlert(computer.name + " won the game!!!" + "\nYour score is " + score);}
-    	}else {
-    		finishTime = System.currentTimeMillis();
-    		long elapsedtime = finishTime - startTime;
-    		String score  = calcScore(elapsedtime, humanPlayer);
-    		timerstop = true;
-    		Constants.showAlert(humanPlayer.name + " won the game!!!" + "\nYour score is " + score);
-    	}
-
-    	if (flag2 || flag3) { 		
-    		Alert alert = new Alert(AlertType.CONFIRMATION);
-    		alert.setTitle("Select");
-    		alert.setHeaderText("Do you wish to continue?");
-    		ButtonType yes = new ButtonType("Yes");
-    		ButtonType no = new ButtonType("No");
-
-        // Remove default ButtonTypes
-    		alert.getButtonTypes().clear();
-    		alert.getButtonTypes().addAll(yes, no);
-    		Optional<ButtonType> option = alert.showAndWait();
-
-    		if (option.get() == yes) {
-    			initiateController fx2 = new initiateController();
-    			try {
-    				fx2.start(stage1);
-    			} catch (FileNotFoundException e) {
-    				e.printStackTrace();
-    			}
-    		} else if (option.get() == no) {
-    			Platform.exit();
-    		}
-
-    	}*/
     }
-    	
+    
+    /**
+     * Remove Ship co-ordinate if it is a hit from the local copy of the ship	
+     * @param s is the Ship co-ordinate
+     */
     public static void removeOppShip(String s) {
     	System.out.println("\n\n1. Opposite Ships are --- " + oppShips );
     	Iterator<ArrayList<String>> it1 = oppShips.iterator();
@@ -1108,8 +1035,6 @@ public class Arena extends Application {
                         button.setOnAction(new EventHandler<ActionEvent>() {
                            @Override
                            public void handle(ActionEvent event) {
-
-
                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                alert.setTitle("Select");
                                alert.setHeaderText("Do you wish to remove this in Salva entry?");
@@ -1225,8 +1150,6 @@ public class Arena extends Application {
      * @return the calculated score in the form of a String.
      */
     public static String calcScore(long elapsedtime, Player human, boolean flag) {
-
-
 		// EXCEPTION: For checking the final time of the game
 		long time = elapsedtime;
 		Arena.CheckGameTime obj = new Arena.CheckGameTime();
@@ -1258,7 +1181,12 @@ public class Arena extends Application {
     	return d.format(scorecalc);
     }
 
-
+    /**
+     * Update Grid after Re-Loading of the game
+     * @param grid Grid of UI that needs to be updated
+     * @param data Previous game data stored
+     * @param isHit true when there is a Hit  else it is false
+     */
     public void updateGridFromLoad(GridPane grid, ArrayList<String> data, Boolean isHit) {
         if(!data.isEmpty()) {
             for (String d : data) {
@@ -1277,9 +1205,13 @@ public class Arena extends Application {
             }
             }
         }
-
-
     }
+    
+    /**
+     * Function to check the game Time
+     * @author harshkour
+     *
+     */
 	public static class CheckGameTime {
 		public void findByTime(long time) throws TimeException {
 
@@ -1287,9 +1219,13 @@ public class Arena extends Application {
 				throw new TimeException("Invalid Game Time");
 			}
 		}
-
 	}
-
+	
+	/**
+	 * Function to check Game score
+	 * @author harshkour
+	 *
+	 */
 	public static class CheckGameScore{
 
 		public void findByScore(double score) throws RunTimeException {
@@ -1301,6 +1237,9 @@ public class Arena extends Application {
 
 	}
 	
+	/**
+	 * Function to play sound
+	 */
 	public static void playSound() {
 		String bip = "hit.mp3";
 		Media hit = new Media(new File(bip).toURI().toString());
